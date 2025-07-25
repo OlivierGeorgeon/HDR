@@ -1,2 +1,4 @@
-# hdr
-Manuscrit Habilitation à Diriger les Recherches
+# Habilitation à diriger les recherches
+
+Repository de partage du manuscript
+

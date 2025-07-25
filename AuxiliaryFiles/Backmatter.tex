@@ -1,4 +1,4 @@
-% !TEX root = ../BookTemplate.tex
+% !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
@@ -36,8 +36,8 @@
 	\addcontentsline{toc}{part}{\BibliographyName}
     
 	% \nocite{*}  OG: Cite toutes les entrées du .bib
-	\bibliographystyle{amsalpha}
-	%\bibliographystyle{plainnat}
+	\bibliographystyle{amsalpha} % Format [Geo25]
+	% \bibliographystyle{plainnat} % Format Georgeon [2025]
 	\bibliography{Structure/Bibliography}
 }
 
@@ -64,5 +64,5 @@
 
     \addcontentsline{toc}{part}{\AnalyticIndexName}	
 	%\vspace{-2cm}
-	\printindex
+	\printindex  %OG inutile de recompiler les index à chaque fois 
 	

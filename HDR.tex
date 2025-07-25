@@ -4,6 +4,7 @@
 \usepackage{Custom}                         %%%%%%%%%%%%%%%%%%    (EDIT NAMES)
 \usepackage{AuxiliaryFiles/AuxiliaryFiles}  %%%%%%%%%%%%%%%%%%   (DO NOT EDIT)
 \usepackage{Custom-2}                       %%%%%%%%%%%%%%%%%%          (EDIT)
+% \usepackage{natbib} OG
 
 \begin{document}
 \input{Structure/Title/Title.tex}   %%%%%%%%%%%%%%%%%%        (EDIT TITLEPAGE)
@@ -17,9 +18,9 @@
 
 \input{AuxiliaryFiles/Mainmatter}   %%%%%%%%%%%%%%%%%%           (DO NOT EDIT)
 
-\input{Structure/1_Epistemologie}          %%%%%%%%%%%%%%%%%%         (EDIT CHAPTERS)
-\input{Structure/2_Construction_de-connaissance}
-\input{Structure/Chapter2}
+\include{Structure/1_Epistemologie}          %%%%%%%%%%%%%%%%%%         (EDIT CHAPTERS)
+\include{Structure/2_Construction_de_connaissance}
+\include{Structure/3_Apprentissage_artificiel}
 \input{Structure/Chapter3}
 \input{Structure/Chapter4}
 \input{Structure/Chapter5}

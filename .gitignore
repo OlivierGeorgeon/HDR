@@ -27,3 +27,5 @@
 *.fls
 *.bcf
 *.pyg
+*.cb
+*.cb2

@@ -1,8 +1,8 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Les mécanismes de schéma 2.0}
+\chapter{Mécanismes de schéma 2.0}
 
-\section{Un mécanisme de schéma séquentiel hiérarchique}
+\section{Mécanisme de schéma séquentiel hiérarchique}
 
 \begin{figure}[ht]
 	\centering
@@ -16,31 +16,49 @@
 Un mécanisme de schéma séquentiel hiérarchique Georgeon at al. \cite{georgeon_schema_2025}
 
 
-\section{L'interactionisme radical}
+\section{Interactionisme radical}
 
+\cite{georgeon_radical_2013}
 
-
-\section{La motivation interactionnelle}
+\section{Motivation interactionnelle}
 
 \cite{georgeon_interactional_2012}
 
-\section{Des expériences pour mettre en évidence l'émergence sémantique}
+\section{Méthode d'observation de l'émergence sémantique}
 
 Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
 
-Le \an{Small Loop Problem}  \cite{georgeon_small_2013}
+Le \emph{Small Loop Problem}  \cite{georgeon_small_2013}
+
+La Figure \ref{fig:trace} montre une analyse des comportements
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_trace.pdf}
-	\caption{Trace d'activité \cite{georgeon_demonstrating_2013}}
+	\caption{Trace d'activité obtenue dans le \emph{Small Loop Problem} \cite{georgeon_demonstrating_2013}}
 	\label{fig:trace}
 \end{figure}
 
 
 \section{Analyse sémantique}
 
-\section{L'auto-programmation sensorimotrice}
+Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent. 
+
+Chaque interaction est associée à un token utilisé dans le transformer. 
+
+La Figure \ref{fig:embedding} montre des projections de l'embedding des interactions qui met en évidence que les interactions sont regroupées dans l'espace lattent en fonction de leur sémantique inférée par l'agent. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
+	\caption{Projections 3D de l'embedding des interactions. 
+		Gauche: regroupement par couleur: \texttt{wall} et \texttt{empty}.
+		Droite: regroupement par direction: \texttt{left}, \texttt{front} et \texttt{right}}
+	\label{fig:embedding}
+\end{figure}
+
+
+\section{Auto-programmation moto-sensorielle}
 
 
 \cite{georgeon_cash_2019}

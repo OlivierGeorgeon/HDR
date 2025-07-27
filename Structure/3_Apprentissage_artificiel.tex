@@ -7,6 +7,24 @@
 
 Sutton et Barto \cite{sutton_reinforcement_2018} maintiennent la \og bible \fg de l'apprentissage par renforcement
 
+\section{Apprentissage par renforcement en problèmes non Markovien}
+
+Un problème est dit Markovien quand la décision à prendre à l'instant $t$ dépend uniquement de l'état du système à l'instant $t$. 
+
+Il y a peu de travaux d'apprentissage par renforcement qui s'intéressent aux situations non markoviennes.
+Satinder Singh remarque que :
+
+\begin{quote}
+	\an{``The general hope that the performance of RL algorithms will degrade gracefully as the degree of non Markovianness is increased in a given decision problem is unfounded because it is easy to construct decision problems where failure to distinguish between just two states can lead to an arbitrarily high absolute loss in performance''} 
+	\cite[p.~1]{singh_learning_1994}.
+\end{quote}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_ABProblem.pdf}
+	\caption{Un problème POMDP simple: le AB Problem adapté de \cite{singh_learning_1994}}
+	\label{fig:ABProblem}
+\end{figure}
 
 \section{Les Partially Observable Markov Decision Process}
 
@@ -14,6 +32,9 @@ Sutton et Barto \cite{sutton_reinforcement_2018} maintiennent la \og bible \fg d
 \section{La théorie de l'inférence active}
 
 Karl Friston \cite{friston_active_2017} 
+
+
+
 
 \section{Les architectures cognitives bio-inspirées}
 

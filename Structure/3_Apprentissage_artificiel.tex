@@ -5,9 +5,31 @@
 
 \section{L'apprentissage par renforcement}
 
-Sutton et Barto \cite{sutton_reinforcement_2018} maintiennent la \og bible \fg de l'apprentissage par renforcement
+
+Dans le domaine de l'apprentissage machines, un problème d'apprentissage par renforcement est un problème qui consiste à apprendre une policy qui maximiser une valeur scalaire \cite{sutton_reinforcement_2018}. 
+Un algorithme d'apprentissage par renforcement est un algorithme capable d'apprendre une telle policy.
+
+
+Il a été établi que pour tout MDP fini, il existe une policy stationnaire optimale qui maximise une discounted reward.
+Trouver cette policy pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP \cite{singh_learning_1994}.
+
+
+Ces algorithmes apprennent une correspondance (mapping) entre les observations et actions. 
+Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
+
 
 \section{Apprentissage par renforcement en problèmes non Markovien}
+
+
+Le système est dit markovien si toute l'information nécessaire pour prédire les états futurs dépend uniquement de l'état présent et des actions futures.  
+
+
+Si ce n'est pas le cas, alors le système est non-markovien c'est à dire l'agent ne dispose que d'information incomplète qui détermine les futurs états du système. 
+
+Singh et al. \cite{singh_learning_1994} définissent un problème non markovien quand l'état de l'environnement est seulement connu de manière incomplète par l'agent.
+
+Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
+
 
 Un problème est dit Markovien quand la décision à prendre à l'instant $t$ dépend uniquement de l'état du système à l'instant $t$. 
 
@@ -27,6 +49,11 @@ Satinder Singh remarque que :
 \end{figure}
 
 \section{Les Partially Observable Markov Decision Process}
+
+
+Les POMDP sont utilisé pour représenter des agents qui ont des capteurs qui fournissent une estimation partielle de l'état de l'environnement \cite{singh_learning_1994}.
+
+Singh et all. ont établi même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
 
 
 \section{L'inversion du cycle d'interaction}

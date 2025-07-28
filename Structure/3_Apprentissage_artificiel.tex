@@ -1,7 +1,10 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Apprentissage machine interactif}
+\chapter{Apprentissage machine séquentiel}
 
+\noindent
+L'apprentissage machine est souvent décomposé en deux catégories : l'apprentissage \an{one shot} et l'apprentissage dans des tâches séquentielles.
+Ce manuscrit se focalisons sur la seconde catégorie.
 
 \section{L'apprentissage par renforcement}
 
@@ -11,7 +14,10 @@ Un algorithme d'apprentissage par renforcement est un algorithme capable d'appre
 
 
 Il a été établi que pour tout MDP fini, il existe une policy stationnaire optimale qui maximise une discounted reward.
-Trouver cette policy pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP \cite{singh_learning_1994}.
+\cite{ross_introduction_1983}.
+Une policy stationnaire est une policy qui tire toujours la prochaine action de la meme distribution de probabilité dans un état donné.
+
+Trouver cette policy pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP. 
 
 
 Ces algorithmes apprennent une correspondance (mapping) entre les observations et actions. 
@@ -19,7 +25,7 @@ Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des �
 
 
 \section{Apprentissage par renforcement en problèmes non Markovien}
-
+\label{sec:NMDP}
 
 Le système est dit markovien si toute l'information nécessaire pour prédire les états futurs dépend uniquement de l'état présent et des actions futures.  
 
@@ -84,7 +90,10 @@ David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de S
 
 \subsection{Constructivist Anticipatory Learning Mechanism (CALM)}
 
-\cite{perotto_computational_2013}
+Filipo Perotto \cite{perotto_computational_2013} s'intéresse à l'apprentissage \an{Model Based} dans le cas non markovien introduit en Section \ref{sec:NMDP}.
+Ce qui le distingue par rapport à d'autres approches de POMDP le rernd emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
+
+
 
 \subsection{LIDA}
 
@@ -113,3 +122,17 @@ Gary Drescher \cite{drescher_made-up_1991} forge le terme \an{schema mechanism}.
 Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
 
 \section{conclusion}
+
+L'apprentissage développemental n'est pas un apprentissage par renforcement. 
+
+Pourtant il est basé sur des expériences emph{essai-erreur}, et il n'est pas supervisé ce qui implique qu'il se base sur un système de préférences incorporé dans l'agent. 
+
+Argument par l'absurde: si l'apprentissage développemental était un apprentissage par renforcement alors il serait \an{intractable}, or les animaux et les humains parviennent à se développer avec des ressources computationnelles limitées, donc l'apprentissage développemental n'est pas un apprentissage par renforcement. 
+Cela n'implique pas qu'il n'y ait pas de mécanisme de renforcement dans l'apprentissage développemental. 
+
+Le formalisme POMDP peut etre utile pour formaliser l'apprentissage développemental mais, mais pas forcément complètement adapté. 
+
+Nous n'avons pas de distribution d'observation des états $p(o|s)$.
+
+
+L'apprentissage développemental est un apprentissage non-markovien mais le formalisme POMDP n'est pas l'idéal car il n'y a pas de distribution d'observation ni de récompense fonction de l'état caché du monde. 

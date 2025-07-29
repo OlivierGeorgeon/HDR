@@ -54,13 +54,25 @@ Satinder Singh remarque que :
 	\label{fig:ABProblem}
 \end{figure}
 
-\section{Les Partially Observable Markov Decision Process}
+\section{Partially Observable Markov Decision Process}
 
 
 Les POMDP sont utilisé pour représenter des agents qui ont des capteurs qui fournissent une estimation partielle de l'état de l'environnement \cite{singh_learning_1994}.
 
-Singh et all. ont établi même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
+Singh et all. ont établi que même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_pomdp.pdf}
+	\caption{Partially Observable Markov Decision Process (POMDP)}
+	\label{fig:pomdp}
+\end{figure}
+
+
+Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.
+
+Si la récompense reflète la désirabilité de l'état obtenu alors 
+$r_t = r(s_t, a_t) = r(s_{t+1})$.
 
 \section{L'inversion du cycle d'interaction}
 

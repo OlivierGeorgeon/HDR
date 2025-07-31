@@ -3,6 +3,8 @@
 \chapter{Apprentissage machine séquentiel}
 
 \noindent
+Cette section pourrait etre incluse dans la précédente "autonomie artificielle".
+
 L'apprentissage machine est souvent décomposé en deux catégories : l'apprentissage \an{one shot} et l'apprentissage dans des tâches séquentielles.
 Ce manuscrit se focalisons sur la seconde catégorie.
 
@@ -75,6 +77,12 @@ Si la récompense reflète la désirabilité de l'état obtenu alors
 $r_t = r(s_t, a_t) = r(s_{t+1})$.
 
 \section{L'inversion du cycle d'interaction}
+\label{sec:inversion}
+
+Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
+
+On pourrait penser que puisque le cycle d'interaction se répete indéfiniment, peu importe quand il commence et quand il finit. 
+Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il concoit l'agent.
 
 \cite{georgeon_inverting_2014}
 
@@ -107,17 +115,35 @@ Ce qui le distingue par rapport à d'autres approches de POMDP le rernd emph{con
 
 
 
-\subsection{LIDA}
+\subsection{Learning Intelligent Decision Agent  LIDA}
+\label{sec:lida}
 
 Sean Kugele \cite{kugele_constructivist_2025} étend LIDA pour inclure un apprentissage constructiviste. 
 
-\subsection{AERA}
+LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
-L'équipe de Reykjavik développe AERA 
+\subsection{Autocatalytic Endogenous Reflective Architecture AERA}
 
-\section{La réitération de séquences sensorimotrices}
+L'équipe de Reykjavik développe AERA. 
+
+S'intéresse principalement à l'explicabilité et la construction de relations causales. 
+
+AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
+
+Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
+
+Les événements internes générés par le système sont aussi observés et traités. 
+Cela ouvre la voie à la réflexivité et à l'auto programmaion.
+
+\section{Réitération de séquences sensorimotrices}
 
 \cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
+
+\section{Apprentissace profond de séquence}
+\label{sec:dsl}
+
+L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel a donné lieu à l'axe de recherche du \an{deep sequence learning}.
+
 
 
 \section{Les mécanismes de schéma}

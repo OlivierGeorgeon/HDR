@@ -1,6 +1,6 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Mécanismes de schéma 2.0}
+\chapter{Mécanisme de schéma 2.0}
 
 \section{Mécanisme de schéma séquentiel hiérarchique}
 
@@ -16,19 +16,42 @@
 Un mécanisme de schéma séquentiel hiérarchique Georgeon at al. \cite{georgeon_schema_2025}
 
 
-\section{Interactionisme radical}
+\section{Enactive Decision Process (EDP)}
+\label{sec:edp}
 
-\cite{georgeon_radical_2013}
+J'ai proposé un modèle d'interaction qui s'inspire du formalisme des POMDP mais dans lequel l'état $s$
+n' \og même pas partiellement observable \fg et dans lequel il n'y a pas de récompense qui soit uniquement fonction de l'état. 
 
-\section{Enactive Markov Decision Process (EMDP)}
+L'EDP formalise l'idée de l'inversion du cycle d'interaction introduite en Section \ref{sec:inversion}.
 
+Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
+De même qu'un POMDP est non markovien, un EMDP est non markovien. 
+L'usage du mot Markov dans le nom donne donc une fausse image et il est préférable de l'enlever pour garder seulement EDP.  
 
 
 \section{Motivation interactionnelle}
 
+Dans l'EDP, le designer ne définit pas une fonction de récompense qui prend l'état du monde comme un de ses arguments. 
+C'est dire que l'agent ne peut pas être récompensé pour attendre certains états du monde définis comme rewarding par le designer.  
+
+la permet d'associer une valeur scalaire aux interactions qui définit les preferences a priori de l'agent pour certaines interactions (positives ou négatives).
+
+
 \cite{georgeon_interactional_2012}
 
-\section{Comparaison avec l'apprentissage par renforcement}
+\section{Interactionisme radical}
+
+Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
+Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
+
+\cite{georgeon_radical_2013}
+
+
+
+L'interactionism radical permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environment à différents niveau d'échelle de temps.  
+
+
+\section{Comparaison avec le modèle POMDP}
 
 Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
 
@@ -51,7 +74,7 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 
 \section{Analyse sémantique}
 
-Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent. 
+Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
 
 Chaque interaction est associée à un token utilisé dans le transformer. 
 
@@ -69,5 +92,5 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 \section{Auto-programmation moto-sensorielle}
 
-
+La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
 \cite{georgeon_cash_2019}

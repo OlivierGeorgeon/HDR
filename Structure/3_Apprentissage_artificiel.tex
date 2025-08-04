@@ -3,7 +3,7 @@
 \chapter{Apprentissage machine séquentiel}
 
 \noindent
-Cette section pourrait etre incluse dans la précédente "autonomie artificielle".
+Cette section pourrait être incluse dans la précédente "autonomie artificielle".
 
 L'apprentissage machine est souvent décomposé en deux catégories : l'apprentissage \an{one shot} et l'apprentissage dans des tâches séquentielles.
 Ce manuscrit se focalisons sur la seconde catégorie.
@@ -12,18 +12,31 @@ Ce manuscrit se focalisons sur la seconde catégorie.
 
 
 Dans le domaine de l'apprentissage machines, un problème d'apprentissage par renforcement est un problème qui consiste à apprendre une policy qui maximiser une valeur scalaire \cite{sutton_reinforcement_2018}. 
+
+La Figure \ref{fig:RL} représente le cycle d'interaction selon Sutton et Barto \cite{sutton_reinforcement_2018}.
+
 Un algorithme d'apprentissage par renforcement est un algorithme capable d'apprendre une telle policy.
 
 
-Il a été établi que pour tout MDP fini, il existe une policy stationnaire optimale qui maximise une discounted reward.
+Il a été établi que pour tout MDP fini, il existe une \an{policy} stationnaire optimale qui maximise une \an{discounted reward}.
 \cite{ross_introduction_1983}.
 Une policy stationnaire est une policy qui tire toujours la prochaine action de la meme distribution de probabilité dans un état donné.
 
-Trouver cette policy pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP. 
+Trouver cette \an{policy} pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP. 
 
 
-Ces algorithmes apprennent une correspondance (mapping) entre les observations et actions. 
+Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
 Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_RL.png}
+	\caption{Le cycle d'interaction en apprentissage par renforcement \cite[Fig 3.1]{sutton_reinforcement_2018}. 
+	Au temps $t$, l'agent reçoit une représentation $s_t$ de l'état de l'environnement, puis il exécute une action $a_t$ qui change l'état de l'environnement.
+	A la fin du cycle, l'agent reçoit une récompense $r_{t+1}$ en provenance de l'environnement.
+	}
+	\label{fig:RL}
+\end{figure}
 
 
 \section{Apprentissage par renforcement en problèmes non Markovien}
@@ -61,7 +74,30 @@ Satinder Singh remarque que :
 
 Les POMDP sont utilisé pour représenter des agents qui ont des capteurs qui fournissent une estimation partielle de l'état de l'environnement \cite{singh_learning_1994}.
 
+Le processus de génération de cet observation partielle est modélisé par une fonction de l'ensemble des états $S$ vers l'ensemble des observations $O$ qui fait 
+
+\begin{De}[POMDP]
+	\label{def:pomdp}
+	Un POMDP est défini par un tuple $\left(S, D, O,p,q,R\right)$ dans lequel:
+	\begin{itemize}
+		\item $S$ est un ensemble fini d'états;
+		\item $D$ est un ensemble fini de décisions, aussi appelées actions;
+		\item $O$ est un ensemble fin d'observations, aussi appelés signaux sensoriels;
+		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ connaissant un état $s_t\in S$ et une décision $d_t\in D$;
+		\item $q:S\times D\rightarrow\Delta(O)$ est une fonction d'observation probabiliste $q(o_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité des observations $o_{t+1} \in O$ connaissant l'état $s_t\in S$ et la décision $d_t\in D$ ;
+		\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instentanée (\an{step reward function}).
+	\end{itemize}
+\end{De}
+
+
+
 Singh et all. ont établi que même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
+
+La Figure \ref{fig:pomdp} représente la formulation la plus générale des POMDP telle qu'on la trouve par exemple dans l'article de Spaan et al. \cite{spaan_partially_2012}. 
+Dans cette formalisation, l'observation $o_t = f(a_{t-1}, s_t)$ est une fonction de l'action précédente $a_{t-1}$ et de l'état $s_t$. 
+Le récompense $r_t = r(s_t, a_t, s_{t+1})$ est une fonction de l'état $s_t$, l'action choisie $a_t$ et l'état obtenu $s_{t+1}$. 
+
+Cette formulation très générale permet de modéliser des problèmes très variés comme la maintenance prédictive de machine ou la perception active en robotique 
 
 \begin{figure}[ht]
 	\centering
@@ -80,6 +116,13 @@ $r_t = r(s_t, a_t) = r(s_{t+1})$.
 \label{sec:inversion}
 
 Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
+
+La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
+Le cycle inversé (à droite) offre deux avantages: 
+\begin{itemize}
+	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
+	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
+\end{itemize}
 
 On pourrait penser que puisque le cycle d'interaction se répete indéfiniment, peu importe quand il commence et quand il finit. 
 Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il concoit l'agent.

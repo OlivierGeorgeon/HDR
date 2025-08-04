@@ -10,10 +10,35 @@ Ce manuscrit se focalisons sur la seconde catégorie.
 
 \section{L'apprentissage par renforcement}
 
+\noindent
+Le livre \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} fait référence dans le domaine de l'apprentissage par renforcement depuis sa première édition à la fin les années 1990.
+Dès la page 2, il présente l'apprentissage par renforcement comme visant à représenter un agent qui perçoit son environnement, agit sur lui, et cherche à atteindre un objectif: 
+
+\begin{quote}
+\an{the basic idea is simply to capture the most important aspects of the real problem facing a learning agent interacting with its environment to achieve a goal.
+	Clearly, such an agent must be able to sense the state of the environment to some extent and must be able to take actions that affect the state. 
+	The agent also must have a goal or goals relating to the state of the environment. 
+	The formulation is intended to include just these three aspects --- sensation, action, and goal --- in their simplest possible forms without trivializing any of them}
+\cite[p.~2]{sutton_reinforcement_2018}.
+\end{quote}
+
+Ils illustrent cette situation par la Figure \ref{fig:RL}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_RL.png}
+	\caption{Le cycle d'interaction en apprentissage par renforcement \cite[Fig. 3.1]{sutton_reinforcement_2018}. 
+		Au temps $t$, l'agent reçoit une représentation $s_t$ de l'état de l'environnement, puis il exécute une action $a_t$ qui change l'état de l'environnement.
+		Au temps suivant $t+1$, l'agent reçoit une récompense $r_{t+1}$ résultant de son action au temps $t$.
+	}
+	\label{fig:RL}
+\end{figure}
+
+
+Ce modèle est formalisé par un Markov Decision Process qui est caractérisé par le distribution de probabilité $p(s_{t+1}|a_t, s_t)$ d'obtenir l'état $s_{t+1}$ étant donné l'action $a_t$ et l'état $s_t$,  et la distribution de probabilité $q(r_{t+1} | s_{t+1})$  d'obtenir la récompense $r_{t+1}$ étant donné l'état $s_{t+1}$.
 
 Dans le domaine de l'apprentissage machines, un problème d'apprentissage par renforcement est un problème qui consiste à apprendre une policy qui maximiser une valeur scalaire \cite{sutton_reinforcement_2018}. 
 
-La Figure \ref{fig:RL} représente le cycle d'interaction selon Sutton et Barto \cite{sutton_reinforcement_2018}.
 
 Un algorithme d'apprentissage par renforcement est un algorithme capable d'apprendre une telle policy.
 
@@ -28,24 +53,53 @@ Trouver cette \an{policy} pour un MDP donné consiste à la chercher dans l'ense
 Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
 Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/3_RL.png}
-	\caption{Le cycle d'interaction en apprentissage par renforcement \cite[Fig 3.1]{sutton_reinforcement_2018}. 
-	Au temps $t$, l'agent reçoit une représentation $s_t$ de l'état de l'environnement, puis il exécute une action $a_t$ qui change l'état de l'environnement.
-	A la fin du cycle, l'agent reçoit une récompense $r_{t+1}$ en provenance de l'environnement.
-	}
-	\label{fig:RL}
-\end{figure}
 
 
 \section{Apprentissage par renforcement en problèmes non Markovien}
 \label{sec:NMDP}
 
-Le système est dit markovien si toute l'information nécessaire pour prédire les états futurs dépend uniquement de l'état présent et des actions futures.  
+\noindent
+Pour Sutton et Barto, le terme \an{state} désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}. 
+Le mot \og état \fg fait référence à l'état interne de l'agent sur lequel est basée le choix de la prochaine action. 
+Quand il faut faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, on désigne plutot $s_t$ par le terme \an{state signal}. 
+Les auteurs précisent que :
+\begin{quote}
+	\an{Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. 
+		State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations}
+\cite[p.~63]{sutton_reinforcement_2018}.
+\end{quote}
+
+Le \an{state signal} est dit markovien s'il contient toute l'information nécessaire pour permettre à l'agent de faire un choix optimum.  
+
+\begin{quote}
+\an{What we would like, ideally, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained.
+	This normally requires more than the immediate sensations, but never more than the complete history of all past sensations. 
+	A state signal that succeeds in retaining all relevant information is said to be Markov, or to have the Markov property [...]. 
+	For example, a checkers position --- the current configuration of all the pieces on the board --- would serve as a Markov state because it summarizes everything important about the complete sequence of positions that led to it.
+	This is sometimes also referred to as an “independence of path” property because all that matters is in the current state signal; its meaning is
+	independent of the “path,” or history, of signals that have led up to it}
+\cite[p.~64]{sutton_reinforcement_2018}.
+\end{quote}
 
 
-Si ce n'est pas le cas, alors le système est non-markovien c'est à dire l'agent ne dispose que d'information incomplète qui détermine les futurs états du système. 
+
+Si le \an{state signal} ne contient pas toutes les informations pertinentes pour prendre une bonne décision alors il est non-markovien. 
+Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain état de la prochaine récompense sachant $s_t$ et $a_t$ est égale à la distribution de probabilité du prochain état sachant tout l'historique $s_0$ à $s_t$:
+
+\Eq{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, s_1, ... ,s_t, a_t)\\
+q(r_{t+1}|s_t) = q(r_{t+1}|s_0, s_1, ... ,s_t)}
+
+
+La théorie de l'apprentissage par renforcement ne porte pas sur l'élaboration du \an{state signal} mais uniquement sur l'apprentissage d'une \an{policy} optimum: 
+
+\begin{quote}
+	\an{We do not address the issues of constructing, changing, or learning the state signal in this book. 
+		We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues}
+	\cite[p.~63]{sutton_reinforcement_2018}.
+\end{quote}
+
+
+
 
 Singh et al. \cite{singh_learning_1994} définissent un problème non markovien quand l'état de l'environnement est seulement connu de manière incomplète par l'agent.
 
@@ -74,6 +128,19 @@ Satinder Singh remarque que :
 
 Les POMDP sont utilisé pour représenter des agents qui ont des capteurs qui fournissent une estimation partielle de l'état de l'environnement \cite{singh_learning_1994}.
 
+La Figure \ref{fig:pomdp} représente la formulation la plus générale des POMDP telle qu'on la trouve par exemple dans l'article de Spaan et al. \cite{spaan_partially_2012}. 
+Dans cette formalisation, l'observation $o_t = f(a_{t-1}, s_t)$ est une fonction de l'action précédente $a_{t-1}$ et de l'état $s_t$. 
+Le récompense $r_t = r(s_t, a_t, s_{t+1})$ est une fonction de l'état $s_t$, l'action choisie $a_t$ et l'état obtenu $s_{t+1}$. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_pomdp.pdf}
+	\caption{Représentation d'un POMDP général d'après Spaan et al. \cite{spaan_partially_2012}}
+	\label{fig:pomdp}
+\end{figure}
+
+
 Le processus de génération de cet observation partielle est modélisé par une fonction de l'ensemble des états $S$ vers l'ensemble des observations $O$ qui fait 
 
 \begin{De}[POMDP]
@@ -83,9 +150,9 @@ Le processus de génération de cet observation partielle est modélisé par une
 		\item $S$ est un ensemble fini d'états;
 		\item $D$ est un ensemble fini de décisions, aussi appelées actions;
 		\item $O$ est un ensemble fin d'observations, aussi appelés signaux sensoriels;
-		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ connaissant un état $s_t\in S$ et une décision $d_t\in D$;
+		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probabiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ connaissant un état $s_t\in S$ et une décision $d_t\in D$;
 		\item $q:S\times D\rightarrow\Delta(O)$ est une fonction d'observation probabiliste $q(o_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité des observations $o_{t+1} \in O$ connaissant l'état $s_t\in S$ et la décision $d_t\in D$ ;
-		\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instentanée (\an{step reward function}).
+		\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instantanée (\an{step reward function}).
 	\end{itemize}
 \end{De}
 
@@ -93,18 +160,7 @@ Le processus de génération de cet observation partielle est modélisé par une
 
 Singh et all. ont établi que même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
 
-La Figure \ref{fig:pomdp} représente la formulation la plus générale des POMDP telle qu'on la trouve par exemple dans l'article de Spaan et al. \cite{spaan_partially_2012}. 
-Dans cette formalisation, l'observation $o_t = f(a_{t-1}, s_t)$ est une fonction de l'action précédente $a_{t-1}$ et de l'état $s_t$. 
-Le récompense $r_t = r(s_t, a_t, s_{t+1})$ est une fonction de l'état $s_t$, l'action choisie $a_t$ et l'état obtenu $s_{t+1}$. 
-
 Cette formulation très générale permet de modéliser des problèmes très variés comme la maintenance prédictive de machine ou la perception active en robotique 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/3_pomdp.pdf}
-	\caption{Partially Observable Markov Decision Process (POMDP)}
-	\label{fig:pomdp}
-\end{figure}
 
 
 Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.

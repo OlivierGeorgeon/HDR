@@ -8,21 +8,31 @@ Cette section pourrait être incluse dans la précédente "autonomie artificiell
 L'apprentissage machine est souvent décomposé en deux catégories : l'apprentissage \an{one shot} et l'apprentissage dans des tâches séquentielles.
 Ce manuscrit se focalisons sur la seconde catégorie.
 
+
+L'apprentissage par renforcement semble l'approche naturelle pour modéliser un agent qui apprend par interaction comment se comporter pour atteindre des objectifs dans un environnement. L'agent et l'environnement interagissent au cours d'une séquences de pas de temps discrets. 
+
+
 \section{L'apprentissage par renforcement}
 
 \noindent
-Le livre \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} fait référence dans le domaine de l'apprentissage par renforcement depuis sa première édition à la fin les années 1990.
-Dès la page 2, il présente l'apprentissage par renforcement comme visant à représenter un agent qui perçoit son environnement, agit sur lui, et cherche à atteindre un objectif: 
+La théorie de l'apprentissage par renforcement puise ses origines dans la théorie du contrôle optimal (\an{optimal control theory}), dont l’un des pionniers fut le mathématicien Richard Bellman dans les années 1950. 
+Cette théorie cherche à élaborer des mécanismes de contrôle visant à optimiser une mesure au sein d’un système dynamique.
+A partir de la fin des années 1990, l'ouvrage \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} s'est imposé comme une référence pour l'apprentissage par renforcement moderne. 
+Dès la page 2, les auteurs y décrivent l'apprentissage par renforcement comme visant à modéliser un agent qui perçoit son environnement, agit sur celui-ci et cherche à atteindre un objectif:
+
+
+%Le livre \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} fait référence dans le domaine de l'apprentissage par renforcement depuis sa première édition à la fin les années 1990.
+%Dès la page 2, il présente l'apprentissage par renforcement comme visant à représenter un agent qui perçoit son environnement, agit sur lui, et cherche à atteindre un objectif: 
 
 \begin{quote}
-\an{the basic idea is simply to capture the most important aspects of the real problem facing a learning agent interacting with its environment to achieve a goal.
+\an{The basic idea is simply to capture the most important aspects of the real problem facing a learning agent interacting with its environment to achieve a goal.
 	Clearly, such an agent must be able to sense the state of the environment to some extent and must be able to take actions that affect the state. 
 	The agent also must have a goal or goals relating to the state of the environment. 
 	The formulation is intended to include just these three aspects --- sensation, action, and goal --- in their simplest possible forms without trivializing any of them}
 \cite[p.~2]{sutton_reinforcement_2018}.
 \end{quote}
 
-Ils illustrent cette situation par la Figure \ref{fig:RL}.
+Sutton et Barto illustrent cette situation à l'aide de la Figure \ref{fig:RL}, et étendent la théorie en s'appuyant sur le modèle initialement proposé par Bellman nommé \an{Markov Decision Process} (MDP) dont le formalisme est présenté dans la Définition \ref{def:MDP}. 
 
 \begin{figure}[ht]
 	\centering
@@ -34,8 +44,63 @@ Ils illustrent cette situation par la Figure \ref{fig:RL}.
 	\label{fig:RL}
 \end{figure}
 
+\begin{De}[MDP]
+\label{def:MDP}
+Un \an{finite Markov Decision Process} utilisé dans le cadre de l'apprentissage par renforcement est défini par un tuple $\langle S, D, p, R \rangle$ dans lequel:
+\begin{itemize}
+	\item $S$ est un ensemble fini d'états;
+	\item $D$ est un ensemble fini de décisions, aussi appelées actions;
+	\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probabiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ connaissant un état $s_t\in S$ et une décision $d_t\in D$;
+	\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instantanée (\an{step reward function}).
+\end{itemize}
+\end{De}
 
-Ce modèle est formalisé par un Markov Decision Process qui est caractérisé par le distribution de probabilité $p(s_{t+1}|a_t, s_t)$ d'obtenir l'état $s_{t+1}$ étant donné l'action $a_t$ et l'état $s_t$,  et la distribution de probabilité $q(r_{t+1} | s_{t+1})$  d'obtenir la récompense $r_{t+1}$ étant donné l'état $s_{t+1}$.
+Pour Sutton et Barto, le terme \an{state} désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}. 
+Il fait référence à l'état interne de l'agent sur lequel est basée le choix de la prochaine action. 
+Quand il faut faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, on désigne plutot $s_t$ par le terme \an{state signal}. 
+Les auteurs précisent que :
+\begin{quote}
+	\an{Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. 
+		State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations}
+	\cite[p.~63]{sutton_reinforcement_2018}.
+\end{quote}
+
+Le \an{state signal} est dit markovien s'il contient toute l'information nécessaire pour permettre à l'agent de faire un choix optimum : 
+
+\begin{quote}
+	\an{What we would like, ideally, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained.
+		This normally requires more than the immediate sensations, but never more than the complete history of all past sensations. 
+		A state signal that succeeds in retaining all relevant information is said to be Markov, or to have the Markov property [...]. 
+		For example, a checkers position --- the current configuration of all the pieces on the board --- would serve as a Markov state because it summarizes everything important about the complete sequence of positions that led to it.
+		This is sometimes also referred to as an “independence of path” property because all that matters is in the current state signal; its meaning is
+		independent of the “path,” or history, of signals that have led up to it}
+	\cite[p.~64]{sutton_reinforcement_2018}.
+\end{quote}
+
+
+
+Formellement, la propriété de Markov est respectée si les distributions de probabilité du prochain état et de la prochaine récompense sachant $s_t$ et $d_t$ sont égales aux distributions de probabilité du prochain état et de la prochaine récompense sachant tout l'historique $s_0$ à $s_t$ et $d_0$ à $d_t$:
+
+\Eq{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, d_0, s_1, d_1, ... ,s_t, d_t)\\
+	q(r_{t+1}|s_t, a_t) = q(r_{t+1}|s_0, d_0, s_1, d_1, ... ,s_t, d_t)}
+
+Dans ce cas, le système dans son ensemble est dit markovien, et le \an{state signal} est équivalent à l'état de l'environnement. 
+Le mot \an{state} peut dès lors désigner autant l'état interne de l'agent que l'état de l'environnement. 
+
+Notons que la théorie de l'apprentissage par renforcement ne porte pas sur l'élaboration du \an{state signal} mais uniquement sur l'apprentissage d'une \an{policy} optimum: 
+
+\begin{quote}
+	\an{We do not address the issues of constructing, changing, or learning the state signal in this book. 
+		We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues}
+	\cite[p.~63]{sutton_reinforcement_2018}.
+\end{quote}
+
+
+
+
+
+
+%Ce modèle est formalisé par un Markov Decision Process qui est caractérisé par le distribution de probabilité $p(s_{t+1}|a_t, s_t)$ d'obtenir l'état $s_{t+1}$ étant donné l'action $a_t$ et l'état $s_t$,  et la distribution de probabilité $q(r_{t+1} | s_{t+1})$  d'obtenir la récompense $r_{t+1}$ étant donné l'état $s_{t+1}$.
 
 Dans le domaine de l'apprentissage machines, un problème d'apprentissage par renforcement est un problème qui consiste à apprendre une policy qui maximiser une valeur scalaire \cite{sutton_reinforcement_2018}. 
 
@@ -53,51 +118,15 @@ Trouver cette \an{policy} pour un MDP donné consiste à la chercher dans l'ense
 Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
 Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
 
+Sutton et Barto présentent plusieurs exemples dans de divers environnements comme le jeu de tic-tac-toe ou le problème du \an{multi-armed bandit}. 
+Plus récemment, les avancées en apprentissage par renforcement ont permis le développement d’AlphaZero, un agent capable d’apprendre les jeux d'échecs, de Go et de Shogi en jouant contre lui même (\an{self-play}) \cite{silver_general_2018}.
 
 
-\section{Apprentissage par renforcement en problèmes non Markovien}
+\section{Apprentissage par renforcement dans le cas non Markovien}
 \label{sec:NMDP}
 
 \noindent
-Pour Sutton et Barto, le terme \an{state} désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}. 
-Le mot \og état \fg fait référence à l'état interne de l'agent sur lequel est basée le choix de la prochaine action. 
-Quand il faut faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, on désigne plutot $s_t$ par le terme \an{state signal}. 
-Les auteurs précisent que :
-\begin{quote}
-	\an{Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. 
-		State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations}
-\cite[p.~63]{sutton_reinforcement_2018}.
-\end{quote}
-
-Le \an{state signal} est dit markovien s'il contient toute l'information nécessaire pour permettre à l'agent de faire un choix optimum.  
-
-\begin{quote}
-\an{What we would like, ideally, is a state signal that summarizes past sensations compactly, yet in such a way that all relevant information is retained.
-	This normally requires more than the immediate sensations, but never more than the complete history of all past sensations. 
-	A state signal that succeeds in retaining all relevant information is said to be Markov, or to have the Markov property [...]. 
-	For example, a checkers position --- the current configuration of all the pieces on the board --- would serve as a Markov state because it summarizes everything important about the complete sequence of positions that led to it.
-	This is sometimes also referred to as an “independence of path” property because all that matters is in the current state signal; its meaning is
-	independent of the “path,” or history, of signals that have led up to it}
-\cite[p.~64]{sutton_reinforcement_2018}.
-\end{quote}
-
-
-
 Si le \an{state signal} ne contient pas toutes les informations pertinentes pour prendre une bonne décision alors il est non-markovien. 
-Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain état de la prochaine récompense sachant $s_t$ et $a_t$ est égale à la distribution de probabilité du prochain état sachant tout l'historique $s_0$ à $s_t$:
-
-\Eq{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, s_1, ... ,s_t, a_t)\\
-q(r_{t+1}|s_t) = q(r_{t+1}|s_0, s_1, ... ,s_t)}
-
-
-La théorie de l'apprentissage par renforcement ne porte pas sur l'élaboration du \an{state signal} mais uniquement sur l'apprentissage d'une \an{policy} optimum: 
-
-\begin{quote}
-	\an{We do not address the issues of constructing, changing, or learning the state signal in this book. 
-		We take this approach not because we consider state representation to be unimportant, but in order to focus fully on the decision-making issues}
-	\cite[p.~63]{sutton_reinforcement_2018}.
-\end{quote}
-
 
 
 
@@ -265,6 +294,12 @@ Thorisson parle de \an{seed programming} dans sa théorie de l'apprentissage con
 Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
 
 \section{conclusion}
+
+Sutton et Barto \og \an{note that the assumption of Markov state representations is not unique to reinforcement learning but is also present in most if not all other approaches to artificial intelligence} \fg \cite[p.~65]{sutton_reinforcement_2018}. 
+En effet une théorie de l'IA non markovienne reste à construire. 
+On pourrait dire que c'est précisément l'objet de l'IA développementale précoce. 
+
+Le problem du \an{credit assignment} \cite{minsky_steps_1961}.
 
 L'apprentissage développemental n'est pas un apprentissage par renforcement. 
 

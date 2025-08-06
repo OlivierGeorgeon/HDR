@@ -1,5 +1,6 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\labelitemi}{\scalebox{.85}{$\diamond$}}
 \chapter{Apprentissage machine séquentiel}
 
 \noindent
@@ -12,17 +13,13 @@ Ce manuscrit se focalisons sur la seconde catégorie.
 L'apprentissage par renforcement semble l'approche naturelle pour modéliser un agent qui apprend par interaction comment se comporter pour atteindre des objectifs dans un environnement. L'agent et l'environnement interagissent au cours d'une séquences de pas de temps discrets. 
 
 
-\section{L'apprentissage par renforcement}
+\section{Apprentissage par renforcement}
 
 \noindent
 La théorie de l'apprentissage par renforcement puise ses origines dans la théorie du contrôle optimal (\an{optimal control theory}), dont l’un des pionniers fut le mathématicien Richard Bellman dans les années 1950. 
 Cette dernière cherchait à élaborer des mécanismes de contrôle visant à optimiser une mesure au sein d’un système dynamique.
 A partir de la fin des années 1990, l'ouvrage \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} s'est imposé comme une référence pour l'apprentissage par renforcement moderne. 
 Dès la page 2, les auteurs y décrivent l'apprentissage par renforcement comme visant à modéliser un agent qui perçoit son environnement, agit sur celui-ci et cherche à atteindre un objectif:
-
-
-%Le livre \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} fait référence dans le domaine de l'apprentissage par renforcement depuis sa première édition à la fin les années 1990.
-%Dès la page 2, il présente l'apprentissage par renforcement comme visant à représenter un agent qui perçoit son environnement, agit sur lui, et cherche à atteindre un objectif: 
 
 \begin{quote}
 \an{The basic idea is simply to capture the most important aspects of the real problem facing a learning agent interacting with its environment to achieve a goal.
@@ -54,8 +51,6 @@ Ils précisent que :
 	\label{fig:RL}
 \end{figure}
 
-
-
 Intuitivement, le \an{state signal} est dit markovien s'il contient toute l'information nécessaire pour permettre à l'agent de faire un choix optimum : 
 
 \begin{quote}
@@ -68,14 +63,14 @@ Intuitivement, le \an{state signal} est dit markovien s'il contient toute l'info
 	\cite[p.~64]{sutton_reinforcement_2018}.
 \end{quote}
 
-Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain état conditionnel à $s_t$ et $a_t$ est égale à la distribution de probabilité du prochain état conditionnel à tout l'historique $s_0$ à $s_t$ et $a_0$ à $a_t$:
+Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain état $s_{t+1}$ conditionnelle à $s_t$ et $a_t$ est égale à sa distribution de probabilité conditionnelle à tout l'historique $s_0$ à $s_t$ et $a_0$ à $a_t$:
 
-\Eq{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, a_0, s_1, a_1, ... ,s_t, a_t)}%\\
+\EqL{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, a_0, s_1, a_1, ... ,s_t, a_t)}{eq:markov}%\\
 	%q(r_{t+1}|s_t, a_t) = q(r_{t+1}|s_0, a_0, s_1, a_1, ... ,s_t, a_t)}
 
 Si c'est le cas, le système dans son ensemble est dit markovien, et le \an{state signal} est équivalent à l'état de l'environnement. 
-Le mot \an{state} peut dès lors désigner autant l'état interne de l'agent que l'état de l'environnement. 
-La communauté de l'apprentissage par renforcement a développé une théorie élégante en commençant par faire l'hypothèse qu'un \an{state signal} suffisamment informatif sur l'état de l'environnement est disponible. Sutton et Barto précisent: 
+Le mot \an{state} peut, dès lors, désigner aussi bien l'état interne de l'agent que l'état de l'environnement. 
+La communauté de l'apprentissage par renforcement a développé une théorie élégante basée sur l'hypothèse initiale selon laquelle un \an{state signal} suffisamment informatif sur l'environnement est disponible. Sutton et Barto précisent: 
 
 \begin{quote}
 	\an{We do not address the issues of constructing, changing, or learning the state signal in this book. 
@@ -84,131 +79,142 @@ La communauté de l'apprentissage par renforcement a développé une théorie é
 \end{quote}
 
 
-Cette théorie s'appuie sur le modèle initialement proposé par Bellman nommé \an{Markov Decision Process} (MDP) présenté dans la Définition \ref{def:MDP}.
-Il utilise une fonction stochastique pour représenter les transitions d'état non déterministes. 
+Cette théorie s'appuie sur le modèle connu sous le nom de \an{Markov Decision Process} (MDP) proposé par Bellman et formalisé dans la Définition \ref{def:MDP}.
 J'utilise maintenant le terme \emph{décision} ($d_t$) à la place d'\emph{action} ($a_t$). 
-A chaque cycle d'interaction, l'état suivant $s_{t+1}$ est \og tiré \fg selon la distribution de probabilité $p(s_{t+1}|s_t,d_t)$ qui ne dépend que de $s_t$ et de $d_t$, reflétant ainsi l'hypothèse de Markov.
+L'état suivant $s_{t+1}$ est \og tiré \fg selon la distribution de probabilité $p(s_{t+1}|s_t,d_t)$ conditionnelle à $s_t$ et $d_t$.
  
 \begin{De}[MDP]
 	\label{def:MDP}
 	Un \an{finite Markov Decision Process} utilisé dans le cadre de l'apprentissage par renforcement est défini par un tuple $\langle S, D, p, R \rangle$ dans lequel:
-	\begin{itemize}
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 		\item $S$ est un ensemble fini d'états (\an{state signal});
 		\item $D$ est un ensemble fini de décisions, aussi appelées actions;
-		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probabiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ conditionnelle à état $s_t\in S$ à la décision $d_t\in D$;
+		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition stochastique $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ conditionnelle à état $s_t\in S$ à la décision $d_t\in D$;
 		\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instantanée (\an{step reward function}).
 	\end{itemize}
 \end{De}
 
+La fonction interne à l'agent qui sélectionne l'action $a_t$ en fonction du \an{state} $s_t$ est appelée \an{policy} et notée $\pi(s_t)$.
+La fonction stochastique $p$ du MDP est utilisée pour représenter l'incertitude de l'agent sur les futures transitions de l'environnement.
+Sutton et Barto donnent les exemples des jeu de \emph{Tic-tac-toe} et du \emph{bandit manchot à k bras} (\an{k-arm bandit}) ayant différentes espérances de gain.
+
+Dans les jeux de plateau (Tic-tac-toe, Echec, Go, etc.), l'action $a_t$ représente le coup joué par l'agent au temps $t$. 
+L'état $s_{t+1}$ est le nouvel état perçu par l'agent résultant de son propre coup et du coup du joueur adverse.
+En l'absence de présupposés, tous les coups adverses possibles sont initialement considérés équiprobables par l'agent. 
+La récompense $r_{t+1}$ est 0 si le match n'est pas terminé ou s'il y a match nul, $1$ si l'agent gagne, et -1 s'il perd.  
+
+Dans le jeu du \an{k-arm bandit}, l'action $a_t$ consiste à actionner un bras particulier $n$ parmi les $k$ disponibles.
+L'état $s_{t+1}$ est le résultat \emph{gagné} ou \emph{perdu} pour le bras $n$ (dans ce cas l'incertitude ne provient pas du joueur adverse mais d'un tirage aléatoire). 
+La récompense $r_{t+1}$ est positive pour les états \emph{gagné} ou négative pour les états \emph{perdu} pour le bras $n$.  
+
+L'apprentissage par renforcement vise à apprendre la \an{policy} qui maximise la récompense obtenue cumulée à un certain horizon. 
+Différentes fonctions de cumul de la \an{step reward} sont utilisées en fonction des problèmes, impliquant ou non un \an{discount factor} qui favorise les récompenses rapides au détriment de celles à long terme.  
+L'apprentissage est dit par \emph{essai-erreur} car l'agent doit essayer des actions et commettre des erreurs pour apprendre à partir des états et récompensent obtenus. 
+L'apprentissage de la \an{policy} optimum revient à apprendre, pour chaque état possible, l'espérance de récompense cumulée de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense cumulée la plus élevée. 
+
+Des algorithmes pour trouver la \an{policy} stationnaire optimale d'un MDP fini ont été proposés \cite{ross_introduction_1983} mais il a été établi que les ressources nécessaires pour la trouver croissent exponentiellement avec le nombre d'états et d'actions possibles.
+Bellman a nommé ce problème d'explosion combinatoire \an{the curse of dimensionality}.
+
+Certaines recherches actuelles associent l'apprentissage par renforcement avec des techniques de reconnaissance de motifs (\an{pattern recognition}) permettant de généraliser l'apprentissage et de réduire la dimensionalité de l'espace de recherche et du \an{state signal}. 
+Par exemple, les chercheurs de DeepMind ont utilisé des réseaux de neurone convolutionnels pour la reconnaissance de motifs dans les jeux de plateau pour développer AlphaZero, un système capable d'apprendre par renforcement les jeux d'Echecs, de Go et de Shogi en jouant contre lui même (\an{self-play}) \cite{silver_general_2018}.
+
+%Une policy stationnaire est une policy qui tire toujours la prochaine action de la meme distribution de probabilité dans un état donné.
+%Trouver cette \an{policy} pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP. 
+%Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
+%Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
 
 
 
-
-
-Notons que la théorie de l'apprentissage par renforcement ne porte pas sur l'élaboration du \an{state signal} mais uniquement sur l'apprentissage d'une \an{policy} optimum: 
-
-
-
-
-
-
-
-%Ce modèle est formalisé par un Markov Decision Process qui est caractérisé par le distribution de probabilité $p(s_{t+1}|a_t, s_t)$ d'obtenir l'état $s_{t+1}$ étant donné l'action $a_t$ et l'état $s_t$,  et la distribution de probabilité $q(r_{t+1} | s_{t+1})$  d'obtenir la récompense $r_{t+1}$ étant donné l'état $s_{t+1}$.
-
-Dans le domaine de l'apprentissage machines, un problème d'apprentissage par renforcement est un problème qui consiste à apprendre une policy qui maximiser une valeur scalaire \cite{sutton_reinforcement_2018}. 
-
-
-Un algorithme d'apprentissage par renforcement est un algorithme capable d'apprendre une telle policy.
-
-
-Il a été établi que pour tout MDP fini, il existe une \an{policy} stationnaire optimale qui maximise une \an{discounted reward}.
-\cite{ross_introduction_1983}.
-Une policy stationnaire est une policy qui tire toujours la prochaine action de la meme distribution de probabilité dans un état donné.
-
-Trouver cette \an{policy} pour un MDP donné consiste à la chercher dans l'ensemble de toutes les policy que permet ce MDP. 
-
-
-Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
-Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
-
-Sutton et Barto présentent plusieurs exemples dans de divers environnements comme le jeu de tic-tac-toe ou le problème du \an{multi-armed bandit}. 
-Plus récemment, les avancées en apprentissage par renforcement ont permis le développement d'AlphaZero, un système capable d'apprendre les jeux d'échecs, de Go et de Shogi en jouant contre lui même (\an{self-play}) \cite{silver_general_2018}.
-
-
-\section{Apprentissage par renforcement non Markovien}
+\section{Problème de décision non Markovien}
 \label{sec:NMDP}
 
 \noindent
-Si le \an{state signal} ne contient pas toutes les informations pertinentes pour prendre une bonne décision alors il est non-markovien. 
-
-
-
-Singh et al. \cite{singh_learning_1994} définissent un problème non markovien quand l'état de l'environnement est seulement connu de manière incomplète par l'agent.
-
-Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
-
-
-Un problème est dit Markovien quand la décision à prendre à l'instant $t$ dépend uniquement de l'état du système à l'instant $t$. 
-
-Il y a peu de travaux d'apprentissage par renforcement qui s'intéressent aux situations non markoviennes.
+Si l'Equation \eqref{eq:markov} est fortement non satisfaite alors le \an{state signal} ne contient pas toutes les informations pertinentes pour prendre une bonne décision et le problème est non-markovien. 
 Satinder Singh remarque que :
 
 \begin{quote}
 	\an{``The general hope that the performance of RL algorithms will degrade gracefully as the degree of non Markovianness is increased in a given decision problem is unfounded because it is easy to construct decision problems where failure to distinguish between just two states can lead to an arbitrarily high absolute loss in performance''} 
-	\cite[p.~1]{singh_learning_1994}.
+	\cite[p.~284]{singh_learning_1994}.
 \end{quote}
+
+A titre d'exemple, Singh et se coauteurs proposent le système non markovien trivial illustré en Figure \ref{fig:ABProblem}. 
+L'environnement possède deux états possibles $S1$ et $S2$. 
+L'agent dispose de deux actions $A$ et $B$. 
+L'action $A$ amène l'environnement dans l'état $S2$ qu'il le fut déjà ou non, et réciproquement avec l'action $B$ pour l'état $S1$.
+L'ensemble $S$ des \an{state signal} ne contient qu'un élément noté $o$: $S = \{o\}, $
+identique quelque soit l'état de l'environnement. 
+La récompense est +1 si l'état a changé et -1 sinon.
+La \an{policy} optimale consiste à alterner les actions A et B pour obtenir la récompense +1 à chaque cycle.
+Singh et al. montrent que les algorithmes d'apprentissage par renforcement basés sur les MDP échouent à la trouver du fait que le \an{state signal} n'est pas informatif sur l'état de l'environnement.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/3_ABProblem.pdf}
-	\caption{Un problème POMDP simple: le AB Problem adapté de \cite{singh_learning_1994}}
+	\caption{Problème non markovien trivial proposé par Singh et al. \cite[Fig.~1]{singh_learning_1994}.
+	L'environnement peut prendre deux états possibles: $S1$ et $S2$.
+	L'action $A$ fait passer l'état à $S2$ et $B$ à $S1$.
+	Le \an{state signal}, noté $o$ (observation), et est identique dans les deux états de l'environnement.  
+	La fonction de récompense est définie par $r(S1,A) = r(S2,B) = -1, r(S1,B) = r(S2,A) = 1$. 
+	}
 	\label{fig:ABProblem}
 \end{figure}
 
-\section{Partially Observable Markov Decision Process}
+Quand le \an{state signal} reçu de l'environnement n'est pas markovion, il est généralement désigné sous le terme d'\an{observation} ou de \an{sensory signal}. 
+Afin de pouvoir appliquer les techniques d'apprentissage par renforcement, il est nécessaire de reformuler le problème en dotant l'agent de la capacité à construire un \an{state signal} markovien interne à partir de l'historique de ses interactions.
+C'est l'objet du modèle POMDP que je vais présenter maintenant.
 
 
-Les POMDP sont utilisé pour représenter des agents qui ont des capteurs qui fournissent une estimation partielle de l'état de l'environnement \cite{singh_learning_1994}.
+\section{Processus de décision markovien partiellement observable}
 
-La Figure \ref{fig:pomdp} représente la formulation la plus générale des POMDP telle qu'on la trouve par exemple dans l'article de Spaan et al. \cite{spaan_partially_2012}. 
-Dans cette formalisation, l'observation $o_t = f(a_{t-1}, s_t)$ est une fonction de l'action précédente $a_{t-1}$ et de l'état $s_t$. 
-Le récompense $r_t = r(s_t, a_t, s_{t+1})$ est une fonction de l'état $s_t$, l'action choisie $a_t$ et l'état obtenu $s_{t+1}$. 
+\noindent
+Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien. 
+La Définition \ref{def:pomdp} et la Figure \ref{fig:pomdp} représentent la formulation la plus générale des POMDP telle qu'on la trouve, par exemple, dans l'article de Matthijs Spaan et al. \cite{spaan_partially_2012}. 
+Dans ce modèle, l'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond à un \an{state signal} dans la terminologie précédente, mais dont on ne fait plus l'hypothèse qu'il est markovien.
+Le \an{sensory signal} $o_t$ est tiré selon la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ conditionnel à la décision précédente $d_{t-1}$ et à l'état de l'environnement $s_t$. 
+La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état précédent $s_{t}$, la décision $d_{t}$ et l'état résultant $s_{t+1}$. 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/3_pomdp.pdf}
-	\caption{Représentation d'un POMDP général d'après Spaan et al. \cite{spaan_partially_2012}}
+	\caption{Représentation d'un POMDP général d'après Spaan et al. \cite{spaan_partially_2012}.
+	Au temps $t$, l'agent reçoit un signal sensoriel $o_t$ selon une distribution de probablité $q$ conditionnelle à l'état de l'environnement $s_t$ et à la décision précédente $d_{t-1}$.
+	L'agent prend une décision $d_t$. 
+	L'environnement tansitionne vers l'état $s_{t+1}$ selon une distribution de probabilité $p$ conditionnelle à $s_t$ et $d_t$.
+	L'agent reçoit une récompense fonction de $s_t$, $d_t$, et $s_{t+1}$.
+	}
 	\label{fig:pomdp}
 \end{figure}
 
+Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
+Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
+De manière analogue, la récompense peut dépendre de l'état précédent et de la décision prise (comme dans l'exemple de la Section \ref{sec:NMDP}) voire également de l'état suivant comme c'est le cas dans les expériences du bandit manchot.
 
-Le processus de génération de cet observation partielle est modélisé par une fonction de l'ensemble des états $S$ vers l'ensemble des observations $O$ qui fait 
 
 \begin{De}[POMDP]
 	\label{def:pomdp}
-	Un POMDP est défini par un tuple $\left(S, D, O,p,q,R\right)$ dans lequel:
-	\begin{itemize}
+	Un POMDP est défini par un tuple $\langle S, D, O,p,q,r \rangle$ dans lequel:
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 		\item $S$ est un ensemble fini d'états;
 		\item $D$ est un ensemble fini de décisions, aussi appelées actions;
-		\item $O$ est un ensemble fin d'observations, aussi appelés signaux sensoriels;
-		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition probabiliste $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ connaissant un état $s_t\in S$ et une décision $d_t\in D$;
-		\item $q:S\times D\rightarrow\Delta(O)$ est une fonction d'observation probabiliste $q(o_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité des observations $o_{t+1} \in O$ connaissant l'état $s_t\in S$ et la décision $d_t\in D$ ;
-		\item $R:S\times D\rightarrow \mathbb{R}$ est la fonction de récompense instantanée (\an{step reward function}).
+		\item $O$ est un ensemble fini d'observations, aussi appelées signaux sensoriels;
+		\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition stochastique $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ conditionnelle à état $s_t\in S$ et à la décision $d_t\in D$;
+		\item $q:S\times D\rightarrow\Delta(O)$ est une fonction d'observation stochastique $q(o_{t}|s_t,d_t)$ qui donne la distribution de probabilité des observations $o_{t+1} \in O$ conditionnelle à l'état $s_t\in S$ et à la décision $d_t\in D$ ;
+		\item $r:S\times D \times S \rightarrow \mathbb{R} $ est la fonction donnait la récompense instantanée $R(s_t, d_t, s_{t+1})$ (\an{step reward function}).
 	\end{itemize}
 \end{De}
 
 
 
-Singh et all. ont établi que même confondre deux états du MDP peut entrainer une erreur arbitraire dans la récompense obtenue.
+Cette formulation très générale permet de modéliser une grande diversité de problèmes, tels que la maintenance prédictive de machines ou la perception active en robotique. 
+D'autres formulations de POMDPs existent (voir \cite{chatterjee_what_2016}), certaines reposant sur une fonction d'observation $q(o|s)$ conditionnelle uniquement à l'état de l'environnement $s$.
+Dans ces approches, l'observation peut être interprétée comme une \emph{représentation partielle} de l'état de l'environnement, dans la mesure ou elle en reflète certaines propriétés. 
+En revanche, dans le cadre de la Définition \ref{def:pomdp}, la fonction d'observation $q(o|d, s)$ est dite \emph{non representationnelle} de l'état de l'environnement, dans le mesure ou un même état peut produire différentes observations selon la décision.
+Dans ce cas général, je préfère ainsi employer le terme de \emph{signal sensoriel} plutôt que celui d'\emph{observation}, afin d'éviter toute connotation implicite de relation de représentation entre l'observation et l'état de l'environnement. 
 
-Cette formulation très générale permet de modéliser des problèmes très variés comme la maintenance prédictive de machine ou la perception active en robotique 
-
-
-Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.
-
-Si la récompense reflète la désirabilité de l'état obtenu alors 
-$r_t = r(s_t, a_t) = r(s_{t+1})$.
+% Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.
+% Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
+% Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
 \section{L'inversion du cycle d'interaction}
 \label{sec:inversion}
@@ -222,8 +228,8 @@ Le cycle inversé (à droite) offre deux avantages:
 	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
 \end{itemize}
 
-On pourrait penser que puisque le cycle d'interaction se répete indéfiniment, peu importe quand il commence et quand il finit. 
-Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il concoit l'agent.
+On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
+Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
 
 \cite{georgeon_inverting_2014}
 
@@ -240,7 +246,7 @@ Mais dans la pratique, la façon dont le designer comprend ce cycle influence la
 
 Karl Friston \cite{friston_active_2017} 
 
-
+La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
 
 
 \section{Les architectures cognitives bio-inspirées}

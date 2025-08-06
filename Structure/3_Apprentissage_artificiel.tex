@@ -216,7 +216,21 @@ Dans ce cas général, je préfère ainsi employer le terme de \emph{signal sens
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
 % Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
-\section{L'inversion du cycle d'interaction}
+\section{Théorie de l'inférence active}
+
+
+La théorie de Active Inference est développée par une communauté autour de 
+Karl Friston \cite{friston_active_2017} 
+
+Ryan Smith, Karl Friston et Christopher White ont écrit un tutoriel \cite{smith_step-by-step_2022} pour utiliser cette théorie pour controler un agent dans un POMDP. 
+L'idée est de guider les décisions de l'agent pour choisir les décisions qui apporteront le plus d'information à l'agent. 
+Pour cela on utilise une mesure de l'information gagnée calculées selon le principe de l'énergie libre (free energy).
+L'agent chosit la décision qui a le plus de chance de minimiser ses erreurs de prédiction futures. 
+
+La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
+
+
+\section{Inversion du cycle d'interaction}
 \label{sec:inversion}
 
 Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
@@ -241,13 +255,6 @@ Mais dans la pratique, la façon dont le designer comprend ce cycle influence la
 	Droite: cycle inversé.}
 	\label{fig:inversion}
 \end{figure}
-
-\section{La théorie de l'inférence active}
-
-Karl Friston \cite{friston_active_2017} 
-
-La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
-
 
 \section{Les architectures cognitives bio-inspirées}
 

@@ -169,7 +169,7 @@ C'est l'objet du modèle POMDP que je vais présenter maintenant.
 \noindent
 Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien. 
 La Définition \ref{def:pomdp} et la Figure \ref{fig:pomdp} représentent la formulation la plus générale des POMDP telle qu'on la trouve, par exemple, dans l'article de Matthijs Spaan et al. \cite{spaan_partially_2012}. 
-Dans ce modèle, l'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond à un \an{state signal} dans la terminologie précédente, mais dont on ne fait plus l'hypothèse qu'il est markovien.
+Dans ce modèle, l'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond à un \an{state signal} dans la terminologie précédente, mais dont on ne fait plus l'hypothèse qu'il soit markovien.
 Le \an{sensory signal} $o_t$ est tiré selon la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ conditionnel à la décision précédente $d_{t-1}$ et à l'état de l'environnement $s_t$. 
 La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état précédent $s_{t}$, la décision $d_{t}$ et l'état résultant $s_{t+1}$. 
 
@@ -211,6 +211,15 @@ D'autres formulations de POMDPs existent (voir \cite{chatterjee_what_2016}), cer
 Dans ces approches, l'observation peut être interprétée comme une \emph{représentation partielle} de l'état de l'environnement, dans la mesure ou elle en reflète certaines propriétés. 
 En revanche, dans le cadre de la Définition \ref{def:pomdp}, la fonction d'observation $q(o|d, s)$ est dite \emph{non representationnelle} de l'état de l'environnement, dans le mesure ou un même état peut produire différentes observations selon la décision.
 Dans ce cas général, je préfère ainsi employer le terme de \emph{signal sensoriel} plutôt que celui d'\emph{observation}, afin d'éviter toute connotation implicite de relation de représentation entre l'observation et l'état de l'environnement. 
+
+
+L'apprentissage par renforcement dans un POMDP nécessite d'inférer une estimation de l'état caché de l'environnement, représentée par une distribution de probabilité sur l'ensemble des états $S$ appelée \an{belief state}. 
+Chaque état caché hypothétique, pondéré par sa probabilité, est ensuite utilisé comme le \an{state signal} d'un MDP. 
+La complexité du calcul du \an{belief state} croit exponentiellement avec la durée de l'historique, introduisant un niveau d'explosion combinatoire supplémentaire, souvent désigné dans la littérature sous le nom de \an{curse of history} (e.g., \cite{zhang_curses_2025}) qui vient s'ajouter à la complexité inhérente à l'apprentissage par renforcement dans les MDPs.  
+
+Étant donné que la recherche d’une politique optimale dans les POMDPs comme dans les MDPs a été démontrée \an{intractable} dans le cas général, les travaux actuels se concentrent principalement sur des solutions approchées, ou sur l’exploitation de connaissances a priori ou de configurations particulières du domaine permettant des applications pratiques de contrôle optimum.
+
+
 
 % Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.

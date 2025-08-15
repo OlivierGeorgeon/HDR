@@ -163,6 +163,9 @@ Quand le \an{state signal} reçu de l'environnement n'est pas markovion, il est 
 Afin de pouvoir appliquer les techniques d'apprentissage par renforcement, il est nécessaire de reformuler le problème en dotant l'agent de la capacité à construire un \an{state signal} markovien interne à partir de l'historique de ses interactions.
 C'est l'objet du modèle POMDP que je vais présenter maintenant.
 
+Il y a parfois une confusion sur le fait que le "state" soit "interne à l'agent" ou "externe à l'agent". 
+On peut modéliser un robot interagissant avec un environnement controlé par un MDP, dans ce cas il peut y avoir des informations internes à au robot qui font partis du state signal et donc apparaissent à l'extérieur de l'agent sur la figure. 
+
 
 \section{Processus de décision markovien partiellement observable}
 
@@ -186,9 +189,19 @@ La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état 
 	\label{fig:pomdp}
 \end{figure}
 
+On peut utiliser un POMDP pour modéliser un robot interagissant avec un environnement. 
+Dans ce as "l'agent" désine le software qui pilote le robot, incluant la mémoire interne du robot. 
+L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software. 
+L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
+ 
+
+
+
 Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
 Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
 De manière analogue, la récompense peut dépendre de l'état précédent et de la décision prise (comme dans l'exemple de la Section \ref{sec:NMDP}) voire également de l'état suivant comme c'est le cas dans les expériences du bandit manchot.
+
+
 
 
 \begin{De}[POMDP]
@@ -325,7 +338,33 @@ Gary Drescher \cite{drescher_made-up_1991} forge le terme \an{schema mechanism}.
 
 \section{La motivation intrinsèque}
 
-\cite{oudeyer_intrinsic_2007}
+La distinction entre motivation extrinseque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résulats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
+La distinction "telique" / "atelique" est utilie pour distinguer les deux types d'activités. 
+Une activité qui est faite par motivation extrinsèque est dite "telique", une activité qui est faite par motivation extrinsèque est dite "atelique". 
+
+Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
+Le terme même de "motivation" est un tèrme qui relève de la psychologie, c'est pourquoi le qualificatif "telique" "atelique" appliqué à la tache est plus utile. 
+
+L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
+
+
+Un programme qui joue aux echec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
+On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
+C'est un cas amblématique d'apprentissage par renforcement en situation markovienne.
+Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquer de facon à générer ce signal d'erreur. 
+Examinons cela plus en détail.
+On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
+Cet arbitre doit intégrer toutes les règles du jeu pour détermner si l'un des deux rois est en situation d'échec et mat. 
+Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
+En partique il n'est pas nécessaire d'implémenter un arbitre. 
+Notons que le programme lui meme doit pouvoir détecter la fin de partie et son status.
+Il n'est donc pas nécessaire d'implémenter un artibtre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
+Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
+
+
+Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
+
+Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
 
 
 \section{Seed programming }

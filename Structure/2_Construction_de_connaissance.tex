@@ -25,14 +25,17 @@ Beaucoup de recherches en IA se consistent à rechercher la décision optimum da
 Le système d'IA effectue des prédictions sur la base d'un monde fermé, le \an{problem space}.
 Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité pour .  
 
-L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent. 
+L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent, comme en témoigne la publication récente d'un numéro spécial de le revue \an{Artificial Intelligence}  intitulée \an{Open-world AI} \cite{holder_introduction_2025}, ou la création d'un nouveau \an{Workshop on open-world agents} à la conférence NeurIPS 2024. 
 La question de définir un environnement de test qui soit ouvert se pose alors. 
+Elle peut prendre des formes très variées selon qu'on se place dans le domaine des ontologies, de la vision artificielle, ou des l'apprentissage par renforcement. 
+On peut se référer à la construction incrémentale d'ontologies, la catégorisation d'images non supervisée \cite{jafarzadeh_review_2022} ou à une étude d'apprentissage par renforcement \an{open-ended} \cite{team_open-ended_2021}. 
+
 
 Dans son article \an{What Do You Mean by ``Open Worl''?}, Bowen Xu note que la notion de monde ouvert implique deux choses: 
 
 1. Les expériences passées de l'agent ne sont pas toujours directement applicables à une situation nouvelle, 
 \begin{quote}
-	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers.
+	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers \cite[p.~3]{xu_what_2024}.
 \end{quote}
 
 2. La tache de l'agent ne soit pas prédéfinie par le concepteur:  

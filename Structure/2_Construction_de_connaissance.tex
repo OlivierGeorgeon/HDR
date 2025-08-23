@@ -8,11 +8,45 @@ David Vernon \cite{vernon_artificial_2014} identifie plusieurs types d'autonomie
 
 \section{Notion de \og monde ouvert \fg}
 
-Qu'entendons nous par "monde ouvert" ? \cite{xu_what_2024}
+Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
+Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
+Par contraste, nous qualifions certains environnements de \og fermés \fg quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
+Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique. 
+Ils sont contraint par un ensemble bien défini de règles qui spécifient leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
+La distinction n'est pourtant pas toujours évidente à définir. 
+Qu'en est il par exemple d'un jeu de billard ? 
+Il semble qu'on puisse qualifier le jeu de billard d'environnement fermé si on néglige les influences externes à la table, telles que les vibrations provenant du sol, les déplacement de l'air, etc. 
+Dans ce cas un environnement \og continu \fg (par opposition à \og discret \fg dans le sens ou les boules peuvent occuper une infinité d'états possibles ) peut être considéré comme un environnement fermé mais uniquement en tant que représentation théorique qui considère les influences extérieures comme négligeables. 
+Il faut toutefois noter que du point de vue d'un jour, que ce soit sur un terrain discret comme les échecs, ou continu comme le billard, bien que le terrain soit un terrain fermé, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
+Cependant, si on fait l'hypothèse que le joueur adverse joue dans le but de gagner le jeu, on peut modéliser son processus de décision de manière identique à celui du système d'IA lui même. 
 
-Ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par par rapport au système qu'on considère. 
+En général la recherche en IA vise à construire des systèmes capables de prendre une décision optimum la base d'une représentation de l'environnement et de sa dynamiques (le \an{problem space}) en intégrant éventuellement un facteur d'inconnu sous la forme d'un processus aléatoire. 
+Beaucoup de recherches en IA se consistent à rechercher la décision optimum dans un environnement modélisé dans le système d'IA. 
+Le système d'IA effectue des prédictions sur la base d'un monde fermé, le \an{problem space}.
+Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité pour .  
 
-C'est un système dont le designer ne connait pas a priori le nombre d'états, rendant inapplicatble les algorithmes qui préssuposent l'espace d'états (state space).
+L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent. 
+La question de définir un environnement de test qui soit ouvert se pose alors. 
+
+Dans son article \an{What Do You Mean by ``Open Worl''?}, Bowen Xu note que la notion de monde ouvert implique deux choses: 
+
+1. Les expériences passées de l'agent ne sont pas toujours directement applicables à une situation nouvelle, 
+\begin{quote}
+	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers.
+\end{quote}
+
+2. La tache de l'agent ne soit pas prédéfinie par le concepteur:  
+\begin{quote}
+	In fully open worlds, tasks are not predefined by human developers, so researchers must focus on problem-independent aspects of intelligence 
+	\cite[p.~3]{xu_what_2024}.
+\end{quote}
+Il argumente que tester l'existence d'environnements de test ouvert pourra générer de nouveaux problemes d'apprentissage en IA. 
+
+
+Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par par rapport au système qu'on considère. 
+
+C'est un système dont le designer ne connait pas a priori le nombre d'états, rendant inapplicable les algorithmes qui préssuposent l'espace d'états (state space). 
+Compte tenu du fait qu'un système de décision artificiel base ses prédictions sur son modèle de monde interne qui est nécessairerment fermé, la recherche pour permettre à des systèmes artificiels de démontrer une intelligence en monde ouvert doit porter sur la capacité du système à faire évoluer son modèle du monde à partir de ses expériences effectuées dans le monde ouvert. 
 Notons le state space peut etre infini et pour autant fermé. 
 ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en réaisonnant sur des distributions de probabilités. 
 

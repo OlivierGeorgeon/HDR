@@ -324,7 +324,24 @@ L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel 
 
 \section{Mécanismes de schéma}
 
-Gary Drescher \cite{drescher_made-up_1991} forge le terme \an{schema mechanism}.
+Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
+
+Les mécanismes de schéma implémentent le concept piagetien de \og schème \fg qui appartient à l'origine au domaine de la psychologie, sous forme d'une structure de donnée qui peut être manipulée par un ordinateur. 
+Cet ordinateur controle in artéfact (robot ou agent virtuel) qui interagit avec un environnement.
+Le but est que l'ordinateur manipule ces structures de données pour générer des comportements de plus en plus intelligents qui démontrent le développement cognitif du robot. 
+Ce robot évolue en environnement ouvert et le but n'est pas qu'il apprenne une tache spécifique prédéfinie. 
+
+\subsection{Drescher's Schema Mechanism}
+
+
+Gary Drescher a implémenté le premier \an{schema mechanism} en 1991 et forgé ce terme dans son livre \og Made-up minds: a constructivist approach to artificial intelligence 
+\cite{drescher_made-up_1991}.
+
+Il a modélisé les schémas sous la forme du tuple $\langle \textit{context}, \textit{action}, \textit{result} \rangle$ illustré en Fig. \ref{fig:drescher1}.
+Le \textit{context} et le \textit{result} sont des ensemble d'\textit{items} binaires qui peuvent être \textit{positivement} ou \textit{négativement} inclus. 
+Le contexte d'un schéma est satisfait si tous les items positivement inclus sont \textit{On}, et tous les items négativement inclus sont \textit{Off}.
+Le schéma signifie que si l'action est effectuée quand le contexte est satisfait alors les items positivement inclus dans le résultat passeront à \textit{On} et ceux négativement inclus à \textit{Off}.
+
 
 \begin{figure}[ht]
 	\centering
@@ -333,7 +350,15 @@ Gary Drescher \cite{drescher_made-up_1991} forge le terme \an{schema mechanism}.
 	\label{fig:drescher1}
 \end{figure}
 
- 
+Le système est initialisé avec un ensemble de \textit{primitive items} et de \textit{primitive actions} qui représentent respectivmenet les possibilités de perception de l'agent et ses possiblités d'action. 
+Pour chaque action primitive, un bare schema est créé avec un contexte et un résultat vide. 
+Le concepteur a aussi la possiblité d'ajouter d'autres schémas qui représentent des comportements  ‘‘innés'' de l'agent. 
+
+
+L'activation d'un schéma consiste à effectuer son action.
+Une fois l'action effectuée le résultat prédit par le schéma est comparé au résultat obtenu. 
+L'enaction du schema est considéré un succès si le résultat prédit a été obtenu, sinon elles considérée un échec. 
+Le rapport entre le nombre de succès et d'échec est appelé reliability et est enregistré pour chaque schéma.  
 
 
 \section{La motivation intrinsèque}

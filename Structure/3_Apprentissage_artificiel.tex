@@ -311,18 +311,9 @@ Les événements sont toujours conçus comme des événements cognitifs du point
 Les événements internes générés par le système sont aussi observés et traités. 
 Cela ouvre la voie à la réflexivité et à l'auto programmaion.
 
-\section{Réitération de séquences sensorimotrices}
-
-\cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
-
-\section{Apprentissace profond de séquence}
-\label{sec:dsl}
-
-L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel a donné lieu à l'axe de recherche du \an{deep sequence learning}.
 
 
-
-\section{Mécanismes de schéma}
+\section{Mécanisme de schéma de Drescher}
 
 Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
 
@@ -331,11 +322,8 @@ Cet ordinateur controle in artéfact (robot ou agent virtuel) qui interagit avec
 Le but est que l'ordinateur manipule ces structures de données pour générer des comportements de plus en plus intelligents qui démontrent le développement cognitif du robot. 
 Ce robot évolue en environnement ouvert et le but n'est pas qu'il apprenne une tache spécifique prédéfinie. 
 
-\subsection{Drescher's Schema Mechanism}
 
-
-Gary Drescher a implémenté le premier \an{schema mechanism} en 1991 et forgé ce terme dans son livre \og Made-up minds: a constructivist approach to artificial intelligence 
-\cite{drescher_made-up_1991}.
+Gary Drescher a implémenté le premier \an{schema mechanism} en 1991 et forgé ce terme dans son livre \an{Made-up minds: a constructivist approach to artificial intelligence} \cite{drescher_made-up_1991}.
 
 Il a modélisé les schémas sous la forme du tuple $\langle \textit{context}, \textit{action}, \textit{result} \rangle$ illustré en Fig. \ref{fig:drescher1}.
 Le \textit{context} et le \textit{result} sont des ensemble d'\textit{items} binaires qui peuvent être \textit{positivement} ou \textit{négativement} inclus. 
@@ -346,44 +334,85 @@ Le schéma signifie que si l'action est effectuée quand le contexte est satisfa
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_Drescher_schema.png}
-	\caption{Schéma selon Drescher \cite[Fig.~3.2]{drescher_made-up_1991}.}
+	\caption{Schéma d'après Drescher \cite[Fig.~3.2]{drescher_made-up_1991}.
+	Le schéma noté \mbox{$p \!\sim\! qr/a/xy$} signifie que, si l'action $a$ est exécutée dans un contexte où $p$ est \textit{On}, $q$ est \textit{Off} et $r$ est \textit{On}, alors les items $x$ et $y$ passeront à l'état \textit{On}.}
 	\label{fig:drescher1}
 \end{figure}
 
-Le système est initialisé avec un ensemble de \textit{primitive items} et de \textit{primitive actions} qui représentent respectivmenet les possibilités de perception de l'agent et ses possiblités d'action. 
-Pour chaque action primitive, un bare schema est créé avec un contexte et un résultat vide. 
-Le concepteur a aussi la possiblité d'ajouter d'autres schémas qui représentent des comportements  ‘‘innés'' de l'agent. 
+Le système est initialisé avec un ensemble de \textit{primitive items} et de \textit{primitive actions} qui représentent respectivmenet les possibilités de perception de l'agent et ses possibilités d'action. 
+Pour chaque action primitive, un \an{bare schema} est créé avec un contexte et un résultat vide. 
+Le concepteur a aussi la possibilité d'ajouter d'autres schémas qui représentent des comportements  ‘‘innés'' de l'agent. 
 
 
 L'activation d'un schéma consiste à effectuer son action.
 Une fois l'action effectuée le résultat prédit par le schéma est comparé au résultat obtenu. 
 L'enaction du schema est considéré un succès si le résultat prédit a été obtenu, sinon elles considérée un échec. 
-Le rapport entre le nombre de succès et d'échec est appelé reliability et est enregistré pour chaque schéma.  
+Le rapport entre le nombre de succès et d'échec est appelé \an{reliability} et est enregistré pour chaque schéma.  
+
+L'apprentissage de nouveaux schémas est déclenché par l'identification d'un \textit{résultat saillant} (\an{relevant result}) qui contient des items légèrement plus fréquents que la moyenne. 
+Quand un résultat saillant est identifié, l'agent cherche les conditions dans lesquelles il se produit de manière fiable.
+Ces conditions sont trouvées grace à des nouveaux schémas qui permettent de restituer le contexte qui mène au résultat saillant, et ensuite réexécuter l'action pour évaluer la fiabilité des nouveaux schémas.
+
+Une fois que des nouveaux schémas ont étés appris, l'agent peut apprendre des nouveaux \og concepts \fg quand il identifie des schémas qui fonctionnent comme des \og sondes \fg pour évoquer la manifestation d'une \og \textit{chose} \fg.
+Ces schémas sont fiables uniquement si cette chose est présente. 
+Quand un tel schéma est découvert, il est considéré un \textit{schéma hôte} pour un nouvel \textit{item synthétique} qui représente cette chose.
+Drescher note que \og \an{a synthetic item thus works backward from a thing's manifestation to define the very thing manifested} \fg \cite[p.~83]{drescher_made-up_1991}.
+Ceci adresse la question fondamentale de l'invention des concepts dans la mesure ou \og \an{a synthetic item is a new element of the system's ontology---an element fundamentally different from the prior contents of the system's conceptual vocabulary} \fg \cite[p.~81]{drescher_made-up_1991}. 
+
+Le concepteur définit les objectifs de l'agent en assignant des \an{primitive values} au états possibles des \an{primitive items}: positives pour les états désirables et négatives pour les états indésirables.
+Le mécanisme identifie des sous-objectifs définis comme des sous-ensemble spécifiques d'items à activer ou désactiver. 
+Il construit des \an{composite actions} comme des séquences de schemas utilisées pour atteindre un sous-objectif. 
+
+La valeur d'un item cible peut être propagée à d'autres items sous la forme d'une \an{instrumental} value ou une \an{delegated value} quand le fait d'atteindre ces autres items augmente les chances d'atteindre l'item cible.
+L'agent alterne aléatoirement entre la poursuite d'objectifs explicites et exploration, avec des probabilités définies par le concepteur.
+
+Drescher démontre son mécanisme dans le \an{microword} fait de la grille 2D $7 \times 7$ montrée en Fig.~\ref{fig:Drescher_microworld}.
+Le mécanisme controle un robot simulé qui a un corps, une main, et un système visuel.
+Ma main peut toucher, saisir, et déplacer des objets dans une région de la grille de $3 \times 3$ devant le robot.
+Le système visuel couvre une région de $5 \times 5$ que le robot peut déplacer sur toute la grille.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/3_Drescher_microworld.png}
+	\caption{Environnement de test de Drescher \cite[Fig.~6.1]{drescher_made-up_1991}.
+		.}
+	\label{fig:Drescher_microworld}
+\end{figure}
+
+Au début, le mécanisme ignore les relations topologiques entre les items sensoriels. 
+L'expérimentation montre qu'il apprends ces relations au cours d'un processus que Drescher nomme \og \an{elaboration of the spatial substrate} \fg. 
+Une fois le substrat spatial appris, le mécanisme parvient à construire des items synthétiques qui désignent des objets à partir de leur perception.
+Il donne l'exemple d'un \og \an{synthetic item, which we might call PalpableObjectAt(1,3)  (the name, of course, has no meaning to the mechanism). 
+The item is defined to represent whatever condition makes the schema reliable; we observers know (but the mechanism does not) that this condition is that there be an object at (1, 3)} 
+\fg \cite[p. 13]{drescher_made-up_1991}.
+Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} avec l'item synthétique \an{VisibleObjectAt(1,3)} pour enregistre la découverte qu'ils réfèrent au même objet existant à la position (1, 3).
+
+
 
 
 \section{La motivation intrinsèque}
 
-La distinction entre motivation extrinseque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résulats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
-La distinction "telique" / "atelique" est utilie pour distinguer les deux types d'activités. 
-Une activité qui est faite par motivation extrinsèque est dite "telique", une activité qui est faite par motivation extrinsèque est dite "atelique". 
+La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
+La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
+Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
 
 Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
-Le terme même de "motivation" est un tèrme qui relève de la psychologie, c'est pourquoi le qualificatif "telique" "atelique" appliqué à la tache est plus utile. 
+Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
 
 L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
 
 
-Un programme qui joue aux echec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
+Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
 On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
-C'est un cas amblématique d'apprentissage par renforcement en situation markovienne.
-Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquer de facon à générer ce signal d'erreur. 
+C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
+Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
 Examinons cela plus en détail.
 On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
-Cet arbitre doit intégrer toutes les règles du jeu pour détermner si l'un des deux rois est en situation d'échec et mat. 
+Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
 Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
-En partique il n'est pas nécessaire d'implémenter un arbitre. 
-Notons que le programme lui meme doit pouvoir détecter la fin de partie et son status.
-Il n'est donc pas nécessaire d'implémenter un artibtre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
+En pratique il n'est pas nécessaire d'implémenter un arbitre. 
+Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
+Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
 Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
 
 
@@ -392,9 +421,18 @@ Il est plus simple d'implémenter quelques sous-programme dédiés à la détect
 Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
 
 
+\section{Réitération de séquences sensorimotrices}
+
+\cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
+
 \section{Seed programming }
 
 Thórisson a forgé le terme \an{seed programming} dans sa théorie de l'apprentissage constructiviste. 
+
+\section{Apprentissace profond de séquence}
+\label{sec:dsl}
+
+L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel a donné lieu à l'axe de recherche du \an{deep sequence learning}.
 
 \section{Robotique autonome}
 
@@ -445,3 +483,4 @@ Nous n'avons pas de distribution d'observation des états $p(o|s)$.
 
 L'apprentissage développemental est un apprentissage non-markovien mais le formalisme POMDP n'est pas l'idéal car il n'y a pas de distribution d'observation ni de récompense fonction de l'état caché du monde. 
 
+Il est important de rajouter une notion de motivation intrinsèque au schema méchanism.

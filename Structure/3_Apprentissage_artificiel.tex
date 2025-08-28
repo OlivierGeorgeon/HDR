@@ -13,7 +13,7 @@ Ce manuscrit se focalisons sur la seconde catégorie.
 L'apprentissage par renforcement semble l'approche naturelle pour modéliser un agent qui apprend par interaction comment se comporter pour atteindre des objectifs dans un environnement. L'agent et l'environnement interagissent au cours d'une séquences de pas de temps discrets. 
 
 
-\section{Apprentissage avec un humain dans la boucle }
+\section{Construction de connaissance avec un humain dans la boucle }
 
 La construction de connaissance à partir de traces d'activité est un champ de recherche du domaine de la psychologie, l'éthologie, l'ergonomie, et la modélisation cognitive. 
 Une \textit{trace d'activité} est un ensemble de données temporelles ou séquentielles qui enregistrent, au moins partiellement, une activité effectuée par un \textit{sujet}.
@@ -27,18 +27,47 @@ Notons que le choix des données recueilli n'est pas neutre.
 Les traces d'activité ne peuvent pas contenir une inscription de "tout ce qui s'est passé" (en supposant que cela aie même un sens), 
 Le système de recueil de traces fait donc inévitablement des hypothèse, implicites ou explicites, d'une part sur ce qui est significatif pour le sujet, et d'autre part sur ce qui intéresse l'analyste. 
  
-Du fait que les traces d'activité dépendent des connaissances et hypothèses de l'analyste, elles peuvent seulement etre modélisée de manière itérative, chaque itération produisant de nouvelles connaissances condiusant à de nouvelles hypothèses pour l'itération suivante. 
-De plus, aucune itération ne peut produire une connaissance qui pourrait dont on pourrait démonter qu'elle est vraie dans un sens absolu, mais seulement une connaissance 
+Du fait que les traces d'activité dépendent des connaissances et hypothèses de l'analyste, elles peuvent seulement etre modélisée de manière itérative, chaque itération produisant de nouvelles connaissances conduisant à de nouvelles hypothèses pour l'itération suivante. 
+De plus, aucune itération ne peut produire une connaissance qui pourrait dont on pourrait démonter qu'elle est vraie dans un sens absolu, mais seulement une connaissance. 
 
+La prise en compte des ces aspects évolutioniste et pragmatique de la construction de connaissance sont important pour concevoir une méthodologie et un outil informatique pour la modélisation de trace d'activité. 
+
+L'outil aide l'analyste à créer des  symboles qui représentent des motifs détectés dans la trace et à spécifier les règles qui génèrent ces symboles chaque fois que le motif apparait. 
+Si un symbole est utile pour mieux comprendre l'activité, l'analyse le conserve, sinon il le rejette. 
+L'outil est conçu pour faciliter et raccourcir ce cycle de formulation d'hypothèse, utilisation, et validation ou réjection.
+
+Ce processus conduit à la formalisation du savoir d'analyse (le savoir de l'analyste sur comment comprendre l'activité à partir de la trace). 
+Il permet à l'analyste conserver ce savoir et offre la possibilité à une communauté d'analystes de le partager et de l'échanger. 
+
+Par exemple, la Figure \ref{fig:trace_modelisee} présente un exemple de trace modélisée d'une activité de conduite automobile en situation de changement de voie sur autoroute. 
+Les cercles en bas de la figure représentent des événements primitifs issus de différentes sources d'enregistrement de l'activité. 
+Les triangles représentent des symboles abstraits générés par l'analyste à partir de règles détectant des motifs de symboles de plus bas niveau. 
+La partie haute représente l'ontologie des symboles. 
+Le triangle violet "L.C. Indicator" est un indicateur de changement de voie (\an{Line Change}) qui est généré à partir de variation sur la pédale d'accélérateur et de mouvements oculaires. Cet indicateur est généré environ une seconde avant que le conducteur ne mette son clignotant (triangle orange) et ne s'engage dans le changement de voie. 
+
+Les aspects graphiques des symboles (forme, couleur, taille, position verticale) sont choisis par l'analyste de façons à ce qu'ils soient le plus facile possible à comprendre. 
+Dans cet exemple la position verticale représente un niveau d'abstraction qui augmente plus le symbole est placé haut. 
+
+Comme la plupart des ontologies, l'ontologie de symboles créé par l'analyste de manière pragmatique. 
+Il est probable que deux analystes créerons deux ontologies différentes. 
+L'outil ne peut pas démontrer que l'une est meilleure que l'autre, mais il aide à effectuer des comparaison et favorise la convergence vers une ontologie qui fasse consensus au sein d'une communauté d'analyse. 
+La Figure \ref{fig:modelisation_trace} résume ce processus d'analyse. 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/3_modelisation_trace.pdf}
+	\includegraphics[width=0.5\textwidth]{Figures/3_trace_modelisee.pdf}
+	\caption{Trace modélisée dans un système de gestion de la connaissance selon Georgeon et al.  \cite[Fig.~2]{georgeon_supporting_2012}.
+	}
+	\label{fig:trace_modelisee}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Figures/3_modelisation_trace.pdf}
 	\caption{Processus de modélisation cognitive à partir de traces d'interaction selon Georgeon et al.  \cite[Fig.~10]{georgeon_supporting_2012}.
 	}
 	\label{fig:modelisation_trace}
 \end{figure}
-
 
 \section{Apprentissage par renforcement}
 

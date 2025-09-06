@@ -70,10 +70,11 @@ La Figure \ref{fig:modelisation_trace} résume ce processus d'analyse.
 \end{figure}
 
 \section{Apprentissage par renforcement}
+\label{sec:rl}
 
 \noindent
 La théorie de l'apprentissage par renforcement puise ses origines dans la théorie du contrôle optimal (\an{optimal control theory}), dont l’un des pionniers fut le mathématicien Richard Bellman dans les années 1950. 
-Cette dernière cherchait à élaborer des mécanismes de contrôle visant à optimiser une mesure au sein d’un système dynamique.
+La théorie de contrôle optimal vise à optimiser une mesure au sein d’un système dynamique.
 A partir de la fin des années 1990, l'ouvrage \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} s'est imposé comme une référence pour l'apprentissage par renforcement moderne. 
 Dès la page 2, les auteurs y décrivent l'apprentissage par renforcement comme visant à modéliser un agent qui perçoit son environnement, agit sur celui-ci et cherche à atteindre un objectif:
 
@@ -90,8 +91,8 @@ A chaque tour $t$ du cycle, la perception est représentée par l'information $s
 L'action $a_t$ choisie par l'agent est transmise à l'environnement et fait transitionner celui-ci vers l'état $s_{t+1}$. 
 L'information concernant l'objectif est donnée par la récompense $r_{t+1}$ qui indique dans quel mesure l'état obtenu $s_{t+1}$ est désirable (si positive) ou indésirable (si négative).
 Les auteurs précisent que le terme \og état \fg (\an{state}) désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}, c'est à dire que ce terme doit être compris comme l'état interne de l'agent sur lequel est basée le choix de la prochaine action, cencé représenter autant que possible l'état réel de l'environnement. 
-Lorsqu'ils ont besoin de faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, ils désignent plutot $s_t$ par le terme \an{state signal}. 
-Ils précisent que :
+Lorsqu'ils ont besoin de faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, ils désignent plutot $s_t$ par le terme \an{state signal}, en précisant que: 
+
 \begin{quote}
 	\an{Certainly the state signal should include immediate sensations such as sensory measurements, but it can contain much more than that. 
 		State representations can be highly processed versions of original sensations, or they can be complex structures built up over time from the sequence of sensations}
@@ -287,6 +288,7 @@ Chaque état caché hypothétique, pondéré par sa probabilité, est ensuite ut
 La complexité du calcul du \an{belief state} croit exponentiellement avec la durée de l'historique, introduisant un niveau d'explosion combinatoire supplémentaire, souvent désigné dans la littérature sous le nom de \an{curse of history} (e.g., \cite{zhang_curses_2025}) qui vient s'ajouter à la complexité inhérente à l'apprentissage par renforcement dans les MDPs.  
 
 Étant donné que la recherche d’une politique optimale dans les POMDPs comme dans les MDPs a été démontrée \an{intractable} dans le cas général, les travaux actuels se concentrent principalement sur des solutions approchées, ou sur l’exploitation de connaissances a priori ou de configurations particulières du domaine permettant des applications pratiques de contrôle optimum.
+Les gains obtenu dans certains domaines se font nécessairement au détriment de la généralité de l'algorithme, une limitation que David Woplert a élégamment formalisée avec le théorème du  \og \an{No free lunch for optimization} \fg \cite{wolpert_no_1997}.
 
 
 
@@ -503,23 +505,6 @@ Des exemples notables sont les \textit{Schema Networks} \cite{kansky_schema_2017
 
 Patrick Hammer et ses collègues ont utilisé NARS pour contrôler un robot collecteur de détritus \cite{hammer_non-axiomatic_2024}.
 
-
-\section{La couverture de Markov}
-
-Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/3_blanket.png}
-	\caption{La couverture de Markov \cite[Fig.~5]{ororbia_mortal_2024}.}
-	\label{fig:blanket}
-\end{figure}
-
-Drescher exprime cette idée ainsi: 
-\begin{quote}
-	``Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations'' 
-	\cite[p.~174]{drescher_made-up_1991}. 
-\end{quote}
 
 \section{Conclusion}
 

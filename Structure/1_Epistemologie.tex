@@ -3,16 +3,16 @@
 \chapter{Fondements en sciences cognitives}
 
 \noindent 
-Ce chapitre propose vise à définir l'intenlligence artificielle précosse telle qu'elle est mise en oeuvre par les etres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
+Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en oeuvre par les etres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
 
-La finaliter est de fonder un projet d'implémentation informatique qui transcrive cette vision.
+La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
 \section{Épistémologie pragmatique}
 \label{sec:pragmatisme}
 
 William James: role central de l'action et de la praxis.
 
-David Hume, Notion de \an{bundle} pour representer les objets par l'ensemble des interactions qu'ils \an{afford}.
+David Hume, Notion de \an{bundle} pour représenter les objets par l'ensemble des interactions qu'ils \an{afford}.
 
 Ludvig Wittgenstein: \an{meaning is use} surtout connu dans le cadre de la philosophie du langage pour dire que le sens des mots provient de leur usage dans le discours. 
 Mais cette pensée est plus générale pour dire que le sens de tout symbole est lié à l'usage que le sujet en fait dans le cadre de ses propres motivations. 
@@ -40,7 +40,29 @@ S’il n’existe au début ni sujet, au sens épistémique du terme, ni objets 
 \cite[p.~14]{piaget_lepistemologie_1970}
 \end{quote}
 
-\subsection{Psychologie développementale}
+\section{Psychologie développementale}
+
+Dans le chapitre \an{The origins and sources of action} de l'ouvrage \an{Oxford handbook of human action}, Bernhard Hommel et Birgit Elsner soulignent que, bien que les nouveaux-nés disposent déjà de capacités motrices et sensorielles, il est généralement admis qu'ils ne sont pas encore en mesure d'effectuer des actions intentionnelles \cite{hommel_acquisition_2009}. 
+Ils peuvent mouvoir leur corps et percevoir des événements sensoriels, y compris des réactions (\an{feedbacks}) résultants de leurs mouvements. 
+Les conséquences de leurs actions, qu'elles soient distales (visuelles ou auditives) ou proximales (tactiles, proprioceptives) sont enregistrées dès la naissance. 
+
+Les auteurs posent la question centrale : comment passons-nous de l'état de nouveau-né agité et réceptif à celui d'agent intentionnel ? 
+
+Ils retracent l'émergence progressive du contrôle d'action par d'expériences d'interaction qui commence par l'apprentissage de ce que nous avons la possibilité de faire. 
+Pendant les 8 premiers mois de la vie, la maturation conduit à la différentiation de motifs de comportements innés pour améliorer la coordination et le contrôle du mouvement. 
+Ils enregistrent les relations entre leurs mouvements et les événements se produisant dans l'environnement. 
+Dès deux mois, les nouveaux nés peuvent apprendre à modifier la fréquence de succion pour obtenir certains résultats sensoriels comme entendre la voix de leur mère, voir certaines photos, ou obtenir leur lait préféré \cite{rochat_emerging_1999}
+De deux à quatre mois, toutes sortes d'expérience ont montré l'habileté des enfants pour repérer des connexions entrer leurs mouvements de différentes parties du corps et la survenue d'événement favorables ou défavorables qui mettent en évidence l'acquisition d'une connaissance des relations action-effet et témoignent la capacité de se fixer un objectif de produire un certain événement et de déclencher les actions nécessaires pour le réaliser.Ils s'engagent dans des activités ludique consistant à répéter ses opérations et produisant des rires quand ils y parviennent ou une déception quand ils échouent. 
+Hommel propose un modèle un deux étapes de l'acquisition d'actions volontaires : l'étape 1 consiste en l'apprentissage des contingences être les mouvements et les effets, et l'étape 2 consiste à se fixer des objectifs et utiliser cette connaissance pour les atteindre.   
+Certaines expériences montrent que le cortex premoteur pourrait intégrer les actions avec leurs conséquences attendues sous forme d'une sorete de \an{pragmatic body map} \cite{schubotz_functional_2001}. 
+
+Est-ce que les schemes sensorimoteurs contiennent aussi une information de valence affective ?
+Un exemple est donné par l'expérience de Tom Becker et ses coauteurs \cite{beckers_automatic_2002} dans laquelle les sujets étaient entrainés à  répondre à un choix binaire de catégorie de mots affectivement neutres, l'une des réponses entrainant une légère décharge électrique.
+Dans la phase de test, ils effectuaient la même tâche, mais avec des mots à valence affective positive ou négative. 
+Comme attendu, la performance s’améliorait lorsque la valence du mot correspondait à celle de la réponse : les mots négatifs étaient traités plus rapidement avec la réponse associée au choc, tandis que l’inverse se produisait pour les mots positifs.
+Les auteurs en concluent l'action acquière la valence affective de ses effets. 
+
+
 
 \subsection{Stades de développement cognitifs}
 
@@ -92,7 +114,80 @@ Marcel Turbiaux relate la pensée de Gilbert Simondon:
 
 D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
 
+\section{Système de décision discret}
+
+Une façon spontanée de représenter un agent interagissant avec un environnement se fait par le modèle du \an{Discret Decision System} (DDS) qui considère que l'échange d'information entre l'agent et l'environnement se fait dans un \og cycle d'interaction \fg constitué d'étapes dénombrables au cours duquel l'agent et l'environnement échange des informations l'un vers l'autre à tour de rôle (Fig. \ref{fig:dds}). 
+
+Ce modèle trouve ses origines dans la cybernétique et la théorie des automates à états finis sans être attribué à un autour particulier mais on le retrouve sous différentes forme dans la littérature en intelligence artificielle et en apprentissage machine. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/1_dds.pdf}
+	\caption{Système de décision discret (DDS). Au cours du cycle d'interaction, l'agent alternativement reçoit une \textit{observation} en provenance de l'environnement et effectue une \textit{action} dans l'environnement.
+	}
+	\label{fig:dds}
+\end{figure}
+
+
+L'ouvrage de Ben Goertzel intitulé  \og \an{The General Theory of General Intelligence} \fg est explicitement fondé sur le modèle DDS \cite{goertzel_general_2021}. 
+Le célèbre livre d'introduction à l'intelligence artificielle de Stuart Russell et Peter Norvig annonce dès l'introduction que \og \an{the problem of AI is to build agents that receive percepts from the environment and perform actions} \fg \cite[p.~iv]{russell_artificial_2021}, en faisant référerce à au modèle semblable de \an{Marvok Decision Process} (MDP) que je présenterai dans en Section \ref{sec:rl} sur l'apprentissage par renforcement.
+
+Ce modèle est rarement remis en cause dans le domaine de l'IA. 
+En effet, si l'on pense à un agent artificiel tel qu'un robot, on peut comprendre le terme \textit{observation} comme désignant l'état de ensemble des \textit{registres d'entrée} qui est conditionnée par l'état des capteurs et qui est \og lu \fg par le logiciel contrôlant le robot. 
+De même, le terme \og action  \fg désigne l'état de l'ensemble des \textit{registres de sortie} dans lequel le logiciel peut \og écrire \fg pour produire un effet sur l'environnement. 
+Ce logiciel s'exécute de manière cycles, même possiblement avec une fréquence très élevée. 
+De manière analogue, le cerveau est \og cadencé \fg par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
+
+Bien que ce modèle soit actuellement unanimement accepté, il me semble important de mentionner certaines critiques pour en garder en tête les limites.
+
+Tout d'abord le terme \textit{action} n'est pas forcément le terme le plus approprié pour désigner l'information qui va de l'agent à l'environnement.
+Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs se réfèrent à la définition de la Stanford Encyclopedia of Philosophy pour noter que ce terme implique un contrôle intentionnel de l'environnement en vu d'une certaine finalité anticipée :
+
+\begin{quote}
+\an{actions (i) are driven by goals and [...] they can reach these goals or fail to do so; (ii) often involve some degree of volitional control; (iii) require planning and decisions among alternatives; (iv) involve prediction or anticipation of an intended outcome; (v) are often, albeit not always, associated with a sense of agency, that is, the agent’s conscious awareness of carrying out the particular action and of its goals}
+\cite[p.~202]{engel_wheres_2013}.
+\end{quote}
+
+Plus généralement, le fait de séparer observation et action tend à minimiser l'importance d'un couplage réciproque et d'une dépendance mutuelle entre les deux. 
+
+\section{Couverture de Markov}
+
+Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/1_blanket.png}
+	\caption{La couverture de Markov \cite[Fig.~5]{ororbia_mortal_2024}.}
+	\label{fig:blanket}
+\end{figure}
+
+Drescher exprime cette idée ainsi: 
+\begin{quote}
+	``Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations'' 
+	\cite[p.~174]{drescher_made-up_1991}. 
+\end{quote}
+
+Legg \cite{legg_universal_2007} formule ce problème avec un exemple simple qu'on pourrait trouver dans un test d'intelligence. 
+Supposons que l'agent est effectuée la série d'observation 2, 4, 6, 8. 
+Il semble naturel d'inférer une structure de l'environnement qui produit une observation qui double avec chaque pas de temps, c'est à dire, mathématiquement $o_t = 2t$ qui permet de prédire l'observation au temps 5: $o_5 = 10$. 
+Mais bien sur, il existe une infinité de polynômes de degré $t$ compatibles avec une série de longueur $t$, par exemple, pour notre série de longueur 4:  $o_t = 2t^4 - 20 t^3 + 70t^2 - 98t + 48$. 
+Cette représentation de l'environnement prédirait l'observation au temps 5: $o_5 = 58$.
+Il note que l'humain utilise naturellement le principe du rasoir d'Occam consistent à choisir le modèle le plus simple qui \og explique \fg la série d'observations. 
+Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilisation indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
+
+
 \section{Neurosciences}
+
+\subsection{Architectures cognitive}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Figures/1_Cognitive_architecture.png}
+	\caption{Architecture cognitive de haut niveau pour une \an{human-like general intelligence} d'après Goertzel 
+	\cite[Fig.~17]{goertzel_general_2021}}
+	\label{fig:Cognitive_architecture}
+\end{figure}
 
 \subsection{Comportements innés}
 
@@ -101,6 +196,94 @@ D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigid
 \subsection{Apprentissage spatio-sequentiel}
 
 Hippocampe: mémoire spatiale et mémoire séquentielle. 
+
+\section{Mesures de l'intelligence}
+
+Comment mesurer l'intelligence est une question compliquée qui n'a pas encore de réponse définitive. 
+Legg note que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
+
+Il fait une première distinction entre les tests statiques et les testes dynamiques. 
+Les tests statiques mesure la capacité de résoudre une problème présenté en une seule fois. 
+Ils ne mesurent pas directemenent la capacité à apprendre et à s'adapter au cours du temps. 
+Dans un test dynamique, le sujet interagit avec l'environnement de test pendant une certaine période de temps. 
+
+Une autre distinction est selon qu'il existe une mesure de la capacité de l'agent à atteindre un objectif ou non.  
+Dans le premier cas, Legg propose une mesure de l'intelligence qu'il appelle \an{universal intelligence} d'un agent qui est la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
+Bien entendu, il n'existe pas de moyen de la calculer. 
+
+
+David Deutsch exprime de manière un peu provocatrice qu'on attend d'une vraie intelligence qu'elle soit capable de désobéir: 
+
+\begin{quote}
+\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. 
+	Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
+	%, even immoral, just as in the education of humans. 
+	%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
+	}
+\cite[p.~119]{deutsch_beyond_2019}.
+\end{quote}
+
+\subsection{Abstract Reasoning Challenge}
+
+L'objectif du \an{Abstract Reasoning Challenge} (ARC) est d'évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
+
+
+Francois Cholet identifie 4 \an{core knowledge} : 
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
+	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
+	\item Nombres et comptage: il est possible de compter des petits nombres d'objets ou propriétés, et former des groupes dénombrés.
+	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
+\end{itemize}
+
+La Fig. \ref{fig:ARC} montre un exemple de problème du ARC Challenge mettant en jeu le \an{core knowledge} d'agentivité.
+Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/1_ARC.png}
+	\caption{Exemple de problème du ARC Challenge dans lequel impliquant le socle de connaissance d'agentivité. }
+	\label{fig:ARC}
+\end{figure}
+
+
+
+\subsection{Mesures robotiques}
+
+Cité dans l'article de Engel: 
+In a recent study [57], a simple computational model of object recognition was developed in which actions are an integral component of the perceptual process. In this model, sensorimotor contingencies (SMCs) were implemented as multistep, actioncon-ditional probabilities of future sensory observations.
+
+\cite{maye_discrete_2011}
+\cite{sanchez-fibla_acquisition_2011}
+
+\begin{figure}[ht]
+	\centering
+		\includegraphics[width=0.4\linewidth]{Figures/1_maye_robot.png}%
+	\quad
+		\includegraphics[width=0.18\linewidth]{Figures/1_maye_path.pdf}
+	\caption{Expérimentation robotique adaptée de Engel et al. \cite[Fig.~I]{engel_wheres_2013}.
+		Gauche: robot interagissant avec un objet à travers un capteur d'écho-localisation et des bras articulés.
+		Droite: séquence d'expériences sensorimotrices permettant au robot de reconnaitre l'objet. 
+	}
+	\label{fig:maye}
+\end{figure}
+
+
+\subsection{Bilan des mesures}
+
+La figure \ref{fig:mesures} résume le paysage des différentes approches pour mesurer l'intelligence. 
+Ce manuscrit se situe dans le quadrant supérieur droit: les mesures dynamiques faisant appelle au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
+	\caption{Différents modes d'évaluation de l'intelligence.}
+	\label{fig:mesures}
+\end{figure}
+
+
 
 \section{Conclusion}
 

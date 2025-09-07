@@ -68,30 +68,31 @@ Les auteurs en concluent l'action acquière la valence affective de ses effets.
 
 Dans son livre \og Pour comprendre Jean Piagiet \fg \cite{dolle_pour_1997}, Jean-Marie Dolle résume les stades de développement de l'enfant :
 
-\begin{itemize}
+
+\begin{enumerate}[itemsep=0pt, parsep=0pt, partopsep=0pt]
 	\item L'intelligence sensori-motrice
-	\begin{itemize}
+	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
 		\item Développement des structures sensori-motrices
-		\begin{itemize}
+		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
 			\item Maitriser son propre dispositif
-		\end{itemize} 
+		\end{itemize}
 		\item La construction du réel
-		\begin{itemize}
+		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
 			\item La construction de l'objet permanent
 			\item La constrution de l'espace sensorimtoreur
 			\item La construction de la causalité
 			\item La construction du temps
 		\end{itemize} 
-	\end{itemize} 
+	\end{enumerate} 
 	\item La génèse des opérations concrêtes
-	\begin{itemize}
+	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
 		\item Intelligence représentative
 		\item L'intelligence symbolique
 		\item La mise en place des structures des opérations concrêtes
 		\item L'espace
-	\end{itemize} 
+	\end{enumerate} 
 	\item L'intelligence opératoire formelle 
-\end{itemize}
+\end{enumerate}
 
 
 \section{Théorie du processus}
@@ -164,7 +165,7 @@ Enfin, la séparation stricte entre observation et action tend à minimiser l'im
 Il est fréquent que les données d'entrée de l'agent n'aient de sens qu'en relation avec l'action qui les a précédées. 
 Dans la perspective de la cybernétique, ces données d'entrée constituent d'ailleurs des retours (\an{feedback}) résultant de l'action.  
 Par ailleurs, les actions peuvent aussi posséder une structure hiérarchique : certaines actions de haut niveau se découpant en séries d'actions de plus bas niveau, et peuvent parfois être exécutées en parallèle.
-Si le modèle DDS n'exclut pas de telles possibilités, il comporte néanmoins le risque de conduire à une vision trop réductionniste de la conception des systèmes d'IA.
+Si le modèle DDS n'exclut pas de telles possibilités, il comporte néanmoins le risque de conduire à une vision trop appauvrie des systèmes d'IA.
 Pour rappeler la diversité des déclinaisons possibles, la Fig. \ref{fig:dds2} propose des représentations alternatives illustrant ces différents aspects, en remplaçant le terme \textit{action} par des termes plus spécialisés. 
 
 
@@ -172,9 +173,9 @@ Pour rappeler la diversité des déclinaisons possibles, la Fig. \ref{fig:dds2} 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/1_dds2.pdf}
 	\caption{Différentes déclinaisons du système de décision discret (DDS) dans lesquelles le début du cycle est matérialisé par une puce.
-		Gauche: Cycle stimulus $\rightarrow $ réponse. 
-		Centre: Cycle d'asservissement utilisé en cybernétique dans lequel la croix cerclée représente une opération de comparaison entre le retour reçu et un retour attendu.
-		Droite: Cycles de décisions hiérarchiques imbriquées.
+		Gauche: cycle stimulus $\rightarrow $ réponse. 
+		Centre: cycle d'asservissement utilisé en cybernétique. La croix cerclée représente une opération de comparaison entre le retour reçu et un retour attendu.
+		Droite: plusieurs cycles de décisions hiérarchiques imbriquées.
 	}
 	\label{fig:dds2}
 \end{figure}
@@ -198,17 +199,17 @@ Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
 
 Drescher exprime cette idée ainsi: 
 \begin{quote}
-	``Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations'' 
+	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
 	\cite[p.~174]{drescher_made-up_1991}. 
 \end{quote}
 
 Legg \cite{legg_universal_2007} formule ce problème avec un exemple simple qu'on pourrait trouver dans un test d'intelligence. 
-Supposons que l'agent est effectuée la série d'observation 2, 4, 6, 8. 
+Supposons que l'agent ait effectué la série d'observation 2, 4, 6, 8. 
 Il semble naturel d'inférer une structure de l'environnement qui produit une observation qui double avec chaque pas de temps, c'est à dire, mathématiquement $o_t = 2t$ qui permet de prédire l'observation au temps 5: $o_5 = 10$. 
 Mais bien sur, il existe une infinité de polynômes de degré $t$ compatibles avec une série de longueur $t$, par exemple, pour notre série de longueur 4:  $o_t = 2t^4 - 20 t^3 + 70t^2 - 98t + 48$. 
 Cette représentation de l'environnement prédirait l'observation au temps 5: $o_5 = 58$.
 Il note que l'humain utilise naturellement le principe du rasoir d'Occam consistent à choisir le modèle le plus simple qui \og explique \fg la série d'observations. 
-Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilisation indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
+Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilise indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
 
 
 \section{Neurosciences}
@@ -229,6 +230,18 @@ Il remarque que le fait que les tests d'intelligence attentent que le sujet l'ut
 \subsection{Emotions}
 
 \subsection{Apprentissage spatio-sequentiel}
+
+Roddy Grieves et Kate Jeffery font une synthèse des des connaissances sur la représentation de l'espace dans le cerveau in \ref{fig:space}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Figures/1_space1.png}\\[-0.1em]
+	\includegraphics[width=0.7\linewidth]{Figures/1_space2.png}
+	\caption{Représentation de l'espace dans le cerveau selon Grieves et Jeffery \cite[Fig.~8]{grieves_representation_2017}. 
+	}
+	\label{fig:space}
+\end{figure}
+
 
 Hippocampe: mémoire spatiale et mémoire séquentielle. 
 
@@ -278,7 +291,7 @@ Dans cet exemple, la règle à inférer pour passer de l'image de gauche à cell
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/1_ARC.png}
-	\caption{Exemple de problème du ARC Challenge dans lequel impliquant le socle de connaissance d'agentivité. }
+	\caption{Exemple de problème du ARC Challenge impliquant le socle de connaissance d'agentivité. }
 	\label{fig:ARC}
 \end{figure}
 

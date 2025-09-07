@@ -116,39 +116,74 @@ D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigid
 
 \section{Système de décision discret}
 
-Une façon spontanée de représenter un agent interagissant avec un environnement se fait par le modèle du \an{Discret Decision System} (DDS) qui considère que l'échange d'information entre l'agent et l'environnement se fait dans un \og cycle d'interaction \fg constitué d'étapes dénombrables au cours duquel l'agent et l'environnement échange des informations l'un vers l'autre à tour de rôle (Fig. \ref{fig:dds}). 
 
-Ce modèle trouve ses origines dans la cybernétique et la théorie des automates à états finis sans être attribué à un autour particulier mais on le retrouve sous différentes forme dans la littérature en intelligence artificielle et en apprentissage machine. 
+On modélise un agent logiciel interagissant avec son environnement à l'aide du \an{Discret Decision System Model} (DDS) illustré en Fig. \ref{fig:dds}.
+Dans ce modèle, l'agent et l'environnement échangent des informations de manière alternée au cours d'un \textit{cycle d'interaction} séquentiel. 
+Le DDS est sans doute le modèle le plus général, englobant l'ensemble des domaines de l'IA, depuis la robotique jusqu'aux agents conversationnels. 
+Dans le cas d'un robot, \textit{l'observation} correspond à l'état de l'ensemble des \textit{registres d'entrée} déterminés par les capteurs et \og lu \fg par le logiciel. 
+L'\textit{action} désigne l'état de l'ensemble des \textit{registres de sortie} dans lequel le logiciel peut \og écrire \fg afin de produire un effet sur l'environnement. 
+Dans le cas d'un agent conversationnel, l'observation est constituée du \an{prompt} fourni par l'utilisateur, tendis que l'action correspond à la réponse de l'agent. 
+Cette alternance entre observations et actions résulte de l'usage cyclique du logiciel, sur une échelle temporelle pouvant varier fortement selon l'application en allant des millisecondes aux heures. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/1_dds.pdf}
-	\caption{Système de décision discret (DDS). Au cours du cycle d'interaction, l'agent alternativement reçoit une \textit{observation} en provenance de l'environnement et effectue une \textit{action} dans l'environnement.
+	\caption{Système de décision discret (DDS). Au cours de chaque cycle d'interaction, l'agent reçoit une \textit{observation} en provenance de l'environnement et effectue une \textit{action} dans l'environnement.
 	}
 	\label{fig:dds}
 \end{figure}
 
+Le modèle DDS puise ses origines dans la cybernétique et la théorie des automates à états finis.
+Bien qu'il ne soit pas attribué à un autour particulier, on en retrouve différentes formulations dans la littérature en intelligence artificielle et en apprentissage machine. 
+Ben Goertzel fonde explicitement sa \an{General Theory of General Intelligence} sur ce modèle \cite{goertzel_general_2021}. 
+De même, l'ouvrage de référence \textit{Artificial Intelligence, a modern approach} de Stuart Russell et Peter Norvig annonce dès l'introduction que \og \an{the problem of AI is to build agents that receive percepts from the environment and perform actions} \fg  en faisant référence au modèle similaire de \an{Marvok Decision Process} (MDP) \cite[p.~iv]{russell_artificial_2021}, que je présenterai dans en Section \ref{sec:rl} consacrée à l'apprentissage par renforcement.
+La pertinence d'un découpage en pas de temps discrets est renforcée par le constat que que le cerveau semble \og cadencé \fg par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
 
-L'ouvrage de Ben Goertzel intitulé  \og \an{The General Theory of General Intelligence} \fg est explicitement fondé sur le modèle DDS \cite{goertzel_general_2021}. 
-Le célèbre livre d'introduction à l'intelligence artificielle de Stuart Russell et Peter Norvig annonce dès l'introduction que \og \an{the problem of AI is to build agents that receive percepts from the environment and perform actions} \fg \cite[p.~iv]{russell_artificial_2021}, en faisant référerce à au modèle semblable de \an{Marvok Decision Process} (MDP) que je présenterai dans en Section \ref{sec:rl} sur l'apprentissage par renforcement.
+Bien que la littérature n'offre pas d'alternative majeure à ce modèle, il me semble essentiel d'en rappeler certaines limites.
+Tout d'abord, le terme \textit{action} n'est peut-être pas le plus adéquat pour désigner l'information transmise de l'agent vers l'environnement.
+Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs critiquent l'usage de ce terme en s'appuyant sur la définition donnée par la \an{Stanford Encyclopedia of Philosophy}.
+Selon eux, le terme \an{action} devrait être réservé à la désignation d'un contrôle intentionnel de l'environnement en vu d'une certaine finalité anticipée :
 
-Ce modèle est rarement remis en cause dans le domaine de l'IA. 
-En effet, si l'on pense à un agent artificiel tel qu'un robot, on peut comprendre le terme \textit{observation} comme désignant l'état de ensemble des \textit{registres d'entrée} qui est conditionnée par l'état des capteurs et qui est \og lu \fg par le logiciel contrôlant le robot. 
-De même, le terme \og action  \fg désigne l'état de l'ensemble des \textit{registres de sortie} dans lequel le logiciel peut \og écrire \fg pour produire un effet sur l'environnement. 
-Ce logiciel s'exécute de manière cycles, même possiblement avec une fréquence très élevée. 
-De manière analogue, le cerveau est \og cadencé \fg par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
-
-Bien que ce modèle soit actuellement unanimement accepté, il me semble important de mentionner certaines critiques pour en garder en tête les limites.
-
-Tout d'abord le terme \textit{action} n'est pas forcément le terme le plus approprié pour désigner l'information qui va de l'agent à l'environnement.
-Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs se réfèrent à la définition de la Stanford Encyclopedia of Philosophy pour noter que ce terme implique un contrôle intentionnel de l'environnement en vu d'une certaine finalité anticipée :
 
 \begin{quote}
 \an{actions (i) are driven by goals and [...] they can reach these goals or fail to do so; (ii) often involve some degree of volitional control; (iii) require planning and decisions among alternatives; (iv) involve prediction or anticipation of an intended outcome; (v) are often, albeit not always, associated with a sense of agency, that is, the agent’s conscious awareness of carrying out the particular action and of its goals}
 \cite[p.~202]{engel_wheres_2013}.
 \end{quote}
 
-Plus généralement, le fait de séparer observation et action tend à minimiser l'importance d'un couplage réciproque et d'une dépendance mutuelle entre les deux. 
+
+Une seconde critique tient au fait que ce modèle présuppose une séparation nette entre l'agent et l'environnement. 
+L'agent est défini avec des contours bien établis qui le distinguent de son environnement, et les types d'interactions possibles sont prédéfinies par le concepteur. 
+David Weinbaum et Viktoras Veitas soulignent que ce modèle écarte une question pourtant fondamentale: celle de la frontière même entre l'agent et l'environnement:
+
+\begin{quote}
+	\an{Processes of differentiation and boundary formation that determine the agent-environment distinctions are excluded. Such processes that can be broadly categorized as processes of self-organization can be gradual and possibly express intelligence of a kind that is not considered by [this model]}
+	\cite[p.~5]{weinbaum_open_2015}.
+\end{quote}
+
+Enfin, la séparation stricte entre observation et action tend à minimiser l'importance de leur couplage réciproque et de leur interdépendance. 
+Il est fréquent que les données d'entrée de l'agent n'aient de sens qu'en relation avec l'action qui les a précédées. 
+Dans la perspective de la cybernétique, ces données d'entrée constituent d'ailleurs des retours (\an{feedback}) résultant de l'action.  
+Par ailleurs, les actions peuvent aussi posséder une structure hiérarchique : certaines actions de haut niveau se découpant en séries d'actions de plus bas niveau, et peuvent parfois être exécutées en parallèle.
+Si le modèle DDS n'exclut pas de telles possibilités, il comporte néanmoins le risque de conduire à une vision trop réductionniste de la conception des systèmes d'IA.
+Pour rappeler la diversité des déclinaisons possibles, la Fig. \ref{fig:dds2} propose des représentations alternatives illustrant ces différents aspects, en remplaçant le terme \textit{action} par des termes plus spécialisés. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/1_dds2.pdf}
+	\caption{Différentes déclinaisons du système de décision discret (DDS) dans lesquelles le début du cycle est matérialisé par une puce.
+		Gauche: Cycle stimulus $\rightarrow $ réponse. 
+		Centre: Cycle d'asservissement utilisé en cybernétique dans lequel la croix cerclée représente une opération de comparaison entre le retour reçu et un retour attendu.
+		Droite: Cycles de décisions hiérarchiques imbriquées.
+	}
+	\label{fig:dds2}
+\end{figure}
+
+Dans la Fig. \ref{fig:dds2}, la partie gauche illustre un cycle initié par l'environnement: celui-ci envoie une information à l'agent, puis l'agent envoie une réponse.
+La partie centrale représente un cycle initié par l'agent, lequel transmets une commande à l'environnement, puis reçoit un retour qu'il compare à une valeur de consigne, selon in principe d'asservissement réactif utilisé en cybernétique de Norbert Wiener \cite{wiener_cybernetics_1948}.
+La partie droite montre des cycles d'interactions hiérarchiques imbriqués au cours desquels l'agent prend des décisions impliquant différentes échelles de temps. 
+Ce dernier cas soulève la question soulignée par Weinbaum de savoir comment l'environnement peut susciter ou réagir à différents niveaux hiérarchiques d'actions de l'agent. 
+
 
 \section{Couverture de Markov}
 

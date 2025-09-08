@@ -25,27 +25,117 @@ Cette idées est reprise en épistémologie pragmatique par David Hume: je conna
 
 \section{Théorie évolutionniste de la connaissance}
 
-Karl Popper \an{objective knowledge}. 
+\begin{quote}
+	\og La connaissance précède l'observation. 
+	Tout animal naît avec des attentes ou anticipations qu'on pourrait reconstruire sous la forme d'hypothèses. 
+	En ce sens nous disposons d'un certain degré de connaissance innée. 
+	Elles seront, si elles sont désavouées, nos premiers problèmes. \fg 
+	\cite[p.~389]{popper_connaissance_1979}
+\end{quote}
 
-Jean Piaget \emph{épistémologie génétique}. Le terme \og génétique \fg est à prendre ici de dans le sens de la \og génèse de la connaissance \fg avec l'idée que la connaissance suit un processus évolutioniste: concevation de la connaissance la mieux adaptée. 
+\noindent
+En affirmant que l'observation suppose toujours une connaissance préalable, mais que cette connaissance découle elle-même de l'observation, Karl Popper met en lumière une circularité qui fonde sa théorie évolutionniste de la connaissance. 
+Etant issue de l’observation, la connaissance ne peut jamais être acquise comme vraie en un sens absolu. 
+D'une part, toute observation est toujours biaisée par une connaissance antérieure. 
+D'autre part, rien ne permet d’affirmer qu'aucun contre-exemple ne viendra jamais la réfuter. 
+Dès lors, propose Popper, toute connaissance ne peut, au mieux, qu’être retenue comme acceptable aussi longtemps qu’elle n’a pas été réfutée. 
+Pour lui, ce processus de \og sélection naturelle \fg des connaissances par leur réfutation constitue la seule voie permettant de tendre vers une connaissance objective du monde. 
+Lorsqu'une connaissance est rejetée, elle appelle la conception d’une nouvelle connaissance plus englobante. 
+C’est ainsi qu’il cite le physicien John Wheeler : \og Tout notre problème est de commettre les erreurs le plus vite possible \fg \cite{popper_connaissance_1979}.
+
+L'approche popperienne de la connaissance a été critiquée, d'une part parce que le critère de réfutabilité s'avère souvent difficile à mettre en place, et d'autre part parce qu'elle n'explique pas le fonctionnement de l'induction, sans laquelle la création de nouvelle connaissance n'apparait possible.
+Popper s'intéresse avant tout à la construction de connaissances scientifiques, en considérant le sujet connaissant (le chercheur), comme donné a priori, et déjà capable de formuler des hypothèses et d'évaluer les résultats expérimentaux à l'aune d'une théorie. 
+Ce présupposé a ouvert la voie à ses successeurs, qui ont entrepris de développer une théorie de l'émergence du sujet connaissant sans postuler son existence préalable. 
+
+Malgré ces critiques, je retiens le critère popperien de résistance à la réfutabilité dans le cadre de la conception d'agents artificiels capables d'apprentissage autonome.
+Il s'agit pour l'agent artificiel de sélectionner les meilleurs éléments explicatifs élémentaires parmi une grande quantité de candidats créés, et de les traiter comme des micro-hypothèses pour construire sa connaissance à partir de son expérience.
+L'agent artificiel devra mettre en œuvre des boucle de production/réfutation d'hypothèses efficaces pour répondre au problème de Wheeler.
+
 
 
 \section{Epistémologie génétique}
 \label{sec:epistemologie_genetique}
-Jean Piaget propose une théorie de la construction de connaissance qui ne présuppose pas l'existence du sujet conscient:
+
+\noindent
+Jean Piaget a intégré la dimension évolutionniste popperienne de la connaissance dans son \emph{Epistémologie génétique} \cite{piaget_lepistemologie_1970}.
+Le terme \og génétique \fg doit s'entendre en référence à la \og genèse de la connaissance \fg au cours du développement ontogénétique du sujet connaissant.
+Vers la fin de sa vie, Piaget rapprochera l'épistémologie génétique de l'épisétémologie constructiviste théorisée par d'autres auteurs comme Ernst von Galsersfeld \cite{von_glasersfeld_radical_1995}. 
+Selon Piaget, le point de départ de toute connaissance est \og l'expérience vécue \fg:
 
 \begin{quote}
-\og La connaissance ne procède en ses sources ni d’un sujet conscient de lui-même ni d’objets déjà constitués (du point de vue du sujet) qui s’imposeraient à lui : elle résulterait d’interactions se produisant à mi-chemin entre deux et relevant donc des deux à la fois, mais en raison d’une indifférenciation complète et non pas d’échanges entre formes distinctes. [...]  
-S’il n’existe au début ni sujet, au sens épistémique du terme, ni objets conçus comme tels, ni surtout d’instruments invariants d’échange, le problème initial de la connaissance sera donc de construire de tels médiateurs: partant de la zone de contact entre le corps propre et les choses, il s’engageront alors toujours plus avant dans les deux directions complémentaires de l’extérieur et de l’intérieur et c’est de cette double construction progressive que dépend l’élaboration solidaire du sujet et des objets. \fg
-\cite[p.~14]{piaget_lepistemologie_1970}
+	\og La connaissance ne procède en ses sources ni d’un sujet conscient de lui-même ni d’objets déjà constitués (du point de vue du sujet) qui s’imposeraient à lui : elle résulte d’interactions se produisant à mi-chemin entre les deux et relevant donc des deux à la fois, mais en raison d’une indifférenciation complète et non pas d’échanges entre formes distinctes. [...]  
+	S’il n’existe au début ni sujet, au sens épistémique du terme, ni objets conçus comme tels, ni surtout d’instruments invariants d’échange, le problème initial de la connaissance sera donc de construire de tels médiateurs: partant de la zone de contact entre le corps propre et les choses, il s’engageront alors toujours plus avant dans les deux directions complémentaires de l’extérieur et de l’intérieur et c’est de cette double construction progressive que dépend l’élaboration solidaire du sujet et des objets. \fg
+	\cite[p.~14]{piaget_lepistemologie_1970}
 \end{quote}
+
+
+Piaget part d'une hypothèse phénoménologique dans laquelle l'expérience d'interaction est centrale. 
+Grâce à l'interaction répétée du corps avec son environnement, se développent des unités élémentaires de l’activité mentale, qu'il appelle \emph{schèmes}. 
+Un schème est une entité abstraite qui organise l'interaction du corps avec son environnement. 
+Ces schèmes s'ancrent dans l'esprit lorsque l'expérience les conforte, ou se modifient lorsque l'expérience les contredit. 
+Si l'épistémologie génétique est surtout connue dans le cadre du développement de l'enfant, elle continue à s'appliquer aux apprentissage qui accompagnent la pratique d'activités nouvelles tout au long de la vie.  
+Vermersch \cite{vermersch_problematique_2014} résume cet apprentissage en quatre étapes: 
+
+\begin{enumerate}%[itemsep=0pt, parsep=0pt, partopsep=0pt]
+	\item Vécu singuler inscrit dans l'action, connaissance en actes.
+	\item Vécu représenté, signifants intériorisés, privés.
+	\item Vécu verbalisé, habillage par les significations.
+	\item Vécu comme objet de connaissance, construction de connaissance.
+\end{enumerate}
+
+En partant d'une nouvelle activité vécue par le sujet sur la base de ses connaissances antérieures qui lui permettent d'interagir avec son environnement (étape 1), le sujet construit et sélectionne de nouveaux schèmes d'interaction qui deviendront porteurs de sens dans le contexte de cette nouvelle activité (étape 2). 
+Ces schèmes pourront être verbalisés et confrontés aux catégories proposées par la communauté humaine pratiquant cette activité (étape 3). 
+La connaissance ainsi abstraite pourra faire l’objet d’une analyse réflexive par le sujet qui pourra prendre cette activité comme un nouvel objet de connaissance (étape 4).
+
+Les détracteurs de l'épistémologie génétique ont contesté le rôle fondamental que Piaget donnait à l'expérience sensorimotrice.
+Leurs critiques convergent avec des travaux récents suggérant l'existence d'une forme de subjectivité durant les stades tardifs de la vie intra utérine quand les apports sensorimoteurs semblent encore très limités \cite{moser_magnetoencephalographic_2021}.
+On peut toutefois contre-argumenter que, même in utero, la vie fœtale n'est pas dénuée d'interactions. 
+Même si Piaget semblait penser que le sujet se construisait par interaction avec le monde extérieure après la naissance, ses idées épistémologiques restent applicables aux interactions intra utérine du foetus. 
+Quoi qu'il en soit, l'épistémologie génétique est largement acceptée comme la référence fondatrice des théories cherchant à expliquer l'émergence de la connaissance à parti de la matière chimique et organique. 
+
+Je retiens le concept clé de \emph{schème sensorimoteur} comme construit cognitif qui organise l'expérience d'interaction entre le corps et l'environnement.
+Un schème sensorimoteur opère comme un médiateur au sein du couplage corps/environnement.
+%, à partir duquel la perception des objets extérieurs peut se construire
+Piaget nous conduit à effectuer une forme d'inversion du raisonnement pour aller de l'interaction vers la perception et l'action plutôt que l'inverse:
+les schèmes ne sont pas constitués d'associations de perceptions et d'actions initialement distinctes, mais ils précèdent la possibilité de percevoir le monde et d'effectuer des actions intentionnelles sur lui. 
 
 \section{Psychologie développementale}
 
+\noindent
+Parallèlement à l'épistémologie génétique, Piaget a fondé le champ de la \emph{psychologie développementale}. 
+Au-delà des dimensions théoriques de la construction du sujet connaissant, la psychologie développementale tente de décrire et comprendre le cheminement chronologique qui conduit l'esprit humain depuis l'état du nouveau-né jusqu'à celui de l'âge adulte.
+Elle offre un pendant expérimental à l'épistémologie génétique, en s'appuyant sur des observations, permettant l'expérimentation, et proposant des applications. 
+Dans son ouvrage \emph{Pour comprendre Jean Piagiet} \cite{dolle_pour_1997}, Jean-Marie Dolle synthétise ainsi les stades chronologiques du développement cognitif de l'être humain :
+
+\begin{enumerate}[itemsep=0pt, parsep=0pt, partopsep=0pt]
+	\item L'intelligence sensorimotrice
+	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Développement des structures sensorimotrices
+		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+			\item Maitriser son propre dispositif
+		\end{itemize}
+		\item La construction du réel
+		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+			\item La construction de l'objet permanent
+			\item La constrution de l'espace sensorimoteur
+			\item La construction de la causalité
+			\item La construction du temps
+		\end{itemize} 
+	\end{enumerate} 
+	\item La génèse des opérations concrêtes
+	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Intelligence représentative
+		\item L'intelligence symbolique
+		\item La mise en place des structures des opérations concrêtes
+		\item L'espace
+	\end{enumerate} 
+	\item L'intelligence opératoire formelle 
+\end{enumerate}
+
+Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est largement enrichie. 
 Dans le chapitre \an{The origins and sources of action} de l'ouvrage \an{Oxford handbook of human action}, Bernhard Hommel et Birgit Elsner soulignent que, bien que les nouveaux-nés disposent déjà de capacités motrices et sensorielles, il est généralement admis qu'ils ne sont pas encore en mesure d'effectuer des actions intentionnelles \cite{hommel_acquisition_2009}. 
 Ils peuvent mouvoir leur corps et percevoir des événements sensoriels, y compris des réactions (\an{feedbacks}) résultants de leurs mouvements. 
 Les conséquences de leurs actions, qu'elles soient distales (visuelles ou auditives) ou proximales (tactiles, proprioceptives) sont enregistrées dès la naissance. 
-
 Les auteurs posent la question centrale : comment passons-nous de l'état de nouveau-né agité et réceptif à celui d'agent intentionnel ? 
 
 Ils retracent l'émergence progressive du contrôle d'action par d'expériences d'interaction qui commence par l'apprentissage de ce que nous avons la possibilité de faire. 
@@ -64,38 +154,16 @@ Les auteurs en concluent l'action acquière la valence affective de ses effets.
 
 
 
-\subsection{Stades de développement cognitifs}
-
-Dans son livre \og Pour comprendre Jean Piagiet \fg \cite{dolle_pour_1997}, Jean-Marie Dolle résume les stades de développement de l'enfant :
-
-
-\begin{enumerate}[itemsep=0pt, parsep=0pt, partopsep=0pt]
-	\item L'intelligence sensori-motrice
-	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
-		\item Développement des structures sensori-motrices
-		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
-			\item Maitriser son propre dispositif
-		\end{itemize}
-		\item La construction du réel
-		\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
-			\item La construction de l'objet permanent
-			\item La constrution de l'espace sensorimtoreur
-			\item La construction de la causalité
-			\item La construction du temps
-		\end{itemize} 
-	\end{enumerate} 
-	\item La génèse des opérations concrêtes
-	\begin{enumerate}[itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
-		\item Intelligence représentative
-		\item L'intelligence symbolique
-		\item La mise en place des structures des opérations concrêtes
-		\item L'espace
-	\end{enumerate} 
-	\item L'intelligence opératoire formelle 
-\end{enumerate}
 
 
 \section{Théorie du processus}
+
+\begin{quote}
+\an{If we are to look for substance anywhere, I should find it in events which are in some sense the ultimate substance of nature.}
+\cite{whitehead_process_1978}
+\end{quote}
+
+\textbf{}
 
 Importance de la notion d'événements. 
 
@@ -114,102 +182,6 @@ Marcel Turbiaux relate la pensée de Gilbert Simondon:
 \end{quote}
 
 D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
-
-\section{Système de décision discret}
-
-
-On modélise un agent logiciel interagissant avec son environnement à l'aide du \an{Discret Decision System Model} (DDS) illustré en Fig. \ref{fig:dds}.
-Dans ce modèle, l'agent et l'environnement échangent des informations de manière alternée au cours d'un \textit{cycle d'interaction} séquentiel. 
-Le DDS est sans doute le modèle le plus général, englobant l'ensemble des domaines de l'IA, depuis la robotique jusqu'aux agents conversationnels. 
-Dans le cas d'un robot, \textit{l'observation} correspond à l'état de l'ensemble des \textit{registres d'entrée} déterminés par les capteurs et \og lu \fg par le logiciel. 
-L'\textit{action} désigne l'état de l'ensemble des \textit{registres de sortie} dans lequel le logiciel peut \og écrire \fg afin de produire un effet sur l'environnement. 
-Dans le cas d'un agent conversationnel, l'observation est constituée du \an{prompt} fourni par l'utilisateur, tendis que l'action correspond à la réponse de l'agent. 
-Cette alternance entre observations et actions résulte de l'usage cyclique du logiciel, sur une échelle temporelle pouvant varier fortement selon l'application en allant des millisecondes aux heures. 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/1_dds.pdf}
-	\caption{Système de décision discret (DDS). Au cours de chaque cycle d'interaction, l'agent reçoit une \textit{observation} en provenance de l'environnement et effectue une \textit{action} dans l'environnement.
-	}
-	\label{fig:dds}
-\end{figure}
-
-Le modèle DDS puise ses origines dans la cybernétique et la théorie des automates à états finis.
-Bien qu'il ne soit pas attribué à un autour particulier, on en retrouve différentes formulations dans la littérature en intelligence artificielle et en apprentissage machine. 
-Ben Goertzel fonde explicitement sa \an{General Theory of General Intelligence} sur ce modèle \cite{goertzel_general_2021}. 
-De même, l'ouvrage de référence \textit{Artificial Intelligence, a modern approach} de Stuart Russell et Peter Norvig annonce dès l'introduction que \og \an{the problem of AI is to build agents that receive percepts from the environment and perform actions} \fg  en faisant référence au modèle similaire de \an{Marvok Decision Process} (MDP) \cite[p.~iv]{russell_artificial_2021}, que je présenterai dans en Section \ref{sec:rl} consacrée à l'apprentissage par renforcement.
-La pertinence d'un découpage en pas de temps discrets est renforcée par le constat que que le cerveau semble \og cadencé \fg par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
-
-Bien que la littérature n'offre pas d'alternative majeure à ce modèle, il me semble essentiel d'en rappeler certaines limites.
-Tout d'abord, le terme \textit{action} n'est peut-être pas le plus adéquat pour désigner l'information transmise de l'agent vers l'environnement.
-Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs critiquent l'usage de ce terme en s'appuyant sur la définition donnée par la \an{Stanford Encyclopedia of Philosophy}.
-Selon eux, le terme \an{action} devrait être réservé à la désignation d'un contrôle intentionnel de l'environnement en vu d'une certaine finalité anticipée :
-
-
-\begin{quote}
-\an{actions (i) are driven by goals and [...] they can reach these goals or fail to do so; (ii) often involve some degree of volitional control; (iii) require planning and decisions among alternatives; (iv) involve prediction or anticipation of an intended outcome; (v) are often, albeit not always, associated with a sense of agency, that is, the agent’s conscious awareness of carrying out the particular action and of its goals}
-\cite[p.~202]{engel_wheres_2013}.
-\end{quote}
-
-
-Une seconde critique tient au fait que ce modèle présuppose une séparation nette entre l'agent et l'environnement. 
-L'agent est défini avec des contours bien établis qui le distinguent de son environnement, et les types d'interactions possibles sont prédéfinies par le concepteur. 
-David Weinbaum et Viktoras Veitas soulignent que ce modèle écarte une question pourtant fondamentale: celle de la frontière même entre l'agent et l'environnement:
-
-\begin{quote}
-	\an{Processes of differentiation and boundary formation that determine the agent-environment distinctions are excluded. Such processes that can be broadly categorized as processes of self-organization can be gradual and possibly express intelligence of a kind that is not considered by [this model]}
-	\cite[p.~5]{weinbaum_open_2015}.
-\end{quote}
-
-Enfin, la séparation stricte entre observation et action tend à minimiser l'importance de leur couplage réciproque et de leur interdépendance. 
-Il est fréquent que les données d'entrée de l'agent n'aient de sens qu'en relation avec l'action qui les a précédées. 
-Dans la perspective de la cybernétique, ces données d'entrée constituent d'ailleurs des retours (\an{feedback}) résultant de l'action.  
-Par ailleurs, les actions peuvent aussi posséder une structure hiérarchique : certaines actions de haut niveau se découpant en séries d'actions de plus bas niveau, et peuvent parfois être exécutées en parallèle.
-Si le modèle DDS n'exclut pas de telles possibilités, il comporte néanmoins le risque de conduire à une vision trop appauvrie des systèmes d'IA.
-Pour rappeler la diversité des déclinaisons possibles, la Fig. \ref{fig:dds2} propose des représentations alternatives illustrant ces différents aspects, en remplaçant le terme \textit{action} par des termes plus spécialisés. 
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.9\textwidth]{Figures/1_dds2.pdf}
-	\caption{Différentes déclinaisons du système de décision discret (DDS) dans lesquelles le début du cycle est matérialisé par une puce.
-		Gauche: cycle stimulus $\rightarrow $ réponse. 
-		Centre: cycle d'asservissement utilisé en cybernétique. La croix cerclée représente une opération de comparaison entre le retour reçu et un retour attendu.
-		Droite: plusieurs cycles de décisions hiérarchiques imbriquées.
-	}
-	\label{fig:dds2}
-\end{figure}
-
-Dans la Fig. \ref{fig:dds2}, la partie gauche illustre un cycle initié par l'environnement: celui-ci envoie une information à l'agent, puis l'agent envoie une réponse.
-La partie centrale représente un cycle initié par l'agent, lequel transmets une commande à l'environnement, puis reçoit un retour qu'il compare à une valeur de consigne, selon in principe d'asservissement réactif utilisé en cybernétique de Norbert Wiener \cite{wiener_cybernetics_1948}.
-La partie droite montre des cycles d'interactions hiérarchiques imbriqués au cours desquels l'agent prend des décisions impliquant différentes échelles de temps. 
-Ce dernier cas soulève la question soulignée par Weinbaum de savoir comment l'environnement peut susciter ou réagir à différents niveaux hiérarchiques d'actions de l'agent. 
-
-
-\section{Couverture de Markov}
-
-Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/1_blanket.png}
-	\caption{La couverture de Markov \cite[Fig.~5]{ororbia_mortal_2024}.}
-	\label{fig:blanket}
-\end{figure}
-
-Drescher exprime cette idée ainsi: 
-\begin{quote}
-	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
-	\cite[p.~174]{drescher_made-up_1991}. 
-\end{quote}
-
-Legg \cite{legg_universal_2007} formule ce problème avec un exemple simple qu'on pourrait trouver dans un test d'intelligence. 
-Supposons que l'agent ait effectué la série d'observation 2, 4, 6, 8. 
-Il semble naturel d'inférer une structure de l'environnement qui produit une observation qui double avec chaque pas de temps, c'est à dire, mathématiquement $o_t = 2t$ qui permet de prédire l'observation au temps 5: $o_5 = 10$. 
-Mais bien sur, il existe une infinité de polynômes de degré $t$ compatibles avec une série de longueur $t$, par exemple, pour notre série de longueur 4:  $o_t = 2t^4 - 20 t^3 + 70t^2 - 98t + 48$. 
-Cette représentation de l'environnement prédirait l'observation au temps 5: $o_5 = 58$.
-Il note que l'humain utilise naturellement le principe du rasoir d'Occam consistent à choisir le modèle le plus simple qui \og explique \fg la série d'observations. 
-Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilise indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
 
 
 \section{Neurosciences}

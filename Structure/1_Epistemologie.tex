@@ -7,12 +7,30 @@ Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle 
 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
+
 \section{Épistémologie pragmatique}
 \label{sec:pragmatisme}
+
+Les philosophes des lumières ont provoqué un changement de paradigme dans la conception de la connaissance. 
+
 
 William James: role central de l'action et de la praxis.
 
 David Hume, Notion de \an{bundle} pour représenter les objets par l'ensemble des interactions qu'ils \an{afford}.
+
+
+\begin{quote}
+\an{Comportment, according to Heidegger, […] ``precedes every possible mode of activity in general,''
+	prior to explicit beliefs, prior to explicit knowledge, prior to explicit conceptual thinking, and even prior
+	to explicit desire. 
+	Comportment is thus primary, in exactly this sense. 
+	The traditional mistake of representationalism lies in the fact that they treat explicit knowledge and its correlates as the most basic
+	instead, and thus they turn the priority upside-down; and in so doing, ``every act of directing oneself toward something receives [wrongly] the characteristics of knowing'' (Heidegger, 1927)
+}
+\cite[p.~361]{sun_desiderata_2004}
+\end{quote}
+
+
 
 Ludvig Wittgenstein: \an{meaning is use} surtout connu dans le cadre de la philosophie du langage pour dire que le sens des mots provient de leur usage dans le discours. 
 Mais cette pensée est plus générale pour dire que le sens de tout symbole est lié à l'usage que le sujet en fait dans le cadre de ses propres motivations. 
@@ -22,6 +40,21 @@ Mais cette pensée est plus générale pour dire que le sens de tout symbole est
 Charles Sanders Peirce est parmi les premiers à suggérer que l'apprentissage se fait par \og sédimentation d'habitudes \fg.
 
 Cette idées est reprise en épistémologie pragmatique par David Hume: je connais le mouvement du soleil car j'ai l'habitude qu'il se lève tous les matins. 
+
+\section{Théorie du processus}
+
+\begin{quote}
+	\an{If we are to look for substance anywhere, I should find it in events which are in some sense the ultimate substance of nature.}
+	\cite{whitehead_process_1978}
+\end{quote}
+
+\textbf{}
+
+Importance de la notion d'événements. 
+
+Alfred North Whitehead
+
+
 
 \section{Théorie évolutionniste de la connaissance}
 
@@ -132,56 +165,81 @@ Dans son ouvrage \emph{Pour comprendre Jean Piagiet} \cite{dolle_pour_1997}, Jea
 	\item L'intelligence opératoire formelle 
 \end{enumerate}
 
-Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est largement enrichie. 
-Dans le chapitre \an{The origins and sources of action} de l'ouvrage \an{Oxford handbook of human action}, Bernhard Hommel et Birgit Elsner soulignent que, bien que les nouveaux-nés disposent déjà de capacités motrices et sensorielles, il est généralement admis qu'ils ne sont pas encore en mesure d'effectuer des actions intentionnelles \cite{hommel_acquisition_2009}. 
-Ils peuvent mouvoir leur corps et percevoir des événements sensoriels, y compris des réactions (\an{feedbacks}) résultants de leurs mouvements. 
-Les conséquences de leurs actions, qu'elles soient distales (visuelles ou auditives) ou proximales (tactiles, proprioceptives) sont enregistrées dès la naissance. 
-Les auteurs posent la question centrale : comment passons-nous de l'état de nouveau-né agité et réceptif à celui d'agent intentionnel ? 
+Piaget ne conçoit pas ces étapes comme des phases nettement délimitées mais plutôt comme des repères jalonnant une trajectoire développementale continue. 
+Dans un premier temps, l'enfant acquière une intelligence sensorimotrice (étape 1) qui lui permet de maitriser son appareil perceptif et moteur afin de se déplacer et interagir efficacement avec les éléments de son environnement en construisant des chaines causales. 
+Il développe ensuite un système symbolique sur la base des objets concrets (étape 2), avant d'accéder à une intelligence plus générale basée sur le langage et le raisonnement logico-mathématique (étape 3). 
 
-Ils retracent l'émergence progressive du contrôle d'action par d'expériences d'interaction qui commence par l'apprentissage de ce que nous avons la possibilité de faire. 
-Pendant les 8 premiers mois de la vie, la maturation conduit à la différentiation de motifs de comportements innés pour améliorer la coordination et le contrôle du mouvement. 
-Ils enregistrent les relations entre leurs mouvements et les événements se produisant dans l'environnement. 
-Dès deux mois, les nouveaux nés peuvent apprendre à modifier la fréquence de succion pour obtenir certains résultats sensoriels comme entendre la voix de leur mère, voir certaines photos, ou obtenir leur lait préféré \cite{rochat_emerging_1999}
-De deux à quatre mois, toutes sortes d'expérience ont montré l'habileté des enfants pour repérer des connexions entrer leurs mouvements de différentes parties du corps et la survenue d'événement favorables ou défavorables qui mettent en évidence l'acquisition d'une connaissance des relations action-effet et témoignent la capacité de se fixer un objectif de produire un certain événement et de déclencher les actions nécessaires pour le réaliser.Ils s'engagent dans des activités ludique consistant à répéter ses opérations et produisant des rires quand ils y parviennent ou une déception quand ils échouent. 
-Hommel propose un modèle un deux étapes de l'acquisition d'actions volontaires : l'étape 1 consiste en l'apprentissage des contingences être les mouvements et les effets, et l'étape 2 consiste à se fixer des objectifs et utiliser cette connaissance pour les atteindre.   
-Certaines expériences montrent que le cortex premoteur pourrait intégrer les actions avec leurs conséquences attendues sous forme d'une sorete de \an{pragmatic body map} \cite{schubotz_functional_2001}. 
+Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est considérablement enrichie. 
+Philippe Rochat et Tricia Striano, par exemple, ont conçu une expérience montrant que des nourrissons âgés de seulement deux mois étaient déjà capables de se fixer des objectifs.
+Ils pouvaient mobiliser certains comportements issus de leur répertoire inné et les adapter de manière circonstanciée pour atteindre ces objectifs.
+Cette expérience offrait la possibilité aux nourrissons de modifier leur rythme de succion pour obtenir certains résultats sensoriels tels qu'entendre la voix de leur mère, se voir présenter certaines images, ou encore obtenir leur lait préféré \cite{hommel_acquisition_2009}. %de l'ouvrage \an{Oxford handbook of human action} 
+Le chapitre \an{The origins and sources of action} de Bernhard Hommel et Birgit Elsner  \cite{hommel_acquisition_2009} passe en revue de nombreuses expériences mettant en évidence l'habileté d'enfants âgés de deux à quatre mois à acquérir une maitrise des relations action-effet.
+Ces enfants s'engageant spontanément dans des activités ludiques consistant à identifier simultanément des buts possibles et les opérations permettant de les atteindre.
+Ils répètent ensuite ces activités en se perfectionnant et en manifestent de la joie en cas de réussite et de la déception en cas d'échec.  
 
-Est-ce que les schemes sensorimoteurs contiennent aussi une information de valence affective ?
-Un exemple est donné par l'expérience de Tom Becker et ses coauteurs \cite{beckers_automatic_2002} dans laquelle les sujets étaient entrainés à  répondre à un choix binaire de catégorie de mots affectivement neutres, l'une des réponses entrainant une légère décharge électrique.
-Dans la phase de test, ils effectuaient la même tâche, mais avec des mots à valence affective positive ou négative. 
-Comme attendu, la performance s’améliorait lorsque la valence du mot correspondait à celle de la réponse : les mots négatifs étaient traités plus rapidement avec la réponse associée au choc, tandis que l’inverse se produisait pour les mots positifs.
-Les auteurs en concluent l'action acquière la valence affective de ses effets. 
-
-
+D'autres études ont montré qu'une valence affective était généralement apprise en association avec les schèmes sensorimoteurs. 
+Tom Becker et ses coauteurs \cite{beckers_automatic_2002}, par exemple, on mis cette association en évidence en mesurant des temps de réponse plus courts en cas de congruence des valences affectives. 
+Des sujets adultes étaient entrainés à  répondre à un choix binaire de catégorie de mots affectivement neutres en pressant des boutons. 
+L'une des réponses provoquait une légère décharge électrique.
+Dans la phase de test, les sujets effectuaient la même tâche, mais avec des mots à valence affective positive ou négative. 
+L'expérience a montré que les mots positifs étaient traités plus rapidement quand la réponse n'induisait pas de choc, et inversement pour les mots négatifs. 
+En se référant à la \an{Theory of Event Coding (TEC)} de Hommel \cite{hommel_theory_2001}, Becker conclut que les sujets encodent des événements unitaires qui regroupent les informations sensorielles, motrices, et de valence affective. 
 
 
 
-\section{Théorie du processus}
 
-\begin{quote}
-\an{If we are to look for substance anywhere, I should find it in events which are in some sense the ultimate substance of nature.}
-\cite{whitehead_process_1978}
-\end{quote}
+% Hommel soulignent que, bien que les nouveaux-nés disposent déjà de capacités motrices et sensorielles, il est généralement admis qu'ils ne sont pas encore en mesure d'effectuer des actions intentionnelles \cite{hommel_acquisition_2009}. 
+%Ils peuvent mouvoir leur corps et percevoir des événements sensoriels, y compris des réactions (\an{feedbacks}) résultants de leurs mouvements. 
+%Les conséquences de leurs actions, qu'elles soient distales (visuelles ou auditives) ou proximales (tactiles, proprioceptives) sont enregistrées dès la naissance. 
+%Les auteurs posent la question centrale : comment passons-nous de l'état de nouveau-né agité et réceptif à celui d'agent intentionnel ? 
+%Hommel propose un modèle un deux étapes de l'acquisition d'actions volontaires : l'étape 1 consiste en l'apprentissage des contingences être les mouvements et les effets, et l'étape 2 consiste à se fixer des objectifs et utiliser cette connaissance pour les atteindre.   
+%Certaines expériences montrent que le cortex premoteur pourrait intégrer les actions avec leurs conséquences attendues sous forme d'une sorte de \an{pragmatic body map} \cite{schubotz_functional_2001}. 
 
-\textbf{}
 
-Importance de la notion d'événements. 
 
-Alfred North Whitehead
+
+
 
 \section{Individuation}
 
+\noindent
+Gilbert Simondon élargit la problématique développementale de Piaget en l'inscrivant dans le cadre plus vaste de l'\emph{individuation}.
+Il propose une \emph{philosophie de l'individuation} basée sur une conception dynamique de l'être, où l'essentiel n'est pas l'individu constitué mais le processus même qui le fait devenir  \cite{simondon_individu_1995}. 
+Ce faisant, il renverse le primat ontologique accordé par la philosophie classique à l'être sur le devenir, au résultat sur l'opération, à l'individu sur l'individuation. 
+Sa pensée affirme ainsi la primauté des \emph{processus d'individuation}, a partir desquels Simondon élabore une conception des individus en transformation continue jusqu'à leur disparition. 
+
+Simondon décrit le processus d'individuation en empruntant à la cristallographie le terme de \emph{transduction}. 
+Dans ce domaine, ce terme désigne l'opération par laquelle un germe cristallin structure de proche en proche une solution en état d'équilibre métastable, jusqu'à former un cristal de grande dimension. 
+Un équilibre est qualifié de métastable lorsqu'une modification locale n'entraîne pas seulement un changement ponctuel, mais provoque, de proche en proche, une reconfiguration globale du champ et l'établissement d’un nouvel équilibre.
+L'encyclopédie Larousse indique: 
+
 \begin{quote}
-Individuation is the formation or becoming of individuals. It is a primal formative activity whereas boundaries and distinctions arise without assuming any individual(s) that precede(s) them 
-\cite[p.~9]{weinbaum_open_2015}.
+	Simondon élargit la propagation transductive de la prise de forme à l'intérieur de la solution cristalline à d'autres domaines, comme la théorie de la connaissance ou la théorie de l'être, ou encore la théorie du progrès technique. La transduction désigne alors plus généralement l'opération par laquelle deux ou plusieurs ordres de réalité incommensurables, entrent en résonance et deviennent commensurables par l'invention d'une dimension qui les articule, et par passage à un ordre plus riche en structures.
 \end{quote}
 
-Marcel Turbiaux relate la pensée de Gilbert Simondon: 
-\begin{quote}
-	L’individuation doit être considérée comme résolution partielle et relative qui se manifeste dans un système recélant des potentiels et refermant une certaine incompatibilité par rapport à lui-même, incompatibilité faite de forces de tension aussi bien que d’impossibilité d’une interaction entre termes extrêmes des dimensions »  \cite[p.~102]{turbiaux_simondon_1967}
-\end{quote}
+Sur cette base, Simondon explique l'individuation au sein d'un milieu \emph{pre-individuel} métastable à partir d'une forme ou d'une information initiale qui déclenche un processus de transduction. 
+A la différence des solutions cristallines, cependant, les organismes vivants offrent un milieu au sein duquel la transduction engendre de nouveaux états métastables, susceptibles à leur tour d'accueillir de nouvelles transduction, en raison des interactions continues de l'organisme avec son environnement.
+Simondon développe à partir de là une philosophie de l'information comme catalyseur du processus d'individuation: 
 
-D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
+\begin{quote}
+Être ou ne pas être information ne dépend pas seulement des caractères internes d’une structure ; l’information n’est pas une chose, mais l’opération d’une chose arrivant dans un système et y produisant une transformation. 
+L’information ne peut se définir en dehors de cet acte d’incidence transformatrice et de l’opération de réception. 
+[…] Est virtuellement récepteur toute réalité qui ne possède pas entièrement en elle-même la détermination du cours de son devenir.
+[…] [L]a réalité locale, le récepteur, est modifiée en son devenir par la réalité incidente, et c’est cette modification de la réalité locale par la réalité incidente qui est la fonction d’information.	
+	\cite[p.~159]{simondon_communication_2015}
+\end{quote}	
+
+Simondon a été marqué par la cybernétique et s'est beaucoup intéressé à l'individuation des objets techniques.
+Pourtant, son influence reste encore limitée dans la communauté contemporaine de l'intelligence artificielle. 
+Le cadre qu’il propose pour penser l’IA comme un processus d'individuation d'un agent artificiel, où l'information joue le rôle de catalyseur, apparaît cependant particulièrement fécond.
+Il nous invite à nous demander s’il est possible de concevoir un artefact dont la structure informationnelle soit \og suffisamment métastable \fg pour disposer d'un véritable potentiel d’individuation.
+La question n’est alors plus : « qu’est-ce que l’intelligence ? », mais plutôt : « comment l’intelligence advient-elle ? ».
+
+Je retiens qu'il faudrait envisager l'agent artificiel comme un processus d’individuation en interaction constante avec son milieu technique et humain. 
+Son autonomie ne se définit pas comme une donnée préalable, mais comme le résultat d’une relation dynamique aux utilisateurs, aux autres machines et à l’environnement. Son adaptation devrait transformer sa structure logicielle pour permettre son individuation continue par propagation de transformations.
+
+
+%D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
 
 
 \section{Neurosciences}
@@ -203,7 +261,7 @@ D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigid
 
 \subsection{Apprentissage spatio-sequentiel}
 
-Roddy Grieves et Kate Jeffery font une synthèse des des connaissances sur la représentation de l'espace dans le cerveau in \ref{fig:space}.
+Roddy Grieves et Kate Jeffery font une synthèse des connaissances sur la représentation de l'espace dans le cerveau in \ref{fig:space}.
 
 \begin{figure}[ht]
 	\centering

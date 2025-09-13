@@ -8,32 +8,75 @@ Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
 
+\section{Fondements épistémologiques}
+\label{sec:limieres}
+
+\noindent
+La révolution épistémologique des Lumières a renouvelé en profondeur la manière de penser le savoir, la raison et l’expérience.
+Les philosophes britanniques de l'empirisme comme John Locke et David Hume ont ouvert la voie de cette \og révolution copernicienne \fg en remettant radicalement en question le rationalisme cartésien qui les a précédés. 
+Ils affirment que toute connaissance provient de l'expérience sensible, remettant en cause la notion de vérité indubitable, innées ou issue d'une substance métaphysique, qui serait accessible à la raison seule.
+
+Locke forge l'image de la \emph{tabula rasa} pour désigner l'absence de connaissance à la naissance. 
+Pour Hume, toutes les connaissances humaines trouvent leur origine dans les \an{impressions}:
+
+\begin{quote}
+\an{By the term \emph{impression}, I mean all our more lively perceptions, when we hear, or see, or feel, or love, or hate, or desire, or will. [...]
+Impressions may be divided into two kinds, those of sensation and those of reflection. The first kind arises in the soul originally, from unknown causes. The second is derived in a great measure from our ideas, and is a result of the mind’s operations.}
+[...]
+\an{What is commonly, in a popular sense, called reason, and is so much recommended in moral discourses, is nothing but a general and a calm passion, which takes a comprehensive and a distant view of its object, and actuates the will, without exciting any sensible emotion.}
+\cite{hume_treatise_1739}
+\end{quote}
+
+L'empirisme de Hume montre que l'humain est avant tout un être sensible régi par la dynamique complexe et changeante de ses sentiments et passions.  
+Il montre la fragilité du lien entre cause et effet : pour lui, la causalité n’est qu’une habitude mentale résultant de la répétition d'impressions.
+Il propose la théorie du faisceau (\an{bundle theory}) selon laquelle les objets sont constitués uniquement par une collection d'impressions dont le sujet fait l'expérience.  
+
+Sur le continent européen, Emmanuel Kant critique à la fois le dogmatisme du rationalisme et le scepticisme de l'empirisme, posant que la connaissance ne se contente pas de s’adapter au monde mais que le sujet humain organise activement ses expériences.
+% à travers des formes a priori et des catégories de l’entendement.
+Il rejette l'idée de \emph{tabula rasa} de Locke, mais poursuit l'idée de Hume que les humains ne peuvent connaitre que les \emph{phénomènes} : les choses \og en tant que les humains puissent en faire l'expérience \fg.
+Il appelle \emph{noumènes} les \og choses en soi \fg inaccessibles à l'expérience et à la connaissance humaine.
+Il se distingue de l'empirisme en considérant que l’esprit ne reçoit pas passivement les perceptions, mais structure les phénomènes à travers des \emph{schèmes} qui rendent la connaissance possible.
+Selon Kant, toute expérience sensible est déjà conditionnée par les structures du sujet connaissant : des catégories de l'entendement et des formes \textit{a priori}, dont l'espace et le temps.
+La connaissance naît de la rencontre entre les données de l’expérience et les formes que l’esprit impose à ces données.
+
+Ces bouleversements ont souligné le rôle fondamental du sujet, la nécessité de l’expérience et la puissance des lois de l’esprit, ouvrant la voie à l'exploration des moyens et des conditions de la connaissance.
+
+
+
+
+
 \section{Épistémologie pragmatique}
 \label{sec:pragmatisme}
 
-Les philosophes des lumières ont provoqué un changement de paradigme dans la conception de la connaissance. 
+Le pragmatisme désigne une épistémologie selon laquelle la connaissance est fondée par l’usage qui peut en être fait. 
+Le terme de "pragmatisme" vient du grec pragmata, action. 
+Cette épistémologie provient des travaux de Charles Sanders Pierce et est également associée à William James et John Dewey. 
+Pour James, le vrai absolument objectif n'existe pas, car on ne peut séparer une idée de ses conditions humaines de production. 
+La vérité, qu'elle soit scientifique ou naïve, est nécessairement choisie en fonctions d'intérêts subjectifs. 
+On associe également Wittgenstein à la philosophie pragmatique plus particulièrement dans le cadre de la philosophie du langage, avec sa formule "\an{meaning is use}". 
+Pour Wittgenstein (1953), la signification d’un énoncé pour un "sujet connaissant" correspond à l’usage qu'il peut faire de cet énoncé. 
+Mais cette pensée va au delà de la philosophie du langage pour dire que le sens de tout symbole est lié à l'usage que le sujet en fait dans le cadre de ses propres motivations. 
+Pour autant, cette théorie ne réduit pas le vrai à l'utile, contrairement à ce que ses détracteurs lui reprochaient. 
+En effet, cette théorie conserve d'une part une idée d'accord avec le réel, "accord" défini comme vérification et non comme correspondance terme à terme ; d'autre part, une idée de cohérence interne avec l'ensemble des vérités déjà adoptées. 
 
+Cette théorie peut s’appliquer à notre travail à deux niveaux. 
+D’une part, par rapport à la pratique de l’ergonomie, pour expliquer qu’un ergonome comprendra un énoncé descriptif de l'activité en vertu de ses objectifs d'ergonome. 
+Et d’autre part, par rapport à la pratique de la conduite automobile, pour expliquer que les symboles qui participent à cet énoncé descriptif, prennent sens dans le contexte de cette pratique même.
+
+\begin{quote}
+	\an{Comportment, according to Heidegger, […] ``precedes every possible mode of activity in general,''
+		prior to explicit beliefs, prior to explicit knowledge, prior to explicit conceptual thinking, and even prior
+		to explicit desire. 
+		Comportment is thus primary, in exactly this sense. 
+		The traditional mistake of representationalism lies in the fact that they treat explicit knowledge and its correlates as the most basic
+		instead, and thus they turn the priority upside-down; and in so doing, ``every act of directing oneself toward something receives [wrongly] the characteristics of knowing'' (Heidegger, 1927)
+	}
+	\cite[p.~361]{sun_desiderata_2004}
+\end{quote}
 
 William James: role central de l'action et de la praxis.
 
-David Hume, Notion de \an{bundle} pour représenter les objets par l'ensemble des interactions qu'ils \an{afford}.
 
-
-\begin{quote}
-\an{Comportment, according to Heidegger, […] ``precedes every possible mode of activity in general,''
-	prior to explicit beliefs, prior to explicit knowledge, prior to explicit conceptual thinking, and even prior
-	to explicit desire. 
-	Comportment is thus primary, in exactly this sense. 
-	The traditional mistake of representationalism lies in the fact that they treat explicit knowledge and its correlates as the most basic
-	instead, and thus they turn the priority upside-down; and in so doing, ``every act of directing oneself toward something receives [wrongly] the characteristics of knowing'' (Heidegger, 1927)
-}
-\cite[p.~361]{sun_desiderata_2004}
-\end{quote}
-
-
-
-Ludvig Wittgenstein: \an{meaning is use} surtout connu dans le cadre de la philosophie du langage pour dire que le sens des mots provient de leur usage dans le discours. 
-Mais cette pensée est plus générale pour dire que le sens de tout symbole est lié à l'usage que le sujet en fait dans le cadre de ses propres motivations. 
 
 \section{Fondements de la connaissance dans l'habitude}
 
@@ -122,8 +165,9 @@ La connaissance ainsi abstraite pourra faire l’objet d’une analyse réflexiv
 
 Les détracteurs de l'épistémologie génétique ont contesté le rôle fondamental que Piaget donnait à l'expérience sensorimotrice.
 Leurs critiques convergent avec des travaux récents suggérant l'existence d'une forme de subjectivité durant les stades tardifs de la vie intra utérine quand les apports sensorimoteurs semblent encore très limités \cite{moser_magnetoencephalographic_2021}.
-On peut toutefois contre-argumenter que, même in utero, la vie fœtale n'est pas dénuée d'interactions. 
-Même si Piaget semblait penser que le sujet se construisait par interaction avec le monde extérieure après la naissance, ses idées épistémologiques restent applicables aux interactions intra utérine du foetus. 
+On peut toutefois contre-argumenter que, même in utero, la vie fœtale n'est pas dépourvue d'interactions. 
+Des recherches récentes commencent à montrer l'importance des interaction à l'\oe uvre pendant l'embryogenèse animale, par exemple dans l'équipe de Michael Levin \cite{tung_embryos_2024}.
+Même si Piaget semblait penser que le sujet se construisait par interaction avec le monde extérieure après la naissance, ses idées épistémologiques restent applicables aux interactions pré-natales. 
 Quoi qu'il en soit, l'épistémologie génétique est largement acceptée comme la référence fondatrice des théories cherchant à expliquer l'émergence de la connaissance à parti de la matière chimique et organique. 
 
 Je retiens le concept clé de \emph{schème sensorimoteur} comme construit cognitif qui organise l'expérience d'interaction entre le corps et l'environnement.
@@ -233,6 +277,7 @@ Simondon a été marqué par la cybernétique et s'est beaucoup intéressé à l
 Pourtant, son influence reste encore limitée dans la communauté contemporaine de l'intelligence artificielle. 
 Le cadre qu’il propose pour penser l’IA comme un processus d'individuation d'un agent artificiel, où l'information joue le rôle de catalyseur, apparaît cependant particulièrement fécond.
 Il nous invite à nous demander s’il est possible de concevoir un artefact dont la structure informationnelle soit \og suffisamment métastable \fg pour disposer d'un véritable potentiel d’individuation.
+C'est un problème de \an{reverse engineering} difficile. 
 La question n’est alors plus : « qu’est-ce que l’intelligence ? », mais plutôt : « comment l’intelligence advient-elle ? ».
 
 Je retiens qu'il faudrait envisager l'agent artificiel comme un processus d’individuation en interaction constante avec son milieu technique et humain. 
@@ -300,6 +345,8 @@ David Deutsch exprime de manière un peu provocatrice qu'on attend d'une vraie i
 	}
 \cite[p.~119]{deutsch_beyond_2019}.
 \end{quote}
+
+Aussi, un agent doit être capable d'abandonner un objectif, par exemple s'il se rend compte qu'il est inatteignable.
 
 \subsection{Abstract Reasoning Challenge}
 

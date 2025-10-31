@@ -83,9 +83,9 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
-	\caption{Projections 3D de l'embedding des interactions. 
-		Gauche: regroupement par couleur: \texttt{wall} (haut gauche) et \texttt{empty} (bas droite).
-		Droite: regroupement par direction: \texttt{left} (droite), \texttt{front} et \texttt{right} (haut)}
+	\caption{Projections 3D de l'\an{embedding} des interactions. 
+		Gauche: regroupement par type d'objet de l'environnement: \texttt{empty} (en rose en haut à gauche) et \texttt{wall} (en gris foncé en bas à droite).
+		Droite: regroupement par direction relative à l'agent: \texttt{left} (en bas à droite), \texttt{front} (en bas à gauche) et \texttt{right} (en haut à gauche).}
 	\label{fig:embedding}
 \end{figure}
 
@@ -98,17 +98,58 @@ La reiteration de \an{stream of behaviors} permet de parler d'auto programmation
 \section{Implémentation de comportements instinctifs}
 
 La \an{Horseshoe Crab experiment} illustre l'implémentation de comportements instinctifs.
-Avec le même système sensorimoteur, on peut générer des comportements d'approche ou d'éloignement en définissant des valences différentes.  
+
+Cette expérimentation illustre comment le \an{schema mechanism} peut être utilisé avec un signal sensoriel distant tel que la vision ou l'olfaction. 
+% Pour cela, nous avons associé l'\an{outcome} aux variations du signal sensoriel. 
+
+Nous nous somme inspirés du système visuel et des comportements de la limule (\an{horseshoe crab}), une espère d'arthropodes marins qu'on rencontre sur les cotes est de l'Amérique. 
+Nous en avons retenu deux principes:
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item La sensibilité au mouvement: le signal envoyé au cerveau ne de représente pas des formes statiques mais plutot des changements dans le champ visuel: L'\oe il de la limule est `` \an{highly sensitive to images of crab-size objects moving within the animal’s visual 	range at about the speed of a horseshoe crab (15 cm/s)}'' \cite[p.~172]{barlow_limulus_2001}. 
+	\item Les tendances comportementales visuo-spatiales: Les limules mâles se dirigent vers les femelles quand ils les voient avec leurs yeux à facettes, alors que les femelles s'éloignent des autres femelles quand elles les voient. 
+\end{itemize}
+
+Les yeux des limules sont fixes sur leur corps, mais lorsqu'elle bouge, elles engendrent un signal visuel de mouvement du fait de leur propre mouvement même si la femelle observée est immobile.
+
+Sur cette inspiration, nous avons modélisé le signal visuel de telle sorte que l'\an{outcome} reflète des changements dans le champ visuel. 
+
+La Figure \ref{fig:horseshoe} montre le système de perception distal que nous avons implémenté.  
+Chaque \oe il couvre un champ de 90°. 
+Les deux champs visuels se recouvrent sur la ligne située devant l'agent. 
+
+En combinant les deux yeux avec un capteur de colision devant l'agent nous obtenons les outcome suivants: 
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item \texttt{Stable}: la cible reste à distance constante
+	\item \texttt{Bump} : collision avec un mur
+	\item \texttt{Increase left} : la cible apparait au se rapproche à gauche
+	\item \texttt{Increase front} : la cible apparait ou se rapproche devant
+	\item \texttt{Increase right} : la cible apparait ou se rapproche à droite
+	\item \texttt{Decrease} : la cible disparait 
+	\item \texttt{Eat} : l'agent atteint la cible et la mange
+\end{itemize}
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{Figures/4_horseshoe_crab.pdf}
 	\caption{La \an{Horseshoe crab experiment} (\cite{georgeon_model_2011}, Fig. 1). 
-	Gauche: le système visuel de l'agent
+	Gauche: le système visuel de l'agent.
 	Droite-haut: la stratégie diagonale.
 	Droite-bas: la stratégie tangentielle}
 	\label{fig:horseshoe}
 \end{figure}
+
+Si on attribue des valences positives aux interactions de mouvement qui génèrent un \an{outcome} ``\an{increase}'' alors on obtient un agent qui se dirige vers la cible comme une limule mâle. 
+Inversement, avec des valences négatives, l'agent s'éloigne de la cible comme une limule femelle.
+Mais ces comportements nécessitent un certain apprentissage car l'agent initialement ignore la signification de ses actions et des \an{outcomes}. 
+En fonction de l'expérience individuelle de chaque agent, nous avons pu observer l'apprentissage de différents comportements qui mènent à atteindre la cible, illustrés en Figure \ref{fig:horseshoe}: 
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item Le comportement en diagonale consiste à alterner les interactions \interaction{forward, increase left},\interaction{turn left, stable}, \interaction{forward, increase right}, \interaction{turn right, stable} jusqu'à être aligné avec la cible puis répéter \interaction{forward, incease front} jusqu'à atteindre la cible.
+	\item Le comportement tangentiel consiste à répéter l'interaction \interaction{forward, increase left} jusuq'à obtenir \interaction{forward, decrease} quand la cible est dépassée, puis \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}. En effet, l'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
+\end{itemize}
+Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
+
 
 \section{Intégration multimodale}
 

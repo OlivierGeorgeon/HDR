@@ -92,10 +92,12 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 \section{Auto-programmation moto-sensorielle}
 
+
 La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
 \cite{georgeon_cash_2019}
 
 \section{Implémentation de comportements instinctifs}
+\label{sec:horseshoe}
 
 La \an{Horseshoe Crab experiment} illustre l'implémentation de comportements instinctifs.
 
@@ -151,9 +153,23 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
 
 
-\section{Intégration multimodale}
+\section{Navigation dans une scène composée}
 
-L'article \an{Early-stage vision of composite scenes for spatial learning and navigation} \cite{georgeon_early-stage_2011} présente une de nos premières tentatives d'intégration sensorielle multimodale et de différentiation des objets de l'environnement. 
+Nous avons étendu l'expérimentation décrite au paragraphe précédent pour étudier comment concevoir un agent capable d'exhiber des comportements de navigation au sein d'une scène contenant des cibles variées. 
+
+
+L'article \an{Early-stage vision of composite scenes for spatial learning and navigation} \cite{georgeon_early-stage_2011}  s'inspire des comportements de butinage des abeilles. 
+Notre agent explore son environnement en s'approchant des objets saillant dans son champ visuel. 
+Certains objets représentent des fleurs qui ``affordent'' une interaction de collecte de pollen. 
+La ruche ``afforde'' l'interaction de dépôt de pollen.
+D'autres objets peuvent simplement servir de \an{landmarks} qui l'abeille peut utiliser pour retrouver son chemin en direction d'un champ de fleurs puis pour retourner à la ruche.   
+
+Pour obtenir ce comportement nous avons enrichi le mécanisme de perception visuel ainsi que le système motivationnel. 
+
+Elle montre un agent qui étend le mécanisme présenté en Section \ref{sec:horseshoe} pour utiliser certaines cibles comme des balises pour 
+
+présente une de nos premières tentatives d'intégration sensorielle multimodale et de différentiation des objets de l'environnement. 
+
 La figure \ref{fig:bee} présente le système visuel de l'agent.
 
 \begin{figure}[ht]

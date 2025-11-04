@@ -409,7 +409,7 @@ Roddy Grieves et Kate Jeffery font une synthèse des connaissances sur la repré
 
 Hippocampe: mémoire spatiale et mémoire séquentielle. 
 
-\section{Mesures de l'intelligence}
+\section{Mesurer l'intelligence}
 
 Comment mesurer l'intelligence est une question compliquée qui n'a pas encore de réponse définitive. 
 Legg note que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
@@ -438,11 +438,12 @@ David Deutsch exprime de manière un peu provocatrice qu'on attend d'une vraie i
 Aussi, un agent doit être capable d'abandonner un objectif, par exemple s'il se rend compte qu'il est inatteignable.
 
 \subsection{Abstract Reasoning Challenge}
+\label{sec:arc}
 
 L'objectif du \an{Abstract Reasoning Challenge} (ARC) est d'évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
 
 
-Francois Chollet identifie 4 \an{core knowledge} : 
+Dans son article ``\an{On the measure of intelligence}'', Francois Chollet \cite{chollet_measure_2019} identifie quatre \an{core knowledge} : 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
@@ -483,6 +484,25 @@ In a recent study [57], a simple computational model of object recognition was d
 	\label{fig:maye}
 \end{figure}
 
+
+\subsection{Mesures de l'apprentissage d'un modèle du monde}
+
+Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Warrier et al. identifient quatre catégories de \an{benchmarks} destinés à évaluer l'apprentissage d'un modèle du monde:
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Un exemple typique est le ARC challenge présenté en Section~\ref{sec:arc}
+	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
+	L'évaluation repose sur des mesures propres à chaque format de représentation. 
+	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 
+	Elle empêche la comparaison entre différents formats de représentation.  
+	\item les \an{benchmarks} avec récompense objective utilisés en apprentissage par renforcement tels qu'\an{Open Gymnasium} de OpenAI.  
+	\item les \an{unsupervised RL benchmarks} reposent sur une méthode en deux phases: une phase d'interaction et une phase de test. 
+	Dans la première, l'agent interagit sans objectif explicite; dans la seconde, il est évalué sur sa capacité à accomplir une tâche spécifique.
+\end{itemize} 
+
+Warrier propose WorldTest, une évolution des \an{unsupervised RL benchmarks}, qui différencie un \og environnement de base \fg durant la phase d'interaction, et un \og environnement dérivé à objectif explicite \fg durant la phase de test.
+Ce dernier diffère de l'environnement de base tout en lui restant corrélé. 
+WorldTest évalue la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé. 
 
 \subsection{Bilan des mesures}
 

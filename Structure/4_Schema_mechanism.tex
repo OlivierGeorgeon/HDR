@@ -99,8 +99,8 @@ La reiteration de \an{stream of behaviors} permet de parler d'auto programmation
 \section{Implémentation de comportements instinctifs}
 \label{sec:horseshoe}
 
+\noindent
 La \an{Horseshoe Crab experiment} illustre l'implémentation de comportements instinctifs.
-
 Cette expérimentation illustre comment le \an{schema mechanism} peut être utilisé avec un signal sensoriel distant tel que la vision ou l'olfaction. 
 % Pour cela, nous avons associé l'\an{outcome} aux variations du signal sensoriel. 
 
@@ -122,13 +122,13 @@ Les deux champs visuels se recouvrent sur la ligne située devant l'agent.
 En combinant les deux yeux avec un capteur de colision devant l'agent nous obtenons les outcome suivants: 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item \texttt{Stable}: la cible reste à distance constante
-	\item \texttt{Bump} : collision avec un mur
-	\item \texttt{Increase left} : la cible apparait au se rapproche à gauche
-	\item \texttt{Increase front} : la cible apparait ou se rapproche devant
-	\item \texttt{Increase right} : la cible apparait ou se rapproche à droite
-	\item \texttt{Decrease} : la cible disparait 
-	\item \texttt{Eat} : l'agent atteint la cible et la mange
+	\item \texttt{stable}: la cible reste à distance constante
+	\item \texttt{bump} : collision avec un mur
+	\item \texttt{increase left} : la cible apparait au se rapproche à gauche
+	\item \texttt{increase front} : la cible apparait ou se rapproche devant
+	\item \texttt{increase right} : la cible apparait ou se rapproche à droite
+	\item \texttt{decrease} : la cible s'éloigne ou disparait 
+	\item \texttt{eat} : l'agent atteint la cible et la mange
 \end{itemize}
 
 
@@ -153,30 +153,48 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
 
 
-\section{Navigation dans une scène composée}
+\section{Navigation dans une scène variée}
 
-Nous avons étendu l'expérimentation décrite au paragraphe précédent pour étudier comment concevoir un agent capable d'exhiber des comportements de navigation au sein d'une scène contenant des cibles variées. 
+\noindent
+En nous appuyant sur les comportements décris au paragraphe précédent, nous avons étudié comment concevoir un agent capable de naviguer entre des cibles variées. 
+Pour cela nous avons étendu les mécanismes perceptifs et motivationnels, et ajouté un \emph{mécanisme attentionnel}.
 
+Le mécanisme attentionnel sélectionne une cible particulière parmi les cibles présentes dans le champ perceptif en fonction d'une valence motivationnelle associée à chaque cible.
+Les comportements d'approche de la cible sur laquelle l'agent focalise son attention sont identiques à ceux décrits en Section \ref{sec:horseshoe}.
 
-L'article \an{Early-stage vision of composite scenes for spatial learning and navigation} \cite{georgeon_early-stage_2011}  s'inspire des comportements de butinage des abeilles. 
-Notre agent explore son environnement en s'approchant des objets saillant dans son champ visuel. 
-Certains objets représentent des fleurs qui ``affordent'' une interaction de collecte de pollen. 
-La ruche ``afforde'' l'interaction de dépôt de pollen.
-D'autres objets peuvent simplement servir de \an{landmarks} qui l'abeille peut utiliser pour retrouver son chemin en direction d'un champ de fleurs puis pour retourner à la ruche.   
+Le mécanisme perceptif visuel a été étendu par l'ajout d'un second canal appelé \emph{canal perceptif statique}, en parallèle au canal précédent que nous désignons maintenant par le terme de \emph{canal perceptif dynamique}.
+Le canal perceptif statique mémorise une représentation iconique de chaque cible qui permet de la reconnaitre, ainsi qu'une indication du temps écoulée depuis la dernière visite de cette cible. 
 
-Pour obtenir ce comportement nous avons enrichi le mécanisme de perception visuel ainsi que le système motivationnel. 
+L'article \an{Early-stage vision of composite scenes for spatial learning and navigation} \cite{georgeon_early-stage_2011} rapporte un exemple de comportements que nous avons pu générer avec ce mécanisme.
+Cette expérimentation, illustrée en Figure \ref{fig:bee}, s'inspire des comportements de butinage des abeilles. 
+Certaines cibles représentent des fleurs qui peuvent être butinées. 
+La ruche permet de dépôt de pollen.
+D'autres cibles peuvent simplement servir de \an{landmarks} qui l'abeille peut utiliser pour retrouver son chemin en direction d'un champ de fleurs puis pour retourner à la ruche.   
 
-Elle montre un agent qui étend le mécanisme présenté en Section \ref{sec:horseshoe} pour utiliser certaines cibles comme des balises pour 
+Lorsque l'abeille arrive sur une fleur, elle découvre que cette fleur peut être butinée et associe cette information à la représentation iconique de cette fleur apprise par le système perceptif statique. 
+De même, l'abeille associe l'interection de \og dépot de pollen \fg à la ruche. 
 
-présente une de nos premières tentatives d'intégration sensorielle multimodale et de différentiation des objets de l'environnement. 
-
-La figure \ref{fig:bee} présente le système visuel de l'agent.
+Le nouveau système motivationnel associe une valence motivationnelle à chaque cible en fonction des interactions qu'elles permettent et de l'état courant de l'abeille. 
+Au début, l'abeille apprend à se diriger vers les cibles de la même façon que dans l'expérimentation précédente. 
+Lorsqu'elle arrive sur une cible, elle associe l'interaction permise par cette cible à la représentation iconique de cette cible: le fait que les fleurs peuvent être butinées et que la ruche permet le dépôt de pollen. 
+Ces valences motivationnelles sont propagées sur les autres cibles en fonction de leur temps de trajet estimé par rapport aux fleurs ou à la ruche. 
+Lorsque l'abeille est en phase de recherche de pollen, la cible qui est la plus proche du champ de fleur reçoit sont attention, et l'abeille navigue ainsi de cibles en cibles jusqu'a retrouver le champ de fleurs. 
+Le même mécanisme est utilisé pour retrouver la ruche quand l'abeille porte du pollen. 
+La vidéo présente un exemple de comportement obtenu. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/4_bee.pdf}
-	\caption{Système visuel implémenté dans la \an{Bee experiment} (\cite{georgeon_early-stage_2011}, Fig. 3). }
+	\caption{
+		% Système visuel implémenté dans la \an{Bee experiment} (\cite{georgeon_early-stage_2011}, Fig. 3). 
+		Expérimentation de navigation dans une scène variée. 
+		Cellule violette (e5): la ruche. Cellules bleues: fleurs. 
+		Cellules vert-foncé: murs que l'abeille ne peut pas traverser et qui masquent le champ visuel. 
+		Autres cellules colorées: \an{landmarks} que l'abeille peut utiliser pour naviguer.   
+		}
 	\label{fig:bee}
 \end{figure}
 
 
+%Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
+%Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  

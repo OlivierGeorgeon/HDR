@@ -12,9 +12,13 @@
 \end{figure}
 
 
-
 Un mécanisme de schéma séquentiel hiérarchique Georgeon at al. \cite{georgeon_schema_2025}
 
+Je propose une nouvelle définition d'un mécanisme de schéma: 
+
+\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales. }
+
+\cite{georgeon_intrinsically-motivated_2012}
 
 \section{Enactive Decision Process (EDP)}
 \label{sec:edp}
@@ -27,6 +31,13 @@ L'EDP formalise l'idée de l'inversion du cycle d'interaction introduite en Sect
 Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
 De même qu'un POMDP est non markovien, un EMDP est non markovien. 
 L'usage du mot Markov dans le nom donne donc une fausse image et il est préférable de l'enlever pour garder seulement EDP.  
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/4_edp.pdf}
+	\caption{Enactive Decision process (\cite{georgeon_artificial_2024}, Fig. 4) }
+	\label{fig:edp}
+\end{figure}
 
 
 \section{Motivation interactionnelle}
@@ -62,6 +73,20 @@ Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
 
 Le \emph{Small Loop Problem}  \cite{georgeon_small_2013}
 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest.pdf}%
+	\quad
+	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest_2.png}
+	\caption{Expérimentations. Gauche: (\cite{georgeon_intrinsically-motivated_2012}, Fig. 10). 
+		Droite: \cite{georgeon_schema_2025-1}
+	}
+	\label{fig:ernest}
+\end{figure}
+
+
+
 La Figure \ref{fig:trace} montre une analyse des comportements
 
 \begin{figure}[ht]
@@ -95,6 +120,16 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
 \cite{georgeon_cash_2019}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{Figures/4_couplage.pdf}
+	\caption{Différents niveaux de couplage (\cite{georgeon_cash_2019} Fig. 1).
+	}
+	\label{fig:couplage}
+\end{figure}
+
+
 
 \section{Implémentation de comportements instinctifs}
 \label{sec:horseshoe}
@@ -194,6 +229,18 @@ La vidéo présente un exemple de comportement obtenu.
 		}
 	\label{fig:bee}
 \end{figure}
+
+
+\section{Comportements naturels dans une scène dynamique}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/5_sharks.png}
+	\caption{Environnement dynamique}
+	\label{fig:sharks}
+\end{figure}
+
+
 
 
 %Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.

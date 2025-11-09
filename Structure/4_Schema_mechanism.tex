@@ -20,6 +20,9 @@ Je propose une nouvelle définition d'un mécanisme de schéma:
 
 \cite{georgeon_intrinsically-motivated_2012}
 
+Repris en détail dans le tutoriel \cite{georgeon_schema_2025-1}
+
+
 \section{Enactive Decision Process (EDP)}
 \label{sec:edp}
 
@@ -71,7 +74,19 @@ Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécan
 
 Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
 
-Le \emph{Small Loop Problem}  \cite{georgeon_small_2013}
+Le \an{Small Loop Challenge}  \cite{georgeon_small_2013}
+
+Dans cette expérimentation, l'agent dispose de six actions dont il ignore initialement la signification: 
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item \texttt{move forward}: tenter d'avancer d'une cellule
+	\item \texttt{turn left} : tourner 90° à gauche
+	\item \texttt{turn right} : tourner 90° à droite
+	\item \texttt{feel left} : sentir la cellule à gauche
+	\item \texttt{feel front} : sentir la cellule devant
+	\item \texttt{feel right} : sentir la cellule à droite
+\end{itemize}
+
 
 
 \begin{figure}[ht]
@@ -79,8 +94,9 @@ Le \emph{Small Loop Problem}  \cite{georgeon_small_2013}
 	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest.pdf}%
 	\quad
 	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest_2.png}
-	\caption{Expérimentations. Gauche: (\cite{georgeon_intrinsically-motivated_2012}, Fig. 10). 
-		Droite: \cite{georgeon_schema_2025-1}
+	\caption{Exemples d'environnements offrant des régularités séquentielles hiérarchiques. 
+		Gauche: Première démonstration du schema mechanism (\cite{georgeon_intrinsically-motivated_2012}, Fig. 10). 
+		Droite: L'environnement \an{Small Loop Challenge} adapté de \cite{georgeon_small_2013} Fig.~1 et \cite{georgeon_demonstrating_2013} Fig.~4. 
 	}
 	\label{fig:ernest}
 \end{figure}
@@ -92,7 +108,7 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_trace.pdf}
-	\caption{Trace d'activité obtenue dans le \emph{Small Loop Problem} \cite{georgeon_demonstrating_2013}}
+	\caption{Trace d'activité obtenue dans le \emph{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5}
 	\label{fig:trace}
 \end{figure}
 
@@ -124,7 +140,13 @@ La reiteration de \an{stream of behaviors} permet de parler d'auto programmation
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{Figures/4_couplage.pdf}
-	\caption{Différents niveaux de couplage (\cite{georgeon_cash_2019} Fig. 1).
+	\caption{Différents niveaux de couplage, adapté de \cite{georgeon_cash_2019} Fig. 1.
+		Le cadre gris délimite le \an{software} couplé au \emph{monde} à travers les registres de sortie (\an{output values}) et d'entrée (\an{input values}). 
+		%Les \emph{valeurs de sortie} commandent des actionneurs et \emph{valeurs d'entrée} sont déterminées par des capteurs.
+		La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui enacte les schémas primitifs.
+		%L'interface contrôle l'enaction des schémas primitifs en commandant les actionneurs par l'intermédiaire des valeurs de sortie et en traitant les \an{outcomes} reçus des capteurs à travers les \emph{valeurs d'entrée}.   
+		Le \emph{couplage cognitif} sépare le système de décisions (au dessus) du système de contrôle des schémas composites (en dessous). 
+		Ce couplage évolue avec l'apprentissage de schémas de plus en plus haut niveau.
 	}
 	\label{fig:couplage}
 \end{figure}
@@ -236,7 +258,9 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/5_sharks.png}
-	\caption{Environnement dynamique}
+	\caption{Environnement continu dynamique. Les agents sont représentés par des requins gris en bas à gauche.
+	Les poissons bleus sont les cibles. Ils se déplacent en ligne droite et font demi tour quand ils atteignent un mur.
+	Les requins et le poissons se déplacent de manière continue dans toutes les directions et non de cellule en cellule.}
 	\label{fig:sharks}
 \end{figure}
 

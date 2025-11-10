@@ -53,18 +53,6 @@ la permet d'associer une valeur scalaire aux interactions qui définit les prefe
 
 \cite{georgeon_interactional_2012}
 
-\section{Interactionisme radical}
-
-Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
-Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
-
-\cite{georgeon_radical_2013}
-
-
-
-L'interactionism radical permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environment à différents niveau d'échelle de temps.  
-
-
 \section{Comparaison avec le modèle POMDP}
 
 Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
@@ -74,9 +62,12 @@ Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécan
 
 Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
 
+
+\section{Expérimentation du \emph{Small Loop Challenge}}
+
 Le \an{Small Loop Challenge}  \cite{georgeon_small_2013}
 
-Dans cette expérimentation, l'agent dispose de six actions dont il ignore initialement la signification: 
+Dans cette expérimentation, l'agent dispose de six décisions possibles: 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item \texttt{move forward}: tenter d'avancer d'une cellule
@@ -87,6 +78,29 @@ Dans cette expérimentation, l'agent dispose de six actions dont il ignore initi
 	\item \texttt{feel right} : sentir la cellule à droite
 \end{itemize}
 
+L'agent reçoit un \an{outcome} de 1 bit qui indique si l'agent a interagit avec une cellule vide ou un mur.
+Les actions \texttt{turn} produisent toujours la même valeur d'\an{outcome}.
+Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_loop}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|}
+		\hline
+		\textbf{Interaction} & \textbf{Signification} & \textbf{Valence} \\ \hline
+		\texttt{move forward} & avancer & 5 \\ \hline
+		\texttt{bump} & percuter avec un mur & -10 \\ \hline
+		\texttt{turn left} & tourner 90° à gauche & -3\\ \hline
+		\texttt{turn right} & tourner 90° à droite & -3\\ \hline
+		\texttt{feel left empty} & sentir une cellule vide à gauche & -1\\ \hline
+		\texttt{feel left wall} & sentir un mur à gauche & -1\\ \hline
+		\texttt{feel front empty} & sentir une cellule vide devant & -1\\ \hline
+		\texttt{feel front wall} & sentir un mur devant & -1\\ \hline
+		\texttt{feel right empty} & sentir une cellule vide à droite & -1\\ \hline
+		\texttt{feel right wall} & sentir un mur à droite & -1\\ \hline
+	\end{tabular}
+	\caption{Liste des interactions dans le \an{Small Loop Challenge}.}
+	\label{tab:small_loop}
+\end{table}
 
 
 \begin{figure}[ht]
@@ -108,7 +122,7 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_trace.pdf}
-	\caption{Trace d'activité obtenue dans le \emph{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5}
+	\caption{Trace d'activité obtenue dans le \an{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5.}
 	\label{fig:trace}
 \end{figure}
 
@@ -133,6 +147,7 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 \section{Auto-programmation moto-sensorielle}
 
+L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environment à différents niveau d'échelle de temps.  
 
 La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
 \cite{georgeon_cash_2019}
@@ -257,12 +272,37 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/5_sharks.png}
+	\includegraphics[width=0.6\textwidth]{Figures/4_sharks.png}
 	\caption{Environnement continu dynamique. Les agents sont représentés par des requins gris en bas à gauche.
 	Les poissons bleus sont les cibles. Ils se déplacent en ligne droite et font demi tour quand ils atteignent un mur.
 	Les requins et le poissons se déplacent de manière continue dans toutes les directions et non de cellule en cellule.}
 	\label{fig:sharks}
 \end{figure}
+
+
+\section{Interactionisme radical}
+
+Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
+Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
+
+\cite{georgeon_radical_2013}
+
+L'interactionisme radical est illustrée en Figure \ref{fig:ir}.
+A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$.
+Enacter $i_{cd}$ consiste à successivement tenter d'enacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
+Si chaque chaque interaction primitive est enactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
+Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
+	\caption{Le cycle de l'Interactionisme Radical, adapté de \cite{georgeon_eca_2013}, Fig.~2.
+	A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd} \in C_d$ consistant à tenter d'enacter k interactions primitives $i_{p1} ... i_{pk} \in I$.
+	Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps d \fg à un niveau d'abstraction supérieur.}
+	\label{fig:ir}
+\end{figure}
+
+
 
 
 

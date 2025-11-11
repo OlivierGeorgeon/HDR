@@ -13,8 +13,8 @@ L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage
 
 \section{Méthodologie}
 
-Les schemas mecanismes offrent la possibilité d'êter \og ensemensés \fg avec des comportements prédifinis. 
-Ceci peut etre fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportemnts hérités de leurs encetres. 
+Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
 Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
 On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
 
@@ -24,11 +24,34 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/6_Petitcat.png}
-	\caption{Le robot Petitcat depuis \cite{schneider_grounding_2024}}
+	\caption{Le robot Petitcat depuis \cite{schneider_grounding_2024}, Fig.~1}
 	\label{fig:Petitcat}
 \end{figure}
 
-La Figure \ref{fig:Petitcat} montre le robot PetitCat.
+La Figure \ref{fig:Petitcat} montre le robot Petitcat.
+
+\section{Inférence des objets physiques}
+
+``\an{Simultaneous Localisation and Phenomenon Inference}'' {pmlr-v192-georgeon22a}.
+
+\cite{georgeon_simultaneous_2022}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.49\textwidth]{Figures/6_moneybox.png}
+	\hfill
+	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/6_phenomenon.png}
+	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~13]{georgeon_schema_2025}.
+		Gauche: le robot observant l'objet. 
+		Droite: le phénomène identifié par le robot. 
+		Le phénomène est constitué de l'ensemble des \og manifestations \fg de l'objet cylindrique à travers les meures d'écho-localisation réalisées quand le robot tourne autour de lui. 
+		Les triangles bleus représentent les cônes du signal ultrasonique émis depuis différentes positions. 
+		La ligne noire est la forme du phénomène reconstituée à parti des échos.
+	}
+	\label{fig:robot}
+\end{figure}
+
+
 
 \section{Robotique émotionnelle}
 

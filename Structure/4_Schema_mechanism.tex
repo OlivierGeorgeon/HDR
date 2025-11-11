@@ -2,25 +2,46 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Mécanisme de schéma 2.0}
 
-\section{Mécanisme de schéma séquentiel hiérarchique}
+\noindent
+Je propose une nouvelle définition d'un mécanisme de schéma: 
+
+\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales.}
+
+Avec Frank Ritter, nous avons présenté la première version dans l'article ``\an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}'' \cite{georgeon_intrinsically-motivated_2012}.
+Au fil des années, j'ai mieux compris et amélioré ce mécanisme. 
+J'ai récemment réécrit un tutoriel complet en Python basé sur dix Jupyter Notebooks permettant de le redévelopper à partir de zéro \cite{georgeon_schema_2025-1}.  
+
+Avec l'aide de Filipo Perotto, Kristinn Thórisson, Paul Robertson, et Gary Drescher, nous avons proposé le label \og 2.0 \fg  dans l'article ``\an{Schema mechanisms 2.0 for developmental artificial intelligence}'' \cite{georgeon_schema_2025}.  
+Cet article examine les évolutions par rapport au \an{schema mechanism} original de Drescher présenté en Section \ref{sec:drescher}.
+
+
+
+\section{Principe}
+
+\noindent
+La Figure \ref{fig:trajectoire} illustre le principe. 
+L'agent est initialisé avec des schémas primitifs de bas niveau représentés par des petites flèches en bas à gauche. 
+Au fil du temps, l'agent apprend des schémas de plus haut niveau représentés par des flèches plus longues. 
+Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par agrégation d'une série de schémas de niveau inférieur pour représenter une régularité d'interaction rencontrée par l'agent. 
+Les schémas de plus haut niveau sont ainsi des compositions hiérarchiques de schémas de plus bas niveau jusqu'au niveau de base défini par les schémas primitifs.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/4_trajectoire.pdf}
-	\caption{Trajectoire développementale \cite{georgeon_demonstrating_2013}}
+	\caption{Trajectoire développementale, adaptée de \cite[Fig.~3]{georgeon_demonstrating_2013}.
+	L'abscisse représente deux échelles de temps: le temps de l'activité dans lequel sont représentés les schémas qui durent un ou plusieurs cycles d'interaction, et le temps développemental qui représente la vie entière de l'agent.
+	L'ordonnée représente le niveau hiérarchique des schémas. 
+	Au cours de son développement, l'agent apprend et réutilise des schémas de plus en plus haut niveau.   }
 	\label{fig:trajectoire}
 \end{figure}
 
+La situation courante est représentée par les schémas qui viennent d'être enactés. 
+Ces schémas réactivent les schémas de plus haut niveau dont ils font partie. 
+Le mécanisme tente de compléter l'enaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
+Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptés aux différentes situations qu'il rencontre. 
+%Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
 
-Un mécanisme de schéma séquentiel hiérarchique Georgeon at al. \cite{georgeon_schema_2025}
-
-Je propose une nouvelle définition d'un mécanisme de schéma: 
-
-\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales. }
-
-\cite{georgeon_intrinsically-motivated_2012}
-
-Repris en détail dans le tutoriel \cite{georgeon_schema_2025-1}
+La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
 
 
 \section{Enactive Decision Process (EDP)}
@@ -52,6 +73,29 @@ la permet d'associer une valeur scalaire aux interactions qui définit les prefe
 
 
 \cite{georgeon_interactional_2012}
+
+
+\section{Apprentissage séquentiel hiérarchique}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/4_agent10.pdf}
+	\caption{Apprentissage et réutilisation hiérarchique de schémas. 
+	}
+	\label{fig:agent10}
+\end{figure}
+
+
+\section{Mécanisme de décision}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/4_agent9.pdf}
+	\caption{Mécanisme de décision. }
+	\label{fig:agent9}
+\end{figure}
+
 
 \section{Comparaison avec le modèle POMDP}
 
@@ -269,6 +313,9 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 
 
 \section{Comportements naturels dans une scène dynamique continue}
+
+\cite{guillermin_artificial_2022}
+
 
 \begin{figure}[ht]
 	\centering

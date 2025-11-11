@@ -345,14 +345,24 @@ David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de S
 \subsection{Constructivist Anticipatory Learning Mechanism (CALM)}
 
 Filipo Perotto \cite{perotto_computational_2013} s'intéresse à l'apprentissage \an{Model Based} dans le cas non markovien introduit en Section \ref{sec:NMDP}.
-Ce qui le distingue par rapport à d'autres approches de POMDP le rernd emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
+Ce qui le distingue par rapport à d'autres approches de POMDP et le rend \emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
 
 
 
 \subsection{Learning Intelligent Decision Agent  LIDA}
 \label{sec:lida}
 
-Sean Kugele \cite{kugele_constructivist_2025} étend LIDA pour inclure un apprentissage constructiviste. 
+LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
+Sean Kugele \cite{kugele_constructivist_2025} a récement étendu LIDA pour inclure un \an{schema mechanism} inspiré de Drescher. 
+Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
+Les \og percpets \fg ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
+
+Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
+Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
+Une instance de schema dont les \an{unbound variables} ont été qualifiées est appelé un \an{behavior}.
+
+LIDA associe également une \an{affective valence} aux schémas qui oriente la sélection des comportements vers des résultats désirables.
+Les préférences (liking and disliking) sont distinguées des désirs (wanting and dreading).
 
 LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
@@ -376,6 +386,7 @@ Ben Goertzel \cite{goertzel_general_2021}.
 
 
 \section{Mécanisme de schéma de Drescher}
+\label{sec:drescher}
 
 Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
 

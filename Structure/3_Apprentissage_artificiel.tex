@@ -225,6 +225,7 @@ On peut modéliser un robot interagissant avec un environnement controlé par un
 
 
 \section{Processus de décision markovien partiellement observable}
+\label{sec:pomdp}
 
 \noindent
 Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien. 
@@ -251,9 +252,6 @@ Dans ce as "l'agent" désine le software qui pilote le robot, incluant la mémoi
 L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software. 
 L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
  
-
-
-
 Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
 Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
 De manière analogue, la récompense peut dépendre de l'état précédent et de la décision prise (comme dans l'exemple de la Section \ref{sec:NMDP}) voire également de l'état suivant comme c'est le cas dans les expériences du bandit manchot.

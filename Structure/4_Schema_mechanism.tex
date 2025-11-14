@@ -47,21 +47,73 @@ La sélection des futurs schémas à enacter parmi ceux qui sont activés par la
 \section{Enactive Decision Process (EDP)}
 \label{sec:edp}
 
-J'ai proposé un modèle d'interaction qui s'inspire du formalisme des POMDP mais dans lequel l'état $s$
-n' \og même pas partiellement observable \fg et dans lequel il n'y a pas de récompense qui soit uniquement fonction de l'état. 
+\noindent
+Le \an{Schema mechanims 2.0} repose sur un modèle d'interaction que je nomme \an{Enactive Decision Process} (EDP).
+Son formalisme s'inspire de celui des POMDPs présenté en Section \ref{sec:pomdp} et intègre le principe d'inversion du cycle d'interaction introduit en Section \ref{sec:inversion}.
 
-L'EDP formalise l'idée de l'inversion du cycle d'interaction introduite en Section \ref{sec:inversion}.
 
-Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
-De même qu'un POMDP est non markovien, un EMDP est non markovien. 
-L'usage du mot Markov dans le nom donne donc une fausse image et il est préférable de l'enlever pour garder seulement EDP.  
+Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans lequel:
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item $S$ est un ensemble fini d'états,
+	\item $D$ est un ensemble fini de décisions,
+	\item $I$ est un ensemble fini d'interactions,
+	\item $q: S\times D \to \Delta(O)$ est une distribution de probabilité $q(i_t|s_t,d_t)$ qui donne la probabilité d'obtenir $i_t \in O$ sachant un état $s_t \in S$ et une décision $d_t \in D$,
+	\item $p:S\times O\to \Delta(S)$ est une distribution de probabilité $p(s_{t+1}|s_t,i_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$ et l'interaction $i_t \in I$.
+\end{itemize}
+
+Comme son nom l'indique, l'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
+Mathématiquement, on impose une relation injective de $D$ vers $I$ qui fait que chaque décision $d \in D$ ne peut donner lieu qu'a une interaction appartenant à un sous-ensemble prédéfini de $I$, et que chaque interaction $i \in I$ ne peut résulter que d'une décision prédéfinie dans $D$. 
+Ainsi, chaque interaction $i_t$ enactée au temps $t$ contient l'information de la décision $d_t$.
+L'historique des interactions n'a donc plus besoin de contenir les décisions mais contient uniquement les interactions $h_t = \langle i_0, ..., i_{t-1} \rangle$.
+
+Le cycle de l'EDP se déroule comme ceci:
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item L'EDP est initialisé avec un état $s_0 \in S$, une décision $d_0 \in D$ et une interaction $i_0 \in I$.
+	% and an initial decision $d_0 \in \mathcal{D}$.
+	\item A chaque cycle $t \geq 0$,
+	l'agent prend une décision $d_t\in D$.
+	L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$.
+	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
+\end{itemize}
+
+En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ résultante de la décision $d_t$ en fin de cycle.
+Notons que dans les deux cas, $o_t$ et $i_t$ sont non markoviennes car elles ne constitue pas un \an{state signal} suffisant pour prendre la prochaine décision. 
+%Mais dans cette information ne provient plus d'une observation de l'état mais d'une interaction avec l'état.
+
+%La façon dont l'agent récupère des informations sur le monde est pourtant différente: l'interaction $i_t$ ne constitue pas une observation partielle de l'état $s_t$ d'un processus markovien.
+
+Une autre différence est que l'agent ne reçoit plus de récompense $r_t$ provenant de l'état.
+Un agent EDP n'est pas destiné à atteindre des états auxquels sont associées des récompenses positives.
+Il n'observe pas des propriétés partielles et bruitées d'un processus markovien dont il pourrait reconstituer l'état caché connaissant a priori les probabilités de transition.
+L'EDP a vocation à être utilisé quand on ignore les distributions de probabilité $p$ et $q$.
+On ne peut donc pas construire la fonction de mise à jour du \an{beleif state} comme présenté en Section \ref{sec:pomdp} sur les POMDPs. 
+%Un agent EDP fait des expériences d'interaction avec un processus markovien   
+
+
+Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde ne changent pas au cour du temps. 
+L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
+Les variables stochastiques $S_t, D_t, I_t$ représentent les distributions de probabilité des états, décision, et interaction au temps $t$.
+Les flèches représentent les dépendances entre ces variables données par $q$ et $p$. 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/4_edp.pdf}
-	\caption{Enactive Decision process (\cite{georgeon_artificial_2024}, Fig. 4) }
-	\label{fig:edp}
+	\includegraphics[width=0.5\textwidth]{Figures/4_edp.pdf}
+	\caption{Enactive Decision Process représenté par un \an{2-step DBN} adapté de \cite[Fig.~4]{georgeon_artificial_2024}.
+		La décision $D_t$ est prise par un mécanisme non représenté qui intègre la connaissance de $I_{t-1}$.	
+		L'état $S_t$ dépend de $I_{t-1}$ et de $S_{t-1}$ selon la distribution de probabilité $p(s_{t+1}|s_{t},i_{t})$.
+		L'interaction $I_t$ dépend de $D_{t}$ et de $S_{t}$ selon la distribution de probabilité $q(i_{t}|s_{t},d_{t})$.
+		Les états $S$ et les probabilités $q$ et $p$ sont cachés pour l'agent.
+		Les variables $I$ constituent la couverture de Markov de l'agent.}
+	\label{fig:dbn_edp}
 \end{figure}
+
+
+
+%Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
+%L'usage du mot Markov dans le nom donne donc une fausse image et il est préférable de l'enlever pour garder seulement EDP.  
+
+
 
 
 \section{Motivation interactionnelle}
@@ -350,7 +402,17 @@ Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ �
 \end{figure}
 
 
+Compared to a POMDP, the main conceptual difference of an EMDP lies in the fact that the decider receives an \textit{interaction} at the end of the cycle, rather than a \textit{signal} at the beginning.
+We introduce the concept of \textit{interaction} as a primitive of the model to represent a sensorimotor pattern that involves both motor actions and sensory signals.
+As such, an interaction implements the fact that ``perception and action cannot be pulled apart'' stressed by the theory of enactive inference introduced in Section \ref{seq:intro}.
+In constructivist learning theory, an interaction corresponds to a Piagetian sensorimotor \textit{scheme}.
+In a robot, an interaction can be implemented through a \textit{control loop} involving actuator motion and sensory feedback \cite{georgeon_cash_2019}.
+Because interactions depend both on the decision and on the state, they can be seen as the counterpart of the couple (decision, signal) in a POMDP.
 
+In an EMDP, the enacted interaction $i_t$ contains information on the previous decision $d_t$.
+The notion of history introduced in section \ref{seq:pomdp}, is therefore simplified in the form of the sequence of enacted interactions $h_t = \{i_0, ..., i_{t-1}\}$ before step $t$.
+As with POMDPs, the history contains the relevant information for the decision-making process.
+It constitutes the Markov blanket that hides the environment's structure to the agent.
 
 
 

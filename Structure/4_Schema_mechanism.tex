@@ -77,8 +77,11 @@ Le cycle de l'EDP se déroule comme ceci:
 	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
 \end{itemize}
 
-En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ résultante de la décision $d_t$ en fin de cycle.
+Par exemple, la décision $d_1$ peut consister à essayer d'avancer pendant une seconde. 
+En fonction de l'environnement, il peut en découler une interaction $i_1$ qui consister à avoir effectivement avancé pendant une seconde ou alors une interaction $i_2$ qui consiste à percuter un obstacle.
+En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ en fin de cycle, résultante de la décision $d_t$.
 Notons que dans les deux cas, $o_t$ et $i_t$ sont non markoviennes car elles ne constitue pas un \an{state signal} suffisant pour prendre la prochaine décision. 
+L'historique des interactions enactées est la seule source d'information de l'agent à propos du monde. 
 %Mais dans cette information ne provient plus d'une observation de l'état mais d'une interaction avec l'état.
 
 %La façon dont l'agent récupère des informations sur le monde est pourtant différente: l'interaction $i_t$ ne constitue pas une observation partielle de l'état $s_t$ d'un processus markovien.
@@ -120,41 +123,60 @@ Les flèches représentent les dépendances entre ces variables données par $q$
 \label{sec:motivation_interactionnelle}
 
 \noindent
-Comme évoqué précédemment, le modèle EDP n'inclut pas de fonction de récompense provenant de l'état $s_t$.
-En revanche, il permet d'associer une \emph{valence} aux interactions, définie sous forme d'une fonction scalaire $v: I \to \mathbb{R}$.
-Le \an{schema mechanism} peut utiliser cette valence comme un des critères de sélection de la décision.
-Il tente d'anticiper les interactions qui pourront résulter des différentes décisions possibles dans le contexte courant, et sélectionne la décision qui a le plus de chance de conduire à des interactions qui ont des valences positives, et d'éviter des interactions qui ont des valences négatives. 
-Les sections suivantes détaillent ce mécanisme.
+Comme indiqué plus haut, le modèle EDP ne comporte pas de fonction de récompense directement associée à l'état $s_t$.
+Il permet en revanche d'attribuer une \emph{valence} aux interactions, définie sous forme d'une fonction scalaire $v: I \to \mathbb{R}$.
+Le \an{schema mechanism} peut utiliser cette valence comme critère dans le processus de sélection de la décision.
+Pour chaque décision possible dans le contexte courant, il tente d'anticiper les interactions susceptibles d'en découler, afin de sélectionner la décision qui a le plus de chance de mener à des interactions à valence positive, et d'écarter celles qui risquent de produire des interactions à valence négative. 
+Les sections suivantes décrivent ce mécanisme plus en détail.
 
-C'est le concepteur qui définit les valences des interactions primitives à travers la fonction $v$.
-De la façon dont elles sont utilisées par le \an{schema mechanism}, il résulte que les valences des interactions primitives semblent définir des préférences d'interaction innées. 
-Du point de vue d'un observateur extérieur, l'agent semble préférer enacter les interactions qui ont une valence positive et éviter les interactions qui ont une valence négative. 
+C'est le concepteur qui définit les interactions primitives et leur attribue leurs valences au moyen de la fonction $v$.
+Compte tenu de la manière dont le \an{schema mechanism} les exploite, ces valences apparaissent comme des préférences ou des aversions innées:
+pour un observateur extérieur, l'agent semble préférer enacter les interactions à valence positive et éviter les interactions à valence négative. 
 
-Du fait que la valence n'est pas définie comme une fonction mathématique prenant comme argument l'état du monde extérieurs à l'agent, nous l'avons, au début, assimilée à une forme de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}). 
-En effet, elle peut, par exemple, être entièrement codée dans un robot sans nécessiter un signal de récompense fourni par le monde extérieur.
-Ce choix a été critiqué par la communauté qui étudie la motivation intrinsèque des agent artificiels au motif qu'elle est quand même liée aux objets du monde extérieur: certains objets \an{affordent} des interactions qui ont une valence positive, comme l'interaction \texttt{eat}, d'autres négatives, comme \texttt{bump}. 
-Nous pouvons contre argumenter que, bien qu'associée aux objets extérieurs, $v$ peut etre définie en l'absence d'une ontologie du monde présupposée. 
-De plus, un même objet peut afforder certaines interactions à certains types d'agents mais pas à d'autres.
+Comme la fonction de valence ne prend pas en compte l'état du monde extérieur parmi ses arguments, nous l'avons d'abord rapprochée d'un critère de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}). 
+Ce principe motivationnel peut en effet être entièrement encodée dans un robot sans nécessiter un signal de récompense issu de l'environnement.
+Ce rapprochement a toutefois été critiqué %par la communauté travaillant sur la motivation intrinsèque des agent artificiels, 
+au motif que la valence reste liée aux objets du monde: certains objets \an{affordent} des interactions qui ont une valence positive, comme l'interaction \texttt{eat}, d'autres négatives, comme \texttt{bump}. 
+L'agent sembler motivé par le fait de vouloir atteindre ou éviter certains objets de l'environnement.
+Nous pouvons cependant rétorquer que, bien qu'associée à des objets extérieurs, cette forme de motivation peut être définie sans présupposer une ontologie préalable du monde. 
+Par exemple, le caractère repoussants ou attirant d'un objet n'est pas une propriété ontologique de cet objet: un même objet peut afforder certaines interactions pour certains agents mais pas pour d'autres.
 
-Les arguments contre le terme \emph{motivation intrinsèque} semblant tout aussi valides que les arguments contre le terme \emph{motivation extrinsèque}, il m'a semblé approprié de proposer la nouvelle notion de \emph{motivation interactionnelle} (\an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012}).
-Pour reprendre les termes de Piaget, la motivation interactionnelle se situe \og à la frontière entre le sujet et l'objet \fg.
+Les arguments contre le terme \emph{motivation intrinsèque} semblant tout aussi recevable que ceux contre le terme \emph{motivation extrinsèque}, il m'a semblé approprié de proposer la nouvelle notion de \emph{motivation interactionnelle} (\an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012}).
+Pour reprendre les mots de Piaget, la motivation interactionnelle se situe \og à la frontière entre le sujet et l'objet \fg.
 
-Notons que la fonction de valence $v$ se rapproche de la notion de \an{prior preference distribution} définie sur les observations par la communauté de l'inférence active. 
-Comme évoqué en Section \ref{sec:active_inference}, cette théorie traite les observations comme des résultats des actions dans un cycle d'interaction inversé similaire au notre. 
-Leurs observations se rapprochent donc de nos d'interaction. 
-Cependant, dans les implémentations proposées, par exemple par  Ryan Smith, Kark Friston, et Christopher Whyte  \cite[p.~6]{smith_step-by-step_2022}, l'observation n'intègre pas la décision. 
-Il en résulte que les agents controlés par un mécanisme d'inférence active n'exhibe pas de préférences interactionnelles.
-
-
+Notons que la fonction de valence $v$ se rapproche de la notion de \an{prior preference distribution} définie sur les \emph{observations} dans l'approche de l'\emph{inférence active}. 
+Comme évoqué en Section \ref{sec:active_inference}, cette théorie considère les \emph{observations} comme des résultats de décisions dans un cycle d'interaction inversé proche du notre. 
+Leurs observations se rapprochent donc de nos interactions. 
+Cependant, dans les implémentations existantes, par exemple celles de  Ryan Smith, Kark Friston, et Christopher Whyte  \cite[p.~6]{smith_step-by-step_2022}, l'observation n'intègre pas la décision. 
+Il en découle que les agents contrôlés par cette approche manifestent des préférences pour certains signaux sensoriels mais pas pour des schèmes d'interaction.
 
 
 
 \section{Apprentissage séquentiel hiérarchique}
 
+\noindent
+La description technique complète du \an{Schema Mechanism 2.0} est disponible dans mon tutoriel basé sur des Jupyter Notebooks \cite{georgeon_schema_2025-1}. 
+J'en décris ici les grands principes.
+
+Au temps $t$, l'agent enregistre la séquence des deux interactions $i_{t-2}$ et $i_{t-1}$ enactées aux deux cycles précédents sous la forme d'une \emph{interaction composite} $i_c = \langle i_{t-2}, i_{t-1} \rangle$, qui est ajoutée à l'ensemble des interactions $I$. 
+Les interactions composites possèdent un \emph{poids} qui est incrémenté chaque fois qu'elles sont enactées à nouveau.
+Une \emph{décision composite} $d_c$ est également ajoutée à $D$. 
+Cette décision consiste à tenter d'enacter à nouveau $i_c$ sur deux cycles d'interactions primitifs consécutifs.
+Au premier cycle, $d_c$ consiste à appliquer à nouveau la décision primitive $d_{t-2}$. 
+Si l'agent obtient bien à nouveau $i_{t-2}$, alors il applique à nouveau $d_{t-1}$.
+Dans le cas contraire, la nouvelle tentative d'enaction de $i_c$ est interrompue et l'agent prend une nouvelle décision.
+
+Lorqu'une interaction composite est enactée avec succès, il entraine la construction d'autres interactions composites de plus haut niveau. 
+Ce mécanisme entraine la construction progressive d'une hiérarchie de décisions composite comme illustré en Figure \ref{fig:agent10}. 
+
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{Figures/4_agent10.pdf}
-	\caption{Apprentissage et réutilisation hiérarchique de schémas. 
+	\includegraphics[width=0.6\textwidth]{Figures/4_agent10.pdf}
+	\caption{ 
+		Les interactions composites sont des séquences de deux interactions composite de niveau inférieur. 
+		La flèche \an{Decision Time} représente les instants ou l'agent prend des décisions composites. 
+		Une décision composite peut engager l'agent pendant plusieurs cycles d'interacition primitifs (\an{Primitive Time}).
+		Le contexte courant est définit par les interactions qui viennent d'être enactées (en gris).
 	}
 	\label{fig:agent10}
 \end{figure}
@@ -165,7 +187,7 @@ Il en résulte que les agents controlés par un mécanisme d'inférence active n
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{Figures/4_agent9.pdf}
+	\includegraphics[width=0.6\textwidth]{Figures/4_agent9.pdf}
 	\caption{Mécanisme de décision. }
 	\label{fig:agent9}
 \end{figure}

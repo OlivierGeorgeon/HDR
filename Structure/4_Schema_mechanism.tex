@@ -213,34 +213,39 @@ Il nous reste maintenant a déterminer comment sélectionner une décisions parm
 \section{Mécanisme de décision}
 
 \noindent
-Le mécanisme de décision fondé sur la motivation interactionnelle tend à prendre la décision qui maximise la \emph{valence attendue}.
+Le mécanisme de décision fondé sur la motivation interactionnelle tente d'enacter les interactions qui ont la plus haute valence.
+Pour cela il utilise une estimation de la \emph{valence attendue} des différentes décisions possible dans un contexte donné.
 Cette section décrit ce mécanisme. 
 Je présenterai d'autres critères possibles impliquant d'autres principes motivationnels dans les chapitres suivants. 
 
-La valence attendue n'est pas sans rapport avec la \emph{récompense espérée actualisée} (\an{discounted expected reward}) utilisée en apprentissage par renforcement. 
-La récompense attendue actualisée $\mathbb{E}(R_\sigma)$ pour une \an{policy} $\sigma$ est la somme des récompenses liées aux états obtenus par un agent qui suit cette \an{policy}, pondérées par la probabilité d'atteindre ces états à chaque pas de temps, et \og atténuée \fg par un \an{discount factor} qui privilégie les récompenses à court terme par rapport à celles à long terme. 
-Dans un POMDP, son estimation sur la base du \an{belief state} est notée $\hat{\mathbb{E}}(R_\sigma)$.
+La valence attendue rappelle la \emph{récompense espérée} utilisée en apprentissage par renforcement présenté en Section \ref{sec:rl}. 
+En suivant les conventions de l'apprentissage par renforcement, nous notons $\mathbb{E}_t(V_i)$ la valence attendue d'une interaction affordée $i$ au temps $t$. 
+Cette valence attendue est la somme des valences des interactions primitives qui composent $i$ multipliées par la probabilité que chacune soit enactée avec succès au moment où l'agent tentera de l'enacter. 
+Cela est exprimé par l'Equation \eqref{eq:ev}:
 
-En suivant les conventions de l'apprentissage par renforcement introduites en Section \ref{sec:rl}, nous notons $\mathbb{E}(V_i)$ la valence attendue d'une interaction affordée $i$. 
-Cette valence attendue est la somme des valences des interactions primitives qui composent $i$ multipliées par la probabilité que chacune soit enactée avec succès. Cela est exprimé par l'Equation \eqref{eq:ev}:
+%La récompense attendue actualisée $\mathbb{E}(R_\sigma)$ pour une \an{policy} $\sigma$ est la somme des récompenses liées aux états obtenus par un agent qui suit cette \an{policy}, pondérées par la probabilité d'atteindre ces états à chaque pas de temps, et \og atténuée \fg par un \an{discount factor} qui privilégie les récompenses à court terme par rapport à celles à long terme. 
+%Dans un POMDP, son estimation sur la base du \an{belief state} est notée $\hat{\mathbb{E}}(R_\sigma)$.
 
 \begin{equation}\label{eq:ev}
 	%\displaystyle 
-	\mathbb{E}(V_i) = \sum_{j=1}^{|i|} ( v(i_j) \cdot \prod_{k=1}^{j} p(i_k) )
+	\mathbb{E}_t(V_i) = \sum_{j=0}^{|i|-1} ( v(i_j) \cdot \prod_{k=0}^{j} p_{t+k}(i_k) )
 \end{equation}
 
 $|i|$ est le nombre d'interactions primitives qui composent $i$. 
-$i_j$ est la $j^{ème}$ interaction primitive de $i$.
-$p(i_k)$ est la probabilité que l'enaction de la $k^{ème}$ interaction de $i$ soit un succès quand l'agent applique la décision primitive de tenter de l'enacter.
-Sachant que l'enaction de la $j^{ème}$ interaction nécessite que toutes celles qui l'ont précédées aient été enactées avec succès, la probabilité d'enacter la $j^{eme}$ interaction est le produit des probabilités d'enacter les interactions 1 à $j$.
+$i_j$ est la $j^{ème}$ interaction primitive de $i$ (comptée à partir de 0).
+$p_{t+k}(i_k)$ est la probabilité que l'enaction de la $k^{ème}$ interaction de $i$ soit un succès quand l'agent tente de l'enacter au temps $t+k$.
+Sachant que l'enaction de la $j^{ème}$ interaction nécessite que toutes celles qui l'ont précédées aient été enactées avec succès, la probabilité d'enacter la $j^{eme}$ interaction est le produit des probabilités d'enacter les interactions 0 à $j$.
 
-La valence attendue d'une décision composite ou primitive $d$ est la valence attendue des interactions qui pourraient en résulter pondérées par la probabilité de chacune: 
+La valence attendue d'une décision composite ou primitive $d$ est la valence attendue des interactions qui pourraient résulter de cette décision, pondérées par la probabilité de chacune: 
 
 \begin{equation}\label{eq:ed}
-	\mathbb{E}(V_d) = \sum_{i \in I} ( \mathbb{E}(V_i) \cdot p(i) )
+	\mathbb{E}_t(V_d) = \sum_{i \in I} ( \mathbb{E}_t(V_i) \cdot p_t(i) )
 \end{equation}
 
-Malheureusement, l'agent ne dispose généralement pas d'une estimation fiable des probabilités $p(i)$ de l'Equation \eqref{eq:ed} ni de  $p(i_k)$ de l'Equation \eqref{eq:ev}.
+$\mathbb{E}_t(V_i)$ est la valence attendue d'une interaction $i$ calculée par l'Equation \eqref{eq:ev}. 
+$p_t(i)$ est la probabilité que la décision $d$ prise au temps $t$ entraine l'enaction de l'interaction $i$. 
+
+Malheureusement, l'agent ne dispose généralement pas d'une estimation fiable des probabilités $p_t(i)$ de l'Equation \eqref{eq:ed} ni de  $p_{t+k}(i_k)$ de l'Equation \eqref{eq:ev}.
 De plus, les interactions affordées n'ont pas toutes la même longueur, ce qui peut fausser la comparaison. 
 Si on compare simplement la valence attendue d'une interaction $i_1$ longue de deux cycles d'interaction avec celle d'une interaction $i_2$ longue de quatre cycles, on ne prend pas en compte les valences qui pourraient être obtenues dans les deux cycles qui suivraient l'enaction de $i_1$ correspondant au temps d'enaction de $i_2$.
 
@@ -252,17 +257,15 @@ Pour mixer la motivation interactionnelle et la réiteration d'habitude,
 nous calculons une valeur de \emph{proclivité} de chaque decision affordée comme  la somme des poids des interactions activées qui affordent $d$, multipliée par la valence des interactions affordées:
 
 \begin{equation}\label{eq:proclivity}
-	\displaystyle proclivity(d) = \sum_{a \in A_d} (w_a \cdot v(post(a)))
+	\displaystyle proclivity_t(d) = \sum_{a \in A_d} (w_t(a) \cdot v(post(a)))
 \end{equation}
 
-$A_d \subset A_t$ est l'ensemble des interactions activées qui propose la décision $d$.
-$w_a$ est la poids de l'interaction activité $a$ à l'instant $t$.
+$A_d \subset A_t$ est l'ensemble des interactions activées qui proposent la décision $d$ au temps $t$.
+$w_t(a)$ est la poids de l'interaction activée $a$ à l'instant $t$.
 $v(post(a))$ est la valence de l'interaction affordée par $a$.
-%La proclivité d'une décision $d$ est la somme des poids des interactions activées qui affordent $d$, multipliée par la valence des interactions affordées.
 Le mécanisme construit un tableau des proclivités de chaque décision affordée au temps $t$ (Figure \ref{fig:agent8}), et sélectionne la décision qui a la proclivité la plus élevée.
+
 %donnée par l'Equation \eqref{eq:proclivity}:
-
-
 
 \begin{figure}[ht]
 	\centering
@@ -276,6 +279,13 @@ Le mécanisme construit un tableau des proclivités de chaque décision affordé
 	\label{fig:agent8}
 \end{figure}
 
+Le critère de sélection de la décision basé sur la proclivité favorise les décisions qui ont à la fois la valence attendue estimée la plus élevée et qui ont été le plus sélectionnées par le passé dans un contexte similaire. 
+Ce double principe motivationnel fait que l'agent ne va pas nécessairement trouver le comportement qui maximise la valence reçue. 
+Du point de vue d'un observateur extérieur, l'agent semble acquérir des habitudes d'interactions qui sont simplement satisfaisantes du point de vue de la valence reçue.
+
+Bien que le calcul de proclivité favorise les interactions qui ont les valences les plus élevées, l'agent n'aura pas un comportement purement \an{greedy} qui consisterait à privilégier les récompenses immédiates. 
+Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences qui consistant à enacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
+Nous allons maintenant analyser les comportements obtenus dans des exemples.  
 
 \section{Comparaison avec le modèle POMDP}
 

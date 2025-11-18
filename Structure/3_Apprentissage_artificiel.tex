@@ -166,8 +166,14 @@ La récompense $r_{t+1}$ est positive pour les états \emph{gagné} ou négative
 
 L'apprentissage par renforcement vise à apprendre la \an{policy} qui maximise la récompense obtenue cumulée à un certain horizon. 
 Différentes fonctions de cumul de la \an{step reward} sont utilisées en fonction des problèmes, impliquant ou non un \an{discount factor} qui favorise les récompenses rapides au détriment de celles à long terme.  
+L'agent apprend, pour chaque état possible, l'\emph{espérance de récompense actualisée} (\an{expected discounted reward}) de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense actualisée la plus élevée. 
+
+La récompense attendue actualisée d'une \an{policy} $\sigma$ est typiquement notée $\mathbb{E}(R_\sigma)$.
+C'est la somme des récompenses liées aux états obtenus par un agent qui suit cette \an{policy}, pondérées par la probabilité d'atteindre ces états à chaque pas de temps, et \og atténuée \fg par le \an{discount factor}. 
+Son estimation par l'agent est notée $\hat{\mathbb{E}}(R_\sigma)$.
+
 L'apprentissage est dit par \emph{essai-erreur} car l'agent doit essayer des actions et commettre des erreurs pour apprendre à partir des états et récompensent obtenus. 
-L'apprentissage de la \an{policy} optimum revient à apprendre, pour chaque état possible, l'espérance de récompense cumulée de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense cumulée la plus élevée. 
+%L'apprentissage de la \an{policy} optimum revient à apprendre, pour chaque état possible, l'espérance de récompense cumulée de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense cumulée la plus élevée. 
 
 Des algorithmes pour trouver la \an{policy} stationnaire optimale d'un MDP fini ont été proposés \cite{ross_introduction_1983} mais il a été établi que les ressources nécessaires pour la trouver croissent exponentiellement avec le nombre d'états et d'actions possibles.
 Bellman a nommé ce problème d'explosion combinatoire \an{the curse of dimensionality}.

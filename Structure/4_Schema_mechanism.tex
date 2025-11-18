@@ -287,21 +287,26 @@ Bien que le calcul de proclivité favorise les interactions qui ont les valences
 Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences qui consistant à enacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
 Nous allons maintenant analyser les comportements obtenus dans des exemples.  
 
-\section{Comparaison avec le modèle POMDP}
-
-Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
-
-
-\section{Méthode d'observation de l'émergence sémantique}
-
-Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
-
-
 \section{Expérimentation du \emph{Small Loop Challenge}}
 
-Le \an{Small Loop Challenge}  \cite{georgeon_small_2013}
+\noindent
+Nos premières expérimentations ont été réalisées dans les environnements du types de ceux présentés en Figure \ref{fig:small_loop}.
+Avec James Marshall, nous avons nommé celui de droite le \an{Small Loop Challenge} et nous l'ai proposé comme un challenge pour démontrer l'émergence du sense-making \cite{georgeon_small_2013}. 
+C'est une version minimaliste suffisante pour démontrer la capacités d'apprentissage du \an{Schema Machanism 2.0}.   
 
-Dans cette expérimentation, l'agent dispose de six décisions possibles: 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest.pdf}%
+	\quad
+	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest_2.png}
+	\caption{Exemples d'environnements offrant des régularités séquentielles hiérarchiques. 
+		Gauche: Première démonstration du schema mechanism \cite[Fig.~10]{georgeon_intrinsically-motivated_2012}. 
+		Droite: L'environnement \an{Small Loop Challenge} adapté de \cite[Fig.~1]{georgeon_small_2013} et \cite[Fig.~4]{georgeon_demonstrating_2013}. 
+	}
+	\label{fig:small_loop}
+\end{figure}
+
+Ces environnements ont été choisis parce qu'ils offrent des régularités d'interaction séquentielles hiérarchiques à l'agent, sur la base d'un jeu d'interactions primitives définies à partir des six décisions possibles suivantes: 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item \texttt{move forward}: tenter d'avancer d'une cellule
@@ -332,23 +337,17 @@ Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_l
 		\texttt{feel right empty} & sentir une cellule vide à droite & -1\\ \hline
 		\texttt{feel right wall} & sentir un mur à droite & -1\\ \hline
 	\end{tabular}
-	\caption{Liste des interactions dans le \an{Small Loop Challenge}.}
+	\caption{Liste des interactions primitives dans le \an{Small Loop Challenge}.}
 	\label{tab:small_loop}
 \end{table}
 
+L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives.
+Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme. 
+Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest.pdf}%
-	\quad
-	\includegraphics[height=0.3\textwidth]{Figures/4_Ernest_2.png}
-	\caption{Exemples d'environnements offrant des régularités séquentielles hiérarchiques. 
-		Gauche: Première démonstration du schema mechanism (\cite{georgeon_intrinsically-motivated_2012}, Fig. 10). 
-		Droite: L'environnement \an{Small Loop Challenge} adapté de \cite{georgeon_small_2013} Fig.~1 et \cite{georgeon_demonstrating_2013} Fig.~4. 
-	}
-	\label{fig:ernest}
-\end{figure}
 
+
+\section{Analyse comportementale}
 
 
 La Figure \ref{fig:trace} montre une analyse des comportements
@@ -361,7 +360,7 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \end{figure}
 
 
-\section{Analyse sémantique}
+\section{Analyse de similarités sémantiques dans l'espace d'\emph{embedding}}
 
 Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
 
@@ -378,6 +377,15 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 	\label{fig:embedding}
 \end{figure}
 
+\section{Comparaison avec le modèle POMDP}
+
+Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
+
+
+\section{Méthode d'observation de l'émergence sémantique}
+
+Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
+
 
 \section{Auto-programmation moto-sensorielle}
 
@@ -388,7 +396,7 @@ La reiteration de \an{stream of behaviors} permet de parler d'auto programmation
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{Figures/4_couplage.pdf}
+	\includegraphics[width=0.8\textwidth]{Figures/4_couplage.pdf}
 	\caption{Différents niveaux de couplage, adapté de \cite{georgeon_cash_2019} Fig. 1.
 		Le cadre gris délimite le \an{software} couplé au \emph{monde} à travers les registres de sortie (\an{output values}) et d'entrée (\an{input values}). 
 		%Les \emph{valeurs de sortie} commandent des actionneurs et \emph{valeurs d'entrée} sont déterminées par des capteurs.

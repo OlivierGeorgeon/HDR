@@ -3,6 +3,11 @@
 \chapter{Fondements en sciences cognitives}
 
 \noindent 
+
+Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intelligence} \fg, Shane Legg et Marcu Hutter note que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
+
+Si nous ne savons pas vraiment ce qu'est l'intelligence, nous ne partons quand meme pas de zéro. 
+Cette question a occupé des nombreux penseur depuis de nombreux siècle et je crois qu'il est important de savoir nous y référer. 
 Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en oeuvre par les etres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
@@ -411,40 +416,47 @@ Hippocampe: mémoire spatiale et mémoire séquentielle.
 
 \section{Mesurer l'intelligence}
 
-Comment mesurer l'intelligence est une question compliquée qui n'a pas encore de réponse définitive. 
-Legg note que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
+\noindent
+Je ne peux pas terminer cette vue d'ensemble de la notion d'intelligence sans examiner les différentes méthodes utilisées pour la tester et la mesurer.
+Legg et Hutter \cite{legg_universal_2007} synthétisent les techniques de mesure de l'intelligence naturelle bien connue des experts pour un tirer des propositions de formalisation de \an{benchmark} d'évaluation de l'intelligence artificielle. 
 
-Il fait une première distinction entre les tests statiques et les testes dynamiques. 
-Les tests statiques mesure la capacité de résoudre une problème présenté en une seule fois. 
-Ils ne mesurent pas directemenent la capacité à apprendre et à s'adapter au cours du temps. 
-Dans un test dynamique, le sujet interagit avec l'environnement de test pendant une certaine période de temps. 
+Ils introduisent une première distinction utile qui différencie les \emph{tests statiques} des \emph{tests dynamiques}. 
+Les tests statiques mesurent la capacité à résoudre une problème présenté en une seule fois. 
+Ils se focalisent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour réponse à une question posée. 
+%Ils ne mesurent pas directement la capacité à apprendre et à s'adapter au cours du temps. 
+Au contraire, les tests dynamique se déroule pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
+Ces tests permettent de mesure la capacité de l'agent à mettre en oeuvre une stratégie qui peut donner lieu à un apprentissage pendant la phase de test. 
 
-Une autre distinction est selon qu'il existe une mesure de la capacité de l'agent à atteindre un objectif ou non.  
-Dans le premier cas, Legg propose une mesure de l'intelligence qu'il appelle \an{universal intelligence} d'un agent qui est la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
-Bien entendu, il n'existe pas de moyen de la calculer. 
+Legg et Hutter font ensuite une second distinction entre les tests par \emph{mesure objective} et les test impliquant un \emph{jugement humain}.
+Les tests par mesure objective mesurent la capacité de l'agent a fournir des réponses attendues ou à atteindre des objectifs prédéfinis.
+Dans ce cas, les auteurs imaginent une \og mesure universelle de l'intelligence \fg qui serait la somme infinie des score obtenue normalisés dans tous les environnement possibles pondérée par leur complexité. 
+Ils notent qu'une telle mesure n'est pas en principe calculable mais qu'elle fournit une représentation mentale de ce qu'ils appellent une \an{mesure of universal intelligence}. 
+% la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
+
+Certains auteurs ont défendu la nécessité du jugement humain pour l'évaluation de l'intelligence. 
+Par exemple, Alexei Samsonovich cite John von Neumann:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} pour argumenter que la maximalisation d'une mesure objective conduit au développement d'algorithmes qui ne méritent pas le qualificatif \emph{intelligent} \fg \cite[p.~105]{samsonovich_roadmap_2012}.
+Un système vraiment intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé.
+Le célèbre test de Turing rentre dans cette catégorie car il repose sur le jugement d'observateurs humains pour évaluer la capacité d'une intelligence artificielle à imiter une intelligence naturelle. 
+
+Les deux axes de distinction proposés par Legg et Hutter délimites les quatre quadrants représentés en Figure \ref{fig:mesures}. 
+ 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
+	\caption{Différents modes d'évaluation de l'intelligence:
+	axe \emph{statique} vs \emph{dynamique} selon que l'intelligence soit mesurée par des réponses immédiates ou au cours d'une période d'interaction; 
+	axe \emph{mesure objective} vs \emph{jugement} selon que la mesure soit formalisée ou proviennent d'un acte de jugement humain.}
+	\label{fig:mesures}
+\end{figure}
 
 
-David Deutsch exprime de manière un peu provocatrice qu'on attend d'une vraie intelligence qu'elle soit capable de désobéir: 
+La quadrant \emph{Statique} \ \emph{objectif} de la Figure \ref{fig:mesures} compte comme exemples typiques les méthode d'évaluation des grands modèle génératifs. 
+Par exemple le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021} est un benchmark célèbre pour l'évaluation des LLMs.
+Un inconvénient majeur de cette approche est qu'elle nécessite un jeu de questions avec les réponses correctes attendues qui doit être tenu secret comme pour des examens. 
+De plus il présuppose des connaissances préalables comme des connaissances de mathématique ou de physique. 
 
-\begin{quote}
-\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. 
-	Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
-	%, even immoral, just as in the education of humans. 
-	%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
-	}
-\cite[p.~119]{deutsch_beyond_2019}.
-\end{quote}
-
-Aussi, un agent doit être capable d'abandonner un objectif, par exemple s'il se rend compte qu'il est inatteignable.
-
-\subsection{Abstract Reasoning Challenge}
-\label{sec:arc}
-
-L'objectif du \an{Abstract Reasoning Challenge} (ARC) est d'évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
-
-
-Dans son article ``\an{On the measure of intelligence}'', Francois Chollet \cite{chollet_measure_2019} identifie quatre \an{core knowledge} : 
-
+Le \an{Abstract Reasoning Challenge} a été développé pour utiliser un minimum de connaissance préalable et pour évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
 	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
@@ -452,8 +464,10 @@ Dans son article ``\an{On the measure of intelligence}'', Francois Chollet \cite
 	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
 \end{itemize}
 
-La Fig. \ref{fig:ARC} montre un exemple de problème du ARC Challenge mettant en jeu le \an{core knowledge} d'agentivité.
+Dans son article ``\an{On the measure of intelligence}'', Francois Chollet \cite{chollet_measure_2019} identifie quatre \an{core knowledge} : 
+La Fig. \ref{fig:ARC} montre un exemple de problème mettant en jeu le \an{core knowledge} d'agentivité.
 Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
+
 
 \begin{figure}[ht]
 	\centering
@@ -506,19 +520,26 @@ WorldTest évalue la capacité de l'agent à généraliser à partir de l'enviro
 
 \subsection{Bilan des mesures}
 
+Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
+\begin{quote}
+	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. 
+		Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
+		%, even immoral, just as in the education of humans. 
+		%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
+	}
+	\cite[p.~119]{deutsch_beyond_2019}.
+\end{quote}
+
+Mes travaux se situent principalement dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appelle au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+
+
 La figure \ref{fig:mesures} résume le paysage des différentes approches pour mesurer l'intelligence. 
 Ce manuscrit se situe dans le quadrant supérieur droit: les mesures dynamiques faisant appelle au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
-	\caption{Différents modes d'évaluation de l'intelligence.}
-	\label{fig:mesures}
-\end{figure}
 
 Chatbot Arena \cite{chiang_chatbot_2024}.
-\an{Measuring Massive Multitask Language Understanding} \cite{hendrycks_measuring_2021}.
+
 
 \section{Conclusion}
 

@@ -417,26 +417,26 @@ Hippocampe: mémoire spatiale et mémoire séquentielle.
 \section{Mesurer l'intelligence}
 
 \noindent
-Je ne peux pas terminer cette vue d'ensemble de la notion d'intelligence sans examiner les différentes méthodes utilisées pour la tester et la mesurer.
-Legg et Hutter \cite{legg_universal_2007} synthétisent les techniques de mesure de l'intelligence naturelle bien connue des experts pour un tirer des propositions de formalisation de \an{benchmark} d'évaluation de l'intelligence artificielle. 
+Je ne peux pas clore cette vue d'ensemble de la notion d'intelligence sans aborder les méthodes permettant de l'évaluer et de la quantifier.
+Legg et Hutter \cite{legg_universal_2007} proposent une synthése des principales techniques de mesure de l'intelligence naturelle afin d'en dégager des pistes pour établir des \an{benchmark} d'évaluation de l'intelligence artificielle. 
 
-Ils introduisent une première distinction utile qui différencie les \emph{tests statiques} des \emph{tests dynamiques}. 
-Les tests statiques mesurent la capacité à résoudre une problème présenté en une seule fois. 
-Ils se focalisent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour réponse à une question posée. 
+Ils introduisent d'abord une distinction entre les \emph{tests statiques} et les \emph{tests dynamiques}. 
+Les tests statiques évaluent la capacité à résoudre un problème présenté en une seule fois. 
+Ils mettent l'accent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour produire une réponse correcte à une question posée. 
 %Ils ne mesurent pas directement la capacité à apprendre et à s'adapter au cours du temps. 
-Au contraire, les tests dynamique se déroule pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
-Ces tests permettent de mesure la capacité de l'agent à mettre en oeuvre une stratégie qui peut donner lieu à un apprentissage pendant la phase de test. 
+A l'inverse, les tests dynamique se déroulent pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
+Ils visent à mesurer la capacité de l'agent à mettre en oeuvre une stratégie qui peut donner lieu à un apprentissage au cours du déroulé du test. 
 
-Legg et Hutter font ensuite une second distinction entre les tests par \emph{mesure objective} et les test impliquant un \emph{jugement humain}.
-Les tests par mesure objective mesurent la capacité de l'agent a fournir des réponses attendues ou à atteindre des objectifs prédéfinis.
-Dans ce cas, les auteurs imaginent une \og mesure universelle de l'intelligence \fg qui serait la somme infinie des score obtenue normalisés dans tous les environnement possibles pondérée par leur complexité. 
-Ils notent qu'une telle mesure n'est pas en principe calculable mais qu'elle fournit une représentation mentale de ce qu'ils appellent une \an{mesure of universal intelligence}. 
+Legg et Hutter introduisent ensuite une second distinction, cette fois entre les tests fondés sur une \emph{mesure objective} ceux fondés sur un \emph{jugement humain}.
+Les premiers mesurent la capacité de l'agent a produire des réponses attendues ou à atteindre des objectifs préalablement définis.
+Dans ce cadre, les auteurs esquissent l'idée d'une \og mesure universelle de l'intelligence \fg définie comme la somme infinie des score normalisés obtenus dans l'ensemble des environnement possibles, pondérée par la complexité de chacun d'eux. 
+Ils reconnaissent qu'une telle mesure n'est pas calculable en pratique mais la proposent comme un modèle conceptuel utile de ce qu'ils appellent une \an{mesure of universal intelligence}. 
 % la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
 
-Certains auteurs ont défendu la nécessité du jugement humain pour l'évaluation de l'intelligence. 
-Par exemple, Alexei Samsonovich cite John von Neumann:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} pour argumenter que la maximalisation d'une mesure objective conduit au développement d'algorithmes qui ne méritent pas le qualificatif \emph{intelligent} \fg \cite[p.~105]{samsonovich_roadmap_2012}.
-Un système vraiment intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé.
-Le célèbre test de Turing rentre dans cette catégorie car il repose sur le jugement d'observateurs humains pour évaluer la capacité d'une intelligence artificielle à imiter une intelligence naturelle. 
+Certains auteurs défendent la nécessité d'un jugement humain. 
+Alexei Samsonovich, citant John von Neumann:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg , soutient que la maximalisation d'une mesure objective peut conduire au développement d'algorithmes qui ne méritent pas le qualificatif \emph{intelligent} \fg \cite[p.~105]{samsonovich_roadmap_2012}.
+Un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé.
+Le célèbre test de Turing s’inscrit précisément dans cette catégorie de tests, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
 
 Les deux axes de distinction proposés par Legg et Hutter délimites les quatre quadrants représentés en Figure \ref{fig:mesures}. 
  
@@ -445,15 +445,16 @@ Les deux axes de distinction proposés par Legg et Hutter délimites les quatre 
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
 	\caption{Différents modes d'évaluation de l'intelligence:
-	axe \emph{statique} vs \emph{dynamique} selon que l'intelligence soit mesurée par des réponses immédiates ou au cours d'une période d'interaction; 
+	axe \emph{statique} vs \emph{dynamique} selon que la mesure repose sur des réponses immédiates ou sur une période d'interaction; 
 	axe \emph{mesure objective} vs \emph{jugement} selon que la mesure soit formalisée ou proviennent d'un acte de jugement humain.}
 	\label{fig:mesures}
 \end{figure}
 
-
-La quadrant \emph{Statique} \ \emph{objectif} de la Figure \ref{fig:mesures} compte comme exemples typiques les méthode d'évaluation des grands modèle génératifs. 
-Par exemple le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021} est un benchmark célèbre pour l'évaluation des LLMs.
-Un inconvénient majeur de cette approche est qu'elle nécessite un jeu de questions avec les réponses correctes attendues qui doit être tenu secret comme pour des examens. 
+Les tests statiques concernent surtout les systèmes d'apprentissage suppervisés et les grands modèles d'IA générative. 
+Un exemple de \an{benchmark} appartenant au quadrant \emph{statique} / \emph{objectif} de la Figure \ref{fig:mesures} est le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
+Il s’agit d’un ensemble très large d’évaluations couvrant de nombreuses disciplines académiques. 
+Il mesure la solidité générale du raisonnement et la capacité du modèle à transférer ses connaissances sur des domaines multiples.
+Un inconvénient majeur est qu'il nécessite un jeu de question/réponse fourni par des experts et initialement inconnues du modèle.
 De plus il présuppose des connaissances préalables comme des connaissances de mathématique ou de physique. 
 
 Le \an{Abstract Reasoning Challenge} a été développé pour utiliser un minimum de connaissance préalable et pour évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
@@ -504,7 +505,7 @@ In a recent study [57], a simple computational model of object recognition was d
 Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Warrier et al. identifient quatre catégories de \an{benchmarks} destinés à évaluer l'apprentissage d'un modèle du monde:
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Un exemple typique est le ARC challenge présenté en Section~\ref{sec:arc}
+	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Un exemple typique est le ARC challenge présenté plus haut.
 	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
 	L'évaluation repose sur des mesures propres à chaque format de représentation. 
 	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 

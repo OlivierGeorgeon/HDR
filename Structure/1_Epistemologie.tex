@@ -427,16 +427,17 @@ Ils mettent l'accent sur l'exploitation de connaissance et la mise en \oe uvre d
 A l'inverse, les tests dynamique se déroulent pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
 Ils visent à mesurer la capacité de l'agent à mettre en oeuvre une stratégie qui peut donner lieu à un apprentissage au cours du déroulé du test. 
 
-Legg et Hutter introduisent ensuite une second distinction, cette fois entre les tests fondés sur une \emph{mesure objective} ceux fondés sur un \emph{jugement humain}.
-Les premiers mesurent la capacité de l'agent a produire des réponses attendues ou à atteindre des objectifs préalablement définis.
+Legg et Hutter introduisent ensuite une second distinction, cette fois entre les tests fondés sur une \emph{mesure objective} et ceux fondés sur un \emph{jugement humain}.
+Les premiers mesurent la capacité de l'agent à produire des réponses attendues ou à atteindre des objectifs préalablement définis.
 Dans ce cadre, les auteurs esquissent l'idée d'une \og mesure universelle de l'intelligence \fg définie comme la somme infinie des score normalisés obtenus dans l'ensemble des environnement possibles, pondérée par la complexité de chacun d'eux. 
 Ils reconnaissent qu'une telle mesure n'est pas calculable en pratique mais la proposent comme un modèle conceptuel utile de ce qu'ils appellent une \an{mesure of universal intelligence}. 
 % la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
 
 Certains auteurs défendent la nécessité d'un jugement humain. 
-Alexei Samsonovich, citant John von Neumann:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg , soutient que la maximalisation d'une mesure objective peut conduire au développement d'algorithmes qui ne méritent pas le qualificatif \emph{intelligent} \fg \cite[p.~105]{samsonovich_roadmap_2012}.
-Un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé.
-Le célèbre test de Turing s’inscrit précisément dans cette catégorie de tests, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
+Le célèbre test de Turing s’inscrit précisément dans cette idée, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
+Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
+Il cite John von Neumann qui avait déjà formulé cette difficulté:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg  \cite[p.~105]{samsonovich_roadmap_2012}.
+Dans \og \an{Beyond reward and punishment} \fg, David Deutsch argumente qu'un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé, voire désobéir aux instructions de ses concepteurs \cite{deutsch_beyond_2019}.
 
 Les deux axes de distinction proposés par Legg et Hutter délimites les quatre quadrants représentés en Figure \ref{fig:mesures}. 
  
@@ -444,31 +445,32 @@ Les deux axes de distinction proposés par Legg et Hutter délimites les quatre 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
-	\caption{Différents modes d'évaluation de l'intelligence:
-	axe \emph{statique} vs \emph{dynamique} selon que la mesure repose sur des réponses immédiates ou sur une période d'interaction; 
-	axe \emph{mesure objective} vs \emph{jugement} selon que la mesure soit formalisée ou proviennent d'un acte de jugement humain.}
+	\caption{Classification des modes d'évaluation de l'intelligence, inspirée par \cite{legg_universal_2007}.
+	Horizontalement : réponses immédiates ou période d'interaction.
+	Verticalement : mesures formalisées ou actes de jugement humain.}
 	\label{fig:mesures}
 \end{figure}
 
-Les tests statiques concernent surtout les systèmes d'apprentissage suppervisés et les grands modèles d'IA générative. 
-Un exemple de \an{benchmark} appartenant au quadrant \emph{statique} / \emph{objectif} de la Figure \ref{fig:mesures} est le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
-Il s’agit d’un ensemble très large d’évaluations couvrant de nombreuses disciplines académiques. 
-Il mesure la solidité générale du raisonnement et la capacité du modèle à transférer ses connaissances sur des domaines multiples.
-Un inconvénient majeur est qu'il nécessite un jeu de question/réponse fourni par des experts et initialement inconnues du modèle.
-De plus il présuppose des connaissances préalables comme des connaissances de mathématique ou de physique. 
+Les tests statiques s'appliquent surtout aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Un premier exemple situé dans le quadrant \emph{statique} / \emph{objectif} est le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
+Il regroupe un ensemble très large d’évaluations couvrant de nombreuses disciplines académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
+Un inconvénient majeur est qu'il nécessite un jeu de questions/réponses fourni par des experts et initialement inconnues du modèle, ce qui implique de le renouveler constemment.
+De plus, il présuppose des connaissances préalables, telles que des connaissances de mathématique ou de physique, ce qui floute la distinction entre connaissance et intelligence. 
 
-Le \an{Abstract Reasoning Challenge} a été développé pour utiliser un minimum de connaissance préalable et pour évaluer la capacité à utiliser uniquement un socle de connaissance que tout enfant ou agent naturellement intelligent est censé posséder pour résoudre des taches nouvelles, sans faire appel à des savoirs scolaires, linguistiques, ou culturels. 
+Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose de n'utiliser qu'un \emph{socle de connaissance} (\an{core knowledge}) fondamental de la cognition naturelle \cite{chollet_measure_2019}.
+Il formule l'hypothèse que tout agent naturellement intelligent posséde quatre savoirs hérités de l'évolution phylogénétique: 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
 	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
 	\item Nombres et comptage: il est possible de compter des petits nombres d'objets ou propriétés, et former des groupes dénombrés.
 	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
 \end{itemize}
-
-Dans son article ``\an{On the measure of intelligence}'', Francois Chollet \cite{chollet_measure_2019} identifie quatre \an{core knowledge} : 
+ 
+Sur cette base, Chollet propose le \an{Abstract Reasoning Challenge} (ARC) qui consitute un second exemple du quadrant \emph{statique} / \emph{objectif}. 
+Ce \an{benchmark} s’inspire de la structure des tests psychotechniques, en proposant des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
+Il évalue ainsi la capacité d’un système à généraliser à partir d’exemples et à inférer des règles.
 La Fig. \ref{fig:ARC} montre un exemple de problème mettant en jeu le \an{core knowledge} d'agentivité.
 Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
-
 
 \begin{figure}[ht]
 	\centering

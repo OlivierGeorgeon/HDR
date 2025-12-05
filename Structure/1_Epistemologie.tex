@@ -451,14 +451,14 @@ Les deux axes de distinction proposés par Legg et Hutter délimites les quatre 
 	\label{fig:mesures}
 \end{figure}
 
-Les tests statiques s'appliquent surtout aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
-Un premier exemple situé dans le quadrant \emph{statique} / \emph{objectif} est le \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
-Il regroupe un ensemble très large d’évaluations couvrant de nombreuses disciplines académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
-Un inconvénient majeur est qu'il nécessite un jeu de questions/réponses fourni par des experts et initialement inconnues du modèle, ce qui implique de le renouveler constemment.
-De plus, il présuppose des connaissances préalables, telles que des connaissances de mathématique ou de physique, ce qui floute la distinction entre connaissance et intelligence. 
+Les tests statiques s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
+Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
+Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constemment.
+Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence ‘‘pure'' et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
 
-Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose de n'utiliser qu'un \emph{socle de connaissance} (\an{core knowledge}) fondamental de la cognition naturelle \cite{chollet_measure_2019}.
-Il formule l'hypothèse que tout agent naturellement intelligent posséde quatre savoirs hérités de l'évolution phylogénétique: 
+Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC), un benchmark qui n'utiliser qu'un \emph{socle de connaissance} essentiel de la cognition naturelle \cite{chollet_measure_2019}.
+Il avance l'hypothèse selon laquelle tout agent naturellement intelligent dispose de quatre savoirs fondamentaux hérités de l'évolution phylogénétique (\an{core knowledge}): 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
 	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
@@ -466,10 +466,10 @@ Il formule l'hypothèse que tout agent naturellement intelligent posséde quatre
 	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
 \end{itemize}
  
-Sur cette base, Chollet propose le \an{Abstract Reasoning Challenge} (ARC) qui consitute un second exemple du quadrant \emph{statique} / \emph{objectif}. 
-Ce \an{benchmark} s’inspire de la structure des tests psychotechniques, en proposant des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
+L'ARC Challenge consitute un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
+Il s’inspire de la structure des tests psychotechniques et propose des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
 Il évalue ainsi la capacité d’un système à généraliser à partir d’exemples et à inférer des règles.
-La Fig. \ref{fig:ARC} montre un exemple de problème mettant en jeu le \an{core knowledge} d'agentivité.
+La Fig. \ref{fig:ARC} montre un exemple mettant en jeu le \an{core knowledge} d'agentivité.
 Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
 
 \begin{figure}[ht]
@@ -479,6 +479,21 @@ Dans cet exemple, la règle à inférer pour passer de l'image de gauche à cell
 	\label{fig:ARC}
 \end{figure}
 
+
+Un exemple représentatif du quadrant \emph{statique} / \emph{jugement} est \an{Chatbot Arena} \cite{chiang_chatbot_2024}.
+Ce benchmark évalue les LLMs en organisant des confrontations en aveugre opposant les modèles deux à deux.
+Il produit un classement de type Elo sur la base d'un jugement humain ‘‘crowdsourcé'', les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
+
+
+Les tests dynamiques concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
+Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique. 
+Les jeux de plateau offrent des benchmarks emblématiques dans ce quadran. 
+Un exemple marquant d'apprentissage par renforcement dans ce contexte est AlphaZero présenté dans \og \an{A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play} \fg \cite{silver_general_2018}.
+
+Le quandrant \emph{dynamique} / \emph{jugement} regroupe principalement les évaluation de l'inteligence par analyse des comportements en milieu ouvert. 
+A la différence des trois autres quadrants, il n'existe pas à ma connaissance de tests qui ont atteint un niveau de célébrité dans le grand public ou de reconnaissance dans la communauté scientifique.   
+Il n'existe pas actuellement de compétition inspirée de test de Turing, malgrè des tentatives telles que le Loebner Prize, apparu en 1990 et largement critiqué pour s'arrêter en 2020 \cite{powers_total_1998}.
+Dans le domaine des agents en environnement simulé ou des robots, chaque équipe de recherche tend à proposer son propre mode d'évaluation qui se focalise sur les aspects de l'intelligence qui les intéresse. 
 
 
 \subsection{Mesures robotiques}
@@ -541,7 +556,7 @@ Ce manuscrit se situe dans le quadrant supérieur droit: les mesures dynamiques 
 
 
 
-Chatbot Arena \cite{chiang_chatbot_2024}.
+
 
 
 \section{Conclusion}

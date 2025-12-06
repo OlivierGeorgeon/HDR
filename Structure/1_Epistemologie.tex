@@ -417,7 +417,7 @@ Hippocampe: mémoire spatiale et mémoire séquentielle.
 \section{Mesurer l'intelligence}
 
 \noindent
-Je ne peux pas clore cette vue d'ensemble de la notion d'intelligence sans aborder les méthodes permettant de l'évaluer et de la quantifier.
+Pour clore cette vue d'ensemble de la notion d'intelligence je dois aborder les méthodes permettant de l'évaluer et de la quantifier.
 Legg et Hutter \cite{legg_universal_2007} proposent une synthése des principales techniques de mesure de l'intelligence naturelle afin d'en dégager des pistes pour établir des \an{benchmark} d'évaluation de l'intelligence artificielle. 
 
 Ils introduisent d'abord une distinction entre les \emph{tests statiques} et les \emph{tests dynamiques}. 
@@ -434,12 +434,12 @@ Ils reconnaissent qu'une telle mesure n'est pas calculable en pratique mais la p
 % la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
 
 Certains auteurs défendent la nécessité d'un jugement humain. 
-Le célèbre test de Turing s’inscrit précisément dans cette idée, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
-Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
+Parmi eux, Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
 Il cite John von Neumann qui avait déjà formulé cette difficulté:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg  \cite[p.~105]{samsonovich_roadmap_2012}.
 Dans \og \an{Beyond reward and punishment} \fg, David Deutsch argumente qu'un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé, voire désobéir aux instructions de ses concepteurs \cite{deutsch_beyond_2019}.
+Le célèbre test de Turing s’inscrit précisément dans cette idée d'un jugement humain, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
 
-Les deux axes de distinction proposés par Legg et Hutter délimites les quatre quadrants représentés en Figure \ref{fig:mesures}. 
+La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les deux distinctions proposées par Legg et Hutter. 
  
 
 \begin{figure}[ht]
@@ -451,14 +451,14 @@ Les deux axes de distinction proposés par Legg et Hutter délimites les quatre 
 	\label{fig:mesures}
 \end{figure}
 
-Les tests statiques s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Les tests \emph{statiques} s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
 Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
 Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constemment.
 Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence ‘‘pure'' et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
 
 Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC), un benchmark qui n'utiliser qu'un \emph{socle de connaissance} essentiel de la cognition naturelle \cite{chollet_measure_2019}.
-Il avance l'hypothèse selon laquelle tout agent naturellement intelligent dispose de quatre savoirs fondamentaux hérités de l'évolution phylogénétique (\an{core knowledge}): 
+Ce socle de connaissance (\an{core knowledge}) comprend quatre savoirs fondamentaux que la plupart des agents  intelligent naturels auraient hérités de l'évolution phylogénétique : 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
 	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
@@ -481,28 +481,28 @@ Dans cet exemple, la règle à inférer pour passer de l'image de gauche à cell
 
 
 Un exemple représentatif du quadrant \emph{statique} / \emph{jugement} est \an{Chatbot Arena} \cite{chiang_chatbot_2024}.
-Ce benchmark évalue les LLMs en organisant des confrontations en aveugre opposant les modèles deux à deux.
+Ce benchmark évalue les LLMs en organisant des confrontations en aveugle opposant les modèles deux à deux.
 Il produit un classement de type Elo sur la base d'un jugement humain ‘‘crowdsourcé'', les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
 
 
-Les tests dynamiques concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
-Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique. 
-Les jeux de plateau offrent des benchmarks emblématiques dans ce quadran. 
+Les tests \emph{dynamiques} concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
+Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique (voir Section \ref{sec:rl}). 
+Les jeux de plateau offrent des benchmarks emblématiques de ce quadrant. 
 Un exemple marquant d'apprentissage par renforcement dans ce contexte est AlphaZero présenté dans \og \an{A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play} \fg \cite{silver_general_2018}.
 
-Le quandrant \emph{dynamique} / \emph{jugement} regroupe principalement les évaluation de l'inteligence par analyse des comportements en milieu ouvert. 
-A la différence des trois autres quadrants, il n'existe pas à ma connaissance de tests qui ont atteint un niveau de célébrité dans le grand public ou de reconnaissance dans la communauté scientifique.   
-Il n'existe pas actuellement de compétition inspirée de test de Turing, malgrè des tentatives telles que le Loebner Prize, apparu en 1990 et largement critiqué pour s'arrêter en 2020 \cite{powers_total_1998}.
-Dans le domaine des agents en environnement simulé ou des robots, chaque équipe de recherche tend à proposer son propre mode d'évaluation qui se focalise sur les aspects de l'intelligence qui les intéresse. 
+Le quandrant \emph{dynamique} / \emph{jugement} regroupe les évaluations de l'intelligence \an{open-ended} en milieu ouvert pour lesquels les objectifs finaux de l'agent ne sont pas explicitement fixés. 
+Aucun test ne fait réellement figure de référence de ce quadrant auprès du grand public ou de la communauté scientifique.
+L'idée du test de Turing illustre l’esprit de ce quadrant, mais n'a pas été mise en oeuvre de manière convaincante. 
+Des tentatives ont été menées, par exemple le \an{Loebner Prize}, lancé en 1990 et critiqué jusqu’à sa disparition en 2020, sans doute parce que l’objectif du test de Turing demeure hors de portée de l'IA actuelle \cite{powers_total_1998}.
+En pratique, chaque équipe de recherche définit ses propres critères de jugement centrés sur les aspects de l'intelligence qu'elle souhaite explorer. 
+
+En robotique, l'acte de jugement peut s'appuyer sur une analyse fine des comportements du robot. 
+Alexander Maye et Andreas Engel démontrent par cette méthode que leur robot acquièrt une maitrise des ‘‘contingences sensorimotrice'' (voir Section \ref{sec:SMC}).
+Leur article \og \an{A discrete computational model of sensorimotor contingencies for  object perception and control of behavior} \fg \cite{maye_discrete_2011} présente un modèle de reconnaissance d'objets dans lequel les actions sont au c\oe ur du processus perceptif.
+L’analyse comportementale illustrée en Figure \ref{fig:maye} met en évidence les contingences sensorimotrices propres à un couplage robot-objet particulier, représentées sous la forme d’une séquence d’actions et de signaux sensoriels.
 
 
-\subsection{Mesures robotiques}
-
-Cité dans l'article de Engel: 
-In a recent study [57], a simple computational model of object recognition was developed in which actions are an integral component of the perceptual process. In this model, sensorimotor contingencies (SMCs) were implemented as multistep, actioncon-ditional probabilities of future sensory observations.
-
-\cite{maye_discrete_2011}
-\cite{sanchez-fibla_acquisition_2011}
+%on peut aussi citer \cite{sanchez-fibla_acquisition_2011}
 
 \begin{figure}[ht]
 	\centering
@@ -516,25 +516,33 @@ In a recent study [57], a simple computational model of object recognition was d
 	\label{fig:maye}
 \end{figure}
 
+Certaines études considèrent la construction de son propre modèle du monde comme un objectif en soit pour l'agent.
+Je classe les benchmarks évaluant cette capacités dans la catégorie \emph{jugement} car ils ne mesurent pas directement l'aptitude d'un agent à accomplir une tâche appliquée: c'est l'expérimentateur qui juge la qualité du modèle du monde appris.
+Mais ce jugement se fait souvent en présupposant le format de représentation utilisé par l'agent, ce qui complique la comparaison entre agents utilisant des formats de représentation différents.
 
-\subsection{Mesures de l'apprentissage d'un modèle du monde}
+Pour comparer la construction de modèles du monde par des agents utilisant des formalismes différents, certains auteurs adoptent une approche hybride. 
+Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Archana Warrier et al. proposent \emph{WorldTest}, un benchmark destiné à évaluer l'apprentissage non supervisé d'un modèle du monde en soumettant l'agent à des tâches avec un but objectif.
+WorldTest différencie un \og environnement de base \fg durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
+Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formilsme de représentation utilisé.
 
-Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Warrier et al. identifient quatre catégories de \an{benchmarks} destinés à évaluer l'apprentissage d'un modèle du monde:
+%identifient quatre catégories de \an{benchmarks} pour évaluer l'apprentissage d'un modèle du monde:
 
-\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Un exemple typique est le ARC challenge présenté plus haut.
-	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
-	L'évaluation repose sur des mesures propres à chaque format de représentation. 
-	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 
-	Elle empêche la comparaison entre différents formats de représentation.  
-	\item les \an{benchmarks} avec récompense objective utilisés en apprentissage par renforcement tels qu'\an{Open Gymnasium} de OpenAI.  
-	\item les \an{unsupervised RL benchmarks} reposent sur une méthode en deux phases: une phase d'interaction et une phase de test. 
-	Dans la première, l'agent interagit sans objectif explicite; dans la seconde, il est évalué sur sa capacité à accomplir une tâche spécifique.
-\end{itemize} 
+%\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+%	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Cette catégorie rejoint la catégorie \emph{statique} mais brouille la frontière entre \emph{objectif} et \emph{jugement} en testant la qualité du modèle du monde dans des jeux de questions objectives.
+%	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
+%	L'évaluation repose sur des mesures propres à chaque format de représentation. 
+%	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 
+%	Elles présentent l'inconvénient d'empêcher la comparaison entre différents formats de représentation.  
+%	Elles se situent dans la catégorie \emph{jugement} car c'est l'évaluateur qui juge de ce qui est important dans le modèle du monde. 
+%	\item les \an{benchmarks} avec récompense objective utilisés en apprentissage par renforcement tels qu'\an{Open Gymnasium} de OpenAI. Ils se situent dans la catégorie \emph{dynamique} / \emph{objectif} car le modèle du monde est évalué par son utilité à atteindre des obejctifs prédéfinis. 
+%	\item les \an{unsupervised RL benchmarks} reposent sur une méthode en deux phases: une phase d'interaction et une phase de test. 
+%	Dans la première, l'agent interagit sans objectif explicite; dans la seconde, il est évalué sur sa capacité à accomplir une tâche spécifique.
+%	Ces benchmarks floutent la frontière entre \emph{objectif} et \emph{jugement} car le choix de la tâche de test est un acte de jugement de l'examinateur, mais la performance dans cette tâche est mesurée objectivement. 
+%\end{itemize} 
 
-Warrier propose WorldTest, une évolution des \an{unsupervised RL benchmarks}, qui différencie un \og environnement de base \fg durant la phase d'interaction, et un \og environnement dérivé à objectif explicite \fg durant la phase de test.
-Ce dernier diffère de l'environnement de base tout en lui restant corrélé. 
-WorldTest évalue la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé. 
+
+
+
 
 \subsection{Bilan des mesures}
 

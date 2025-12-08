@@ -303,6 +303,24 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 \section{Théorie de l'inférence active}
 \label{sec:active_inference}
 
+
+La théorie de l'inférence active (\an{Active Inference}) a été proposée par Karl Friston et ses collègues pour expliquer comment le cerveau inferre des connaissances sur le monde au cours de l'expérience interactive du sujet. 
+Les états du système sensorimoteur entrainent des perturbations dans l'activité du cerveau qui infere des causes hypothétiques qui peuvent expliquer ces perturbations.
+
+Le cerveau est compris comme en système en boucle fermée.
+Les sens ne fournissent pas des données sur le monde en entrée du cerveaun mais viennent simplement perturber cette boucle. 
+Le processus de perception ne consiste pas à assembler des données reçues de sens mais consiste à inférer les causes dans le monde extérieur qui peuvent expliquer ces perturbations.
+
+La théorie de l'inférence active propose que l'agent maintient deux modèles statistique: le \emph{generative model} et le \emph{recognition model}.
+L'agent utilise le premier pour tenter de prédire les prochains signaux sensoriels qu'il va recevoir.
+Il utilise le second pour inférer les causse hypothétiques qui peuvent expliquer les signaux sensoriels précédement reçus. 
+Les deux modèles travaillent de concert: le modèle génératif utilise les convictions de l'agent au début du cycle d'interaction pour produire une estimation des futurs signaux sensoriels obtenus. 
+Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les convictions sur l'état du monde extérieur.    
+
+La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 
+C'est l'idée que notre cerveau raffine en parmanence un modèle interne du monde extérieur en agissant comme une machine d'inférence probabiliste. 
+Le modèle génératif prédit en permanence l'état de l'environnement et compare ses prédictions avec les données des organes sensoriels. Quand un écart se produit, le cerveau met à jour son modèle.
+
 La théorie de Active Inference est développée par une communauté autour de 
 Karl Friston \cite{friston_active_2017} 
 
@@ -313,6 +331,15 @@ L'agent chosit la décision qui a le plus de chance de minimiser ses erreurs de 
 
 La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
 
+Pierre-Yves Oudeyer remarque que les mathématiques d'inférence bayésienne nécessite que l'espace des états soit donné a priori.
+De plus, il devient untractable quand l'espace d'états augmente \cite[e.g.]{buckley_free_2017}.:
+
+
+\begin{quote}
+\an{Such a normative Bayesian framework requires that the modelled human subjects initially know the full space of possible hypotheses about possible world states, possible policies, possible model parameters, and possible model structures. [...] \\
+Active structured Bayesian inference is computationally very costly [Buckley et al., 2017], and quickly become computationally intractable for problems of moderate size }
+\cite[p.~9]{oudeyer_computational_2018}.
+\end{quote}
 
 \section{Inversion du cycle d'interaction}
 \label{sec:inversion}
@@ -500,6 +527,22 @@ Il est plus simple d'implémenter quelques sous-programme dédiés à la détect
 Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
 
 Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
+
+
+\section{Coriosité artificielle}
+\label{sec:curiosite}
+
+Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
+
+Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
+Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
+A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
+Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
+Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
+Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
+
+Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
+Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
 
 \section{Réitération de séquences sensorimotrices}

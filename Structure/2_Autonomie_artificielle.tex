@@ -77,16 +77,67 @@ La partie droite montre des cycles d'interactions hiérarchiques imbriqués au c
 Ce dernier cas soulève la question soulignée par Weinbaum de savoir comment l'environnement peut susciter ou réagir à différents niveaux hiérarchiques d'actions de l'agent. 
 
 
-\section{Couverture de Markov}
+\section{Représentation bayésienne}
 
-Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
+\noindent
+La représentation bayésienne offre une alternative au cycle de décision discret qui vise à mieux prendre en compte de la complexité des interactions entre un organisme et son environnement.
+
+Dans cette représentation, le monde (organisme + environnement) est représenté par un réseau bayésien de variables aléatoires interdépendantes.
+
+Un réseau bayésien est un graphe acyclique directe dont les n \oe uds représentent des variables aléatoires, et les arcs représentent des dépendances probabilistes entre ces variables \cite{ben-gal_bayesian_2008}. 
+La Figure \ref{fig:be} montre un exemple minimal de réseau bayésien constitué de deux variables $S$ et $O$ liées par une relation d'influence.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.2\textwidth]{Figures/3_bn.pdf}
+	\caption{Réseau bayésien représentant que \og $S$ infulence $O$ \fg ou que \og $O$ dépend de son parent $S$ \fg avec la probabilité conditionnelle $P(O|S)$.
+		Les différentes probabilités impliquant ces deux variables sont liées par le théorème de Bayes: $P (O) P(S|O) = P(S)P(O|S) = P (O, S)$.}
+	\label{fig:bn}
+\end{figure}
+
+
+Une entité (vivante ou non vivante) est sous-ensemble de n \oe uds de ce réseau qui peut être isolée par certains n\oe uds qui en constituent le contour. 
+Le sous-ensemble des n \oe uds qui constitue le contour est appelé la couverture de Markov de l'entité. 
+
+Dans le cas d'une entité vivante, la couverture de Markov se définit par deux sortes de noeuds selon que leurs réseaux d'influences va de l'intérieur vers l'extérieur ou l'inverse. 
+Les n \oe uds qui sont influencés par les variables externes et qui influencent les variables internes sont des n \oe uds sensoriels.
+Les n \oe uds qui sont infuencés par les variables internes et qui influencent les variables externes sont des affecteurs. 
+La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite{ororbia_mortal_2024} représente cette modélisation.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/1_blanket.png}
-	\caption{La couverture de Markov \cite[Fig.~5]{ororbia_mortal_2024}.}
+	\caption{Couverture de Markov séparant un organisme de son environnement \cite[Fig.~5]{ororbia_mortal_2024}.
+		Z: état interne de l'organisme. 
+		S: états des différents organes sensoriels.
+		A: états des différents affecteurs.
+		O: différentes variables représentant l'environnement.
+		La distribution de probabilité de Z ne dépend que des noeuds S et A qui constituent la couverture de Markov de l'organisme qui lui masquent les états des varibales $O$.}
 	\label{fig:blanket}
 \end{figure}
+
+
+ 
+L'entité est alors comprise comme un observeur (\an{observer}) actif de son environnement. 
+Sa dynamique et son auto-organisation peut etre vue comme maintenant des croyances probabilistes (croyance mathématique, ou croyance bayésienne) à propos de l'observé.
+
+
+En utilisant le théorème de Bayes, il est possible d'inféré les distributions de probabilité jointe des variables internes en fonction des distributions de probabilité des variables de la converture de Markov. 
+
+Ce calcul d'inférence se fait de manière itérative en descendant un gradiant d'énergie libre dans le réseau. 
+
+\begin{equation}
+	P(V)=\prod_{v\in V}P(v|pa(v))
+\end{equation}
+
+
+
+
+
+\section{Couverture de Markov et problème de l'inférence}
+
+Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
+
 
 Drescher exprime cette idée ainsi: 
 \begin{quote}

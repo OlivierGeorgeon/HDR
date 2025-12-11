@@ -300,8 +300,36 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
 % Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
+\section{Cerveau comme machine à inférer}
+
+Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
+
+Le terme inference désigne le processus visant à tirer des conclusions sur l'état des variables d'un réseau sur la base de de connaissance préalables concernant d'autres variables. 
+Plus précisément, l'inférence probabiliste consiste à calaculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
+
+Considerons un agent qui observe son environnement, et nommons $O$ l'observation et $S$ l'état de l'environnement.
+Le fait que l'état de l'environnement influence l'observation peut être représenté par le réseau bayesienn de la Figure \ref{fig:bn}.
+
+
+
+Les probabilités de de $S$ et $O$ sont reliées par le théorème de Bayes de l'Equation \eqref{eq:bayes}. 
+Si les autres termes de l'équation sont connus, l'inference probabiliste permet d'inférer l'état de l'environnement connaissant l'observation.
+
+\begin{equation}
+	\label{eq:bayes}
+	P (O) P(S|O) = P(S)P(O|S) = P (O, S) 
+\end{equation} 
+
+Par exemple, si un bras robotisé observe son environnement uniquement grace à un capteur d'impact, il peut utiliser l'inférence probabiliste pour inférer l'existence d'un obstacle devant lui. 
+Pour cela il doit connaitre la probabilité que le capteur détecte un impact s'il y a un objet $P(O|S)$, la probabilité de chaque état $P(S)$ et la probabilité de chaque observation $P(O)$.
+En pratique, cependant, si les cartdinalités des variables $S$ et $O$ sont grandes, nécessite une capacité computationnelles non réaliste. 
+Il a été montré qu'en général l'inférence probabiliste est NP-Hard \cite{cooper_computational_1990}.
+
+
+
 \section{Théorie de l'inférence active}
 \label{sec:active_inference}
+
 
 
 La théorie de l'inférence active (\an{Active Inference}) a été proposée par Karl Friston et ses collègues pour expliquer comment le cerveau inferre des connaissances sur le monde au cours de l'expérience interactive du sujet. 
@@ -316,6 +344,9 @@ L'agent utilise le premier pour tenter de prédire les prochains signaux sensori
 Il utilise le second pour inférer les causse hypothétiques qui peuvent expliquer les signaux sensoriels précédement reçus. 
 Les deux modèles travaillent de concert: le modèle génératif utilise les convictions de l'agent au début du cycle d'interaction pour produire une estimation des futurs signaux sensoriels obtenus. 
 Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les convictions sur l'état du monde extérieur.    
+
+
+
 
 La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 
 C'est l'idée que notre cerveau raffine en parmanence un modèle interne du monde extérieur en agissant comme une machine d'inférence probabiliste. 
@@ -368,6 +399,8 @@ Mais dans la pratique, la façon dont le designer comprend ce cycle influence la
 \end{figure}
 
 \section{Les architectures cognitives bio-inspirées}
+
+Paul Rosenbloom \og \an{architecture is essence} \fg \cite{rosenbloom_search_2025}.
 
 Ron Sun \cite{sun_desiderata_2004} pose les bases des attentes envers les architectures cognitives.
 

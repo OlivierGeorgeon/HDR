@@ -300,149 +300,6 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
 % Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
-\section{Cerveau comme machine à inférer}
-
-Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
-
-Le terme inference désigne le processus visant à tirer des conclusions sur l'état des variables d'un réseau sur la base de de connaissance préalables concernant d'autres variables. 
-Plus précisément, l'inférence probabiliste consiste à calaculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
-
-Considerons un agent qui observe son environnement, et nommons $O$ l'observation et $S$ l'état de l'environnement.
-Le fait que l'état de l'environnement influence l'observation peut être représenté par le réseau bayesienn de la Figure \ref{fig:bn}.
-
-
-
-Les probabilités de de $S$ et $O$ sont reliées par le théorème de Bayes de l'Equation \eqref{eq:bayes}. 
-Si les autres termes de l'équation sont connus, l'inference probabiliste permet d'inférer l'état de l'environnement connaissant l'observation.
-
-\begin{equation}
-	\label{eq:bayes}
-	P (O) P(S|O) = P(S)P(O|S) = P (O, S) 
-\end{equation} 
-
-Par exemple, si un bras robotisé observe son environnement uniquement grace à un capteur d'impact, il peut utiliser l'inférence probabiliste pour inférer l'existence d'un obstacle devant lui. 
-Pour cela il doit connaitre la probabilité que le capteur détecte un impact s'il y a un objet $P(O|S)$, la probabilité de chaque état $P(S)$ et la probabilité de chaque observation $P(O)$.
-En pratique, cependant, si les cartdinalités des variables $S$ et $O$ sont grandes, nécessite une capacité computationnelles non réaliste. 
-Il a été montré qu'en général l'inférence probabiliste est NP-Hard \cite{cooper_computational_1990}.
-
-
-
-\section{Théorie de l'inférence active}
-\label{sec:active_inference}
-
-
-
-La théorie de l'inférence active (\an{Active Inference}) a été proposée par Karl Friston et ses collègues pour expliquer comment le cerveau inferre des connaissances sur le monde au cours de l'expérience interactive du sujet. 
-Les états du système sensorimoteur entrainent des perturbations dans l'activité du cerveau qui infere des causes hypothétiques qui peuvent expliquer ces perturbations.
-
-Le cerveau est compris comme en système en boucle fermée.
-Les sens ne fournissent pas des données sur le monde en entrée du cerveaun mais viennent simplement perturber cette boucle. 
-Le processus de perception ne consiste pas à assembler des données reçues de sens mais consiste à inférer les causes dans le monde extérieur qui peuvent expliquer ces perturbations.
-
-La théorie de l'inférence active propose que l'agent maintient deux modèles statistique: le \emph{generative model} et le \emph{recognition model}.
-L'agent utilise le premier pour tenter de prédire les prochains signaux sensoriels qu'il va recevoir.
-Il utilise le second pour inférer les causse hypothétiques qui peuvent expliquer les signaux sensoriels précédement reçus. 
-Les deux modèles travaillent de concert: le modèle génératif utilise les convictions de l'agent au début du cycle d'interaction pour produire une estimation des futurs signaux sensoriels obtenus. 
-Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les convictions sur l'état du monde extérieur.    
-
-
-
-
-La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 
-C'est l'idée que notre cerveau raffine en parmanence un modèle interne du monde extérieur en agissant comme une machine d'inférence probabiliste. 
-Le modèle génératif prédit en permanence l'état de l'environnement et compare ses prédictions avec les données des organes sensoriels. Quand un écart se produit, le cerveau met à jour son modèle.
-
-La théorie de Active Inference est développée par une communauté autour de 
-Karl Friston \cite{friston_active_2017} 
-
-Ryan Smith, Karl Friston et Christopher White ont écrit un tutoriel \cite{smith_step-by-step_2022} pour utiliser cette théorie pour controler un agent dans un POMDP. 
-L'idée est de guider les décisions de l'agent pour choisir les décisions qui apporteront le plus d'information à l'agent. 
-Pour cela on utilise une mesure de l'information gagnée calculées selon le principe de l'énergie libre (free energy).
-L'agent chosit la décision qui a le plus de chance de minimiser ses erreurs de prédiction futures. 
-
-La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
-
-Pierre-Yves Oudeyer remarque que les mathématiques d'inférence bayésienne nécessite que l'espace des états soit donné a priori.
-De plus, il devient untractable quand l'espace d'états augmente \cite[e.g.]{buckley_free_2017}.:
-
-
-\begin{quote}
-\an{Such a normative Bayesian framework requires that the modelled human subjects initially know the full space of possible hypotheses about possible world states, possible policies, possible model parameters, and possible model structures. [...] \\
-Active structured Bayesian inference is computationally very costly [Buckley et al., 2017], and quickly become computationally intractable for problems of moderate size }
-\cite[p.~9]{oudeyer_computational_2018}.
-\end{quote}
-
-\section{Inversion du cycle d'interaction}
-\label{sec:inversion}
-
-Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
-
-La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
-Le cycle inversé (à droite) offre deux avantages: 
-\begin{itemize}
-	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
-	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
-\end{itemize}
-
-On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
-Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
-
-\cite{georgeon_inverting_2014}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
-	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
-	Gauche: cycle des POMDP classiques.
-	Droite: cycle inversé.}
-	\label{fig:inversion}
-\end{figure}
-
-\section{Les architectures cognitives bio-inspirées}
-
-Paul Rosenbloom \og \an{architecture is essence} \fg \cite{rosenbloom_search_2025}.
-
-Ron Sun \cite{sun_desiderata_2004} pose les bases des attentes envers les architectures cognitives.
-
-David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de Sun pour spécifier les désiderata pour une architecture cognitive développementale. 
-
-\subsection{Constructivist Anticipatory Learning Mechanism (CALM)}
-
-Filipo Perotto \cite{perotto_computational_2013} s'intéresse à l'apprentissage \an{Model Based} dans le cas non markovien introduit en Section \ref{sec:NMDP}.
-Ce qui le distingue par rapport à d'autres approches de POMDP et le rend \emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
-
-
-
-\subsection{Learning Intelligent Decision Agent  LIDA}
-\label{sec:lida}
-
-LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
-Sean Kugele \cite{kugele_constructivist_2025} a récement étendu LIDA pour inclure un \an{schema mechanism} inspiré de Drescher. 
-Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
-Les \og percpets \fg ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
-
-Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
-Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
-Une instance de schema dont les \an{unbound variables} ont été qualifiées est appelé un \an{behavior}.
-
-LIDA associe également une \an{affective valence} aux schémas qui oriente la sélection des comportements vers des résultats désirables.
-Les préférences (liking and disliking) sont distinguées des désirs (wanting and dreading).
-
-LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
-
-\subsection{Autocatalytic Endogenous Reflective Architecture AERA}
-
-L'équipe de Reykjavik développe AERA. 
-
-S'intéresse principalement à l'explicabilité et la construction de relations causales. 
-
-AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
-
-Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
-
-Les événements internes générés par le système sont aussi observés et traités. 
-Cela ouvre la voie à la réflexivité et à l'auto programmaion.
-
 \section{Logiques probabilistes}
 
 Ben Goertzel \cite{goertzel_general_2021}.
@@ -527,57 +384,6 @@ Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} 
 
 
 
-\section{La motivation intrinsèque}
-\label{sec:motivation_intrinseque}
-
-\noindent
-La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
-La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
-Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
-
-Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
-Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
-
-L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
-
-
-Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
-On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
-C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
-Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
-Examinons cela plus en détail.
-On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
-Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
-Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
-En pratique il n'est pas nécessaire d'implémenter un arbitre. 
-Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
-Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
-Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
-
-
-Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
-
-Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
-
-Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
-
-
-\section{Coriosité artificielle}
-\label{sec:curiosite}
-
-Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
-
-Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
-Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
-A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
-Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
-Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
-Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
-
-Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
-Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
-
-
 \section{Réitération de séquences sensorimotrices}
 
 \cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
@@ -600,11 +406,65 @@ Des exemples notables sont les \textit{Schema Networks} \cite{kansky_schema_2017
 
 Patrick Hammer et ses collègues ont utilisé NARS pour contrôler un robot collecteur de détritus \cite{hammer_non-axiomatic_2024}.
 
+\section{Les architectures cognitives bio-inspirées}
+
+Un système cognitif est un édifice dont la conception au niveau le plus général peut se poser comme la conception d'une architecture. 
+
+Paul Rosenbloom argumente que 
+\og \an{architecture is essence} \fg \cite{rosenbloom_search_2025}.
+
+Ron Sun \cite{sun_desiderata_2004} pose les bases des attentes envers les architectures cognitives.
+
+David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de Sun pour spécifier les désiderata pour une architecture cognitive développementale. 
+
+\subsection{Constructivist Anticipatory Learning Mechanism (CALM)}
+
+Filipo Perotto \cite{perotto_computational_2013} s'intéresse à l'apprentissage \an{Model Based} dans le cas non markovien introduit en Section \ref{sec:NMDP}.
+Ce qui le distingue par rapport à d'autres approches de POMDP et le rend \emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
+
+
+
+\subsection{Learning Intelligent Decision Agent  LIDA}
+\label{sec:lida}
+
+LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
+Sean Kugele \cite{kugele_constructivist_2025} a récement étendu LIDA pour inclure un \an{schema mechanism} inspiré de Drescher. 
+Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
+Les \og percpets \fg ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
+
+Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
+Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
+Une instance de schema dont les \an{unbound variables} ont été qualifiées est appelé un \an{behavior}.
+
+LIDA associe également une \an{affective valence} aux schémas qui oriente la sélection des comportements vers des résultats désirables.
+Les préférences (liking and disliking) sont distinguées des désirs (wanting and dreading).
+
+LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
+
+\subsection{Autocatalytic Endogenous Reflective Architecture AERA}
+
+L'équipe de Reykjavik développe AERA. 
+
+S'intéresse principalement à l'explicabilité et la construction de relations causales. 
+
+AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
+
+Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
+
+Les événements internes générés par le système sont aussi observés et traités. 
+Cela ouvre la voie à la réflexivité et à l'auto programmaion.
+
+
+
+
 \section{Auto-programmation}
 
 Un article récent de l'équipe de Jürgen Schmidhuber ``\an{Huxley-Gödel Machine: Human-Level Coding Agent Development by an Approximation of the Optimal Self-Improving Machine}'' \cite{wang_huxley-gomachine_2025}.
 
 On pourrait proposer une définition de l'intelligence selon laquelle Un système intelligent est un système capable de se programmer lui-même.
+
+
+
 
 \section{Conclusion}
 

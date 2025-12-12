@@ -80,28 +80,38 @@ Ce dernier cas soulève la question soulignée par Weinbaum de savoir comment l'
 \section{Représentation bayésienne}
 
 \noindent
-La représentation bayésienne offre une alternative au cycle de décision discret qui vise à mieux prendre en compte de la complexité des interactions entre un organisme et son environnement.
+La représentation bayésienne offre une alternative au cycle de décision discret qui vise à mieux prendre en compte la diversité des canneaux d'interactions et leur possible parallélisme.
+Dans cette représentation, le monde constitué de l'organisme et de son environnement est représenté par un réseau bayésien. 
+%de variables aléatoires interdépendantes.
 
-Dans cette représentation, le monde (organisme + environnement) est représenté par un réseau bayésien de variables aléatoires interdépendantes.
+Les réseaux bayésiens sont des graphes acycliques directs dont les n\oe uds représentent des variables aléatoires et les arcs des dépendances probabilistes entre ces variables \cite{ben-gal_bayesian_2008}. 
+Ils sont parfois appelés \an{belief networks} et ils servent à représenter des connaissances à propos d'un domaine incertain.
+Il existe de nombreuses spécialisations des réseaux bayésiens adaptés à différent types de problèmes, par exemple les chaines de Markov cachées, les filtres de Kalman, et les réseaux de neurones  % \cite{bibid}. 
 
-Un réseau bayésien est un graphe acyclique directe dont les n \oe uds représentent des variables aléatoires, et les arcs représentent des dépendances probabilistes entre ces variables \cite{ben-gal_bayesian_2008}. 
-La Figure \ref{fig:be} montre un exemple minimal de réseau bayésien constitué de deux variables $S$ et $O$ liées par une relation d'influence.
+
+La Figure \ref{fig:bn} montre un réseau bayésien minimal contenan deux variables $S$ et $O$ liées par une relation d'influence signifiant que la probabilité que la variable $O$ prenne une valeur particulière $o$ dépend de la valeur $s$ prise par la variable $S$. 
+Cette dépendance conditionnelle est notée $P(O=o | S=s)$, ou, plus concisément, $P(O|S)$, et se lit \og probabilité de $O$ sachant $S$ \fg.
+La nature acyclique du graphe est cruciale pour garantir qu'aucun n\oe ud ne soit sur propre encêtre.
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.2\textwidth]{Figures/3_bn.pdf}
 	\caption{Réseau bayésien représentant que \og $S$ infulence $O$ \fg ou que \og $O$ dépend de son parent $S$ \fg avec la probabilité conditionnelle $P(O|S)$.
-		Les différentes probabilités impliquant ces deux variables sont liées par le théorème de Bayes: $P (O) P(S|O) = P(S)P(O|S) = P (O, S)$.}
+	Les différentes probabilités impliquant ces deux variables sont liées par le théorème de Bayes: $P (O) P(S|O) = P(S)P(O|S) = P (O, S)$.}
 	\label{fig:bn}
 \end{figure}
 
+Les variables dont les distribution de probabilité sont connues sont appelés des \an{evidence}. 
+Le processus d'inférence bayésienne consiste à calculer les distribution de probabilité des autres variables qui leurs sont liées, jusqu'a converger vers une distribution de probabilité conjointe (\an{Joint Probability Distribution}, JPD) de l'ensemble des variables du réseau.  
 
-Une entité (vivante ou non vivante) est sous-ensemble de n \oe uds de ce réseau qui peut être isolée par certains n\oe uds qui en constituent le contour. 
-Le sous-ensemble des n \oe uds qui constitue le contour est appelé la couverture de Markov de l'entité. 
 
-Dans le cas d'une entité vivante, la couverture de Markov se définit par deux sortes de noeuds selon que leurs réseaux d'influences va de l'intérieur vers l'extérieur ou l'inverse. 
-Les n \oe uds qui sont influencés par les variables externes et qui influencent les variables internes sont des n \oe uds sensoriels.
-Les n \oe uds qui sont infuencés par les variables internes et qui influencent les variables externes sont des affecteurs. 
+Une \emph{entité} (vivante ou non vivante) est représentée par un sous-ensemble $V_0 \subset V$ qui est  l'ensemble des variables du réseau qui peut être isolé du reste du réseau. 
+Les variables appartenant à $V_0$ qui ont sont des parents ou des enfants dans le reste du réseau définissent l'interface entre l'entité et son environnement, aussi appelée la   \emph{couverture de Markov} de l'entité. 
+
+Dans le cas ou l'entité est un organisme vivant, sa couverture de Markov se scinde en deux sous ensembles de variables selon que leurs réseaux d'influences va de l'intérieur vers l'extérieur ou l'inverse. 
+L'ensemble $V_s \subset V_m$ des variables  qui sont influencés par les variables externes et qui influencent les variables internes sont les \emph{variables sensorielles} de l'organisme.
+L'ensemble $V_a \subset V_m$ des variables qui sont infuencés par les variables internes et qui influencent les variables externes sont les \emph{variables motrices} de l'organisme. 
 La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite{ororbia_mortal_2024} représente cette modélisation.
 
 \begin{figure}[ht]
@@ -118,28 +128,27 @@ La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl
 
 
  
-L'entité est alors comprise comme un observeur (\an{observer}) actif de son environnement. 
-Sa dynamique et son auto-organisation peut etre vue comme maintenant des croyances probabilistes (croyance mathématique, ou croyance bayésienne) à propos de l'observé.
-
-
-En utilisant le théorème de Bayes, il est possible d'inféré les distributions de probabilité jointe des variables internes en fonction des distributions de probabilité des variables de la converture de Markov. 
-
+L'entité est comprise comme un \emph{observeur actif} de son environnement. 
+La modélisation bayésienne voit la dynamique et l'auto-organisation de l'observeur comme maintenant des croyances probabilistes (croyance mathématique, ou croyance bayésienne) à propos de l'observé.
+En utilisant le théorème de Bayes, il est possible d'inféré les distributions de probabilité jointe des variables internes (\an{Joint Probability Distribution}, JPD) en fonction des distributions de probabilité des variables de la converture de Markov. 
 Ce calcul d'inférence se fait de manière itérative en descendant un gradiant d'énergie libre dans le réseau. 
 
-\begin{equation}
-	P(V)=\prod_{v\in V}P(v|pa(v))
-\end{equation}
-
-
+%\begin{equation}
+%	P(V)=\prod_{v\in V}P(v|pa(v))
+%\end{equation}
 
 
 
 \section{Couverture de Markov et problème de l'inférence}
 
-Judea Pearl \cite{pearl_probabilistic_1988} définit la couverture de Markov.
+\noindent
+Les théoriciens des réseaux bayésiens tels que Judea Pearl \cite{pearl_probabilistic_1988} ont montré que les statistiques des variables internes de l'orgnaisme sont entièrement définies par les statistiques des variables de la couverture de markov, et donc indépendante des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
 
 
-Drescher exprime cette idée ainsi: 
+Le concept de couverture de Markov est très employé en biologie pour signifier qu'il est mathématiquement impossible pour organisme d'inférer la structure du monde extérieur.
+% car celle ci-est masquée par sa couverture de Markov.
+Ce problème fondamental de l'inférence a été identifié sous de multiples formes. 
+Par exemple, Gary Drescher exprime cette idée ainsi: 
 \begin{quote}
 	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
 	\cite[p.~174]{drescher_made-up_1991}. 
@@ -154,57 +163,158 @@ Il note que l'humain utilise naturellement le principe du rasoir d'Occam consist
 Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilise indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
 
 
+\section{Cerveau comme machine à inférer}
+
+Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
+
+Le terme inference désigne le processus visant à tirer des conclusions sur l'état des variables d'un réseau sur la base de de connaissance préalables concernant d'autres variables. 
+Plus précisément, l'inférence probabiliste consiste à calaculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
+
+Considerons un agent qui observe son environnement, et nommons $O$ l'observation et $S$ l'état de l'environnement.
+Le fait que l'état de l'environnement influence l'observation peut être représenté par le réseau bayesienn de la Figure \ref{fig:bn}.
+
+
+
+Les probabilités de de $S$ et $O$ sont reliées par le théorème de Bayes de l'Equation \eqref{eq:bayes}. 
+Si les autres termes de l'équation sont connus, l'inference probabiliste permet d'inférer l'état de l'environnement connaissant l'observation.
+
+\begin{equation}
+	\label{eq:bayes}
+	P (O) P(S|O) = P(S)P(O|S) = P (O, S) 
+\end{equation} 
+
+Par exemple, si un bras robotisé observe son environnement uniquement grace à un capteur d'impact, il peut utiliser l'inférence probabiliste pour inférer l'existence d'un obstacle devant lui. 
+Pour cela il doit connaitre la probabilité que le capteur détecte un impact s'il y a un objet $P(O|S)$, la probabilité de chaque état $P(S)$ et la probabilité de chaque observation $P(O)$.
+En pratique, cependant, si les cartdinalités des variables $S$ et $O$ sont grandes, nécessite une capacité computationnelles non réaliste. 
+Il a été montré qu'en général l'inférence probabiliste est NP-Hard \cite{cooper_computational_1990}.
+
+
+
+\section{Théorie de l'inférence active}
+\label{sec:active_inference}
+
+
+
+La théorie de l'inférence active (\an{Active Inference}) a été proposée par Karl Friston et ses collègues pour expliquer comment le cerveau inferre des connaissances sur le monde au cours de l'expérience interactive du sujet. 
+Les états du système sensorimoteur entrainent des perturbations dans l'activité du cerveau qui infere des causes hypothétiques qui peuvent expliquer ces perturbations.
+
+Le cerveau est compris comme en système en boucle fermée.
+Les sens ne fournissent pas des données sur le monde en entrée du cerveaun mais viennent simplement perturber cette boucle. 
+Le processus de perception ne consiste pas à assembler des données reçues de sens mais consiste à inférer les causes dans le monde extérieur qui peuvent expliquer ces perturbations.
+
+La théorie de l'inférence active propose que l'agent maintient deux modèles statistique: le \emph{generative model} et le \emph{recognition model}.
+L'agent utilise le premier pour tenter de prédire les prochains signaux sensoriels qu'il va recevoir.
+Il utilise le second pour inférer les causse hypothétiques qui peuvent expliquer les signaux sensoriels précédement reçus. 
+Les deux modèles travaillent de concert: le modèle génératif utilise les convictions de l'agent au début du cycle d'interaction pour produire une estimation des futurs signaux sensoriels obtenus. 
+Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les convictions sur l'état du monde extérieur.    
+
+
+
+
+La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 
+C'est l'idée que notre cerveau raffine en parmanence un modèle interne du monde extérieur en agissant comme une machine d'inférence probabiliste. 
+Le modèle génératif prédit en permanence l'état de l'environnement et compare ses prédictions avec les données des organes sensoriels. Quand un écart se produit, le cerveau met à jour son modèle.
+
+La théorie de Active Inference est développée par une communauté autour de 
+Karl Friston \cite{friston_active_2017} 
+
+Ryan Smith, Karl Friston et Christopher White ont écrit un tutoriel \cite{smith_step-by-step_2022} pour utiliser cette théorie pour controler un agent dans un POMDP. 
+L'idée est de guider les décisions de l'agent pour choisir les décisions qui apporteront le plus d'information à l'agent. 
+Pour cela on utilise une mesure de l'information gagnée calculées selon le principe de l'énergie libre (free energy).
+L'agent chosit la décision qui a le plus de chance de minimiser ses erreurs de prédiction futures. 
+
+La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
+
+Pierre-Yves Oudeyer remarque que les mathématiques d'inférence bayésienne nécessite que l'espace des états soit donné a priori.
+De plus, il devient untractable quand l'espace d'états augmente \cite[e.g.]{buckley_free_2017}.:
+
+
+\begin{quote}
+	\an{Such a normative Bayesian framework requires that the modelled human subjects initially know the full space of possible hypotheses about possible world states, possible policies, possible model parameters, and possible model structures. [...] \\
+		Active structured Bayesian inference is computationally very costly [Buckley et al., 2017], and quickly become computationally intractable for problems of moderate size }
+	\cite[p.~9]{oudeyer_computational_2018}.
+\end{quote}
+
+\section{Inversion du cycle d'interaction}
+\label{sec:inversion}
+
+Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
+
+La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
+Le cycle inversé (à droite) offre deux avantages: 
+\begin{itemize}
+	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
+	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
+\end{itemize}
+
+On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
+Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
+
+\cite{georgeon_inverting_2014}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
+	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
+		Gauche: cycle des POMDP classiques.
+		Droite: cycle inversé.}
+	\label{fig:inversion}
+\end{figure}
+
+
+
+\section{Finalité et motivations de l'agent}
+\label{sec:motivation_intrinseque}
+
+\noindent
+La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
+La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
+Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+
+Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
+Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
+
+L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
+
+
+Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
+On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
+C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
+Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
+Examinons cela plus en détail.
+On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
+Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
+Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
+En pratique il n'est pas nécessaire d'implémenter un arbitre. 
+Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
+Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
+Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
+
+
+Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
+
+Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
+
+Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
+
+
+\section{Coriosité artificielle}
+\label{sec:curiosite}
+
+Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
+
+Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
+Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
+A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
+Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
+Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
+Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
+
+Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
+Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
 
 \section{Autonomie constitutive}
-
-\section{Apprentissage et monde \og ouvert \fg}
-
-Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
-Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
-Par contraste, nous qualifions certains environnements de \og fermés \fg quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
-Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique. 
-Ils sont contraint par un ensemble bien défini de règles qui spécifient leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
-La distinction n'est pourtant pas toujours évidente à définir. 
-Qu'en est il par exemple d'un jeu de billard ? 
-Il semble qu'on puisse qualifier le jeu de billard d'environnement fermé si on néglige les influences externes à la table, telles que les vibrations provenant du sol, les déplacement de l'air, etc. 
-Dans ce cas un environnement \og continu \fg (par opposition à \og discret \fg dans le sens ou les boules peuvent occuper une infinité d'états possibles ) peut être considéré comme un environnement fermé mais uniquement en tant que représentation théorique qui considère les influences extérieures comme négligeables. 
-Il faut toutefois noter que du point de vue d'un jour, que ce soit sur un terrain discret comme les échecs, ou continu comme le billard, bien que le terrain soit un terrain fermé, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
-Cependant, si on fait l'hypothèse que le joueur adverse joue dans le but de gagner le jeu, on peut modéliser son processus de décision de manière identique à celui du système d'IA lui même. 
-
-En général la recherche en IA vise à construire des systèmes capables de prendre une décision optimum la base d'une représentation de l'environnement et de sa dynamiques (le \an{problem space}) en intégrant éventuellement un facteur d'inconnu sous la forme d'un processus aléatoire. 
-Beaucoup de recherches en IA se consistent à rechercher la décision optimum dans un environnement modélisé dans le système d'IA. 
-Le système d'IA effectue des prédictions sur la base d'un monde fermé, le \an{problem space}.
-Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité pour .  
-
-L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent, comme en témoigne la publication récente d'un numéro spécial de le revue \an{Artificial Intelligence}  intitulée \an{Open-world AI} \cite{holder_introduction_2025}, ou la création d'un nouveau \an{Workshop on open-world agents} à la conférence NeurIPS 2024. 
-La question de définir un environnement de test qui soit ouvert se pose alors. 
-Elle peut prendre des formes très variées selon qu'on se place dans le domaine des ontologies, de la vision artificielle, ou des l'apprentissage par renforcement. 
-On peut se référer à la construction incrémentale d'ontologies, la catégorisation d'images non supervisée \cite{jafarzadeh_review_2022} ou à une étude d'apprentissage par renforcement \an{open-ended} \cite{team_open-ended_2021}. 
-
-
-Dans son article \an{What Do You Mean by ``Open Worl''?}, Bowen Xu note que la notion de monde ouvert implique deux choses: 
-
-1. Les expériences passées de l'agent ne sont pas toujours directement applicables à une situation nouvelle, 
-\begin{quote}
-	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers \cite[p.~3]{xu_what_2024}.
-\end{quote}
-
-2. La tache de l'agent ne soit pas prédéfinie par le concepteur:  
-\begin{quote}
-	In fully open worlds, tasks are not predefined by human developers, so researchers must focus on problem-independent aspects of intelligence 
-	\cite[p.~3]{xu_what_2024}.
-\end{quote}
-Il argumente que tester l'existence d'environnements de test ouvert pourra générer de nouveaux problemes d'apprentissage en IA. 
-
-
-Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par par rapport au système qu'on considère. 
-
-C'est un système dont le designer ne connait pas a priori le nombre d'états, rendant inapplicable les algorithmes qui préssuposent l'espace d'états (state space). 
-Compte tenu du fait qu'un système de décision artificiel base ses prédictions sur son modèle de monde interne qui est nécessairerment fermé, la recherche pour permettre à des systèmes artificiels de démontrer une intelligence en monde ouvert doit porter sur la capacité du système à faire évoluer son modèle du monde à partir de ses expériences effectuées dans le monde ouvert. 
-Notons le state space peut etre infini et pour autant fermé. 
-ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
-
 
 
 
@@ -262,6 +372,54 @@ Il soulève la question de l'interpretabilité du modèle:
 
 
 Citer aussi "Behavior Is Everything: Towards Representing Concepts with Sensorimotor Contingencies" de Dileep George et al.
+
+\section{Apprentissage et monde \og ouvert \fg}
+
+Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
+Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
+Par contraste, nous qualifions certains environnements de \og fermés \fg quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
+Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique. 
+Ils sont contraint par un ensemble bien défini de règles qui spécifient leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
+La distinction n'est pourtant pas toujours évidente à définir. 
+Qu'en est il par exemple d'un jeu de billard ? 
+Il semble qu'on puisse qualifier le jeu de billard d'environnement fermé si on néglige les influences externes à la table, telles que les vibrations provenant du sol, les déplacement de l'air, etc. 
+Dans ce cas un environnement \og continu \fg (par opposition à \og discret \fg dans le sens ou les boules peuvent occuper une infinité d'états possibles ) peut être considéré comme un environnement fermé mais uniquement en tant que représentation théorique qui considère les influences extérieures comme négligeables. 
+Il faut toutefois noter que du point de vue d'un jour, que ce soit sur un terrain discret comme les échecs, ou continu comme le billard, bien que le terrain soit un terrain fermé, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
+Cependant, si on fait l'hypothèse que le joueur adverse joue dans le but de gagner le jeu, on peut modéliser son processus de décision de manière identique à celui du système d'IA lui même. 
+
+En général la recherche en IA vise à construire des systèmes capables de prendre une décision optimum la base d'une représentation de l'environnement et de sa dynamiques (le \an{problem space}) en intégrant éventuellement un facteur d'inconnu sous la forme d'un processus aléatoire. 
+Beaucoup de recherches en IA se consistent à rechercher la décision optimum dans un environnement modélisé dans le système d'IA. 
+Le système d'IA effectue des prédictions sur la base d'un monde fermé, le \an{problem space}.
+Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité pour .  
+
+L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent, comme en témoigne la publication récente d'un numéro spécial de le revue \an{Artificial Intelligence}  intitulée \an{Open-world AI} \cite{holder_introduction_2025}, ou la création d'un nouveau \an{Workshop on open-world agents} à la conférence NeurIPS 2024. 
+La question de définir un environnement de test qui soit ouvert se pose alors. 
+Elle peut prendre des formes très variées selon qu'on se place dans le domaine des ontologies, de la vision artificielle, ou des l'apprentissage par renforcement. 
+On peut se référer à la construction incrémentale d'ontologies, la catégorisation d'images non supervisée \cite{jafarzadeh_review_2022} ou à une étude d'apprentissage par renforcement \an{open-ended} \cite{team_open-ended_2021}. 
+
+
+Dans son article \an{What Do You Mean by ``Open Worl''?}, Bowen Xu note que la notion de monde ouvert implique deux choses: 
+
+1. Les expériences passées de l'agent ne sont pas toujours directement applicables à une situation nouvelle, 
+\begin{quote}
+	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers \cite[p.~3]{xu_what_2024}.
+\end{quote}
+
+2. La tache de l'agent ne soit pas prédéfinie par le concepteur:  
+\begin{quote}
+	In fully open worlds, tasks are not predefined by human developers, so researchers must focus on problem-independent aspects of intelligence 
+	\cite[p.~3]{xu_what_2024}.
+\end{quote}
+Il argumente que tester l'existence d'environnements de test ouvert pourra générer de nouveaux problemes d'apprentissage en IA. 
+
+
+Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par par rapport au système qu'on considère. 
+
+C'est un système dont le designer ne connait pas a priori le nombre d'états, rendant inapplicable les algorithmes qui préssuposent l'espace d'états (state space). 
+Compte tenu du fait qu'un système de décision artificiel base ses prédictions sur son modèle de monde interne qui est nécessairerment fermé, la recherche pour permettre à des systèmes artificiels de démontrer une intelligence en monde ouvert doit porter sur la capacité du système à faire évoluer son modèle du monde à partir de ses expériences effectuées dans le monde ouvert. 
+Notons le state space peut etre infini et pour autant fermé. 
+ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
+
 
 
 

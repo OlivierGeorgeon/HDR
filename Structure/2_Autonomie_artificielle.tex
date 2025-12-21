@@ -313,32 +313,35 @@ Cette heuristique a été  implémentés pour l'apprentissage de la locomotion e
 Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
 Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
-\section{Mesurer l'information}
+\section{Mesure de l'information gagnée}
 
 \noindent
-Dans la théorie de l'information de Claude Shannon, l'information qu'un agent possède à propos d'une variable $X$ pouvant prendre $n$ valeurs différentes peut être représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n))$ parfois appelée \an{belief state}. 
-L'agent \og croit \fg que $X$ a une probabilité $p(x_i)$ d'avoir pour valeur $x_i$. 
-Shannon interprete la grandeur $I(x) = -log_2(p(x))$ comme la quantité d'information (exprimée en nombre de bits) qu'apporte cette valeur une fois qu'elle est connue par l'agent: si l'agent l'attendait, elle apporte peu d'information, s'il ne l'attendait pas, elle en apporte beaucoup.
-$I(x)$ peut donc aussi s'interpréter comme la \og surprise attendue \fg  associée à la valeur $x$. 
-Plus $x$ est probable (proche de 1), plus l'agent s'attend à une surprise faible (proche de 0) au cas ou elle se produise. 
-Si sa probabilité est nulle, la surprise attendue est infinie. 
-Sur cette base, Shannon propose de calculer l'entropie de la distribution comme son l'espérence de surprise (\an{expected surprise}), donnée par la somme des surprise attendues pondérées par les probabilités, soit l'Equation \eqref{eq:shannon} :
+Dans la théorie de l'information de Claude Shannon, l'information qu'un agent possède à propos d'une variable $X$, pouvant prendre $n$ valeurs distinctes, est représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n))$.
+Cette distribution, parfois appelée \an{belief state}, signifie que l'agent \og croit \fg que, pour chacune valeurs $x_i$ parmi les $n$ valeurs possibles de $X$, il y a une probabilité $p(x_i)$ que $X$ soit égale à $x_i$. 
+
+Shannon interprète la grandeur $I(x_i) = -log_2(p(x_i))$ comme la quantité d'information (exprimée en nombre de bits) apportée par la connaissance que $X = x_i$. 
+Intuitivement, quand l'agent reçoit une valeur qu'il attendait, il gagne peu d'information, mais quand il reçoit une valeur qu'il jugeait improbable, il en gagne beaucoup.
+$I(x_i)$ peut aussi s'interpréter comme la \og surprise attendue \fg  par l'agent. 
+Plus $x_i$ est probable ($p(x_i)$ proche de 1), plus l'agent s'attend à une surprise faible ($I(x_i)$ proche de 0) s'il observe $X = x_i$. 
+A l'inverse, quand $p(x_i)$ approche 0, la surprise attendue pour l'observation de $X=x_i$ tend vers l'infini. 
+Sur cette base, Shannon définit l'entropie de $d$ comme l'espérance de surprise (\an{expected surprise}), obtenue en pondérant chaque valeur de surprise par sa probabilité d'occurence.
+L'entropie $H(d)$ est donc formalisée par l'Equation \eqref{eq:shannon} dans laquelle l'indice $i$ est omis pour simplifier :
 
 \begin{equation}\label{eq:shannon}
 	H(d) = - \sum_{p(x) \in d} p(x) log_2(p(x))
 \end{equation}
 
-Quand la probabilité $p(x_i)$ d'une valeur $x_i$ tend vers 1 et celles des autres tendent vers 0 alors $H(d)$ tend vers 0.
-Un \an{belief state} d'entropie nulle représente donc le fait que l'agent croit connaitre avec certitude la valeur de $X$. 
-Quand toutes les valeurs sont équiprobables avec la probabilité $p(x_i) = 1/n$, l'entropie est maximale et vaut $H(d) = log(n)$. 
-Un \an{belief state} d'entropie maximale représente donc le fait que l'agent croit n'avoir aucune information sur $X$.
-%Si le $log$ est en base 2, $H(d)$ indique le nombre de bits nécessaires pour dénombrer les valeurs possibles de $X$. 
+Lorsque la probabilité $p(x_i)$ d'une valeur $x_i$ tend vers 1 tandis que celles des autres valeurs tendent vers 0, $H(d)$ tend vers 0.
+Un \an{belief state} d'entropie nulle correspond donc à une situation dans laquelle l'agent \og se sent certain \fg de la valeur de $X$. 
+Inversement, lorsque toutes les valeurs possibles sont équiprobables ($p(x_i) = 1/n$ pour tout $i$), l'entropie atteint sa valeur maximale qui vaut $H(d) = log(n)$. 
+Un \an{belief state} d'entropie maximale traduit le fait que l'agent estime n'avoir aucune information sur $X$.
+L'entropie du \an{belief state} ne fournit donc pas d'indication sur la justesse objective de la croyance de l'agent.
+Elle doit plutôt être interprétée comme une mesure de son degré de certitude subjective : elle quantifie à quel point l’agent se considère sûr de sa propre croyance, qu’elle soit juste ou fausse.
 
-L'entropie du \an{belief state} ne donne donc pas d'indication sur la justesse de la croyance de l'agent.
+Dans le cas d'un agent interagissant avec son environnement de manière cyclique, et pour lequel la variable $X$ représente le signal sensoriel reçu au cycle $t$, on peut implémenter une distribution $d_t$ pour représenter les probabilités estimées par l'agent du prochain signal sensoriel. 
+Dans ce cas, la baisse de l'entropie de $d$ au cours du temps peut être interprétée comme un indicateur des progrès d'apprentissage de l'agent. 
 
-
-L'entropie est typiquement utilisé à deux niveaux pour évaluer l'apprentissage d'un agent artificiel. 
-
+% On peut également calculer une fonction de perte (\an{loss}) 
 
 \section{Principe d'énergie libre}
 

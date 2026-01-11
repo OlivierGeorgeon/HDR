@@ -300,11 +300,61 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
 % Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
-\section{Logiques probabilistes}
+\section{Logiques mathématiques non classiques}
 
-Ben Goertzel \cite{goertzel_general_2021}.
+\noindent
+Les logiques mathématiques non classiques offrent un cadre formel pour rendre compte de certaines états qui entrent en jeu dans les processus d'apprentissage telles que l'incertitude, la dynamique, la contradiction ou l'incomplétude des connaissances. 
+Elle répondent à un besoin en IA de rendre le processus de construction de connaissance explicable, vérifiable, et tolérantes à l'incertitude.  
+
+Les \emph{logiques modales} introduisent des opérateurs comme $\Box$ (nécessaire) et $\Diamond$ (possible) pour raisonner sur des mondes possibles et sur les attitudes d’un agent vis-à-vis de son environnement. 
+Ces opérateurs permettent de distinguer ce que l’agent sait, croit possible, considère nécessaire ou impossible, et d’actualiser ces statuts avec le feedback environnemental.
+Ils aident à générer des hypothèses ou des plans qui évitent des conclusions physiquement ou logiquement intenables lors de la découverte autonome de stratégies.
+Le modèle de Kripke permet de représenter formellement ses croyances sur l’état courant et futur du monde.
+
+Les \emph{logiques paraconsistantes} permettent de raisonner en présence de contradictions. 
+Elles évitent l'\emph{explosion logique} qui fait que tout devient déductible en cas de contradiction dans la logique classique.
+Certaines utilisent trois valeurs (\an{True}, \an{False}, \an{Other}).
+D'autres, comme la \an{Paraconsistent Annotated Logic} (PAL) associe chaque proposition P à une paire de degrés d'évidence $(\mu, \lambda)$ où $\mu$ représente l'évidence favorable pour P et $\lambda$ l'évidence défavorable, toutes deux dans l'interval $[0,1]$.
+Cela permet à l'agent d'ajuster progressivement les degrés de crédibilité positifs et négatifs de ses connaissances en fonction des évidences rencontrées au cours de ses interactions.  
+L’intérêt pour un agent autonome est de continuer à apprendre et agir même lorsque l’environnement produit des signaux contradictoires.
+
+Les \emph{logiques intuitionniste}, aussi appelées \emph{logiques constructives} remplacent la vérité bivalente par une notion de preuve constructive : une proposition n’est vraie que si l’agent dispose d’une preuve de sa validité.   
+Elles refusent le principe du tiers exclu.
+Elles sont utilisées pour modéliser des processus d'apprentissage incrémental et pour permettre aux agents de réviser leurs connaissances au fil de leurs interactions. 
+Elle sont particulièrement adaptées dans des contextes ou l'information est partielle ou évolutive.
+Par exemple, Andrei Patrascu a récemment proposé un agent autonome dont les décisions se bases sur des preuves consruite par une logique intuitioniste. 
+Dans un contexte ou atteindre un objectif nécessite de satisfaire des sous objectifs gouvernés par des contraintes logiques (collecter des clés, ouvrir des portes), l'agent construit des plans prouvé corrects par chainage des sous-objectifs de manière plus efficace qu'un algorithme d'apprentissage par renforcement classique et génère des comportements interprétables \cite{patrascu_constructive_2025}.
+
+Ces trois familles logiques ne s'excluent pas. 
+%Elles peuvent se combiner dans des architectures neuro‑symboliques ou hybrides pour prendre en charge les multiples facettes de l’apprentissage autonome. 
+On peut envisager des agents dont l’état de croyance est modélisé modale­ment, qui tolèrent la contradiction via une couche paraconsistante, et construisent des plans sous sémantique intuitionniste.
+
+Les logiques classiques ou non classiques peuvent également être enrichies par une sémantique quantitative de l'incertitude pour se doter d'une capacité à mesurer la vraisemblance, la confiance ou le risque décisionnel associées aux observations. 
+On parle alors de logiques probabilistes. 
+Dans une logique probabiliste, on modélise des croyances par une mesure probabiliste cohérente sur un espace d’événements, qui est différent mais peut etre complémentaire de la mesure des degrés d'évidence utilisé pour gérer les contradictions dans les logiques paraconsistantes, permettant ainsi de distinguer le degré de confiance que l'agent accorde à une proposition de son degré de contradiction. 
+Le système Hyperon développé chez SingularityNet par Ben Goertzel et ses collaborateurs s'appuie beaucoup sur les logiques probabilisites et paraconsistantes \cite{goertzel_general_2021}.
 
 
+L'utilisation des logiques mathématiques pour modéliser l'apprentissage autonome offre des avantages comme l'interprétabilité, la robustesse face à l'incertitude, la gestion des contradictions et la capacité à spécifier des objectifs complexes. 
+Cependant elle souffre de limites importantes: complexité computationnelle et difficultés de les appliquer à des environnements ouverts. 
+
+\section{Système de raisonnement non axiomatique}
+
+Le Non-Axiomatic Reasoning System (NARS) a été introduit par Pei Wang pour intégrer nativement l'hypothèse de ressource insuffisante et d'adaptation ouverte \cite{wang_experience-grounded_2005}. 
+Plutôt que de supposer un système de déduction complet et idéal, NARS intègrent nativement l’incertitude, l’oubli et l’approximation, et couple étroitement raisonnement et apprentissage.
+
+NARS diffère des système de logique mathématique par le fait que son but n'est pas de permettre à l'agent d'agir de manière logique mais de s'adapter à son environnement dans un contexte de ressources et de connaissances incomplètes. 
+
+L'agent utilise un langage informatique le \og Narsais \fg (\an{Narsese}) pour communiquer avec son environnement.
+Il accepte des connaissances déclaratives et des questions. 
+Le système construit des connaissances à partir des assertions fournies en entrée, effectue des inférences grace à des règles codées dans le système pour produire des réponses. 
+Pour chaque question il recherche les réponses qui sont le plus consistantes avec son expérience, sous la contrainte de des ressources disponibles. 
+Le systèmes est \emph{fini}: on ne suppose pas que l'espace de stockage permettra de stocker toute l'expérience. 
+Il est en \emph{temps réel}: chaque tache est associée à une exigence temporelle. 
+Il est \emph{ouvert}: il n'y a pas de contrainte placée sur la connaissance tant qu'elle peut etre exprimée en Narsais. 
+
+
+ 
 
 \section{Mécanisme de schéma de Drescher}
 \label{sec:drescher}

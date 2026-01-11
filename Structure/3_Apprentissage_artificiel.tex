@@ -340,21 +340,50 @@ Cependant elle souffre de limites importantes: complexité computationnelle et d
 
 \section{Système de raisonnement non axiomatique}
 
-Le Non-Axiomatic Reasoning System (NARS) a été introduit par Pei Wang pour intégrer nativement l'hypothèse de ressource insuffisante et d'adaptation ouverte \cite{wang_experience-grounded_2005}. 
-Plutôt que de supposer un système de déduction complet et idéal, NARS intègrent nativement l’incertitude, l’oubli et l’approximation, et couple étroitement raisonnement et apprentissage.
+\noindent
+Pei Wang a introduit le \an{Non-Axiomatic Reasoning System (NARS)} comme une alternative aux logiques mathématiques pour la conception d'agents autonomes \cite{wang_experience-grounded_2005}. 
+Alors que les logiques reposent sur un ensemble d'axiomes fixés à priori garantissant la validité formelle des déductions, NARS se concentre sur la capacité d'un agent à s'adapter de manière satisfaisante dans un environnement ouvert, avec des limitations de capacités de computation et de mémoire.
+NARS intègre nativement l'incertitude, l'oubli et l'approximation, tout en établissant un couplage étroit entre raisonnement et apprentissage.
 
-NARS diffère des système de logique mathématique par le fait que son but n'est pas de permettre à l'agent d'agir de manière logique mais de s'adapter à son environnement dans un contexte de ressources et de connaissances incomplètes. 
-
-L'agent utilise un langage informatique le \og Narsais \fg (\an{Narsese}) pour communiquer avec son environnement.
-Il accepte des connaissances déclaratives et des questions. 
-Le système construit des connaissances à partir des assertions fournies en entrée, effectue des inférences grace à des règles codées dans le système pour produire des réponses. 
-Pour chaque question il recherche les réponses qui sont le plus consistantes avec son expérience, sous la contrainte de des ressources disponibles. 
-Le systèmes est \emph{fini}: on ne suppose pas que l'espace de stockage permettra de stocker toute l'expérience. 
-Il est en \emph{temps réel}: chaque tache est associée à une exigence temporelle. 
-Il est \emph{ouvert}: il n'y a pas de contrainte placée sur la connaissance tant qu'elle peut etre exprimée en Narsais. 
+%NARS diffère des système de logique mathématique par le fait qu'il implémente prioritairement la capacité de s'adapter à l'environnement autant que possible devant la capacité d'agir de manière logique sur la base d'un système de déduction complet et idéal, 
 
 
- 
+Wang souligne que les logiques mathématiques utilisent généralement une sémantique \og basée sur un modèle théorique \fg défini par le concepteur. 
+NARS s'en démarque fondamentalement en implémentant une sémantique basée sur un modèle construit et révisé par l'agent lui-même au fil de sa propre expérience: 
+
+%contrairement aux approches de logique mathématiques qui basent la sémantique sur un modèle définie par le concepteur, NARS base les conditions de vérité des propositions sur un modèle construit par l'agent à partir de son expérience:
+
+\begin{quote}
+\an{For an intelligent system like NARS (or for adaptive systems in general), the concept of ‘‘truth’’ still makes sense, because the system believes certain statements, but not other statements, in the sense that the system chooses its actions according to the expectation that the former, not the latter, will be confirmed by future experience; the concept of ‘‘meaning’’ still makes sense, because the system uses the terms in Narsese in different ways, not because they have different shapes, but because they correspond to different experiences.} 
+
+\an{For these reasons, in NARS, we need an ‘‘experience-grounded’’ semantics, in which truth and meaning are defined according to the experience of the system. 
+Such a theory is fundamentally different from model-theoretic semantics, but it still qualifies to be a ‘‘semantics’’, in a broad (and original) sense of the notion. }
+
+\an{The idea that truth and meaning can be defined in terms of experience is not a new one. 
+For example, it is obviously related to the theory of pragmatism of Peirce, James, and Dewey.}
+\cite[p.~286]{wang_experience-grounded_2005}.
+\end{quote}
+
+
+L'agent interagit avec son environnement au moyens d'un langage formel appelé le \emph{Narsais} (\an{Narsese}).
+Dans ce langage, les concepts sont représentés par des symboles issus d'un alphabet fini, et leurs relations s'expriment notament à l'aide de l'opérateur d'héritage ``$\rightarrow$''.
+L'énoncé ``$S \rightarrow P $'' indique que le concept $S$ est une spécialisation de $P$ et que $P$ est une généralisation de $S$, comme dans l'exemple ``\an{raven} $\rightarrow$ \an{bird}''.
+A mesure que de nouveaux énoncés sont perçus, le système organise les concepts en une hiérarchie qui sert de support à l'inférence et permet au système de formuler des réponses à des requêtes. 
+
+Patrick Hammer et ses collègues ont utilisé NARS pour contrôler un robot autonome \cite{hammer_non-axiomatic_2024}. 
+Ils ont implémenté une couche logicielle d'interface pour traduire les signaux sensoriels en énoncés Narsais, et convertir les inférences produites en Narsais en commandes destinées aux actionneurs.  
+Ils ont montré que NARS était capable d'organiser les symboles et les relations d'héritage qu'il recevait en une structure de connaissance satisfaisante pour permettre au robot d'effectuer une tache de collecte de déchets dans un environnement ouvert. 
+
+Néanmoins, le fait que les relations d'héritages entre symboles soient codées en dur dans la couche d'interface me conduit à nuancer l'affirmation selon laquelle le système serait en mesure de donner un sens à ses expériences par lui même. 
+
+%Le système construit des connaissances à partir des assertions fournies en entrée, effectue des inférences grace à des règles codées dans le système pour produire des réponses. 
+%Pour chaque question il recherche les réponses qui sont le plus cohérentes avec son expérience, sous la contrainte des ressources disponibles. 
+%Le systèmes est \emph{fini}: on ne suppose pas que l'espace de stockage permettra de stocker toute l'expérience. 
+%Il est en \emph{temps réel}: chaque tache est associée à une exigence temporelle. 
+%Il est \emph{ouvert}: il n'y a pas de contrainte placée sur la connaissance tant qu'elle peut etre exprimée en Narsais. 
+
+
+
 
 \section{Mécanisme de schéma de Drescher}
 \label{sec:drescher}

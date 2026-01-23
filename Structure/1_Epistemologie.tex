@@ -1,13 +1,13 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Fondements en sciences cognitives}
+\chapter{Encrage théorique}
 
 \noindent 
-Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intelligence} \fg, Shane Legg et Marcu Hutter note que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
+Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intelligence} \fg, Shane Legg et Marcus Hutter notent que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
 
-Si nous ne savons pas vraiment ce qu'est l'intelligence, nous ne partons quand meme pas de zéro. 
-Cette question a occupé des nombreux penseur depuis de nombreux siècle et je crois qu'il est important de savoir nous y référer. 
-Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en oeuvre par les etres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
+Si nous ne savons pas vraiment ce qu'est l'intelligence, nous ne partons quand même pas de zéro. 
+Cette question a occupé des nombreux penseurs depuis de nombreux siècles et je crois qu'il est important de savoir nous y référer. 
+Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en \oe uvre par les êtres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
@@ -16,12 +16,13 @@ La finalité est de fonder un projet d'implémentation informatique qui transcri
 \label{sec:limieres}
 
 \noindent
-La révolution épistémologique des Lumières a renouvelé en profondeur la manière de penser le savoir, la raison et l’expérience.
-Les philosophes britanniques de l'empirisme comme John Locke et David Hume ont ouvert la voie de cette \og révolution copernicienne \fg en remettant radicalement en question le rationalisme cartésien qui les a précédés. 
-Ils affirment que toute connaissance provient de l'expérience sensible, remettant en cause la notion de vérité indubitable, innées ou issue d'une substance métaphysique, qui serait accessible à la raison seule.
+La révolution épistémologique des Lumières du XVIII\textsuperscript{e}~siècle a profondément renouvelé la manière de penser le savoir, la raison et l’expérience.
+Dès la fin du XVII\textsuperscript{e}~siècle, le philosophe britannique John Locke en fut l'un des précurseurs en fondant \emph{l'empirisme}. 
+En rupture avec le rationalisme cartésien qui le précédait, Locke élabore une critique décisive de l'innéisme et introduit la célèbre métaphore de la \emph{tabula rasa} pour désigner l’absence de connaissances à la naissance.
+L'empirisme remet en cause la notion de vérité indubitable, innée ou issue d'une substance métaphysique, qui serait accessible à la raison seule.
+Il affirme que toute connaissance provient de l'\an{experience}, terme anglais qu'il convient d'entendre non pas au sens de \og faire une expérience \fg mais au sens \og d'éprouver une expérience \fg, et qu'on trouve traduit en français par \emph{expérience sensible}.
 
-Locke forge l'image de la \emph{tabula rasa} pour désigner l'absence de connaissance à la naissance. 
-Pour Hume, toutes les connaissances humaines trouvent leur origine dans les \an{impressions}:
+David Hume prolonge et radicalise l'empirisme de Locke en utilisant le terme \an{impression} (\emph{impression sensible}) pour désigner la source des connaissances humaines: 
 
 \begin{quote}
 \an{By the term \emph{impression}, I mean all our more lively perceptions, when we hear, or see, or feel, or love, or hate, or desire, or will. [...]
@@ -33,25 +34,31 @@ What is commonly, in a popular sense, called reason, and is so much recommended 
 
 L'empirisme de Hume montre que l'humain est avant tout un être sensible régi par la dynamique complexe et changeante de ses sentiments et passions.  
 Il montre la fragilité du lien entre cause et effet : pour lui, la causalité n’est qu’une habitude mentale résultant de la répétition d'impressions.
-Il propose la \an{bundle theory} (traduite en français par théorie du faisceau, à ne pas confondre avec la théorie mathématique des faiscaux) selon laquelle les objets sont constitués uniquement par une collection (\an{bundle}) d'impressions dont le sujet fait l'expérience.  
+Il propose la \an{bundle theory} (traduite en français par \emph{théorie du faisceau}, à ne pas confondre avec la \an{sheaf theory} ou théorie mathématique des faiscaux) selon laquelle les objets sont constitués uniquement par une collection (\an{bundle}) d'impressions dont le sujet fait l'expérience.  
 
-Sur le continent européen, Emmanuel Kant critique à la fois le dogmatisme du rationalisme et le scepticisme de l'empirisme, posant que la connaissance ne se contente pas de s’adapter au monde mais que le sujet humain organise activement ses expériences.
-% à travers des formes a priori et des catégories de l’entendement.
-Il rejette l'idée de \emph{tabula rasa} de Locke, mais poursuit l'idée de Hume que les humains ne peuvent connaitre que les \emph{phénomènes} : les choses \og en tant que les humains puissent en faire l'expérience \fg.
-Il appelle \emph{noumènes} les \og choses en soi \fg inaccessibles à l'expérience et à la connaissance humaine.
-Il se distingue de l'empirisme en considérant que
- l’esprit ne reçoit pas passivement les perceptions, mais structure les phénomènes à travers des \emph{schèmes} qui rendent la connaissance possible.
-Selon Kant, toute expérience sensible est déjà conditionnée par les structures du sujet connaissant : des catégories de l'entendement et des formes \textit{a priori}, dont l'espace et le temps.
-La connaissance naît de la rencontre entre les données de l’expérience et les formes que l’esprit impose à ces données.
+Sur le continent européen, le médecin et philosophe français Julien Offray de La Mettrie publie en 1748 \og L'Homme machine \fg qui expose une conception résolument matérialiste de l'homme \cite{la_mettrie_homme_1748}.
+Il y soutient que la pensée n'est pas le privilège d'une substance immatérielle mais une propriété de la matière organisée, affirmant ainsi que \emph{la matière peut penser}.
+Il formule de manière provocatrice cette thèse moniste: \og Concluons hardiment que l'homme est une machine et qu'il n'y a dans tout l'Univers qu'une seule substance \fg.
 
-Ces bouleversements ont souligné le rôle fondamental du sujet, la nécessité de l’expérience et la puissance des lois de l’esprit, ouvrant la voie à l'exploration des moyens et des conditions de la connaissance.
+Au cours de la seconde moitié du XVIII\textsuperscript{e}~siècle, Emmanuel Kant critique à la fois le rationalisme du début du XVII\textsuperscript{e}~siècle et l'empirisme qui lui a succédé \cite{kant_kritik_1781}.
+Tout en reconnaissant la contribution décisive de Hume, il s'en distingue en soutenant que la connaissance ne découle pas passivement de l'expérience mais que le sujet humain organise activement ses expériences.
+Il rejette l'idée Lockéenne d'une stricte \emph{tabula rasa}, mais retient de l'empirisme l'idée que la connaissance est limitée par le champ de l'expérience sensible.
+Il utilise le terme \emph{phénomène} pour désigner les \og choses en tant qu'elles peuvent être connues par l'Homme à travers l'expérience \fg, et il appelle \emph{noumènes} les \og choses en soi \fg inaccessibles à l'expérience et à la connaissance humaine.
+Selon lui, toute expérience sensible est déjà conditionnée par les structures du sujet connaissant : les catégories de l'entendement et les formes \textit{a priori}, dont l'espace et le temps.
+
+Kant se démarque de l'empirisme en considérant que l’esprit occupe un rôle moteur pour structurer les phénomènes à travers des \emph{schèmes} (\an{schemata}).
+Les schèmes kantiens servent de médiateurs entre les concepts purs (par exemple causalité, substance, quantité, formes géométriques comme un triangle) et les images sensibles (par exemple un triangle droit ou équilatéral).
+Par exemple, le schème de triangle est la règle de construction de tous les triangles possibles dans l'intuition.
+La connaissance résulte dès lors de la rencontre entre les données de l’expérience et les formes que l’esprit impose à ces données.
+
+Ces bouleversements du siècle des Lumières ont souligné le rôle fondamental du sujet, la nécessité de l’expérience et la puissance des lois de l’esprit, ouvrant la voie à l'exploration des moyens et des conditions de la connaissance.
 
 
 \section{Épistémologie pragmatique}
 \label{sec:pragmatisme}
 
 \noindent
-Vers la fin du $XIX^{ème}$ siècle, plusieurs penseurs américains ont proposé une transformation de l'empirisme en le recentrant sur la dimension pratique de l'expérience: c'est la naissance de \emph{l'épistémologie pragmatique}. 
+Vers la fin du XIX\textsuperscript{e}~siècle, plusieurs penseurs américains ont proposé une transformation de l'empirisme en le recentrant sur la dimension pratique de l'expérience: c'est la naissance de \emph{l'épistémologie pragmatique}. 
 Le terme \emph{pragmatique} dérive du grec \emph{pragmata} qui signifie \og action \fg ou \og affaires humaines \fg.
 Charles Sanders Peirce en est le fondateur et soutient que la valeur de nos concepts et de nos connaissances se mesure à l'usage que nous pouvons en faire dans l'action. 
 Cette idée est fomulée dans sa \emph{maxime pragmatique} selon laquelle: 
@@ -64,7 +71,7 @@ Then, our conception of these effects is the whole of our conception of the obje
 Sur cette base, Peirce développe une conception de l'apprentissage comme un processus de \og sédimentation d'habitudes \fg.
 Il définit l'habitude comme une  \og loi active \fg dans notre esprit qui guide l'action et résume l'expérience passée.  
 Apprendre consiste alors à former, renforcer, et ajuster des habitudes qui permettent d'agir plus efficacement face à des situations futures.  
-Dans son article \emph{Peirce: l'habitude comme loi de comportement}, Louis Quéré propose cette traduction d'un passage de Peirce :
+Dans son article \og Peirce: l'habitude comme loi de comportement \fg, Louis Quéré propose cette traduction d'un passage de Peirce :
 
 \begin{quote}
 \og Toute la fonction de la pensée est de produire [créer] des habitudes d’action [...]. 
@@ -94,13 +101,13 @@ Il conserve, d’une part, une idée d’accord avec le réel, entendu non comme
 L'épistémologie pragmatique suggère qu'un agent artificiel devrait dispose de la capacité d'apprendre des habitudes par sédimentation hiérarchiques, en partant d'habitudes simples et courtes puis en construisant des habitudes plus complexes comme associations d'habitudes simples. 
 Il donnerait du sens à ses expériences en fonction de la façon dont il pourrait les réutiliser dans le cadre de ses propres motivations. 
 
-\section{La phénoménologie}
+\section{Phénoménologie}
 
 \noindent
-Alors que le pragmatisme se développait aux Etats Unis, Edmund Husserl, puis Matin Heidegger élaborèrent en Europe la \emph{phénoménologie}, afin de se concentrer davantage sur l'étude de la conscience. 
+Alors que le pragmatisme se développait aux Etats-Unis, Edmund Husserl, puis Matin Heidegger élaborèrent en Europe la \emph{phénoménologie}, afin de se concentrer davantage sur l'étude de la conscience. 
 
 L'ouvrage fondateur de ce courant, \og Recherches logiques \fg (1901) de Husserl affirme que \og toute conscience est toujours conscience de quelque chose \fg. 
-Le terme \emph{phénomène} désigne la manière dont ce \og quelque chose \fg se manifeste à la sensibilité du sujet conscient. 
+Il utilise le terme \emph{phénomène} pour désigner la manière dont ce \og quelque chose \fg se manifeste à la sensibilité du sujet conscient. 
 Selon lui, la \og perception objective \fg n’existe pas en tant qu’accès neutre et immédiat au réel, car toute perception est structurée par la conscience intentionnelle. 
 %Autrement dit, percevoir quelque chose implique toujours un point de vue, une orientation du sujet vers l’objet.
 L'objet n’est jamais donné \og en soi \fg, mais toujours \og pour une conscience \fg.
@@ -112,7 +119,7 @@ Pour Heidegger le mode premier de \emph{l'être-au-monde} est le comportement (\
 Le comportement est une interaction signifiante avec ce qui est.   
 Il s'agit de la façon dont l'être-au-monde  \og habite \fg et s'attache à ce qui l'entoure, et comprend les entités selon leurs usages possibles, leurs contextes et leur sens concret.
 
-Dans les années 1970, une équipe du \an{Artificial Intelligence Lab} du MIT autour du roboticien Rodney Brooks et du philosophe Hubert Dreyfus ont développé une appoche de l'IA \og heideggeienne \fg donnant la place centale aux compotements.
+Dans les années 1970, une équipe du \an{Artificial Intelligence Lab} du MIT autour du roboticien Rodney Brooks et du philosophe Hubert Dreyfus ont développé une approche de l'IA \og heideggeienne \fg donnant la place centrale aux comportements.
 Le chercheur en intelligence artificielle Ron Sun exprime ainsi l'inspiration heideggerienne : 
 
 \begin{quote}
@@ -590,7 +597,7 @@ Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclu
 	\cite[p.~119]{deutsch_beyond_2019}.
 \end{quote}
 
-Mes travaux se situent principalement dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appelle au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+Mes travaux se situent principalement dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
 
 
 La figure \ref{fig:mesures} résume le paysage des différentes approches pour mesurer l'intelligence. 

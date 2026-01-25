@@ -1,6 +1,6 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Encrage théorique}
+\chapter{Ancrage théorique}
 
 \noindent 
 Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intelligence} \fg, Shane Legg et Marcus Hutter notent que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg \cite[p.~1]{legg_universal_2007}.
@@ -58,7 +58,7 @@ Ces bouleversements du siècle des Lumières ont souligné le rôle fondamental 
 %Bien que ne portant pas directement sur la philosophie de l'esprit ni sur l'intelligence, il me semble important de mentionner la publication, en 1859, de l'ouvrage de Charles Darwin \og \an{On the origin of species by means of natural selection} \fg.
 
 \noindent
-En 1859, Charles Darwin publie son ouvrage \an{On the origin of species by means of natural selection} \fg.
+En 1859, Charles Darwin publie son ouvrage \an{On the origin of species by means of natural selection} \fg \cite{darwin_origin_1859}.
 Cette parution marque un tournant intellectuel dans le prolongement du siècle des Lumières qui inscrit progressivement l’intelligence dans une perspective naturaliste et évolutionniste.
 Le philosophe Daniel Dennett soulignera ultérieurement l'ampleur de cette rupture en qualifiant Darwin de \og \an{by far the scientist who has made the greatest contribution to philosophy} \fg  \cite[p.~10061]{dennett_darwins_2009}.
 
@@ -462,7 +462,39 @@ Les comportements dits ``instinctifs'' ne sont donc pas des ``programmes'' codé
 Ils résultent plutôt de prédispositions innées et de tendances qui orientent l'apprentissage dans des contextes et environnements spécifiques, lesquels jouent un rôle déterminant dans leur expression. 
 Certaines de ces dispositions initiales sont communes aux humains et aux autres mammifères. 
 
-\subsection{Emotions}
+
+\subsection{Émotions}
+
+\noindent
+Les émotions occupent une place centrale dans la vie mentale et constituent, presque par définition, un élément fondamental de la motivation et de la prise de décision. 
+Elles participent à l’orientation de l’attention, à l’évaluation de l’environnement et à la sélection des comportements.
+
+De nombreux modèles théoriques des émotions ont été proposés. 
+Dès le XIX\ieme{} siècle, Darwin identifie et décrit une trentaine d’émotions dans son ouvrage \og \emph{The Expression of the Emotions in Man and Animals} \fg{}, qu’il regroupe en sept catégories principales \cite{darwin_expression_1872}. 
+Depuis, la question du nombre et de la nature des émotions fondamentales reste débattue mais un consensus relatif semble se former autour d'un nombre d'émotions de base compris entre cinq et dix.
+
+Max Talanov et son équipe a proposé une revue des différents modèles d'émotion utilisés en robotique qui les ont conduits à utiliser le \emph{cube des émotions} de Lövheim \cite{lovheim_new_2012}. 
+Ce modèle propose une représentation continue de l’état émotionnel fondée sur la concentration relative de trois neuromodulateurs : la dopamine (DA), la sérotonine (5-HT) et la noradrénaline (NE), comme illustré en Figure~\ref{fig:emotions}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Figures/1_Lovheim_cube_of_emotion.pdf}
+	\caption{Le cube des émotions de Lövheim \cite[Fig.~1]{lovheim_new_2012}, délimité par les valeurs minimales et maximales de la sérotonine (5-HT), de la dopamine (DA) et de la noradrénaline (NE). 
+		L’axe de la sérotonine est associé à la confiance et au bien-être, l’axe de la dopamine à l’engagement et à la recherche de récompense, et l’axe de la noradrénaline à la vigilance et à l’attention.}
+	\label{fig:emotions}
+\end{figure}
+
+Lövheim justifie ce modèle en soulignant que les systèmes de contrôle du comportement reposant sur les monoamines sont observables à travers l’évolution de nombreuses espèces. 
+Il les décrit comme centraux dans la modulation de comportements favorisant la survie, tout en présentant une dynamique suffisamment rapide pour permettre une adaptation efficace aux changements de l’environnement. 
+Bien que chacun des trois neuromodulateurs soit associé à une dimension affective dominante, il insiste sur l’existence probable d’interactions dynamiques complexes entre eux.
+
+Dans ce modèle, l’axe de la sérotonine renvoie à des aspects tels que la confiance en soi, la stabilité émotionnelle et le bien-être général, et peut être mis en relation avec des comportements d’apprentissage et d’exploration ludique. La dopamine est principalement associée au plaisir, à la motivation et à la recherche de récompense, jouant un rôle clé dans l’engagement dans l’action. Enfin, la noradrénaline est liée à la vigilance, à l’attention et à la réactivité face aux stimuli, et sous-tend des comportements de type combat ou fuite.
+
+Talanov montre que l’intégration d’un modèle émotionnel inspiré du cube de Lövheim permet de concevoir des robots dont les actions ne sont pas uniquement dictées par des objectifs extrinsèques ou des règles prédéfinies, mais émergent également de dynamiques motivationnelles internes. 
+Cette approche favorise la diversité et la variabilité des comportements, les rendant plus naturels et plus engageants pour les humains en interaction avec le robot.
+Selon les états émotionnels internes, le robot peut ainsi privilégier des comportements d’exploration vers de nouvelles zones de l’environnement, initier des interactions afin de tester ou d’affiner son modèle interne du monde, ou encore focaliser son attention sur des objets ou des événements spécifiques.
+
+
 
 \subsection{Apprentissage spatio-sequentiel}
 

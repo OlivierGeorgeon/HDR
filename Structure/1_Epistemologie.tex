@@ -11,8 +11,10 @@ Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle 
 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
+\section{Philosophie de l'esprit}
 
-\section{Fondements épistémologiques}
+
+\subsection{Révolution des Lumières}
 \label{sec:limieres}
 
 \noindent
@@ -53,7 +55,7 @@ La connaissance résulte dès lors de la rencontre entre les données de l’exp
 
 Ces bouleversements du siècle des Lumières ont souligné le rôle fondamental du sujet, la nécessité de l’expérience et la puissance des lois de l’esprit, ouvrant la voie à l'exploration des moyens et des conditions de la connaissance.
 
-\section{Théorie de l'évolution}
+\subsection{Théorie de l'évolution}
 
 %Bien que ne portant pas directement sur la philosophie de l'esprit ni sur l'intelligence, il me semble important de mentionner la publication, en 1859, de l'ouvrage de Charles Darwin \og \an{On the origin of species by means of natural selection} \fg.
 
@@ -79,7 +81,7 @@ Le rapport traditionnel entre l'esprit et le comportement se trouve inversé : c
 Cette vision encourage le développement d’agents artificiels capables de construire leur propre connaissance du monde à partir de prédispositions comportementales conçues par l'ingénieur de manière analogue aux prédispositions innées que les êtres vivants héritent de leur lignée évolutive.
 
 
-\section{Épistémologie pragmatique}
+\subsection{Épistémologie pragmatique}
 \label{sec:pragmatisme}
 
 \noindent
@@ -126,7 +128,7 @@ Il conserve, d’une part, une idée d’accord avec le réel, entendu non comme
 L'épistémologie pragmatique suggère qu'un agent artificiel devrait dispose de la capacité d'apprendre des habitudes par sédimentation hiérarchiques, en partant d'habitudes simples et courtes puis en construisant des habitudes plus complexes comme associations d'habitudes simples. 
 Il donnerait du sens à ses expériences en fonction de la façon dont il pourrait les réutiliser dans le cadre de ses propres motivations. 
 
-\section{Phénoménologie}
+\subsection{Phénoménologie}
 
 \noindent
 Alors que le pragmatisme se développait aux Etats-Unis, Edmund Husserl, puis Matin Heidegger élaborèrent en Europe la \emph{phénoménologie}, afin de se concentrer davantage sur l'étude de la conscience. 
@@ -176,8 +178,9 @@ Il illustre cette idée à travers l'exemple de la vision, affirmant que \og \em
 
 
 
-\section{Philosophie du processus}
+\subsection{Philosophie du processus}
 
+\noindent
 La \an{Process Philosophy}, développée par Alfred North Whitehead dans son œuvre majeure Process and Reality, propose une nouvelle métaphysique appelée en français \og philosophie de l'organisme \fg ou \og philosophie du processus \fg. 
 Cette métaphysique pose comme substance fondamentale non pas les objets mais les événements:
 
@@ -195,11 +198,18 @@ Pour lui le principe ultime de l'existence est la créativité ou le \emph{deven
 	\an{Actual existence is a process of becoming, and 'becoming' is a creative advance into novelty.}
 \end{quote}
 
-
 Cette théorie du processus offre ainsi une métaphysique dans laquelle les événements, le changement, la créativité et l'interrelation sont au centre de l'existence, transformant ainsi notre compréhension du monde depuis une perspective statique vers une dynamique de relations vécues et en devenir.
+Il nous incite à utiliser les \emph{événements d'interaction} comme les briques élémentaires des connaissances construite par les systèmes artificiels. 
+
+Whitehead propose des concepts utiles pour décrire la perception de la part d'entités qui ont une expérience de connexion au monde non consciente. 
+Il fait la distinction entre deux modes de perception le mode le mode l'\emph{immédiateté présentationnelle} (dans le sens de \og percevoir une couleur \fg) et le mode de la \emph{causalité efficiente} (dans le sens de \og percevoir un objet \fg). 
+Nous pouvons appliquer ces idées à des robots pour décrire deux modes de perception de la part des robots tout en reconnaissant qu'ils sont des entités non conscientes. 
+Les signaux sensoriels sont présentés au robot sur le mode de l'immédiateté présentationnelle, et le robot apprend des régularités spatio-séquentielles d'action et de \an{feedback} sensoriels qui lui permet de construire un modèle causal qui rend compte du mode de l'efficience causale de la perception.
 
 
-\section{Théorie évolutionniste de la connaissance}
+
+
+\subsection{Théorie évolutionniste de la connaissance}
 
 \begin{quote}
 	\og La connaissance précède l'observation. 
@@ -229,7 +239,7 @@ L'agent artificiel devra mettre en œuvre des boucle de production/réfutation d
 
 
 
-\section{Epistémologie génétique}
+\subsection{Epistémologie génétique}
 \label{sec:epistemologie_genetique}
 
 \noindent
@@ -276,7 +286,111 @@ Un schème sensorimoteur opère comme un médiateur au sein du couplage corps/en
 Piaget nous conduit à effectuer une forme d'inversion du raisonnement pour aller de l'interaction vers la perception et l'action plutôt que l'inverse:
 les schèmes ne sont pas constitués d'associations de perceptions et d'actions initialement distinctes, mais ils précèdent la possibilité de percevoir le monde et d'effectuer des actions intentionnelles sur lui. 
 
-\section{Psychologie développementale}
+
+\subsection{Individuation}
+
+\noindent
+Gilbert Simondon élargit la problématique développementale de Piaget en l'inscrivant dans le cadre plus vaste de l'\emph{individuation}.
+Il propose une \emph{philosophie de l'individuation} basée sur une conception dynamique de l'être, où l'essentiel n'est pas l'individu constitué mais le processus même qui le fait devenir  \cite{simondon_individu_1995}. 
+Ce faisant, il renverse le primat ontologique accordé par la philosophie classique à l'être sur le devenir, au résultat sur l'opération, à l'individu sur l'individuation. 
+Sa pensée affirme ainsi la primauté des \emph{processus d'individuation}, a partir desquels Simondon élabore une conception des individus en transformation continue jusqu'à leur disparition. 
+
+Simondon décrit le processus d'individuation en empruntant à la cristallographie le terme de \emph{transduction}. 
+Dans ce domaine, ce terme désigne l'opération par laquelle un germe cristallin structure de proche en proche une solution en état d'équilibre métastable, jusqu'à former un cristal de grande dimension. 
+Un équilibre est qualifié de métastable lorsqu'une modification locale n'entraîne pas seulement un changement ponctuel, mais provoque, de proche en proche, une reconfiguration globale du champ et l'établissement d’un nouvel équilibre.
+L'encyclopédie Larousse indique: 
+
+\begin{quote}
+	Simondon élargit la propagation transductive de la prise de forme à l'intérieur de la solution cristalline à d'autres domaines, comme la théorie de la connaissance ou la théorie de l'être, ou encore la théorie du progrès technique. La transduction désigne alors plus généralement l'opération par laquelle deux ou plusieurs ordres de réalité incommensurables, entrent en résonance et deviennent commensurables par l'invention d'une dimension qui les articule, et par passage à un ordre plus riche en structures.
+\end{quote}
+
+Sur cette base, Simondon explique l'individuation au sein d'un milieu \emph{pre-individuel} métastable à partir d'une forme ou d'une information initiale qui déclenche un processus de transduction. 
+A la différence des solutions cristallines, cependant, les organismes vivants offrent un milieu au sein duquel la transduction engendre de nouveaux états métastables, susceptibles à leur tour d'accueillir de nouvelles transduction, en raison des interactions continues de l'organisme avec son environnement.
+Simondon développe à partir de là une philosophie de l'information comme catalyseur du processus d'individuation: 
+
+\begin{quote}
+Être ou ne pas être information ne dépend pas seulement des caractères internes d’une structure ; l’information n’est pas une chose, mais l’opération d’une chose arrivant dans un système et y produisant une transformation. 
+L’information ne peut se définir en dehors de cet acte d’incidence transformatrice et de l’opération de réception. 
+[…] Est virtuellement récepteur toute réalité qui ne possède pas entièrement en elle-même la détermination du cours de son devenir.
+[…] [L]a réalité locale, le récepteur, est modifiée en son devenir par la réalité incidente, et c’est cette modification de la réalité locale par la réalité incidente qui est la fonction d’information.	
+	\cite[p.~159]{simondon_communication_2015}
+\end{quote}	
+
+Simondon a été marqué par la cybernétique et s'est beaucoup intéressé à l'individuation des objets techniques.
+Pourtant, son influence reste encore limitée dans la communauté contemporaine de l'intelligence artificielle. 
+Le cadre qu’il propose pour penser l’IA comme un processus d'individuation d'un agent artificiel, où l'information joue le rôle de catalyseur, apparaît cependant particulièrement fécond.
+Il nous invite à nous demander s’il est possible de concevoir un artefact dont la structure informationnelle soit \og suffisamment métastable \fg pour disposer d'un véritable potentiel d’individuation.
+C'est un problème de \an{reverse engineering} difficile. 
+La question n’est alors plus : « qu’est-ce que l’intelligence ? », mais plutôt : « comment l’intelligence advient-elle ? ».
+
+Je retiens qu'il faudrait envisager l'agent artificiel comme un processus d’individuation en interaction constante avec son milieu technique et humain. 
+Son autonomie ne se définit pas comme une donnée préalable, mais comme le résultat d’une relation dynamique aux utilisateurs, aux autres machines et à l’environnement. Son adaptation devrait transformer sa structure logicielle pour permettre son individuation continue par propagation de transformations.
+
+
+%D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
+
+
+\section{Neurosciences}
+
+\subsection{Conscience et agentivité}
+
+La question de la conscience est présente en arrière fond de toute science de la cognition. 
+Pour Ey \cite{ey_conscience_1999}, \og dire d'un être qu'il sent, qu'il perçoit, qu'il se souvient de quelque chose, qu'il prépare une action ou qu'il se sent ou se sait être quelqu'un qui dirige son existence vers telle ou telle fin, c'est toujours et nécessairement dire qu'il est conscient \fg.
+Pourtant, la question de la conscience ne semble pas admettre, à l’heure actuelle, de réponse qui fasse consensus au sein de la communauté scientifique. 
+On retrouve à ce propos souvent cité le commentaire de Sutherland (1989) dans son dictionnaire de psychologie : \og \an{Consciousness is a fascinating but elusive phenomenon; it is impossible to specify what it is, what it does, or why it evolved. Nothing worth reading has been written on it.} \fg
+
+Le bio-chimiste Nick Lane exprime ainsi cette interrogation:
+
+\begin{quote}
+\an{The problem is we don't know what emotions are, [...]. 
+	What is the feeling in physical terms?
+	How does a discharging neuron give rise to a feeling of anything at all? 
+	This is the hard problem of consciousness.
+	The seeming duality of mind and matter, the physical make up of our innermost self.
+	We can understand in principle how an extremely sophisicated parallel processing system could be capable of wondrous feats of intelligence. 
+	But we can't answer in principle whether such a supreme intelligence would experience joy or melancholy.}
+\cite{lane_transformer_2022}
+\end{quote}
+
+\subsection{Anatomie cérébrale}
+
+\noindent
+Cette section a pour objectif de rappeler modestement quelques éléments fondamentaux concernant le cerveau en tant qu’organe biologique dont la fonction première est l’organisation et le contrôle des comportements dans le temps et l’espace, bien avant l’émergence de capacités de représentation abstraite et de raisonnement symbolique.
+
+Le cerveau des vertébrés est classiquement subdivisé en trois grandes régions, souvent associées à des étapes successives de l’évolution phylogénétique : le \emph{cerveau postérieur} (rhombencéphale, \an{hindbrain}), le \emph{cerveau moyen} (mésencéphale, \an{midbrain}) et le \emph{cerveau antérieur} (prosencéphale, \an{forebrain}), comme illustré en Figure~\ref{fig:cerveau}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{Figures/1_cerveau.png}
+	\caption{Les grandes régions du cerveau humain}
+	\label{fig:cerveau}
+\end{figure}
+
+Le cerveau postérieur assure la régulation des fonctions vitales nécessaires à la survie de l’organisme, telles que la respiration, la pression artérielle, le rythme cardiaque et la digestion. 
+Il relie le tronc cérébral aux autres structures cérébrales et joue un rôle clé dans la régulation de l’état d’éveil, de la conscience et des cycles veille–sommeil.
+Il comprend notamment le cervelet, qui occupe une place centrale dans la coordination fine des mouvements et l’ajustement en temps réel des actions, en comparant en permanence les commandes motrices émises avec leurs conséquences sensorielles effectives.
+Le cervelet contribue ainsi à la prédiction de l’évolution future de la position du corps et des objets à partir des informations sensorielles et motrices. 
+Mikael Paulin parle d'un véritable \an{tracking system} :
+
+\begin{quote}
+	\an{The cerebellum may be better characterised as a tracking system, with an important role in control and coordination of movements which arises because of an animal's need to track moving objects, to track its own movements, and to analyse the sensory consequences of movements in order to control movements.}
+	\cite{paulin_role_1993}
+\end{quote}
+
+Le cerveau moyen participe à l’intégration et au traitement précoce des informations sensorielles, en particulier somatosensorielles, visuelles et auditives. 
+Il contient le tectum (colliculus supérieur et inférieur chez les mammifères), qui jouent un rôle majeur dans la localisation spatiale égocentrique des signaux sensoriels. 
+Le tectum est une base essentielle pour l’intégration multimodale fondée sur des coïncidences spatiales et temporelles.
+Il contient différentes couches qui forment des cartes spatiales alignées pour chaque modalité sensorielle, de sorte qu’un même point de l’espace est représenté de manière congruente pour la vision, l’audition et, chez certaines espèces, d’autres modalités telles que l’électrolocation. 
+Ces cartes sensorielles sont inter-connectées avec des cartes motrices, ce qui  permettant une coordination sensorimotrice rapide \cite{isa_tectumsuperior_2021}.
+
+Le cerveau antérieur est généralement considéré comme la région la plus récente sur le plan phylogénétique. 
+Il comprend le diencéphale (thalamus et hypothalamus), impliqué dans la régulation des états internes en intégrant les motivations et désirs de toutes origines.
+Il inclut également le télencéphale, constitué notamment des ganglions de la base, de l’hippocampe et du cortex cérébral, qui supporte les fonctions de mémoire, d’apprentissage et de prise de décision complexe.
+
+
+
+
+\subsection{Psychologie développementale}
 
 \noindent
 Parallèlement à l'épistémologie génétique, Piaget a fondé le champ de la \emph{psychologie développementale}. 
@@ -343,72 +457,6 @@ En se référant à la \an{Theory of Event Coding (TEC)} de Hommel \cite{hommel_
 
 
 
-
-\section{Individuation}
-
-\noindent
-Gilbert Simondon élargit la problématique développementale de Piaget en l'inscrivant dans le cadre plus vaste de l'\emph{individuation}.
-Il propose une \emph{philosophie de l'individuation} basée sur une conception dynamique de l'être, où l'essentiel n'est pas l'individu constitué mais le processus même qui le fait devenir  \cite{simondon_individu_1995}. 
-Ce faisant, il renverse le primat ontologique accordé par la philosophie classique à l'être sur le devenir, au résultat sur l'opération, à l'individu sur l'individuation. 
-Sa pensée affirme ainsi la primauté des \emph{processus d'individuation}, a partir desquels Simondon élabore une conception des individus en transformation continue jusqu'à leur disparition. 
-
-Simondon décrit le processus d'individuation en empruntant à la cristallographie le terme de \emph{transduction}. 
-Dans ce domaine, ce terme désigne l'opération par laquelle un germe cristallin structure de proche en proche une solution en état d'équilibre métastable, jusqu'à former un cristal de grande dimension. 
-Un équilibre est qualifié de métastable lorsqu'une modification locale n'entraîne pas seulement un changement ponctuel, mais provoque, de proche en proche, une reconfiguration globale du champ et l'établissement d’un nouvel équilibre.
-L'encyclopédie Larousse indique: 
-
-\begin{quote}
-	Simondon élargit la propagation transductive de la prise de forme à l'intérieur de la solution cristalline à d'autres domaines, comme la théorie de la connaissance ou la théorie de l'être, ou encore la théorie du progrès technique. La transduction désigne alors plus généralement l'opération par laquelle deux ou plusieurs ordres de réalité incommensurables, entrent en résonance et deviennent commensurables par l'invention d'une dimension qui les articule, et par passage à un ordre plus riche en structures.
-\end{quote}
-
-Sur cette base, Simondon explique l'individuation au sein d'un milieu \emph{pre-individuel} métastable à partir d'une forme ou d'une information initiale qui déclenche un processus de transduction. 
-A la différence des solutions cristallines, cependant, les organismes vivants offrent un milieu au sein duquel la transduction engendre de nouveaux états métastables, susceptibles à leur tour d'accueillir de nouvelles transduction, en raison des interactions continues de l'organisme avec son environnement.
-Simondon développe à partir de là une philosophie de l'information comme catalyseur du processus d'individuation: 
-
-\begin{quote}
-Être ou ne pas être information ne dépend pas seulement des caractères internes d’une structure ; l’information n’est pas une chose, mais l’opération d’une chose arrivant dans un système et y produisant une transformation. 
-L’information ne peut se définir en dehors de cet acte d’incidence transformatrice et de l’opération de réception. 
-[…] Est virtuellement récepteur toute réalité qui ne possède pas entièrement en elle-même la détermination du cours de son devenir.
-[…] [L]a réalité locale, le récepteur, est modifiée en son devenir par la réalité incidente, et c’est cette modification de la réalité locale par la réalité incidente qui est la fonction d’information.	
-	\cite[p.~159]{simondon_communication_2015}
-\end{quote}	
-
-Simondon a été marqué par la cybernétique et s'est beaucoup intéressé à l'individuation des objets techniques.
-Pourtant, son influence reste encore limitée dans la communauté contemporaine de l'intelligence artificielle. 
-Le cadre qu’il propose pour penser l’IA comme un processus d'individuation d'un agent artificiel, où l'information joue le rôle de catalyseur, apparaît cependant particulièrement fécond.
-Il nous invite à nous demander s’il est possible de concevoir un artefact dont la structure informationnelle soit \og suffisamment métastable \fg pour disposer d'un véritable potentiel d’individuation.
-C'est un problème de \an{reverse engineering} difficile. 
-La question n’est alors plus : « qu’est-ce que l’intelligence ? », mais plutôt : « comment l’intelligence advient-elle ? ».
-
-Je retiens qu'il faudrait envisager l'agent artificiel comme un processus d’individuation en interaction constante avec son milieu technique et humain. 
-Son autonomie ne se définit pas comme une donnée préalable, mais comme le résultat d’une relation dynamique aux utilisateurs, aux autres machines et à l’environnement. Son adaptation devrait transformer sa structure logicielle pour permettre son individuation continue par propagation de transformations.
-
-
-%D'après Weinbaum, selon Simondon, l’individu n’est plus l’élément rigide et bien défini de tradition aristotélicienne, doté de propriétés fixées une fois pour toutes, mais plutôt une entité plastique, un devenir en cours. L’état relativement stable des individus est ponctué de périodes de transformation, au cours desquelles ils peuvent changer radicalement ou se désintégrer. Chacune de ces périodes reconfigure les tensions internes actives au sein de l’individu ainsi que la manière dont elles détermineront les phases stables et les transformations futures.
-
-
-\section{Neurosciences}
-
-\subsection{Conscience et agentivité}
-
-La question de la conscience est présente en arrière fond de toute science de la cognition. 
-Pour Ey \cite{ey_conscience_1999}, \og dire d'un être qu'il sent, qu'il perçoit, qu'il se souvient de quelque chose, qu'il prépare une action ou qu'il se sent ou se sait être quelqu'un qui dirige son existence vers telle ou telle fin, c'est toujours et nécessairement dire qu'il est conscient \fg.
-Pourtant, la question de la conscience ne semble pas admettre, à l’heure actuelle, de réponse qui fasse consensus au sein de la communauté scientifique. 
-On retrouve à ce propos souvent cité le commentaire de Sutherland (1989) dans son dictionnaire de psychologie : \og \an{Consciousness is a fascinating but elusive phenomenon; it is impossible to specify what it is, what it does, or why it evolved. Nothing worth reading has been written on it.} \fg
-
-Le bio-chimiste Nick Lane exprime ainsi cette interrogation:
-
-\begin{quote}
-\an{The problem is we don't know what emotions are, [...]. 
-	What is the feeling in physical terms?
-	How does a discharging neuron give rise to a feeling of anything at all? 
-	This is the hard problem of consciousness.
-	The seeming duality of mind and matter, the physical make up of our innermost self.
-	We can understand in principle how an extremely sophisicated parallel processing system could be capable of wondrous feats of intelligence. 
-	But we can't answer in principle whether such a supreme intelligence would experience joy or melancholy.}
-\cite{lane_transformer_2022}
-\end{quote}
-
 \subsection{Représentation, mémoire, modèle du monde}
 
 \og Etre conscient c'est disposer d'un modèle personnel de son monde. \fg 
@@ -425,17 +473,6 @@ En tant que telle, la représentation mentale nous apparaît comme observable et
 L’univers subjectif, la vie mentale du sujet, lui apparaît à lui-même comme un fait qui existe et dont la notion de représentation mentale est une première tentative pour en rendre compte, une fois mis de coté le problème de la conscience. 
 C’est en référence à cette conception philosophique de la notion de représentation mentale que nous tentons d’expliquer l’activité, en recourant à l’étude plus approfondie qu’en fait la psychologie cognitive. 
 
-
-\subsection{Architectures cognitive}
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Figures/1_Cognitive_architecture.png}
-	\caption{Architecture cognitive de haut niveau pour une \an{human-like general intelligence} d'après Goertzel 
-	\cite[Fig.~17]{goertzel_general_2021}}
-	\label{fig:Cognitive_architecture}
-\end{figure}
 
 \subsection{Comportements innés}
 
@@ -468,6 +505,7 @@ Certaines de ces dispositions initiales sont communes aux humains et aux autres 
 \noindent
 Les émotions occupent une place centrale dans la vie mentale et constituent, presque par définition, un élément fondamental de la motivation et de la prise de décision. 
 Elles participent à l’orientation de l’attention, à l’évaluation de l’environnement et à la sélection des comportements.
+De nombreux auteurs soulignent l'importance de leur inscription corporelle, notamment Antonio Damasio dans sa théorie des marqueurs somatiques \cite{damasio_descartes_1994}. 
 
 De nombreux modèles théoriques des émotions ont été proposés. 
 Dès le XIX\ieme{} siècle, Darwin identifie et décrit une trentaine d’émotions dans son ouvrage \og \emph{The Expression of the Emotions in Man and Animals} \fg{}, qu’il regroupe en sept catégories principales \cite{darwin_expression_1872}. 
@@ -494,7 +532,7 @@ Talanov montre que l’intégration d’un modèle émotionnel inspiré du cube 
 Cette approche favorise la diversité et la variabilité des comportements, les rendant plus naturels et plus engageants pour les humains en interaction avec le robot.
 Selon les états émotionnels internes, le robot peut ainsi privilégier des comportements d’exploration vers de nouvelles zones de l’environnement, initier des interactions afin de tester ou d’affiner son modèle interne du monde, ou encore focaliser son attention sur des objets ou des événements spécifiques.
 
-
+\subsection{Attention}
 
 \subsection{Apprentissage spatio-sequentiel}
 
@@ -549,6 +587,8 @@ La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les
 	\label{fig:mesures}
 \end{figure}
 
+\subsection{Tests statiques}
+
 Les tests \emph{statiques} s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
 Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
@@ -578,10 +618,12 @@ Dans cet exemple, la règle à inférer pour passer de l'image de gauche à cell
 \end{figure}
 
 
+
 Un exemple représentatif du quadrant \emph{statique} / \emph{jugement} est \an{Chatbot Arena} \cite{chiang_chatbot_2024}.
 Ce benchmark évalue les LLMs en organisant des confrontations en aveugle opposant les modèles deux à deux.
 Il produit un classement de type Elo sur la base d'un jugement humain ‘‘crowdsourcé'', les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
 
+\subsection{Tests dynamiques}
 
 Les tests \emph{dynamiques} concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
 Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique (voir Section \ref{sec:rl}). 

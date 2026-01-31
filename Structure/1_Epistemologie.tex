@@ -203,7 +203,7 @@ Pour lui le principe ultime de l'existence est la \emph{créativité} ou le \emp
 Cette théorie du processus offre ainsi une métaphysique dans laquelle les événements, le changement, la créativité et l'interrelation sont au centre de l'existence, transformant ainsi notre compréhension du monde depuis une perspective statique vers une dynamique de relations vécues et en devenir.
 Il nous incite à utiliser les \emph{événements d'interaction} comme les briques élémentaires des connaissances construites par les systèmes artificiels. 
 
-Whitehead propose des concepts utiles pour décrire la perception de la part d'entités qui ont une expérience de connexion au monde non consciente. 
+Whitehead propose des concepts utiles pour décrire la perception de la part d'entités qui ont une expérience de connexion au monde non consciente, comme par exemple des organismes végétaux. 
 Il fait la distinction entre deux modes de perception : le mode de l'\emph{immédiateté présentationnelle} (dans le sens de \og percevoir une couleur \fg) et le mode de la \emph{causalité efficiente} (dans le sens de \og percevoir un objet \fg). 
 Nous pouvons appliquer ces idées à des robots pour leur attribuer deux modes de perception tout en reconnaissant qu'ils sont des entités non conscientes. 
 Les signaux sensoriels sont présentés au robot sur le mode de l'immédiateté présentationnelle.
@@ -333,25 +333,44 @@ Son autonomie ne se définit pas comme une donnée préalable, mais comme le ré
 
 \section{Neurosciences}
 
-\subsection{Conscience et agentivité}
+\subsection{Conscience}
 
+\noindent
 La question de la conscience est présente en arrière fond de toute science de la cognition. 
 Pour Ey \cite{ey_conscience_1999}, \og dire d'un être qu'il sent, qu'il perçoit, qu'il se souvient de quelque chose, qu'il prépare une action ou qu'il se sent ou se sait être quelqu'un qui dirige son existence vers telle ou telle fin, c'est toujours et nécessairement dire qu'il est conscient \fg.
 Pourtant, la question de la conscience ne semble pas admettre, à l’heure actuelle, de réponse qui fasse consensus au sein de la communauté scientifique. 
 On retrouve à ce propos souvent cité le commentaire de Sutherland (1989) dans son dictionnaire de psychologie : \og \an{Consciousness is a fascinating but elusive phenomenon; it is impossible to specify what it is, what it does, or why it evolved. Nothing worth reading has been written on it.} \fg
 
-Le bio-chimiste Nick Lane exprime ainsi cette interrogation:
+Il existe un certaine littérature sur la conscience machine comme en témoigne la création du \an{International Journal of Machine Consciousnessen} en 2009, renommé depuis 2020 en \an{Journal of Artificial Intelligence and Consciousness}. 
+Plus récemment, Joscha Bach a contribué à fonder le \an{Californian Institute for Machine Consciousness} (CIMC) en argumentant que la recherche sur la conscience des machines était importante :
 
 \begin{quote}
-\an{The problem is we don't know what emotions are, [...]. 
-	What is the feeling in physical terms?
-	How does a discharging neuron give rise to a feeling of anything at all? 
-	This is the hard problem of consciousness.
-	The seeming duality of mind and matter, the physical make up of our innermost self.
-	We can understand in principle how an extremely sophisicated parallel processing system could be capable of wondrous feats of intelligence. 
-	But we can't answer in principle whether such a supreme intelligence would experience joy or melancholy.}
-\cite{lane_transformer_2022}
+\an{Genuine understanding requires the ability to construct, not merely observe or describe. 
+	Consciousness and its relation to reality is arguably the most interesting---and in the era of intelligent machines, important---unresolved problem in science and philosophy. 
+	AI is now part of everyday life, but we still cannot specify principles precise enough to guide the construction of conscious systems.}
+	\cite{bach_california_2025}
 \end{quote}
+
+
+Dans un ouvrage séminal, le philosophe David Chalmers a proposé un découpage célèbre du problème de la conscience en deux niveaux de difficulté: le \an{easy problem} et le \an{hard problem} \cite{chalmers_conscious_1997}.
+
+Le \an{easy problem} est d'expliquer comment un être peut générer des comportements "comme s'il était conscient". 
+Il le qualifie de facile non pas parce qu'il pense que nous sommes proches de la solution mais parce qu'il estime qu'il n'y a pas d'obstacle fondamental à sa solution. 
+L'étude de ce problème passerait par la construction de robot qui mimeraient la conscience, mais qui ne ressentirait rien. Chalmers parle de zombie philosophique pour décrire de tels êtres. 
+Le \an{hard problem} est d'expliquer la subjectivité et les "qualias". 
+Il porte sur tout ce que nous n'aurons toujours pas compris même quand nous serons parvenur à construire un robot qui imite la conscience. 
+
+
+Certains auteurs critiquent ce découpage en estimant que les deux problèmes sont aussi difficiles l'un que l'autre.
+Selon eux nous ne parviendrons pas à construire des robots qui miment la conscience si nous ne comprenons pas ce qu'est l'expérience subjective. 
+Parmi eux, le philosophe Riccardo Manzotti et le roboticien Antonio Chella on publié une critique de certaines approches de la conscience artificielle qui se situent dans la dichotomie de Chalmers dans leur article  \an{Good Old-Fashioned Artificial Consciousness and the Intermediate Level Fallacy} \cite{manzotti_good_2018}. Ils critique l'utilisation d'un "niveau intermédiaire" ou dans module spécial de l'architecture cognitive qui serait dédié à la conscience. 
+Il proposent une conception alternative de la conscience selon laquelle celle ci ne se situe pas dans la tête du sujet mais dans l'interaction entre le sujet et l'objet.  
+Ils estiment que la recherche en robotique développementale pourrait aider à progresser dans cette direction.
+
+
+Mon travail est alignée avec les vues de Manzotti et Chella qui proposent une approche centrée sur les interactions mais ne prétend pas alimenter directement une théorie de la conscience. 
+J'aborde néanmoins des sujets connexes comme la perception et la construction de sens. 
+
 
 \subsection{Anatomie cérébrale}
 
@@ -389,7 +408,7 @@ Des interconnections entre les cartes sensorielles et les cartes motrices permet
 
 Le cerveau antérieur, dont le développement est le plus récent dans la phylogenèse et le plus tardif dans l'ontogenèse, est formé du diencéphale et du télencephale. 
 Le diencéphale contient le thalamus et l'hypothalamus qui sont impliqués dans la régulation des états internes en intégrant les émotions, les motivations et les désirs.
-Le télencéphale contient les ganglions de la base, l’hippocampe et le cortex, qui supportent les fonctions dites de haut niveau telles que la l'interprétation d'information, la mémorisation, l'apprentissage, la navigation, la mise en \oe uvre d'activités complexes, et, chez l'humain, le langage et le raisonnement abstrait.
+Le télencéphale contient les ganglions de la base, l'amygdale, l’hippocampe et le cortex, qui supportent les fonctions dites de haut niveau telles que la l'interprétation d'information, la prise de décision, la mémorisation, l'apprentissage, la navigation, la mise en \oe uvre d'activités complexes, et, chez l'humain, le langage et le raisonnement abstrait.
 
 
 \subsection{Émotions}
@@ -414,8 +433,11 @@ Ce modèle propose une représentation continue de l’état émotionnel fondée
 	\label{fig:emotions}
 \end{figure}
 
-Lövheim justifie ce modèle en soulignant que les systèmes de contrôle du comportement reposant sur les monoamines sont observables à travers l’évolution de nombreuses espèces. 
-Il les décrit comme centraux dans la modulation de comportements favorisant la survie, tout en présentant une dynamique suffisamment rapide pour permettre une adaptation efficace aux changements de l’environnement. 
+Lövheim justifie ce modèle en soulignant que les systèmes de contrôle du comportement reposant sur ces trois neurotransmetteurs sont observables à travers l’évolution de nombreuses espèces. 
+Ce sont les trois principaux neurotransmetteurs de la famille des monoamines qui en compte plusieurs dizaines. 
+Ils sont produits par des petits groupes de neurones dont les corps sont situés dans la partie haute du tronc cérébral et qui projettent leurs axones et diffusent ces neurotransmetteurs à travers tout le cortex. 
+L'amygdale, située dans le telencéphale, joue un rôle crucial dans le contrôle de leur production et leur régulation.
+Lövheim les décrit comme centraux dans la modulation de comportements sans pour pourtant générer es comportements spécifique à chaque situation mais au contraire en ayant un effet général tout en présentant une dynamique suffisamment rapide pour permettre une adaptation efficace aux changements de l’environnement. 
 Bien que chacun des trois neuromodulateurs soit associé à une dimension affective dominante, il insiste sur l’existence probable d’interactions dynamiques complexes entre eux.
 
 Dans ce modèle, l’axe de la sérotonine renvoie à des aspects tels que la confiance en soi, la stabilité émotionnelle et le bien-être général, et peut être mis en relation avec des comportements d’apprentissage et d’exploration ludique. La dopamine est principalement associée au plaisir, à la motivation et à la recherche de récompense, jouant un rôle clé dans l’engagement dans l’action. Enfin, la noradrénaline est liée à la vigilance, à l’attention et à la réactivité face aux stimuli, et sous-tend des comportements de type combat ou fuite.

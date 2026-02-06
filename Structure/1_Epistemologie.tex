@@ -472,28 +472,44 @@ Dès le XIX\ieme{} siècle, Darwin identifie et décrit une trentaine d’émoti
 Depuis, la question du nombre et de la nature des émotions fondamentales reste débattue mais un consensus relatif semble se former autour d'un nombre d'émotions de base compris entre cinq et dix.
 
 Max Talanov et son équipe a proposé une revue des différents modèles d'émotion utilisés en robotique qui les ont conduits à utiliser le \emph{cube des émotions} de Lövheim \cite{lovheim_new_2012}. 
-Ce modèle propose une représentation continue de l’état émotionnel fondée sur la concentration relative de trois neuromodulateurs : la dopamine (DA), la sérotonine (5-HT) et la noradrénaline (NE), comme illustré en Figure~\ref{fig:emotions}.
+Ce modèle propose une représentation continue de l’état émotionnel fondée sur le taux de concentration relatif de trois neuromodulateurs : la dopamine (DA), la sérotonine (5-HT) et la noradrénaline (NE), comme illustré en Figure~\ref{fig:emotions}.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\linewidth]{Figures/1_Lovheim_cube_of_emotion.pdf}
 	\caption{Le cube des émotions de Lövheim \cite[Fig.~1]{lovheim_new_2012}, délimité par les valeurs minimales et maximales de la sérotonine (5-HT), de la dopamine (DA) et de la noradrénaline (NE). 
-		L’axe de la sérotonine est associé à la confiance et au bien-être, l’axe de la dopamine à l’engagement et à la recherche de récompense, et l’axe de la noradrénaline à la vigilance et à l’attention.}
+		La sérotonine est associée à la confiance en soi, la dopamine aux situations marquantes produisant un renforcement de la mémoire, et la noradrénaline à la vigilance.
+		L'état émotionnel neutre est représenté par le point central du cube.}
 	\label{fig:emotions}
 \end{figure}
 
-Lövheim justifie ce modèle en soulignant que les systèmes de contrôle du comportement reposant sur ces trois neurotransmetteurs sont observables à travers l’évolution de nombreuses espèces. 
-Ce sont les trois principaux neurotransmetteurs de la famille des monoamines qui en compte plusieurs dizaines. 
-Ils sont produits par des petits groupes de neurones dont les corps sont situés dans la partie haute du tronc cérébral et qui projettent leurs axones et diffusent ces neurotransmetteurs à travers tout le cortex. 
+Lövheim indique qu'il existe plusieurs dizaines de types de neurotransmetteurs impliqués dans les émotions et que le choix de ces trois principaux constitue un premier ordre d'approximation de toute la palette des émotions possible.  
+Il explique que ces neurotransmetteurs sont très anciens dans l'échelle phylogénétique et sont présents chez des animaux allant des nématodes au vertébrés. 
+Chez l'homme, il sont produits par des petits groupes de neurones situés dans la partie haute du tronc cérébral et qui projettent leurs axones et diffusent ces neurotransmetteurs à travers tout le cortex. 
 L'amygdale, située dans le telencéphale, joue un rôle crucial dans le contrôle de leur production et leur régulation.
-Lövheim les décrit comme centraux dans la modulation de comportements sans pour pourtant être associés à des comportements spécifique à chaque situation mais au contraire en ayant un effet général tout en présentant une dynamique suffisamment rapide pour permettre une adaptation efficace aux changements de l’environnement. 
-Bien que chacun des trois neuromodulateurs soit associé à une dimension affective dominante, il insiste sur l’existence probable d’interactions dynamiques complexes entre eux.
 
-Dans ce modèle, l’axe de la sérotonine renvoie à des aspects tels que la confiance en soi, la stabilité émotionnelle et le bien-être général, et peut être mis en relation avec des comportements d’apprentissage et d’exploration ludique. La dopamine est principalement associée au plaisir, à la motivation et à la recherche de récompense, jouant un rôle clé dans l’engagement dans l’action. Enfin, la noradrénaline est liée à la vigilance, à l’attention et à la réactivité face aux stimuli, et sous-tend des comportements de type combat ou fuite.
+Bien que chacun de ces trois neurotransmetteurs soit associé à une dimension affective dominante, Lövheim insiste sur l’existence probable d’interactions dynamiques complexes entre eux.
+Il ne considère pas que les états émotionnels soient associé à des comportements spécifiques à chaque situation mais au contraire qu'ils ont un effet général tout en présentant une dynamique suffisamment rapide pour permettre une adaptation efficace aux changements de l’environnement. 
+
+La sérotonine renvoie à des aspects tels que la confiance en soi (\an{confidence}) et l'attitude posée.
+Les quatre sommets du cube situés du coté de la sérotonine élevée correspondent à des situations propices à l'apprentissage et possiblement ludiques, y compris le sommet \an{Contempt/Disgust} (mépris, dégout) qui est à prendre dans le sens positif d'un refus calme et d'une capacité à dire \og non \fg. 
+Les états de sérotonine faible sont associés à des situations de découragement ou de détresse. 
+
+La dopamine est associée à la recherche de récompense positive et à l'évitement de punitions.
+Les quatre sommets du cube situés du coté de la dopamine élevée correspondent à des situations marquantes liées à un renforcement de la mémoire d'expériences positives ou négatives.
+Au contraire, les sommets du coté de la dopamine faible ne sont pas marquants, y compris la \emph{surprise} tant que sa cause n'est pas reconnue. 
+
+La noradrénaline est liée au niveau de vigilance. 
+Les sommets situés du coté de la noradrénaline élevée sont liés à un fort engagement: \an{anger/rage} peut être lié à des comportements de fuite ou de combat, alors que \an{Distress/Anguish} (détresse, angoisse) correspond à un état de fébrilité ou de tourment.
+Ceux situés du coté de la noradrénaline faible sont liés à des états de sidération comme \an{Fear/Terror} ou de béatitude comme \an{Enjoyment/Joy}. 
 
 Talanov montre que l’intégration d’un modèle émotionnel inspiré du cube de Lövheim permet de concevoir des robots dont les actions ne sont pas uniquement dictées par des objectifs extrinsèques ou des règles prédéfinies, mais émergent également de dynamiques motivationnelles internes. 
 Cette approche favorise la diversité et la variabilité des comportements, les rendant plus naturels et plus engageants pour les humains en interaction avec le robot.
-Selon les états émotionnels internes, le robot peut ainsi privilégier des comportements d’exploration vers de nouvelles zones de l’environnement, initier des interactions afin de tester ou d’affiner son modèle interne du monde, ou encore focaliser son attention sur des objets ou des événements spécifiques.
+
+Le modèle de Lövheim suggère donc de représenter l'état émotionnel d'un robot sous forme de trois variables continues indépendantes qui peuvent moduler la sélection des comportements. 
+La sérotonine pourrait promouvoir des comportements de résolution de problème et d'expérimentation afin de tester ou d'affiner un modèle interne du monde. 
+La dopamine serait liée à des apprentissages par renforcement positif ou négatif, par exemple à l'occasion d'exploration de nouvelles zones de l'environnement. 
+La noradrénaline pourrait favoriser des comportements d'interaction et de collecte d'information liée à une focalisation de l'attention sans nécessairement être liés à l'apprentissage à long terme. 
 
 
 \subsection{Apprentissage spatio-sequentiel}

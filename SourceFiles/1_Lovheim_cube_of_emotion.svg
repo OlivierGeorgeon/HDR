@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="1537" height="1042" viewBox="0 0 1537 1042">
+<style type="text/css">
+	.st0{fill:none;stroke:#0000FF;stroke-width:6;stroke-linejoin:round;}
+	.st1{fill:#00f;}
+	.st2{fill:#0ff;fill-opacity:0.25;stroke:#000;stroke-width:2;stroke-linejoin:round;}
+	.st3{fill:none;stroke:#000;stroke-width:2;stroke-linejoin:round;}
+	.st4{fill:none;stroke:#000;stroke-width:2;stroke-linejoin:round;stroke-dasharray:3,3;}
+	.st5{fill:none;stroke:#000;stroke-width:2;stroke-linejoin:round;stroke-dasharray:3,3;}
+	.st6{fill:none;stroke:#f00;stroke-width:6;stroke-linejoin:round;}
+	.st7{fill:#FF0000;}
+	.st8{fill:none;stroke:#009245;stroke-width:6;stroke-linejoin:round;}
+	.st9{fill:#009245;}
+	.st10{font-family:Liberation Sans,Arial;}
+	.st11{font-size:40px;}
+	.st12{fill:#666;}
+	.st13{fill:#29ABE2;}
+</style>
+<g id="cube">
+	<g>
+		<g>
+			<line class="st0" x1="544.6" y1="703.3" x2="308.9" y2="931.8"/>
+			<g>
+				<polygon class="st1" points="575,673.8 515.1,697.8 542.3,705.5 549.1,732.8 				"/>
+			</g>
+		</g>
+	</g>
+	<rect x="308.9" y="372.2" class="st2" width="598.4" height="559.7"/>
+	<polygon class="st2" points="1173.4,668.9 907.2,931.8 907.2,372.2 1173.4,109.3 	"/>
+	<polygon class="st2" points="907.2,372.2 308.9,372.2 575,109.3 1173.4,109.3 	"/>
+	<g>
+		<g>
+			<line class="st3" x1="575" y1="109.3" x2="575" y2="110.8"/>
+			<line class="st4" x1="575" y1="113.8" x2="575" y2="670.8"/>
+			<polyline class="st3" points="575,672.3 575,673.8 576.5,673.8 			"/>
+			<line class="st5" x1="579.5" y1="673.7" x2="1170.4" y2="669"/>
+			<line class="st3" x1="1171.9" y1="668.9" x2="1173.4" y2="668.9"/>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line class="st6" x1="308.9" y1="414.5" x2="308.9" y2="931.8"/>
+			<g>
+				<polygon class="st7" points="308.9,372.2 284.5,431.9 308.9,417.7 333.2,431.9 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line class="st8" x1="864.9" y1="931.8" x2="308.9" y2="931.8"/>
+			<g>
+				<polygon class="st9" points="907.2,931.8 847.5,907.4 861.7,931.8 847.5,956.2 				"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="text">
+	<text transform="matrix(1 0 0 1 21.0483 662.8157)" class="st7 st10 st11">Noradrenaline</text>
+	<text transform="matrix(1 0 0 1 128.208 312.8156)"><tspan x="0" y="0" class="st10 st11">Distress</tspan><tspan x="-0.1" y="48" class="st10 st11">Anguish</tspan></text>
+	<text transform="matrix(1 0 0 1 145.9229 907.9769)"><tspan x="0" y="0" class="st10 st11">Shame</tspan><tspan x="-71.1" y="48" class="st10 st11">Humiliation</tspan></text>
+	<text transform="matrix(1 0 0 1 425.0865 611.2028)"><tspan x="0" y="0" class="st12 st10 st11">Fear</tspan><tspan x="-13.3" y="48" class="st12 st10 st11">Terror</tspan></text>
+	<text transform="matrix(1 0 0 1 940.124 388.6221)" class="st12 st10 st11">Surprise</text>
+	<text transform="matrix(1 0 0 1 411.0842 48.2997)"><tspan x="0" y="0" class="st10 st11">Anger</tspan><tspan x="11.1" y="48" class="st10 st11">Rage</tspan></text>
+	<text transform="matrix(1 0 0 1 1203.3063 82.1705)"><tspan x="0" y="0" class="st10 st11">Interest</tspan><tspan x="0" y="48" class="st10 st11">Excitement</tspan></text>
+	<text transform="matrix(1 0 0 1 1201.6934 649.9124)"><tspan x="0" y="0" class="st10 st11">Enjoyment</tspan><tspan x="0" y="48" class="st10 st11">Joy</tspan></text>
+	<text transform="matrix(1 0 0 1 935.5643 953.1378)"><tspan x="0" y="0" class="st10 st11">Contempt</tspan><tspan x="0" y="48" class="st10 st11">Disgust</tspan></text>
+	<text transform="matrix(1 0 0 1 453.3063 831.8383)" class="st13 st10 st11">Dopamine</text>
+	<text transform="matrix(1 0 0 1 522.4331 983.4512)" class="st9 st10 st11">Serotonin</text>
+</g>
+</svg>

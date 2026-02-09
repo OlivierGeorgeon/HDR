@@ -518,7 +518,58 @@ La noradrénaline pourrait favoriser des comportements d'interaction et de colle
 
 \subsection{Apprentissage spatio-sequentiel}
 
+Des auteurs comme Buzsáki et Moser ont émis l'hypothèse que  \og \an{the neuronal algorithms underlying navigation in real and mental space are fundamentally the same} \fg, suggérant que les fonctionnalités spatio temporelles pavent le chemin vers l'intelligence abstraite.  \cite[p.~130]{buzsaki_memory_2013}
+Le cerveau humain recyclerait ainsi les capacités de calcul spatial héritées de l'évolution phylogénétique pour traiter des concepts abstraits. 
+Dans un espace conceptuel construit à partir de dimensions de caractéristiques d’objets, l’hippocampe code les distances dans l’espace conceptuel pertinent, et non simplement dans l’espace des caractéristiques physiques, montrant qu’il mappe un espace de concepts plutôt qu’un simple espace de traits \cite{theves_hippocampus_2019}
+
+Des neurones hippocampiques chez le primate forment des « champs de place de valeur » le long d’un continuum abstrait de valeur de récompense, créant une carte d’un espace de valeur purement cognitif \cite{knudsen_hippocampal_2021}
+
 Roddy Grieves et Kate Jeffery font une synthèse des connaissances sur la représentation de l'espace dans le cerveau in \ref{fig:space}.
+
+On observe des prouesses de navigation étonnantes de la part de nombreux animaux. 
+La confirmation de la nature spatiale du complexe entorhinal-hippocampal a conduit au prix nobel de médecine de John O'Keefe et Edvard Moser en 2014.
+Les place cells, head-direction cells et grid cells forment semblent etre les trois plus importantes d'un système que nous commençons seulement à comprendre. 
+Les place cells sont situées dans l'hippocampe. Elles forment un réseau de places qui sont reconnues par des indices sensoriels et moteurs et qui s'activent quand l'animal est situé à cet endroit indépendamment de sa direction.
+Place fields represent higher order constructs assembled from more primitive spatial ones such as direction, boundaries, and self-motion information
+La population des place cells peux etre remapped pour correspondre à un environnement donner et permettre la navigation et la mémoire dans cet environnement. 
+
+Les head direction cells encode la direction de la tête par rapport à une direction choisie comme référence dans un environnement donnée. Elles sont informées par de indices sensoriels et par intégration des déplacements. 
+Chez le rat on pense que le signal de direction de la tête trouve son origine dans le haut du tronc cérébral et est projeté dans d'autres régions du cerveau. 
+Chez l'humain on trouve ce signal dans différentes régions incluant le cortex entorhinal et le thalamus. 
+
+Les grid cells, situées dans le cortex entorhinal forment un pavage triangulaire.    
+Certains chercheurs ont suggérés qu'elles étaient impliquées dans le calcul des déplacements par path integration. 
+
+Mais les place cells, head direction cells, et grid cells ne sont que le début de ce qui semble une large game de neurones spatialement modulés. 
+Les auteurs insistent aussi sur l'importance des rythmes temporels. Ils notent que les cellules qui sont modulées par la vitesse de déplacement sont communes à travers tout le cerveau.  
+On a aussi découvert des speed cells qui encodent la vélocité de l'animal.  
+
+Les boundary cells répondent uniquement aux bordures de l'environnement. 
+Elles ont une relation complexe avec les place cells et les grid cells qui n'est pas encore bien comprise . 
+Certaines de ces cellules ont une direction de déclenchement favorite: Elle se déclenchent quand l'anamial rencontre une bordure dans une direction allocentrique donnée. 
+
+object cells. 
+Ces cellules répondent à  la présence d'un objet à un emplacement particulier de l'environnement. 
+Certaine cellules répondent à la l'emplacement d'un objet manquant qui a été retiré de l'environnement. 
+
+The hippocampus is known to be involved in processes far beyond purely spatial navigation (Eichenbaum et al., 1999) including the discrimination of non-spatial cues such as objects (Clark et al., 2000; Fortin et al., 2004). For instance place cells in the hippocampus have been shown to respond to the spatial location of objects (LenckSantini, Rivard, Muller and Poucet, 2005) so this information is certainly being utilised by the hippocampus and thus possibly also in the formation of episodic memory.
+
+Goal cells 
+La recherche de goal cells n'en est encore qu'a ses débuts. 
+Hock et al 2005 ont proposé des cellules situées dans le cortex préfrontal médian chez le rat qui s'active quand l'animal approche l'objectif de navigation indépendement d'une récompense fournie à cet endroit. 
+Il a été proposé que le déclenchement des grid cells pourrait se traduire par une estimation de la distance à un objectif spatial (Stemmler et al 2015)
+
+conjunctive cells encode simultanément des caractéristiques spatiales, environnementales et comportementales. 
+Certaines grid celles répondent à une conjonction de direction, position, et vitesse. 
+
+Movement or action-sensitive cells. 
+de nombreuses cellules encodent l'espace en relation avec le mouvement.
+Certaines cellules déclenchent autant quand le mouvement est actif que passif. 
+Certaines cellules du striatum (partie des basal ganglia dans le télencéphale) 
+Le striatum est impliqué dans l'apprentissage d'actions par rapport à des taches et la formation de réponses automatiques et habitudes.  
+Certaines cellules de striatum déclenchent préférentiellement quand un anmial fait un mouvement particulier à un emplacement particulier d'un environnement (Thorn et al 2010).
+De manière similaire, des neurones qui correspondent à des séquences de réponses comportementales ont été trouvées dans le cortex parietal supérieur
+Certains neurones du cortexe retrospinal encodent des séquences de réponse et des positions spatiales. 
 
 \begin{figure}[ht]
 	\centering
@@ -530,8 +581,10 @@ Roddy Grieves et Kate Jeffery font une synthèse des connaissances sur la repré
 \end{figure}
 
 
-Hippocampe: mémoire spatiale et mémoire séquentielle. 
-
+Jeff Hawkins propose une approche de l'intelligence artificielle à travers sa théorie des mille cerveaux (\an{Thousand Brains Theory}), qui s'appuie sur la découverte que des structures neuronales similaires aux cellules de grille (grid cells) sont distribuées dans l'ensemble du néocortex.
+mais qu'elles sont présentes dans toutes les colonnes corticales. Elles fournissent un système universel de coordonnées pour organiser toute forme de connaissance.
+Des milliers de modèles locaux : Plutôt qu'un modèle unique et centralisé, le cerveau utiliserait des milliers de petits modèles spatio-temporels locaux pour apprendre et interagir avec différentes configurations de l'environnement et différents types d'objets 
+\cite{hawkins_framework_2019}
 
 \subsection{Socle de connaissances}
 
@@ -682,7 +735,7 @@ Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet 
 Ce socle de connaissance (\an{core knowledge}) comprend quatre savoirs fondamentaux que la plupart des agents  intelligent naturels auraient hérités de l'évolution phylogénétique : 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
-	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances
+	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances.
 	\item Nombres et comptage: il est possible de compter des petits nombres d'objets ou propriétés, et former des groupes dénombrés.
 	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
 \end{itemize}

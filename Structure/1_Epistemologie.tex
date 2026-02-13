@@ -422,6 +422,7 @@ L’attention apparaît ainsi comme un mécanisme indispensable dès les premier
 
 
 \subsection{Anatomie cérébrale}
+\label{sec:anatomie}
 
 \noindent
 Cette section a pour objectif de rappeler modestement quelques éléments fondamentaux concernant le cerveau en tant qu’organe biologique dont la fonction première est l’organisation et le contrôle des comportements dans le temps et l’espace, bien avant l’émergence de capacités de représentation abstraite et de raisonnement symbolique.
@@ -516,13 +517,95 @@ La dopamine serait liée à des apprentissages par renforcement positif ou néga
 La noradrénaline pourrait favoriser des comportements d'interaction et de collecte d'information liés à une focalisation de l'attention sans nécessairement être liés à l'apprentissage à long terme. 
 
 
+\subsection{Apprentissage spatio-séquentiel}
+
+%Plusieurs travaux en neurosciences cognitives suggèrent que les mécanismes neuronaux impliqués dans la navigation spatiale constituent un socle computationnel général pour des formes d’intelligence plus abstraites. 
+\noindent
+György Buzsáki et Edvard Moser ont avancé l’hypothèse selon laquelle les mécanismes neuronaux sous-jacents à la navigation dans l’espace physique et l'espace mental reposeraient sur des principes communs.
+Les représentations spatio-temporelles pourraient ainsi servir de fondement à la cognition abstraite. 
+Il suggèrent que le cerveau pourrait s'appuyer sur des capacités de calcul spatio-temporel héritées de l'évolution phylogénétique, et précoces sur le plan du développement ontogénique, pour naviguer dans des espaces conceptuels abstraits.  
+
+%\begin{quote}
+%	\og \an{the neuronal algorithms underlying navigation in real and mental space are fundamentally the same} \fg
+%	 \cite[p.~130]{buzsaki_memory_2013}.
+%\end{quote}
+
+Comme évoqué à la section \ref{sec:anatomie}, des capacités de calcul spatio-temporelles sont présentes à tous les niveau du découpage tripartite du cerveau. 
+En ce qui concerne le télencéphale, le complexe entorhinal-hippocampal semble jouer un role clé grace à un ensemble de neurones spatialement modulés, dont la découverte a conduit au prix Nobel de médecine en 2014 de John O'Keefe et Moser. 
+
+Par exemple, Hideyoshi Igata et ses coauteurs ont 
+montré que des neurones de l'hippocampe pouvaient rejouer des séquences en ordre inversé afin de reconstruire les positions ayant conduit à une récompense. Ils ont observé que l’hippocampe a même pu rejouer des trajectoires optimisées qui n’ont pas été directement explorées par l’animal \cite{igata_prioritized_2021}. 
+%Ces résultats suggèrent un rôle central du rejeu hippocampique dans la planification et l’optimisation comportementale.
+Stéphanie Theves a montré que l'hippocampe codait des distances pertinentes dans un espace conceptuels définis par des caractéristiques d'objets, suggérant l'existence d'une cartographie cognitive des concepts  \cite{theves_hippocampus_2019}. 
+Eric Knudsen a montré que des neurones hippocampiques chez le primate peuvent former des \og gradients de valeur \fg le long d’un continuum abstrait de récompense, constituant une carte cognitive d’un espace de valeur motivationnelle \cite{knudsen_hippocampal_2021}.
+
+%L’hippocampe participe également à l’apprentissage séquentiel par la réactivation de trajectoires spatio-temporelles. 
+
+La plupart des auteurs insistent sur l'étendue des choses qu'ils nous restent encore à comprendre de la façon dont le cerveau gère l'espace et le temps. 
+Dans leur article \og \an{The representation of space in the brain} \fg, Roddy Grieves et Kate Jeffery tentent une synthèse des différentes études sur ce sujet \cite{grieves_representation_2017}. 
+Je reproduit l'une de leurs figures en Figure \ref{fig:space} non pour entrer dans ce niveau de détail mais pour illustrer la complexité des ces mécanismes. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Figures/1_space1.png}\\[-0.1em]
+	\includegraphics[width=0.7\linewidth]{Figures/1_space2.png}
+	\caption{Synthèse des études sur la représentation de l'espace dans le cerveau par Grieves et Jeffery  \cite[Fig.~8]{grieves_representation_2017}. 
+	}
+	\label{fig:space}
+\end{figure}
+
+Grieves et Jeffery listent différents ensembles neuronaux décris dans la litérature, en soulignant la rapide évolution de ce champ de recherche. 
+Les \an{place cells} s’activent lorsque l’animal occupe une position spécifique dans un environnement donné, indépendamment de son orientation. 
+Leurs champs d’activation émergent de l’intégration d’informations plus élémentaires telles que la direction, les frontières de l’environnement et les signaux de mouvement permettant de se rendre d'une place à l'autre. 
+La population de \emph{place cells} peut être reconfigurée (\emph{remapping}) pour correspondre à un environnement donné, contribuant ainsi à la navigation dans cet environnement et à la mémoire épisodique.
+
+Les \an{head-direction cells} encodent l’orientation de la tête par rapport à un repère allocentrique. Leur activité dépend à la fois d’indices sensoriels et de mécanismes d’intégration du mouvement. 
+%Des expérience chez le rat on observé l'origine de ce signal de direction dans le tronc cérébral. 
+%tandis que chez l’humain il est observé notamment dans le thalamus et le cortex entorhinal.
+
+Les \an{grid cells}, présentent une organisation spatiale périodique formant un pavage triangulaire. 
+Elles seraient impliquées dans l’intégration du trajet (\emph{path integration}) et fourniraient un système de mesure des distances.
+Elles pourraient contribuer à l’estimation de la distance à une cible.
+Les \an{speed cells} codent la vitesse de déplacement.
+Les \an{boundary cells} répondent quand l'animal rencontre une bordure de l'environnement dans une direction allocentrique spécifique. 
+Les auteurs soulignent que l'hippocampe est connu pour être impliqué dans des processus qui vont bien au delà de la navigation spatiale, incluant la discrimination d'objets. 
+Il signalent les \an{object cells} qui répondent à la présence d'un objet à des emplacements particuliers, ou alors peuvent répondre à des objets manquant qui ont étés retirés de l'environnement. 
+%Ces différentes représentations suggèrent que l’hippocampe intègre des informations spatiales et non spatiales, notamment liées aux objets, participant ainsi à la formation de la mémoire épisodique.
+
+Au delà de la région entorhinal-hippocampal, Grieves et Jeffery rapportent des études investiguant la présence de \an{goal cells} dans le cortex préfrontal médian. 
+Par ailleurs, de nombreuses cellules codent l’espace en relation avec l’action. Dans le striatum, par exemple, certains neurones s’activent préférentiellement lorsqu’un mouvement spécifique est exécuté à un endroit particulier, reflétant le rôle de cette structure dans l’apprentissage d’actions, la formation d’habitudes et l’automatisation comportementale.
+Des \an{conjunctive cells} encodent simultanément des caractéristiques spatiales et comportementales. 
+Des neurones sensibles aux séquences d’actions ont également été observés dans le cortex pariétal supérieur et dans le cortex rétrosplénial.
+
+%Certaines études décrivent également des \emph{goal cells}, notamment dans le cortex préfrontal médian, dont l’activité augmente lorsque l’animal s’approche d’un objectif de navigation, indépendamment de la récompense associée. 
+
+%Enfin, la dimension temporelle joue un rôle essentiel dans ces mécanismes : les rythmes neuronaux et la dynamique séquentielle structurent l’encodage et la consolidation des représentations spatio-cognitives.
+
+%\paragraph{Implications pour l’intelligence artificielle}
+
+Ces résultats ont inspiré un certain nombre d'études en robotique portant sur la navigation bio-inspirée, 
+par exemple celle de mon ancien doctorant Simon Gay \cite{gay_towards_2021}.
+Dans le domaine de l'IA, Jeff Hawkins a proposé la \an{Thousand Brains Theory} basée sur l'hypothèse que des mécanismes analogues aux \an{grid cells} seraient distribués au sein de nombreuses colonnes corticales  \cite{hawkins_framework_2019}. 
+Selon lui, l’intelligence s'appuierait sur l’interaction de milliers de modèles locaux spatio-temporels capables d’apprendre la structure des objets et de l’environnement.
+Ce type de neurones constituerait un système de coordonnées universel permettant d’organiser différents types de connaissances. 
+
+
+
+
 \subsection{Apprentissage spatio-sequentiel}
 
 Des auteurs comme Buzsáki et Moser ont émis l'hypothèse que  \og \an{the neuronal algorithms underlying navigation in real and mental space are fundamentally the same} \fg, suggérant que les fonctionnalités spatio temporelles pavent le chemin vers l'intelligence abstraite.  \cite[p.~130]{buzsaki_memory_2013}
 Le cerveau humain recyclerait ainsi les capacités de calcul spatial héritées de l'évolution phylogénétique pour traiter des concepts abstraits. 
-Dans un espace conceptuel construit à partir de dimensions de caractéristiques d’objets, l’hippocampe code les distances dans l’espace conceptuel pertinent, et non simplement dans l’espace des caractéristiques physiques, montrant qu’il mappe un espace de concepts plutôt qu’un simple espace de traits \cite{theves_hippocampus_2019}
+Dans un espace conceptuel construit à partir de dimensions de caractéristiques d’objets, l’hippocampe code les distances dans l’espace conceptuel pertinent, et non simplement dans l’espace des caractéristiques physiques, montrant qu’il mappe un espace de concepts plutôt qu’un simple espace de traits \cite{theves_hippocampus_2019}.
+
 
 Des neurones hippocampiques chez le primate forment des « champs de place de valeur » le long d’un continuum abstrait de valeur de récompense, créant une carte d’un espace de valeur purement cognitif \cite{knudsen_hippocampal_2021}
+
+Hideyoshi Igata et ses collègues ont montré que l'hippocampe rejouait des séquences spatio-temporelles en ordre inversé pour reconstituer les positions ayant conduit à une récompense. 
+Pendant une phase d'apprentissage les neurones de l'hippocampe ont même rejoué un chemin optimisé qui n'avait pas été exploité par l'animal. 
+\cite{igata_prioritized_2021}
+
+
 
 Roddy Grieves et Kate Jeffery font une synthèse des connaissances sur la représentation de l'espace dans le cerveau in \ref{fig:space}.
 
@@ -585,6 +668,8 @@ Jeff Hawkins propose une approche de l'intelligence artificielle à travers sa t
 mais qu'elles sont présentes dans toutes les colonnes corticales. Elles fournissent un système universel de coordonnées pour organiser toute forme de connaissance.
 Des milliers de modèles locaux : Plutôt qu'un modèle unique et centralisé, le cerveau utiliserait des milliers de petits modèles spatio-temporels locaux pour apprendre et interagir avec différentes configurations de l'environnement et différents types d'objets 
 \cite{hawkins_framework_2019}
+
+
 
 \subsection{Socle de connaissances}
 

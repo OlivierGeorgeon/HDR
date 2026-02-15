@@ -576,6 +576,8 @@ Certaines ont été observées dans le cortex pariétal supérieur et dans le co
 
 Ces résultats ont inspiré un certain nombre d'études en robotique portant sur la navigation bio-inspirée, 
 par exemple celle de mon ancien doctorant Simon Gay \cite{gay_towards_2021}.
+A ma connaissance, cependant, aucune simulation informatique ou robotique ne se rapproche pour l'instant du niveau de complexité décrit par Grieves et Jeffery.
+
 Dans le domaine de l'IA, Jeff Hawkins a proposé la \an{Thousand Brains Theory} basée sur l'hypothèse que des mécanismes analogues aux \an{grid cells} seraient distribués au sein de nombreuses colonnes corticales  \cite{hawkins_framework_2019}. 
 Selon lui, l’intelligence s'appuierait sur l’interaction de milliers de modèles locaux spatio-temporels capables d’apprendre la structure des objets et de l’environnement.
 Ces neurones serviraient de base à  un système de coordonnées universel permettant d’organiser différents types de connaissances. 
@@ -584,7 +586,41 @@ Ces neurones serviraient de base à  un système de coordonnées universel perme
 
 
 \subsection{Socle de connaissances}
+\label{sec:core}
 
+\noindent
+Certains auteurs ont étudié les systèmes de géométrie mentale sur le plan de l'éthologie et de la psychologie développementale. 
+Dans leur article \og \an{Core systems of geometry in animal minds} \fg, Elizabeth Spelke et Sang Ah Lee identifient plusieurs systèmes de géométrie fondamentaux qui seraient apparus au cours de l'évolution bien avant l'apparition de l'espèce humaine. 
+Elles rapportent deux systèmes géométriques distincts: le système fondamental de navigation (\an{core navigation system}) et le système fondamentale d'analyse de formes (\an{core form analysis system}).  
+Elles proposent l'hypothèse que ces deux systèmes fondamentaux donneraient lieu à des intuitions géométriques abstraites chez l'humain. 
+
+Le \an{core navigation system} est spécialisé dans la représentation des distances absolues et l'identification des directions.
+Il repose sur un mécanisme automatique et un mécanisme attentionnel de navigation. 
+Le mécanisme automatique se baserait sur la forme bordures de l'environnement tels que des surfaces verticales, alors que le mécanisme attentionnel utiliserait des points de repères (landmarks) visuels. 
+Certaines études ont meme tenté de déterminer ce qui comptait comme contour de l'environnement: des murs ou mêmes des légères marches sur le sol \cite{cheng_purely_1986}. 
+Inversement, des des lignes ou des contours dessinées sur le sol n'étaient pas prise en compte comme contour ni des colonnes espacées.  
+ 
+au moins deux systèmes de navigation: 1) un système pour représenter les distances et les directions de grandes surfaces , et 2) un système des objets et des marques de surfaces pouvant servir de point de balise (\an{landmark}). 
+
+%Ken Cheng a mis en évidence le système 1) chez des rats en montrant qu'ils utilisaient la forme des murs de l'enceinte dans laquelle ils étaient placés pour retrouver de la nourriture cachée .  En l'absence d'entrainement, ils n'utilisaient pas de points de repères tels que la couleur des murs ou des marques sur les murs. 
+
+Le \an{core form analysis system} permet à des animaux, allant des insectes aux humains, de  reconnaitre des formes visuellement. 
+Se système se base sur les relations relatives entre longueurs et sur les angles. Il se caractérise par une invariance d'échelle et une invariance de sens, c'est à dire qu'il est relativement insensible aux différences d'échelle et aux retournement en miroir.
+Les deux systèmes apparaissent donc pratiquement complémentaire: le système de navigation capture des distances absolue et le sens mais pas les longueurs relatives ni les angles, le système de reconnaissance de forme fait l'inverse. 
+
+Au delà du système de géométrie, certains auteurs se sont intéressés à un système de physique intuitive mentale. 
+Joshua Tenenbaum  et son équipe \cite{ullman_mind_2017} a proposé l'idée de \an{game engine in the head} (GEITH), ou moteur de jeu mental comme une métaphore pour décrire la façon dont l’esprit humain raisonnerait sur le monde physique.
+L’hypothèse est que le cerveau contient un \og moteur de physique intuitif \fg analogue aux moteurs physiques utilisés dans les jeux vidéo : 
+un système interne qui simule approximativement la dynamique des objets (chutes, collisions, empilements, écoulement de liquides, etc.) pour prédire leur trajectoire .
+
+Les \an{core knowledge} ne se limitent pas à la géométrie et à la physique. 
+François Chollet \cite{chollet_measure_2019} a listé quatre savoirs fondamentaux que la plupart des agents  intelligent naturels auraient hérités de l'évolution phylogénétique : 
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
+	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances.
+	\item Nombres et comptage: il est possible de compter des petits nombres d'objets ou propriétés, et former des groupes dénombrés.
+	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
+\end{itemize}
 
 
 \subsection{Comportements innés}
@@ -725,19 +761,11 @@ La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les
 Les tests \emph{statiques} s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
 Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
-Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constemment.
+Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constamment.
 Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence ‘‘pure'' et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
 
-Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC), un benchmark qui n'utiliser qu'un \emph{socle de connaissance} essentiel de la cognition naturelle \cite{chollet_measure_2019}.
-Ce socle de connaissance (\an{core knowledge}) comprend quatre savoirs fondamentaux que la plupart des agents  intelligent naturels auraient hérités de l'évolution phylogénétique : 
-\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item Géométrie élémentaire, spatialisation: reconnaitre et manipuler des formes simples (lignes, rectangles, triangules, cercles). Différentier les formes même après des transformations (rotation, translation, symétrie, déformation). Détecter les positions et distances. 
-	\item Objets et leur persistance: Les objets existent de manière continue ; ils ne peuvent pas apparaître ou disparaître sans raison; ils peuvent interagir selon les circonstances.
-	\item Nombres et comptage: il est possible de compter des petits nombres d'objets ou propriétés, et former des groupes dénombrés.
-	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
-\end{itemize}
- 
-L'ARC Challenge consitute un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
+Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019}, un benchmark qui n'utiliser que les \an{core knowledge} listés en Section \ref{sec:core}.
+L'ARC Challenge constitue un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
 Il s’inspire de la structure des tests psychotechniques et propose des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
 Il évalue ainsi la capacité d’un système à généraliser à partir d’exemples et à inférer des règles.
 La Fig. \ref{fig:ARC} montre un exemple mettant en jeu le \an{core knowledge} d'agentivité.

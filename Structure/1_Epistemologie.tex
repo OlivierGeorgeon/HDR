@@ -298,7 +298,7 @@ Sa pensée affirme ainsi la primauté des \emph{processus d'individuation}, a pa
 
 Simondon décrit le processus d'individuation en empruntant à la cristallographie le terme de \emph{transduction}. 
 Dans ce domaine, ce terme désigne l'opération par laquelle un germe cristallin structure de proche en proche une solution en état d'équilibre métastable, jusqu'à former un cristal de grande dimension. 
-Un équilibre est qualifié de métastable lorsqu'une modification locale n'entraîne pas seulement un changement ponctuel, mais provoque, de proche en proche, une reconfiguration globale du champ et l'établissement d’un nouvel équilibre.
+Un milieu en équilibre métastable est un milieu dans lequel une modification locale n'entraîne pas seulement un changement ponctuel, mais provoque, de proche en proche, une reconfiguration globale du milieu et l'établissement d’un nouvel équilibre.
 L'encyclopédie Larousse indique: 
 
 \begin{quote}
@@ -333,17 +333,21 @@ Son autonomie ne se définit pas comme une donnée préalable, mais comme le ré
 
 \section{Sciences cognitives}
 
+\noindent
+Après ce tour d'horizon des conceptions de la connaissance et de l'esprit dans la tradition philosophique occidentale, tournons-nous vers l'apport des sciences cognitives. 
+La section \ref{sec:conscience} ressitue la question de la conscience dans le contexte de la recherche en intelligence artificielle. 
+Les sections suivantes mettront ensuite cette question entre parenthèse afin de présenter une conception de la cognition envisagée principalement comme un ensemble de processus de traitement de l’information produisant des comportements intelligents.
+
 
 \subsection{Conscience}
+\label{sec:conscience}
 
 \noindent
-La question de la conscience est présente en arrière fond de toute science de la cognition. 
-Pour Ey \cite{ey_conscience_1999}, \og dire d'un être qu'il sent, qu'il perçoit, qu'il se souvient de quelque chose, qu'il prépare une action ou qu'il se sent ou se sait être quelqu'un qui dirige son existence vers telle ou telle fin, c'est toujours et nécessairement dire qu'il est conscient \fg.
-La conscience ne semble pourtant pas admettre, à l’heure actuelle, de définition ni de théorie faisant consensus au sein de la communauté scientifique. 
-On retrouve à ce propos souvent cité le commentaire de Sutherland (1989) dans son dictionnaire de psychologie : \og \an{Consciousness is a fascinating but elusive phenomenon; it is impossible to specify what it is, what it does, or why it evolved. Nothing worth reading has been written on it.} \fg
-
-Malgré la nature mystérieuse de la conscience, il existe une littérature consacrée la conscience artificielle comme en témoigne la création en 2009 du \an{International Journal of Machine Consciousness}, renommé en 2020 \an{Journal of Artificial Intelligence and Consciousness}. 
-Plus récemment, Joscha Bach a contribué à fonder le \an{Californian Institute for Machine Consciousness} (CIMC), en défendant l'idée que la recherche sur la conscience des machines constitue un enjeu scientifique majeur :
+%La question de la conscience est présente en arrière fond de toute science de la cognition. Pour Ey \cite{ey_conscience_1999}, \og dire d'un être qu'il sent, qu'il perçoit, qu'il se souvient de quelque chose, qu'il prépare une action ou qu'il se sent ou se sait être quelqu'un qui dirige son existence vers telle ou telle fin, c'est toujours et nécessairement dire qu'il est conscient \fg. La conscience ne semble pourtant pas admettre, à l’heure actuelle, de définition ni de théorie faisant consensus au sein de la communauté scientifique. 
+%centraux pour comprendre l'intelligence, la question de la conscience reste ouverte.   On retrouve souvent cité le commentaire de Sutherland (1989) dans son dictionnaire de psychologie : \og \an{Consciousness is a fascinating but elusive phenomenon; it is impossible to specify what it is, what it does, or why it evolved. Nothing worth reading has been written on it.} \fg
+A une époque ou les concepts d'\emph{information} et de \emph{computation} sont omniprésents, la question de la conscience semble déborder du champ de la philosophie pour se rapprocher du domaine de l'ingénierie. 
+Le projet balbutiant d'établir une théorie de la conscience des machines a fait naitre une littérature scientifique comme le \an{International Journal of Machine Consciousness} créé en 2009, avant qu'il ne soit renommé plus largement \an{Journal of Artificial Intelligence and Consciousness} en 2020. 
+Tout récemment, Joscha Bach a contribué à fonder le \an{Californian Institute for Machine Consciousness} (CIMC), en défendant l'idée que la recherche sur la conscience des machines constitue un enjeu scientifique majeur :
 
 \begin{quote}
 \an{Genuine understanding requires the ability to construct, not merely observe or describe. 
@@ -352,24 +356,31 @@ Plus récemment, Joscha Bach a contribué à fonder le \an{Californian Institute
 	\cite{bach_california_2025}
 \end{quote}
 
+Parmi les philosophes qui intègrent une réflexion sur l'IA, Daniel Dennett défend ce qu'il appelle la \og posture intentionnelle \fg (\an{intentional stance}) dans son livre \an{Consciousness explained} \cite{dennett_consciousness_1991}. 
+Cette posture s'inscrit dans une forme de  \textit{réalisme pragmatique}: elle considère la conscience comme une façon d'expliquer et de prédire le comportement d'agents observables en tant qu'entités physiques, en leur attribuant des propriétés comme des désirs et des intentions. 
 
-Le philosophe David Chalmers a proposé une distinction célèbre entre deux niveaux de difficulté : \an{the easy problem of consciousness} et \an{the hard problem of consciousness} \cite{chalmers_conscious_1997}.
-Le \an{easy problem} consiste à expliquer comment un système peut produire des comportements  \og comme s'il était conscient \fg. 
-Chalmers qualifie ce problème de facile non pas parce qu'il estime sa résolution imminente,  mais parce qu'il estime qu'aucun obstacle conceptuel fondamental ne s'y oppose. 
-L'étude de ce problème pourrait impliquer la construction de robots qui mimeraient la conscience sans la posséder---Chalmers parle de \emph{zombies philosophiques}. 
+David Chalmers introduit la notion de \emph{zombi philosophique} pour désigner un agents qui se comporterait comme un être conscient tout en étant dépourvu de subjectivité. 
+Il oppose à Dennett l'argument que la posture intentionnelle ne permet pas de rendre compte de la distinction entre un être humain conscient et un zombi philosophique. 
+Poursuivant cet argument, 
+Chalmers formule la distinction célèbre entre deux niveaux de difficulté : \an{the easy problem of consciousness} et \an{the hard problem of consciousness} \cite{chalmers_conscious_1997}.
+
+Le \an{easy problem} consiste à expliquer les fonctions cognitives et comportementales qui permettent à un système de produire des conduites et des performances \og comme s'il était conscient \fg{}. 
+Chalmers qualifie ce problème de \emph{facile} non pas parce qu'il estime sa résolution imminente,  mais parce qu'il estime qu'aucun obstacle conceptuel fondamental ne s'y oppose. 
+L'étude de ce problème pourrait passer par la construction de robots qui mimeraient la conscience sans la posséder, c'est à dire des robots zombis philosophiques. 
 Le \an{hard problem}, en revanche, consiste à expliquer la subjectivité et les \emph{qualias}. 
 Il porte sur les aspects de la conscience qui demeureraient incompris même si nous parvenions à construire un robot reproduisant parfaitement tous les comportements associés à la conscience. 
+C'est la question de la conscience en tant que chacun peut en faire l'expérience subjective, que Chalmers s'efforce de maintenir ouverte dans le débat philosophique.
 
 Certains auteurs critiquent ce découpage en estimant que les deux problèmes sont aussi difficiles l'un que l'autre.
 Selon eux, nous ne parviendrons pas à construire des robots qui miment la conscience tant que nous ne la comprendrons pas en profondeur.
 Parmi ces critiques, le philosophe Riccardo Manzotti et le roboticien Antonio Chella estiment que la distinction de Chalmers conduit à commettre une erreur qu'ils nomment \an{the Intermediate Level Fallacy}  \cite{manzotti_good_2018}. 
-Cette erreur consiste à introduire un \emph{niveau intermédiaire} ou un \emph{module spécialisé} censé rendre compte de la conscience mais qui échouent à l'expliquer. 
+Cette erreur consiste à introduire un \emph{niveau intermédiaire} ou un \emph{module spécialisé} censé jouer le rôle de la conscience mais qui échouent à l'expliquer. 
 Ils défendent une conception selon laquelle la conscience n'est pas liée au sujet seulement, mais à l’interaction entre le sujet et l’objet. 
 Ils argumentent que la recherche en robotique développementale pourrait offrir un chemin pour progresser parallèlement sur la génération de comportements et sur la compréhension de la conscience. 
 
 
-Mon travail s’inscrit en affinité avec les positions de Manzotti et Chella, en privilégiant une approche centrée sur les interactions.
-Sans prétendre alimenter directement une théorie de la conscience, l'approche interactionaliste rejoint des questions de  \emph{motivation intrinsèque} et de \emph{construction de sens}. 
+Mon travail s’inscrit en affinité avec les positions de Manzotti et Chella, en privilégiant une approche centrée sur les interactions et en rejetant l'idée d'un module jouant le rôle de la conscience.
+Sans prétendre alimenter directement une théorie de la conscience, l'approche interactionaliste tente de générer des comportements qui peuvent s'interpréter par des traits subjectifs tels que la  \emph{motivation intrinsèque} et la \emph{construction de sens}. 
 
 \subsection{Représentation, mémoire, modèle du monde}
 
@@ -611,7 +622,20 @@ Les deux systèmes apparaissent donc pratiquement complémentaire: le système d
 Au delà du système de géométrie, certains auteurs se sont intéressés à un système de physique intuitive mentale. 
 Joshua Tenenbaum  et son équipe \cite{ullman_mind_2017} a proposé l'idée de \an{game engine in the head} (GEITH), ou moteur de jeu mental comme une métaphore pour décrire la façon dont l’esprit humain raisonnerait sur le monde physique.
 L’hypothèse est que le cerveau contient un \og moteur de physique intuitif \fg analogue aux moteurs physiques utilisés dans les jeux vidéo : 
-un système interne qui simule approximativement la dynamique des objets (chutes, collisions, empilements, écoulement de liquides, etc.) pour prédire leur trajectoire .
+un système interne qui simule approximativement la dynamique des objets (chutes, collisions, empilements, écoulement de liquides, etc.) pour prédire leur trajectoire (Figure \ref{fig:geith}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=0.3\linewidth]{Figures/1_geith.png}%
+	\quad
+	\includegraphics[height=0.3\linewidth]{Figures/1_geith.pdf}
+	\caption{Expérimentation sur le \an{Game Engine In The Head} \cite[Fig.~3]{ullman_mind_2017}. 
+		Gauche: l'expérimentateur demande aux sujets d'indiquer dans quelle direction ils estiment que la tour va tomber. 
+		Droite: mesure de l'écart entre la prédiction du sujet et celle de l'ordinateur.
+	}
+	\label{fig:geith}
+\end{figure}
+
 
 Les \an{core knowledge} ne se limitent pas à la géométrie et à la physique. 
 François Chollet \cite{chollet_measure_2019} a listé quatre savoirs fondamentaux que la plupart des agents  intelligent naturels auraient hérités de l'évolution phylogénétique : 

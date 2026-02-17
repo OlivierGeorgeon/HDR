@@ -412,10 +412,10 @@ Dans mes travaux, j'étudie comment l'agent peut construire un \an{world model} 
 \subsection{L'attention}
 
 \noindent
-Le concept d'\emph{attention} a fait une entrée remarquée dans la communauté de l'IA avec la parution en 2017 de l'article \og \an{Attention is all you need} \fg  \cite{vaswani_attention_2017}.  
+Le concept d'\emph{attention} a fait une entrée remarquée dans la communauté de l'IA avec la parution en 2017 de l'article \og \an{Attention is all you need} \fg\  \cite{vaswani_attention_2017}.  
 %Cet article a marqué le début de la technologie des \an{transformers} et des grands modèles de langage. 
-Cet article reprend le terme \emph{attention} à des modèles antérieurs utilisés en traduction automatique, et introduit la technologie des \an{transformers} qui ouvre la voie aux grands modèles de langage actuels.
-Dans ce contexte, ce terme désigne un mécanisme computationnel permettant d'attribuer des poids de saillance différenciés aux éléments d'une séquence en fonction d'un contexte donné. 
+Cet article reprend ce concept à des modèles antérieurs utilisés en traduction automatique, et introduit la technologie des \an{transformers} qui ouvre la voie aux grands modèles de langage actuels.
+Dans ce contexte, le terme \emph{attention} désigne un mécanisme computationnel permettant d'attribuer des poids de saillance différenciés aux éléments d'une séquence en fonction d'un contexte donné. 
 Le choix de ce terme s’explique par l’analogie avec un faisceau attentionnel qui parcourt l’ensemble de la séquence afin de déterminer les éléments pertinents, plutôt que de traiter l’information de manière uniforme.
 
 En sciences cognitives, l'attention est considérée comme une propriété structurelle centrale de l'activité mentale, dans la mesure où le contenu même de la vie mentale est déterminée par ce à quoi le sujet porte attention.
@@ -438,18 +438,18 @@ Jean-Philippe Lachaux souligne que :
 	\cite[p.~91]{lachaux_cerveau_2013}.
 \end{quote}
 
-Cette citation fait écho à la \an{Feature Integration Theory} \cite{treisman_feature-integration_1980}, selon laquelle les caractéristiques élémentaires des objets (couleur, orientation)  sont traitées en parallèle, tandis que leur intégration en une représentation cohérente d’objet requiert une mobilisation attentionnelle. 
+Cette citation renvoie à la \an{Feature Integration Theory} \cite{treisman_feature-integration_1980}, selon laquelle les caractéristiques élémentaires des objets (couleur, orientation)  sont traitées en parallèle, tandis que leur intégration en une représentation cohérente d’objet requiert une mobilisation attentionnelle. 
 L’attention apparaît ainsi comme un mécanisme indispensable dès les premiers apprentissages développementaux, conditionnant la structuration des interactions avec le monde.
-
+Implémenter un mécanisme attentionnel dans un robot, par exemple en tournant sa tête vers des objets particulier,  permet d'une part de rendre ses comportements plus facilement compréhensibles par un observateur humain, et d'autre part de structurer son apprentissage de la scène environnante.
 
 \subsection{Anatomie cérébrale}
 \label{sec:anatomie}
 
 \noindent
-Cette section a pour objectif de rappeler modestement quelques éléments fondamentaux concernant le cerveau en tant qu’organe biologique dont la fonction première est l’organisation et le contrôle des comportements dans le temps et l’espace, bien avant l’émergence de capacités de représentation abstraite et de raisonnement symbolique.
+Cette section a pour objectif de rappeler modestement quelques éléments fondamentaux concernant le cerveau en tant qu’organe biologique dont la fonction première est d’organiser et contrôler les comportements dans le temps et l’espace, bien avant l’émergence de capacités de représentation abstraite et de raisonnement symbolique.
 
 Le cerveau des vertébrés est subdivisé en trois grandes régions qui reflètent son organisation développementale au cours de l'embryogenèse : le \emph{cerveau postérieur} (rhombencéphale, \an{hindbrain}), le \emph{cerveau moyen} (mésencéphale, \an{midbrain}) et le \emph{cerveau antérieur} (prosencéphale, \an{forebrain}), comme illustré en Figure~\ref{fig:cerveau}.
-Ce découpage tripartite est également associé à trois stades successifs de l’évolution phylogénétique survenus approximativement dans cet ordre. 
+Ce découpage tripartite est également associé à trois stades approximatifs successifs de l’évolution phylogénétique survenus dans cet ordre. 
 
 \begin{figure}[ht]
 	\centering
@@ -557,7 +557,7 @@ Il contient un ensemble de neurones spatialement modulés, dont la découverte a
 Hideyoshi Igata et ses coauteurs ont montré que des neurones de l'hippocampe pouvaient rejouer des séquences en ordre inversé afin de reconstruire les positions ayant conduit à une récompense. 
 Ils ont même observé que l’hippocampe pouvait rejouer des trajectoires optimisées qui n’avaient pas été directement explorées par l’animal \cite{igata_prioritized_2021}. 
 Stéphanie Theves a montré que l'hippocampe code des distances pertinentes dans un espace conceptuels défini par des caractéristiques d'objets, suggérant l'existence d'une cartographie cognitive des concepts  \cite{theves_hippocampus_2019}. 
-Eric Knudsen a montré que des neurones hippocampiques chez le primate peuvent former des \og gradients de valeur \fg le long d’un continuum abstrait de récompense, constituant une carte cognitive d’un espace de valeur motivationnelle \cite{knudsen_hippocampal_2021}.
+Eric Knudsen a montré que des neurones hippocampiques chez le primate peuvent former des \og gradients de valeur \fg\ le long d’un continuum abstrait de récompense, constituant une carte cognitive d’un espace de valeur motivationnelle \cite{knudsen_hippocampal_2021}.
 
 
 La plupart des auteurs soulignent toutefois l'ampleur de ce qu'ils nous restent encore à comprendre concernant la manière dont le cerveau gère l'espace et le temps. 
@@ -611,27 +611,26 @@ Ces neurones serviraient de base à  un système de coordonnées universel perme
 
 \noindent
 Certains auteurs ont étudié les systèmes de géométrie mentale sur le plan de l'éthologie et de la psychologie développementale. 
+Ces études apportent un niveau d'analyse complémentaire au niveau neuro-anatomique présenté à la section précédente. 
 Dans leur article \og \an{Core systems of geometry in animal minds} \fg, Elizabeth Spelke et Sang Ah Lee identifient plusieurs systèmes de géométrie fondamentaux qui seraient apparus au cours de l'évolution bien avant l'apparition de l'espèce humaine. 
 Elles rapportent deux systèmes géométriques distincts: le système fondamental de navigation (\an{core navigation system}) et le système fondamentale d'analyse de formes (\an{core form analysis system}).  
 Elles proposent l'hypothèse que ces deux systèmes fondamentaux donneraient lieu à des intuitions géométriques abstraites chez l'humain. 
 
 Le \an{core navigation system} est spécialisé dans la représentation des distances absolues et l'identification des directions.
 Il repose sur un mécanisme automatique et un mécanisme attentionnel de navigation. 
-Le mécanisme automatique se baserait sur la forme bordures de l'environnement tels que des surfaces verticales, alors que le mécanisme attentionnel utiliserait des points de repères (landmarks) visuels. 
+Le mécanisme automatique se baserait sur la forme des bordures de l'environnement tels que des surfaces verticales, alors que le mécanisme attentionnel utiliserait des points de repères (\an{landmarks}) visuels. 
 Certaines études ont meme tenté de déterminer ce qui comptait comme contour de l'environnement: des murs ou mêmes des légères marches sur le sol \cite{cheng_purely_1986}. 
-Inversement, des des lignes ou des contours dessinées sur le sol n'étaient pas prise en compte comme contour ni des colonnes espacées.  
+Inversement, des lignes ou des contours dessinées sur le sol n'étaient pas prise en compte comme contour ni des colonnes espacées.  
  
-au moins deux systèmes de navigation: 1) un système pour représenter les distances et les directions de grandes surfaces , et 2) un système des objets et des marques de surfaces pouvant servir de point de balise (\an{landmark}). 
-
 %Ken Cheng a mis en évidence le système 1) chez des rats en montrant qu'ils utilisaient la forme des murs de l'enceinte dans laquelle ils étaient placés pour retrouver de la nourriture cachée .  En l'absence d'entrainement, ils n'utilisaient pas de points de repères tels que la couleur des murs ou des marques sur les murs. 
 
 Le \an{core form analysis system} permet à des animaux, allant des insectes aux humains, de  reconnaitre des formes visuellement. 
 Se système se base sur les relations relatives entre longueurs et sur les angles. Il se caractérise par une invariance d'échelle et une invariance de sens, c'est à dire qu'il est relativement insensible aux différences d'échelle et aux retournement en miroir.
-Les deux systèmes apparaissent donc pratiquement complémentaire: le système de navigation capture des distances absolue et le sens mais pas les longueurs relatives ni les angles, le système de reconnaissance de forme fait l'inverse. 
+Spelke souligne que les deux systèmes apparaissent donc pratiquement complémentaire: le système de navigation capture des distances absolue et le sens mais pas les longueurs relatives ni les angles, le système de reconnaissance de forme fait l'inverse. 
 
 Au delà du système de géométrie, certains auteurs se sont intéressés à un système de physique intuitive mentale. 
 Joshua Tenenbaum  et son équipe \cite{ullman_mind_2017} a proposé l'idée de \an{game engine in the head} (GEITH), ou moteur de jeu mental comme une métaphore pour décrire la façon dont l’esprit humain raisonnerait sur le monde physique.
-L’hypothèse est que le cerveau contient un \og moteur de physique intuitif \fg analogue aux moteurs physiques utilisés dans les jeux vidéo : 
+L’hypothèse est que le cerveau contient un \og moteur de physique intuitif \fg\ analogue aux moteurs physiques utilisés dans les jeux vidéo : 
 un système interne qui simule approximativement la dynamique des objets (chutes, collisions, empilements, écoulement de liquides, etc.) pour prédire leur trajectoire (Figure \ref{fig:geith}).
 
 \begin{figure}[ht]
@@ -656,8 +655,11 @@ François Chollet \cite{chollet_measure_2019} a listé quatre savoirs fondamenta
 	\item Agentivité : certains objets peuvent être identifiés comme \og agents \fg poursuivant une intention ou un but. On distingue les objets animés et inanimés.
 \end{itemize}
 
+Ces études sur le \an{core knowledge in the mind} nous apportent un éclairage sur la répartition entre l'inné et l'acquis dans le système cognitif animal et humain. 
+Cet éclairage peut guider la conception de nos robots développementaux en aidant à déterminer quelles structures ou contraintes seront  \og codées en dur \fg\ et lesquelles seront laissées à l'apprentissage au cours d'interaction avec l'environnement. 
 
-\subsection{Comportements innés}
+
+\subsection{Comportements instinctifs}
 
 \noindent
 De nombreux animaux manifestent des comportements propres à leur espèce qui semblent essentiels à leur survie. 
@@ -673,20 +675,23 @@ Selon Blumberg, par exempe :
 	\cite[p.~1]{blumberg_development_2017}	
 \end{quote}
 
-Blumberg précise que cela ne signifie pas que tous les comportements instinctifs sont également malléables. 
+Blumberg précise que la nature développementale des comportements instinctifs ne signifie pas que tous les comportements instinctifs soient également malléables. 
 Au contraire, ils s'inscrivent sur un continuum allant des plus rigides aux plus flexibles. 
 Chez les mammifères, par exemple, l'orientation du nouveau-né vers la source de lait dès la naissance apparait comme un comportement rigide et vital. 
 Les signaux olfactifs y jouent un rôle central, mais ce comportement implique déjà un apprentissage sensorimoteur, combinaison également des indices tactiles, et parfois thermiques, comme l'ont montré Charlotte Hym et ses coauteurs chez l'humain  \cite{hym_newborn_2021}, ainsi que Jeffrey Alberts et April Ronca chez d'autres mammifères \cite{alberts_experience_2012}. 
 
-Les comportements dits ``instinctifs'' ne sont donc pas des ``programmes'' codés dans les gènes et qui seraient exécutés tels-quels dès la naissance. 
+Les comportements dits instinctifs ne sont donc pas des programmes codés dans les gènes qui seraient exécutés tels-quels dès la naissance. 
 Ils résultent plutôt de prédispositions innées et de tendances qui orientent l'apprentissage dans des contextes et environnements spécifiques, lesquels jouent un rôle déterminant dans leur expression. 
 Certaines de ces dispositions initiales sont communes aux humains et aux autres mammifères. 
 
 
+A ma connaissance, l’apprentissage développemental précoce de comportements instinctifs fondé sur des préférences innées ne constitue pas, à ce jour, un domaine de recherche explicitement identifié en intelligence artificielle développementale. 
+Cette problématique représente ainsi une contribution originale de mon travail.
+
 \subsection{Psychologie développementale}
 
 \noindent
-Parallèlement à l'épistémologie génétique, Piaget a fondé le champ de la \emph{psychologie développementale}. 
+Parallèlement à l'épistémologie génétique évoquée en Section \ref{sec:epistemologie_genetique}, Piaget a fondé le champ de la \emph{psychologie développementale}. 
 Au-delà des dimensions théoriques de la construction du sujet connaissant, la psychologie développementale tente de décrire et comprendre le cheminement chronologique qui conduit l'esprit humain depuis l'état du nouveau-né jusqu'à celui de l'âge adulte.
 Elle offre un pendant expérimental à l'épistémologie génétique, en s'appuyant sur des observations, permettant l'expérimentation, et proposant des applications. 
 Dans son ouvrage \emph{Pour comprendre Jean Piagiet} \cite{dolle_pour_1997}, Jean-Marie Dolle synthétise ainsi les stades chronologiques du développement cognitif de l'être humain :
@@ -723,7 +728,7 @@ Il développe ensuite un système symbolique sur la base des objets concrets (é
 Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est considérablement enrichie. 
 Philippe Rochat et Tricia Striano, par exemple, ont conçu une expérience montrant que des nourrissons âgés de seulement deux mois étaient déjà capables de se fixer des objectifs.
 Ils pouvaient mobiliser certains comportements issus de leur répertoire inné et les adapter de manière circonstanciée pour atteindre ces objectifs.
-Cette expérience offrait la possibilité aux nourrissons de modifier leur rythme de succion pour obtenir certains résultats sensoriels tels qu'entendre la voix de leur mère, se voir présenter certaines images, ou encore obtenir leur lait préféré \cite{rochat_emerging_1999}. %de l'ouvrage \an{Oxford handbook of human action} 
+Leur expérience offrait la possibilité aux nourrissons de modifier leur rythme de succion pour obtenir certains résultats sensoriels tels qu'entendre la voix de leur mère, se voir présenter certaines images, ou encore obtenir leur lait préféré \cite{rochat_emerging_1999}. %de l'ouvrage \an{Oxford handbook of human action} 
 Le chapitre \an{The origins and sources of action} de Bernhard Hommel et Birgit Elsner  \cite{hommel_acquisition_2009} passe en revue de nombreuses expériences mettant en évidence l'habileté d'enfants âgés de deux à quatre mois à acquérir une maitrise des relations action-effet.
 Ces enfants s'engageant spontanément dans des activités ludiques consistant à identifier simultanément des buts possibles et les opérations permettant de les atteindre.
 Ils répètent ensuite ces activités en se perfectionnant et en manifestent de la joie en cas de réussite et de la déception en cas d'échec.  
@@ -736,7 +741,24 @@ Dans la phase de test, les sujets effectuaient la même tâche, mais avec des mo
 L'expérience a montré que les mots positifs étaient traités plus rapidement quand la réponse n'induisait pas de choc, et inversement pour les mots négatifs. 
 En se référant à la \an{Theory of Event Coding (TEC)} de Hommel \cite{hommel_theory_2001}, Becker conclut que les sujets encodent des événements unitaires qui regroupent les informations sensorielles, motrices, et de valence affective. 
 
+%La psychologie développementale de Piaget a inspiré le champ de l'intelligence artificielle développementale, comme nous le verrons dans les chapitres suivants. 
+La temporalité et la chronologie des stades d'apprentissage identifiés par Piaget ont été contestés, mais le principe d'un continuum d'apprentissage ininterrompu, ancré sur l'expérience sensorimotrice, au cours duquel chaque apprentissage successif s'appuie sur le précédent reste largement accepté. 
+Cette trajectoire continue a été illustré par les chercheurs en IA développementale Frank Guerin et Daniel McKenzie par la Figure \ref{fig:guerin}. 
+Cette conception invite à ne pas \og prendre de raccourcis \fg\ en tentant de répliquer des stades d'apprentissages avancés qui ne seraient pas ancrés dans des stades antérieurs. 
+L'ancrage sensorimoteur risquerait alors d'être rompu.
+Retenons aussi que l'énergie motivationnelle endogène de l'enfant joue un rôle crucial.
+Elle peut passer par une valence affective associée aux schèmes sensorimoteurs. 
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Figures/1_guerin.pdf}
+	\caption{Diagramme conceptuel du développement de l'enfant \cite[Fig.~1]{guerin_piagetian_2008}.
+		Bas (\an{concrete track}): graphe de schèmes sensorimoteurs construit au cours du temps.
+		Les n\oe uds sont des schèmes et les arcs sont des relations de dépendances entre schèmes. 
+		Haut (\an{abstract track}): représentations des objets par réseaux de schémas qui décrivent les interactions que ces objets permettent.
+	}
+	\label{fig:guerin}
+\end{figure}
 
 
 % Hommel soulignent que, bien que les nouveaux-nés disposent déjà de capacités motrices et sensorielles, il est généralement admis qu'ils ne sont pas encore en mesure d'effectuer des actions intentionnelles \cite{hommel_acquisition_2009}. 
@@ -792,6 +814,7 @@ La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les
 
 \subsection{Tests statiques}
 
+\noindent
 Les tests \emph{statiques} s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
 Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
@@ -820,6 +843,7 @@ Il produit un classement de type Elo sur la base d'un jugement humain ‘‘crow
 
 \subsection{Tests dynamiques}
 
+\noindent
 Les tests \emph{dynamiques} concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
 Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique (voir Section \ref{sec:rl}). 
 Les jeux de plateau offrent des benchmarks emblématiques de ce quadrant. 
@@ -857,8 +881,8 @@ Mais ce jugement se fait souvent en présupposant le format de représentation u
 
 Pour comparer la construction de modèles du monde par des agents utilisant des formalismes différents, certains auteurs adoptent une approche hybride. 
 Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Archana Warrier et al. proposent \emph{WorldTest}, un benchmark destiné à évaluer l'apprentissage non supervisé d'un modèle du monde en soumettant l'agent à des tâches avec un but objectif.
-WorldTest différencie un \og environnement de base \fg durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
-Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formilsme de représentation utilisé.
+WorldTest différencie un \og environnement de base \fg\ durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg\ durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
+Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formalisme de représentation utilisé.
 
 %identifient quatre catégories de \an{benchmarks} pour évaluer l'apprentissage d'un modèle du monde:
 

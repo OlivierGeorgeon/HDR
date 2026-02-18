@@ -725,7 +725,7 @@ Piaget ne conçoit pas ces étapes comme des phases nettement délimitées mais 
 Dans un premier temps, l'enfant acquière une intelligence sensorimotrice (étape 1) qui lui permet de maitriser son appareil perceptif et moteur afin de se déplacer et interagir efficacement avec les éléments de son environnement en construisant des chaines causales. 
 Il développe ensuite un système symbolique sur la base des objets concrets (étape 2), avant d'accéder à une intelligence plus générale basée sur le langage et le raisonnement logico-mathématique (étape 3). 
 
-Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est considérablement enrichie. 
+Depuis ce premier cadre posé par Piaget, la psychologie développementale s'est considérablement enrichie, remettant en question la temporalité et la chronologie des stades de développement. 
 Philippe Rochat et Tricia Striano, par exemple, ont conçu une expérience montrant que des nourrissons âgés de seulement deux mois étaient déjà capables de se fixer des objectifs.
 Ils pouvaient mobiliser certains comportements issus de leur répertoire inné et les adapter de manière circonstanciée pour atteindre ces objectifs.
 Leur expérience offrait la possibilité aux nourrissons de modifier leur rythme de succion pour obtenir certains résultats sensoriels tels qu'entendre la voix de leur mère, se voir présenter certaines images, ou encore obtenir leur lait préféré \cite{rochat_emerging_1999}. %de l'ouvrage \an{Oxford handbook of human action} 
@@ -786,17 +786,17 @@ Les tests statiques évaluent la capacité à résoudre un problème présenté 
 Ils mettent l'accent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour produire une réponse correcte à une question posée. 
 %Ils ne mesurent pas directement la capacité à apprendre et à s'adapter au cours du temps. 
 A l'inverse, les tests dynamique se déroulent pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
-Ils visent à mesurer la capacité de l'agent à mettre en oeuvre une stratégie qui peut donner lieu à un apprentissage au cours du déroulé du test. 
+Ils visent à mesurer la capacité de l'agent à mettre en \oe uvre une stratégie qui peut donner lieu à un apprentissage au cours du déroulé du test. 
 
 Legg et Hutter introduisent ensuite une second distinction, cette fois entre les tests fondés sur une \emph{mesure objective} et ceux fondés sur un \emph{jugement humain}.
 Les premiers mesurent la capacité de l'agent à produire des réponses attendues ou à atteindre des objectifs préalablement définis.
-Dans ce cadre, les auteurs esquissent l'idée d'une \og mesure universelle de l'intelligence \fg définie comme la somme infinie des score normalisés obtenus dans l'ensemble des environnement possibles, pondérée par la complexité de chacun d'eux. 
+Dans ce cadre, les auteurs esquissent l'idée d'une \og mesure universelle de l'intelligence \fg\ définie comme la somme infinie des score normalisés obtenus dans l'ensemble des environnement possibles, pondérée par la complexité de chacun d'eux. 
 Ils reconnaissent qu'une telle mesure n'est pas calculable en pratique mais la proposent comme un modèle conceptuel utile de ce qu'ils appellent une \an{mesure of universal intelligence}. 
 % la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
 
 Certains auteurs défendent la nécessité d'un jugement humain. 
-Parmi eux, Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
-Il cite John von Neumann qui avait déjà formulé cette difficulté:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg  \cite[p.~105]{samsonovich_roadmap_2012}.
+Parmi eux, Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg\ le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
+Il cite John von Neumann qui avait déjà formulé cette difficulté:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg\  \cite[p.~105]{samsonovich_roadmap_2012}.
 Dans \og \an{Beyond reward and punishment} \fg, David Deutsch argumente qu'un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé, voire désobéir aux instructions de ses concepteurs \cite{deutsch_beyond_2019}.
 Le célèbre test de Turing s’inscrit précisément dans cette idée d'un jugement humain, puisqu’il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
 
@@ -815,39 +815,44 @@ La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les
 \subsection{Tests statiques}
 
 \noindent
-Les tests \emph{statiques} s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Les tests statiques ne sont pas pertinents pour évaluer les IA développementales car ils ne permettent pas de saisir les dynamiques d'apprentissage et d'adaptation au cours du temps. 
+Ils s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Je les passe en revue brièvement ici pour éclairer la classification de Legg et Hutter et parce que certains d'entre eux figurent parmi plus connus dans le paysage de l'IA actuelle.
+
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
 Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
 Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constamment.
-Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence ‘‘pure'' et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
+Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence \og pure \fg\ et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
 
-Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019}, un benchmark qui n'utiliser que les \an{core knowledge} listés en Section \ref{sec:core}.
-L'ARC Challenge constitue un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
-Il s’inspire de la structure des tests psychotechniques et propose des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
+Le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019} constitue un deuxième exemple de ce quadrant.
+Il présente l'avantage de spécifier clairement les connaissances qu'il présuppose chez l'agent. 
+Ce sont les \an{core knowledge} que j'ai listés en Section \ref{sec:core}: géométrie élémentaire, objets et persistance, nombre et comptage, agentivité.
+%Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019}, un benchmark qui n'utiliser que les \an{core knowledge} listés en Section \ref{sec:core}.
+%L'ARC Challenge constitue un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
+Ce test s’inspire de la structure des tests psychotechniques et propose des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
 Il évalue ainsi la capacité d’un système à généraliser à partir d’exemples et à inférer des règles.
-La Fig. \ref{fig:ARC} montre un exemple mettant en jeu le \an{core knowledge} d'agentivité.
-Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
+%La Fig. \ref{fig:ARC} montre un exemple mettant en jeu le \an{core knowledge} d'agentivité. Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/1_ARC.png}
-	\caption{Exemple de problème du ARC Challenge impliquant le socle de connaissance d'agentivité. }
-	\label{fig:ARC}
-\end{figure}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{Figures/1_ARC.png}
+%	\caption{Exemple de problème du ARC Challenge impliquant le socle de connaissance d'agentivité. }
+%	\label{fig:ARC}
+%\end{figure}
 
 
 
 Un exemple représentatif du quadrant \emph{statique} / \emph{jugement} est \an{Chatbot Arena} \cite{chiang_chatbot_2024}.
-Ce benchmark évalue les LLMs en organisant des confrontations en aveugle opposant les modèles deux à deux.
-Il produit un classement de type Elo sur la base d'un jugement humain ‘‘crowdsourcé'', les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
+Ce \an{benchmark} évalue les LLMs en organisant des confrontations en aveugle opposant les modèles deux à deux.
+Il produit un classement de type Elo sur la base d'un jugement humain \og crowdsourcé \fg, les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
 
 \subsection{Tests dynamiques}
 
 \noindent
-Les tests \emph{dynamiques} concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
+Les tests dynamiques concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
 Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique (voir Section \ref{sec:rl}). 
-Les jeux de plateau offrent des benchmarks emblématiques de ce quadrant. 
-Un exemple marquant d'apprentissage par renforcement dans ce contexte est AlphaZero présenté dans \og \an{A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play} \fg \cite{silver_general_2018}.
+Les jeux de plateau offrent des \an{benchmarks} emblématiques de ce quadrant. 
+Un exemple marquant d'apprentissage par renforcement dans ce contexte est AlphaZero présenté dans \og \an{A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play} \fg\ \cite{silver_general_2018}.
 
 Le quandrant \emph{dynamique} / \emph{jugement} regroupe les évaluations de l'intelligence \an{open-ended} en milieu ouvert pour lesquels les objectifs finaux de l'agent ne sont pas explicitement fixés. 
 Aucun test ne fait réellement figure de référence de ce quadrant auprès du grand public ou de la communauté scientifique.
@@ -856,9 +861,9 @@ Des tentatives ont été menées, par exemple le \an{Loebner Prize}, lancé en 1
 En pratique, chaque équipe de recherche définit ses propres critères de jugement centrés sur les aspects de l'intelligence qu'elle souhaite explorer. 
 
 En robotique, l'acte de jugement peut s'appuyer sur une analyse fine des comportements du robot. 
-Alexander Maye et Andreas Engel démontrent par cette méthode que leur robot acquièrt une maitrise des ‘‘contingences sensorimotrice'' (voir Section \ref{sec:SMC}).
-Leur article \og \an{A discrete computational model of sensorimotor contingencies for  object perception and control of behavior} \fg \cite{maye_discrete_2011} présente un modèle de reconnaissance d'objets dans lequel les actions sont au c\oe ur du processus perceptif.
-L’analyse comportementale illustrée en Figure \ref{fig:maye} met en évidence les contingences sensorimotrices propres à un couplage robot-objet particulier, représentées sous la forme d’une séquence d’actions et de signaux sensoriels.
+Alexander Maye et Andreas Engel démontrent par cette méthode que leur robot acquièrt une maitrise des \og contingences sensorimotrice \fg\ (voir Section \ref{sec:SMC}).
+Leur article \og \an{A discrete computational model of sensorimotor contingencies for  object perception and control of behavior} \fg\ \cite{maye_discrete_2011} présente un modèle de reconnaissance d'objets dans lequel les actions sont au c\oe ur du processus perceptif.
+Leur analyse comportementale illustrée en Figure \ref{fig:maye} met en évidence les contingences sensorimotrices propres à un couplage robot-objet particulier, représentées sous la forme d’une séquence d’actions et de signaux sensoriels.
 
 
 %on peut aussi citer \cite{sanchez-fibla_acquisition_2011}
@@ -875,11 +880,11 @@ L’analyse comportementale illustrée en Figure \ref{fig:maye} met en évidence
 	\label{fig:maye}
 \end{figure}
 
-Certaines études considèrent la construction de son propre modèle du monde comme un objectif en soit pour l'agent.
-Je classe les benchmarks évaluant cette capacités dans la catégorie \emph{jugement} car ils ne mesurent pas directement l'aptitude d'un agent à accomplir une tâche appliquée: c'est l'expérimentateur qui juge la qualité du modèle du monde appris.
-Mais ce jugement se fait souvent en présupposant le format de représentation utilisé par l'agent, ce qui complique la comparaison entre agents utilisant des formats de représentation différents.
+Certaines études considèrent la construction d'un modèle mental du monde comme un objectif en soit pour l'agent.
+Je classe les \an{benchmarks} évaluant cette capacités dans la catégorie \emph{jugement} car ils ne mesurent pas directement l'aptitude d'un agent à accomplir une tâche appliquée: c'est l'expérimentateur qui juge la qualité du \an{world model} appris.
+Ce jugement se fait souvent en présupposant le format de représentation utilisé par l'agent, ce qui complique la comparaison entre agents utilisant des formats de représentation différents.
 
-Pour comparer la construction de modèles du monde par des agents utilisant des formalismes différents, certains auteurs adoptent une approche hybride. 
+Pour comparer la construction de \an{world model} par des agents utilisant des formalismes différents, certains auteurs adoptent une approche hybride. 
 Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Archana Warrier et al. proposent \emph{WorldTest}, un benchmark destiné à évaluer l'apprentissage non supervisé d'un modèle du monde en soumettant l'agent à des tâches avec un but objectif.
 WorldTest différencie un \og environnement de base \fg\ durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg\ durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
 Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formalisme de représentation utilisé.
@@ -903,33 +908,67 @@ Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'env
 
 
 
-\subsection{Bilan des mesures}
+\section{Conclusion (en construction)}
 
-Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
-\begin{quote}
-	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. 
-		Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
+%Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
+%\begin{quote}
+%	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
 		%, even immoral, just as in the education of humans. 
 		%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
-	}
-	\cite[p.~119]{deutsch_beyond_2019}.
-\end{quote}
+%	}
+%	\cite[p.~119]{deutsch_beyond_2019}.
+%\end{quote}
 
-Mes travaux se situent principalement dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+%Voir le chapitre de Thomas Schmid pour une revue récente de l'impact des idées constructivistes sur l'AI \cite{schmid_constructivism_2023}.
 
-
-La figure \ref{fig:mesures} résume le paysage des différentes approches pour mesurer l'intelligence. 
-Ce manuscrit se situe dans le quadrant supérieur droit: les mesures dynamiques faisant appelle au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+Sur la base de ces fondements théoriques je propose un programme de recherche qui inclut les principes suivants. 
 
 
+\begin{enumerate}[itemsep=0pt, parsep=0pt, partopsep=0pt]
+	\item Absence de présupposés ontologique sur les entités du monde
+	\item Signal sensoriel non représentationnel
+	\item Socle de connaissances
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Séquentialité
+		\item Géométrie élémentaire
+		\item Préférences comportementales
+	\end{itemize}
+	\item Evénements d'interaction
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Schemes sensorimoteurs
+		\item Valence motivationnelle
+	\end{itemize} 
+	\item Environnement ouvert
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Absence de récompense extrinsèque
+		\item Motivation intrinsèque
+		\item Etats du monde initialement inconnus
+	\end{itemize} 
+	\item Apprentissage constructiviste
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Apprentissage hiérarchique bottom-up
+		\item Génération de micro hypothèses
+		\item Révocation des hypothèses non validées par l'expérience
+	\end{itemize} 
+	\item Construction de sens pragmatique
+	\item Benchmarsk dynamique / jugement
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}, itemsep=0pt, topsep=0pt, parsep=0pt, partopsep=0pt]
+		\item Comportements instinctifs
+	\end{itemize} 
+\end{enumerate}
 
 
 
 
-\section{Conclusion}
+%Notre examen de l'apprentissage développemental naturel nous conduit à penser que le problème suivant est un problème intéressant en informatique:
 
-Voir le chapitre de Thomas Schmid pour une revue récente de l'impact des idées constructivistes sur l'AI \cite{schmid_constructivism_2023}.
+Ce programme peut se résumer par concevoir un agent artificiel qui puisse:
 
-Notre examen de l'apprentissage développemental naturel nous conduit à penser que le problème suivant est un problème intéressant en informatique:
 Construire et réitérer des comportements spatio-séquentiels hiérarchiques basés sur des préférences intéractionnelles initiales
 La possibilité de réiter des comportements appris à un haut niveau hiérarchique de manière adaptée implique la capacité de construire des représentations pertinentes du monde tel que l'agent enfait l'expérience. 
+
+...
+
+Ce projet se situe dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+
+

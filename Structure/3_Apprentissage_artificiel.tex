@@ -234,7 +234,7 @@ On peut modéliser un robot interagissant avec un environnement controlé par un
 \label{sec:pomdp}
 
 \noindent
-Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien. 
+Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien \cite{kaelbling_planning_1998}. 
 La Définition \ref{def:pomdp} et la Figure \ref{fig:pomdp} représentent la formulation la plus générale des POMDP telle qu'on la trouve, par exemple, dans l'article de Matthijs Spaan et al. \cite{spaan_partially_2012}. 
 Dans ce modèle, l'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond à un \an{state signal} dans la terminologie précédente, mais dont on ne fait plus l'hypothèse qu'il soit markovien.
 Le \an{sensory signal} $o_t$ est tiré selon la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ conditionnel à la décision précédente $d_{t-1}$ et à l'état de l'environnement $s_t$. 
@@ -254,7 +254,7 @@ La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état 
 \end{figure}
 
 On peut utiliser un POMDP pour modéliser un robot interagissant avec un environnement. 
-Dans ce as "l'agent" désine le software qui pilote le robot, incluant la mémoire interne du robot. 
+Dans ce cas le terme "l'agent" désigne le software qui pilote le robot, incluant la mémoire interne du robot. 
 L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software. 
 L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
  

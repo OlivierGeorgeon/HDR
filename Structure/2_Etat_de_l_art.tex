@@ -1,12 +1,21 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{L'autonomie artificielle}
+\chapter{Etat de l'art}
 
-\noindent
+Ce chapitre passe en revue l'état de l'art dans le domaine de l'intelligence artififielle, l'apprentissage artificiel, et l'informatique qui est pertinent pour le problème de l'intelligence artificielle développementale. 
+
+La première partie porte sur l'apprentissage autonome artificiel et vise à pauser les concepts de base de ce problème. 
+La seconde partie passe en revue certaines approches techniques de façon à présenter le formalisme mathématique utilisé dans la littérature, sur lequel nous pourrons nous appuyer dans les chapitres suivants. 
+
+
+
+\section{Apprentissage autonome}
+
 Définir l'autonomie des agents artificiels n'est pas aussi facile qu'il n'y parait. 
 David Vernon \cite{vernon_artificial_2014} identifie plusieurs types d'autonomie
 
-\section{Système de décision discret}
+
+\subsection{Système de décision discret}
 
 
 On modélise un agent logiciel interagissant avec son environnement à l'aide du \an{Discret Decision System Model} (DDS) illustré en Fig. \ref{fig:dds}.
@@ -77,7 +86,7 @@ La partie droite montre des cycles d'interactions hiérarchiques imbriqués au c
 Ce dernier cas soulève la question soulignée par Weinbaum de savoir comment l'environnement peut susciter ou réagir à différents niveaux hiérarchiques d'actions de l'agent. 
 
 
-\section{Représentation bayésienne}
+\subsection{Représentation bayésienne}
 
 \noindent
 La représentation bayésienne offre une alternative au cycle de décision discret qui vise à mieux prendre en compte la diversité des canneaux d'interactions et leur possible parallélisme.
@@ -139,7 +148,7 @@ Ce calcul d'inférence se fait de manière itérative en descendant un gradiant 
 
 
 
-\section{Couverture de Markov et problème de l'inférence}
+\subsection{Couverture de Markov et problème de l'inférence}
 
 \noindent
 Les théoriciens des réseaux bayésiens tels que Judea Pearl \cite{pearl_probabilistic_1988} ont montré que les statistiques des variables internes de l'orgnaisme sont entièrement définies par les statistiques des variables de la couverture de markov, et donc indépendante des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
@@ -163,7 +172,7 @@ Il note que l'humain utilise naturellement le principe du rasoir d'Occam consist
 Il remarque que le fait que les tests d'intelligence attentent que le sujet l'utilise indique que que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
 
 
-\section{Cerveau comme machine à inférer}
+\subsection{Cerveau comme machine à inférer}
 
 Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
 
@@ -190,7 +199,7 @@ Il a été montré qu'en général l'inférence probabiliste est NP-Hard \cite{c
 
 
 
-\section{Théorie de l'inférence active}
+\subsection{Théorie de l'inférence active}
 \label{sec:active_inference}
 
 
@@ -235,7 +244,7 @@ De plus, il devient untractable quand l'espace d'états augmente \cite[e.g.]{buc
 	\cite[p.~9]{oudeyer_computational_2018}.
 \end{quote}
 
-\section{Inversion du cycle d'interaction}
+\subsection{Inversion du cycle d'interaction}
 \label{sec:inversion}
 
 Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
@@ -264,7 +273,7 @@ Mais dans la pratique, la façon dont le designer comprend ce cycle influence la
 
 
 
-\section{Finalité et motivations de l'agent}
+\subsection{Finalité et motivations de l'agent}
 \label{sec:motivation_intrinseque}
 
 \noindent
@@ -303,7 +312,7 @@ Il serait peut etre plus judicieux de distinguer entre "objectifs internes" et "
 La notion de motivation extrinsèque pose problème car toute motivation peut etre considérée comme intrinsèque. 
 La notion de motivation intrinsèque doit deux plutot etre compris comme n'antinomique de "récompense externe". 
 
-\section{Coriosité artificielle}
+\subsection{Curiosité artificielle}
 \label{sec:curiosite}
 
 Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
@@ -318,7 +327,7 @@ Cette heuristique a été  implémentés pour l'apprentissage de la locomotion e
 Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
 Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
-\section{Mesure de l'information gagnée}
+\subsection{Mesure de l'information gagnée}
 
 \noindent
 Dans la théorie de l'information de Claude Shannon, l'information qu'un agent possède à propos d'une variable $X$, pouvant prendre $n$ valeurs distinctes, est représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n))$.
@@ -348,24 +357,22 @@ Dans ce cas, la baisse de l'entropie de $d$ au cours du temps peut être interpr
 
 % On peut également calculer une fonction de perte (\an{loss}) 
 
-\section{Principe d'énergie libre}
+\subsection{Principe d'énergie libre}
 
 Il existe différentes mesures refléter l'évolution du \an{belief state} de l'agent. 
 L'une d'elle est la divergence de Kullback-Leibler
 
 
 
-\section{Autonomie constitutive}
+\subsection{Autonomie constitutive}
 
 
 
-\section{Théorie de l'enaction}
+\subsection{Théorie de l'enaction}
 \label{sec:enaction}
 
 La théorie de l'enaction provient tu terme anglais \an{to enact} qui signifie mettre en action ou mettre en œuvre. 
 Francisco Varella et humberto Maturana \cite{varela_embodied_1993} sont à l'origine de la théorie de l'enaction.
-
-
 
 Selon Hutto et Myin \cite{hutto_radicalizing_2013}, la théorie de l'enaction peut être divisée en trois courants majeurs: \emph{autopoietique}, \emph{sensorimoteur} et \emph{radical}. 
 Le courant autopoiétique \cite{varela_embodied_1993} s'intéresse à fonder la cognition sur les processus biologiques des systèmes vivants. 
@@ -393,14 +400,40 @@ De plus, dans la théorie de l'enaction, la valeur n'est pas données: \\
 Identity is nothing more than a set of variables being kept within a certain range of values. Identity and values therefore co-define each other.
 
 
-\section{Théoride des contingences sensorimotrices}
+\subsection{Théorie des contingences sensorimotrices}
 \label{sec:SMC}
 
-Kevin O'Regan et Alva Noë ont proposé la théorie des contingences sensorimotrices \cite{oregan_sensorimotor_2001}
+\noindent
+Kevin O'Regan et Alva Noë ont proposé la Théorie des Contingences Sensorimotrices \cite{oregan_sensorimotor_2001}.
+Ils expliquent cette théorie en utilisant la métaphore d'une équipe d'ingénieurs qui télé-comman\-derait un sous-marin comme illustré en Figure \ref{fig:smc}. 
+Un monstre marin aurait mélangé toutes les connexions à destination et en provenance de tous les éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
+Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commandent n'ont plus leurs fonctions habituelles. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/2_smc.pdf}
+	\caption{Métaphore du sous-marin de O'Regan et Noë \cite{oregan_sensorimotor_2001}.
+		Le cerveau serait dans la situation de la personne qui télécommande un sous-marin (qu'il ne voit pas), alors que toutes les connexions entrantes et sortantes ont été mélangées par un monstre marin. 
+	}
+	\label{fig:smc}
+\end{figure}
+
+En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. O'Regan et Noë indiquent que : 
+
+\begin{quote}
+%\an{Imagine a team of engineers operating a remote-controlled underwater vessel exploring the remains of the Titanic, and imagine a villainous aquatic monster that has interfered with the control cable by mixing up the connections to and from the underwater cameras, sonar equipment, robot arms, actuators, and sensors. What appears on the many screens, lights, and dials, no longer makes any sense, and the actuators no longer have their usual functions. What can the engineers do to save the situation? By observing the \emph{structure of the changes} on the control panel that occur when they press various buttons and levers, the engineers should be able to deduce which buttons control which kind of motion of the vehicle, and which lights correspond to information deriving from the sensors mounted outside the vessel, which indicators correspond to sensors on the vessel’s tentacles, and so on.}
+\an{There is an analogy to be drawn between this example and the situation faced by the brain. From the point of view of the brain, there is nothing that in itself differentiates nervous influx coming from retinal, haptic, proprioceptive, olfactory, and other senses, and there is nothing to discriminate motor neurons that are connected to extraocular muscles, skeletal muscles, or any other structures.}
+\cite{oregan_sensorimotor_2001}
+\end{quote}
+
+
+
+
+
 
 Dans un commentaire ouvert à l'article d'O'Regan et Noë, Laming \cite{laming_distinction_2001} souligne que les contingences \og moto-sensorielles \fg sont différentes des contingences sensorimotrices. 
 
-\section{L'émergence de sémantique ancrée dans l'expérience sensorimotrice}
+\subsection{L'émergence de sémantique ancrée dans l'expérience sensorimotrice}
 
 Tous les modèles sont "ancrés" dans quelque chose. 
 Par exemple les LLMs sont ancrés dans leurs données d'entrainement. 
@@ -422,7 +455,7 @@ Il soulève la question de l'interpretabilité du modèle:
 Citer aussi "Behavior Is Everything: Towards Representing Concepts with Sensorimotor Contingencies" de Dileep George et al.
 
 
-\section{Modèle du monde}
+\subsection{Modèle du monde}
 
 David Ha et Jürgen Schmidhuber ont proposé un système capable d'apprendre un modèle du monde dans des environnement d'apprentissage par renforcement populaires \cite{ha_world_2018}.
 
@@ -432,7 +465,7 @@ Yann LeCun a argumenté que le chemin vers IA de niveau humain dans la prochaine
 \og \an{Joint-Embedding Predictive Architecture} \fg (JEPA) \cite{balestriero_lejepa_2025}
 
 
-\section{Apprentissage et monde \og ouvert \fg}
+\subsection{Apprentissage et monde \og ouvert \fg}
 
 Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
 Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
@@ -482,7 +515,7 @@ ON passe généralement d'une mathématique en monde fini à une mathématique e
 
 
 
-\section{L'apprentissage des structures spatiales}
+\subsection{L'apprentissage des structures spatiales}
 
 \noindent
 La question de savoir si l'espace physique est constitue un \og a priori de l'entendement \fg comme Kant l'a suggéré ou s'il est un concept construit à partir de l'expérience sensorimotrice est encore d'actualité dans les recherches en intelligence artificielle. 

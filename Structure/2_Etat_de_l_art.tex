@@ -404,9 +404,9 @@ Identity is nothing more than a set of variables being kept within a certain ran
 \label{sec:SMC}
 
 \noindent
-Kevin O'Regan et Alva Noë ont proposé la Théorie des Contingences Sensorimotrices \cite{oregan_sensorimotor_2001}.
+Kevin O'Regan et Alva Noë ont proposé la \emph{Théorie des Contingences Sensorimotrices} \cite{oregan_sensorimotor_2001}.
 Ils expliquent cette théorie en utilisant la métaphore d'une équipe d'ingénieurs qui télé-comman\-derait un sous-marin comme illustré en Figure \ref{fig:smc}. 
-Un monstre marin aurait mélangé toutes les connexions à destination et en provenance de tous les éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
+Un monstre marin aurait mélangé toutes les connexions à destination et en provenance des différents éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
 Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commandent n'ont plus leurs fonctions habituelles. 
 
 \begin{figure}[ht]
@@ -418,7 +418,7 @@ Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commande
 	\label{fig:smc}
 \end{figure}
 
-En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. O'Regan et Noë indiquent que : 
+En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. Selon O'Regan et Noë : 
 
 \begin{quote}
 %\an{Imagine a team of engineers operating a remote-controlled underwater vessel exploring the remains of the Titanic, and imagine a villainous aquatic monster that has interfered with the control cable by mixing up the connections to and from the underwater cameras, sonar equipment, robot arms, actuators, and sensors. What appears on the many screens, lights, and dials, no longer makes any sense, and the actuators no longer have their usual functions. What can the engineers do to save the situation? By observing the \emph{structure of the changes} on the control panel that occur when they press various buttons and levers, the engineers should be able to deduce which buttons control which kind of motion of the vehicle, and which lights correspond to information deriving from the sensors mounted outside the vessel, which indicators correspond to sensors on the vessel’s tentacles, and so on.}
@@ -427,11 +427,20 @@ En observant la \emph{structure des changements} qui se produisent quand ils app
 \end{quote}
 
 
+Puisqu'il n'y a pas de distinction à priori entre les différents signaux sensoriels et moteurs, O'Regan propose que ce qui distingue les différentes expériences perceptives soit les lois qui gouvernent la \emph{structure des contingences sensorimotrices}. 
+Selon lui, l'expérience de \emph{percevoir} se produit quand l'organisme maitrise ces lois.
 
+Cette conception rappelle la phrase de Merleau-Ponty citée en Section \ref{sec:phenomenologie}: \og la vision est le palpé de l’œil \fg. 
+En maintenant vivante cette conception phénoménologique de la perception à l'ère de l'informatique,  O'Regan aide à imaginer comment elle pourrait être implémentée dans un système artificiel. 
+Dans ce nouveau contexte, les contingences sensorimotrices correspondent à la dynamique des signaux moteurs et sensoriels émis et reçus par un système informatique ou robotique. 
 
+O'Regan ne se prononce pas sur la manière dont les signaux moteurs et sensoriels sont constitués, mais, dans un commentaire ouvert à son article, Donald Laming  insiste sur l'importance de distinguer entre \emph{contingences sensorimotrice} et \emph{contingences motosensorielles} \cite{laming_distinction_2001}. 
+Selon Laming, ces deux  types de contingences sont radicalement différentes. 
+Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour qui le \an{sensor} constituerait la variable indépendante, et le \an{motor} la variable dépendante. 
+En revanche, pour le sujet lui même, le \an{motor} constitue la variable indépendante et le \an{sensor} la variable dépendante. 
+Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
+Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte du point de vue subjectif du sujet percevant. 
 
-
-Dans un commentaire ouvert à l'article d'O'Regan et Noë, Laming \cite{laming_distinction_2001} souligne que les contingences \og moto-sensorielles \fg sont différentes des contingences sensorimotrices. 
 
 \subsection{L'émergence de sémantique ancrée dans l'expérience sensorimotrice}
 
@@ -530,7 +539,7 @@ Pointcaré a suggéré que le concept d'espace émergait à travers la découver
 
 Bowen Xu et Pei Wang \cite{xu_essence_2025} expriment l'intérêt de ce genre de recherche : 
 \begin{quote}
-\an{	While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
+\an{While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
 	AGI research aims not only to engineer machines but also to uncover principles of intelligence. 
 	Different studies strike a balance between these two objectives. 
 	Understanding how spatial sense emerges, without assuming space, advances the latter goal, since we can imagine a system without any notion of the physical space in the beginning but capable of learning to interact with the physical world and developing spatial sense} \cite[p.~2]{xu_essence_2025}

@@ -129,7 +129,7 @@ La nature acyclique du graphe est cruciale pour garantir qu'aucun n\oe ud ne soi
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.2\textwidth]{Figures/3_bn.pdf}
+	\includegraphics[width=0.2\textwidth]{Figures/2_bn.pdf}
 	\caption{Réseau bayésien représentant que \og $S$ infulence $O$ \fg\ ou que \og $O$ dépend de son parent $S$ \fg\ avec la probabilité conditionnelle $P(O|S)$.
 	Les différentes probabilités impliquant ces deux variables sont liées par le théorème de Bayes: $P (O) P(S|O) = P(S)P(O|S) = P (O, S)$.}
 	\label{fig:bn}
@@ -138,6 +138,12 @@ La nature acyclique du graphe est cruciale pour garantir qu'aucun n\oe ud ne soi
 Les variables dont les distributions de probabilité sont connues sont appelés des \an{evidences}. 
 Le processus d'inférence bayésienne consiste à calculer les distributions de probabilité des autres variables qui leurs sont liées, jusqu'à converger vers une distribution de probabilité conjointe (\an{Joint Probability Distribution}, JPD) de l'ensemble des variables du réseau.  
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/2_dbn.pdf}
+	\caption{Réseau bayésien dynamique.}
+	\label{fig:dbn}
+\end{figure}
 
 Une \emph{entité} (vivante ou non vivante) est représentée par un sous-ensemble $V_0 \subset V$ de variables connexes identifiées au sein du réseau. 
 Les variables appartenant à $V_0$ qui ont des parents ou des enfants dans le reste du réseau définissent l'interface entre l'entité et son environnement, aussi appelée la   \emph{couverture de Markov} de l'entité notée $V_m \subset V_0$. 

@@ -111,17 +111,16 @@ Cette possibilité pourrait apporter des éléments de réponse à la critique d
 \subsection{Représentation bayésienne}
 
 \noindent
-La représentation bayésienne offre un modèle complémentaire au cycle de décision discret qui prend en compte la diversité des entrées et sorties et leur possible parallélisme.
-Dans cette représentation, le monde constitué de l'organisme et de son environnement est représenté par un réseau bayésien (\an{Bayesian Network}, BN). 
-%de variables aléatoires interdépendantes.
+La représentation basée sur les réseaux bayésien offre un modèle complémentaire au cycle de décision discret qui prend en compte la diversité des entrées et sorties ainsi que leur possible parallélisme.
+%Dans cette représentation, le monde constitué de l'organisme et de son environnement est représenté par un réseau bayésien (\an{Bayesian Network}, BN). 
 
-Les réseaux bayésiens, parfois appelés \an{belief networks}, sont des graphes acycliques directs dont les n\oe uds représentent des variables aléatoires et les arcs des dépendances probabilistes entre ces variables. 
+Les réseaux bayésiens, \an{Bayesian Network} (BN), parfois appelés \an{belief networks}, sont des graphes acycliques directs dont les n\oe uds représentent des variables aléatoires et les arcs des dépendances probabilistes entre ces variables. 
 Ils servent à représenter des connaissances à propos d'un domaine incertain.
 Il en existe de nombreuses spécialisations adaptées à différent types de problèmes, par exemple les chaines de Markov cachées et les filtres de Kalman \cite{ben-gal_bayesian_2008}.
 %et les réseaux bayésiens. 
 
 
-La Figure \ref{fig:bn} montre un réseau bayésien minimal contenant deux variables $S$ et $O$ liées par une relation d'influence signifiant que la probabilité que la variable $O$ prenne une valeur particulière $o$ dépend de la valeur $s$ prise par la variable $S$. 
+La Figure \ref{fig:bn} montre un réseau bayésien minimal contenant deux variables $S$ et $O$ liées par une relation de dépendance signifiant que la probabilité que la variable $O$ prenne une valeur particulière $o$ dépend de la valeur $s$ prise par la variable $S$. 
 Cette dépendance conditionnelle est notée $P(O=o | S=s)$, ou, plus concisément, $P(O|S)$, et se lit \og probabilité de $O$ sachant $S$ \fg.
 Dans cet exemple, $S$ est un \emph{parent} de $O$, et $O$ un \emph{enfant} de $S$.
 La nature acyclique du graphe est cruciale pour garantir qu'aucun n\oe ud ne soit son propre ancêtre.
@@ -152,32 +151,24 @@ Les distributions de probabilités associées à ces deux variables sont reliée
 %L'inférence bayésienne permet de calculer la dépendance probabiliste de l'état de l'environnement par rapport à l'observation, si les autres termes de l'équation sont connus. 
 Imaginons que $O$ soit fournie par un capteur d'impact sujet à de fausses détections monté sur un bras robotique.
 Le robot peut inférer la distribution de probabilités $P(S|O)$ qui représente les probabilités que l'environnement soit dans un certain état $s$ (i.e., objet présent) quand le robot acquiert une certain observation $o$ (i.e., impact).
-Pour cela le robot doit connaitre la distribution de probabilités $P(O|S)$ que le capteur soit dans un certain été (i.e., impact) quand l'environnement est dans un certain état (i.e., objet), les distributions de probabilités dites \emph{marginales}: $P(S)$ de chaque état possible de l'environnement, et $P(O)$ de chaque observation.
-
-Cette forme d'inférence baysienne suppose de disposer, en amont, d'une modélisation des observations et des états possibles de l'environnement. 
-En outre, lorsque le nombre de variables aléatoires et leurs cardinalités augmentent, le coût du calcul devient rapidement prohibitif. 
-Il a été montré qu'il était\an{ NP-Hard} dans le cas général \cite{cooper_computational_1990}.
-Pour ces raisons, nous ne pouvons pas l'utiliser directement en AI dévoppementale.
-
-Sans la mobiliser directement, je reconnais deux apport intéressants à la représentation bayésienne. 
-D'une part, elle permet de prendre en compte l'influence parallèle des différentes entrées et sorties au sein d'un même réseau, ce qui offre un alternative au modèle d'alternance entre entrées et sorties. 
-D'autre part, elle pose le problème fondamental d'inférer une connaissance du monde comme la meilleure hypothèse explicative (\an{best guess}) sur le monde que l'agent puisse formuler pour rendre compte la dynamique de ses interactions. 
-Elle propose de réaliser cette inférence à partir d'observations qui ne constituent pas en elles-même une représentation directe de l'état du monde, que je qualifierai d'\emph{observations non représentationnelles}.
-
-\subsection{Couverture de Markov}
+Pour cela le robot doit connaitre la distribution de probabilités $P(O|S)$ que le capteur soit dans un certain état (i.e., impact) quand l'environnement est dans un certain état (i.e., objet). 
+Il doit aussi connaitre les distributions de probabilités dites \emph{marginales}: $P(S)$ de chaque état possible de l'environnement, et $P(O)$ de chaque observation.
 
 
-\noindent
-Pour modéliser l'évolution des variables aléatoires au cours du temps, on peut utiliser un Réseau Bayésient Dynamique (\an{ Dynamic Bayesian Network}, DBN) \cite{murphy_dynamic_2002}. 
-Les DBN sont des extensions de BN définis par un réseau bayésien \an{prior}  $B_0$,  et un réseau bayésien \an{transition} $B_T$ comme illustré dans la partie gauche de la Figure \ref{fig:dbn}.
+L'évolution des variables aléatoires au cours du temps peut être modélisée par un Réseau Bayésient Dynamique (\an{Dynamic Bayesian Network}, DBN) \cite{murphy_dynamic_2002}. 
+Les DBNs sont des extensions des BNs définis par un réseau bayésien \an{prior}  $B_0$,  et un réseau bayésien \an{transition} $B_T$.
 $B_0$ représente l'état initial des séries temporelles de variables, et $B_T$ leur transitions à chaque pas de temps.
 Le nombre de pas de temps inclus dans $B_T$ définit la \emph{profondeur de la dépendance temporelle} du DBN, aussi appelée \an{Markov Window}.
-La partie droite de la Figure \ref{fig:dbn} montre une représentation \emph{circulaire réduite} du DBN qui ne met pas en évidence la structure exacte de la dépendance temporelle. 
+Un $B_T$ avec deux tranches temporelles $t-1$ et $t$ est généralement suffisant car l'état de l'entité et de l'environnement au temps $t$ découle généralement de leur état au temps $t-1$ uniquement.
+Cette hypothèse, dite \emph{markovienne d’ordre un}, est raisonnable dès lors que certaines variables encodent déjà des grandeurs intégratives, telles que des vitesses, des accumulations ou des traces mnésiques, assurant ainsi la prise en compte d’une histoire plus longue.
+
+La partie gauche de la Figure \ref{fig:dbn} montre une représentation séquentielle d'un DBN du premier ordre.
+La partie droite montre une représentation \emph{circulaire réduite} du DBN qui peut être utilisée si on n'a pas besoin de mettre en évidence la structure exacte de la dépendance temporelle. 
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/2_dbn.pdf}
+	\includegraphics[width=0.6\textwidth]{Figures/2_dbn.pdf}
 	\caption{Exemple de Réseau Bayésien Dynamique contenant deux séries de variables $S$ et $I$.
 		Gauche: représentation séquentielle. 
     $B_0$ est le \an{prior}.
@@ -186,16 +177,33 @@ La partie droite de la Figure \ref{fig:dbn} montre une représentation \emph{cir
 	\label{fig:dbn}
 \end{figure}
 
-La dynamique d'une \emph{entité} (vivante ou non vivante) dans un environnement peut être représentée par un DBN, dont un sous-ensemble $V_0$ des variables représente l'entité, et son complément $V_m$ représente l'environnement. 
-Un $B_T$ avec une profondeur temporelle d'un seul pas de temps est généralement suffisant en supposant que l'état de l'entité et de l'environnement au temps $t$ découle de leur état au temps $t-1$ uniquement.
-Certaines variables peuvent représenter des vitesses ou des mémoires. 
-Les variables appartenant à $V_0$ qui ont des parents ou des enfants dans le reste du réseau définissent l'interface entre l'entité et son environnement, aussi appelée la  \emph{couverture de Markov} de l'entité notée $V_m \subset V_0$. 
+L'inférence bayésienne suppose de disposer, en amont, d'une modélisation des observations et des états possibles de l'environnement. 
+En outre, lorsque le nombre de variables aléatoires et leurs cardinalités augmentent, le coût du calcul devient rapidement prohibitif. 
+Il a été montré qu'il était\an{ NP-Hard} dans le cas général \cite{cooper_computational_1990}.
+Pour ces raisons, nous ne pouvons pas l'utiliser directement en AI dévoppementale.
+
+Sans mobiliser l'inférence bayésienne, je reconnais deux apports intéressants à la représentation par les réseaux bayésiens dynamiques. 
+D'une part, elle permet de rendre compte de l'influence réciproque des différentes entrées et sorties au cours d'un même pas de temps.
+Même si les DBNs sont cadencés en pas de temps discrets comme le DDS, ils offrent des possibilités de présentations plus complexes des interdépendances des entrées et des sorties. 
+%sein d'un même réseau, ce qui offre un alternative au modèle d'alternance entre entrées et sorties. 
+D'autre part, l'inférence bayésienne pose la question fondamentale d'inférer une connaissance du monde comme la meilleure hypothèse explicative (\an{best guess}) sur le monde que l'agent puisse formuler pour rendre compte la dynamique de ses interactions. 
+Elle propose de réaliser cette inférence à partir d'observations qui ne constituent pas en elles-même une représentation directe de l'état du monde, que je qualifierai de \emph{signaux sensoriels non représentationnels}.
 
 
-Dans le cas ou l'entité est un organisme vivant, sa couverture de Markov se scinde en deux sous ensembles de variables selon que leurs relations de dépendance vont de l'intérieur vers l'extérieur ou l'inverse. 
-La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite{ororbia_mortal_2024} donne une représentation circulaire réduite d'un tel modèle.
-L'ensemble $V_s \subset V_m$ des variables  qui sont influencés par les variables externes et qui influencent les variables internes sont les \emph{variables sensorielles} de l'organisme.
+
+\subsection{Couverture de Markov}
+
+
+\noindent
+La dynamique d'une \emph{entité}, vivante ou non vivante, dans un environnement peut être représentée par un DBN dont un sous-ensemble $V_0$ des variables représente l'entité, et son complément $V_e$ représente l'environnement. 
+L'ensemble $V_m$ des variables de $V_0$ qui ont des parents ou des enfants dans $V_e$ définissent l'interface entre l'entité et son environnement. 
+Cet ensemble est appelé la  \emph{couverture de Markov} de l'entité. 
+
+
+La couverture de Markov se scinde en deux sous-ensembles de variables selon que leurs relations de dépendance vont de l'intérieur vers l'extérieur ou l'inverse. 
+Dans le cas d'un organisme vivant, l'ensemble $V_s \subset V_m$ des variables  qui sont influencés par les variables externes et qui influencent les variables internes sont les \emph{variables sensorielles} de l'organisme.
 L'ensemble $V_a \subset V_m$ des variables qui sont infuencés par les variables internes et qui influencent les variables externes sont les \emph{variables motrices} de l'organisme. 
+La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite[Fig.~5]{ororbia_mortal_2024} donne une représentation circulaire réduite de la couverture de Markov d'un organisme.
 
 \begin{figure}[ht]
 	\centering
@@ -211,8 +219,6 @@ L'ensemble $V_a \subset V_m$ des variables qui sont infuencés par les variables
 
 
  
-L'entité est comprise comme un \an{active observer} de son environnement qui agit et perçoit simultanément. 
-La modélisation bayésienne voit la dynamique et l'auto-organisation de l'\an{observer} comme maintenant des croyances probabilistes représentées par les distributions de probabilité des variables de $V_0$ ($Z$, $S$, et $A$ en Figure \ref{fig:blanket}) à propos de l'\emph{observé} représenté par les distributions de probabilité des variables de l'environnement  ($O$ en Figure \ref{fig:blanket}).
 
 
 %En utilisant le théorème de Bayes, il est possible d'inféré les distributions de probabilité jointe des variables internes (\an{Joint Probability Distribution}, JPD) en fonction des distributions de probabilité des variables de la converture de Markov. 
@@ -223,35 +229,38 @@ La modélisation bayésienne voit la dynamique et l'auto-organisation de l'\an{o
 
 
 
-
-\noindent
-Les théoriciens des réseaux bayésiens tels que Judea Pearl \cite{pearl_probabilistic_1988} ont montré que les statistiques des variables internes de l'orgnaisme sont entièrement définies par les statistiques des variables de la couverture de markov, et donc indépendante des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
-
-
-Le concept de couverture de Markov est très employé en biologie pour signifier qu'il est mathématiquement impossible pour un organisme d'inférer la structure exacte du monde extérieur.
+Les théoriciens des réseaux bayésiens tels que Judea Pearl \cite{pearl_probabilistic_1988} ont montré que les statistiques des variables internes de l'orgnaisme sont entièrement définies par les statistiques des variables de la couverture de Markov, et donc indépendantes des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
+Ce résultat est employé en biologie pour signifier qu'il est mathématiquement impossible pour un organisme d'inférer la structure exacte du monde.
 % car celle ci-est masquée par sa couverture de Markov.
+
 Ce problème fondamental de l'inférence a été identifié sous de multiples formes. 
-Par exemple, Gary Drescher l'exprime ainsi: 
-\begin{quote}
-	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
-	\cite[p.~174]{drescher_made-up_1991}. 
-\end{quote}
-
-
-\subsection{Cerveau comme machine à inférer}
-
-
-
-Legg \cite{legg_universal_2007} illustre le problème de l'inférence par un exemple simple. 
+Legg \cite{legg_universal_2007} l'illustre par un exemple simple. 
 Supposons que l'agent ait effectué la série d'observation \emph{2, 4, 6, 8}. 
 Il pourrait inférer un modèle de l'environnement qui génère l'observation $o_t = 2t$. 
 Ce modèle prédirait la prochaine observation au temps 5: $o_5 = 10$. 
 Mais bien sûr, il existe une infinité de polynômes de degré $n$ compatibles avec une série de longueur $n$.
 Par exemple, l'agent aurait aussi bien pu inférer le modèle  $o_t = 2t^4 - 20 t^3 + 70t^2 - 98t + 48$, compatible avec les 4 premières observations, mais qui prédirait une cinquième observation différente $o_5 = 58$.
-
 Legg note que dans les tests psychotechniques, l'humain utilise naturellement le principe du rasoir d'Occam consistant à choisir le modèle le plus simple qui explique la série d'observations. 
-Il porpose que les systèmes d'intelligence artificielle devraient suivre le même principe.
+Il propose que les systèmes d'intelligence artificielle devraient suivre le même principe.
+
+Gary Drescher résume le problème de l'inférence ainsi: 
+\begin{quote}
+	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
+	\cite[p.~174]{drescher_made-up_1991}. 
+\end{quote}
+
 %Le fait même que les tests d'intelligence attentent que le sujet l'utilise indique que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
+
+
+Dans le cadre de l'IA développementale, les choix que nous imposerons à l'appareil d'inférence pourront être inspirés des connaissances-socle discutées en section \ref{sec:core}.
+
+
+\subsection{Cerveau comme machine à inférer}
+
+
+L'entité est comprise comme un \an{active observer} de son environnement qui agit et perçoit simultanément. 
+La modélisation bayésienne voit la dynamique et l'auto-organisation de l'\an{observer} comme maintenant des croyances probabilistes représentées par les distributions de probabilité des variables de $V_0$ ($Z$, $S$, et $A$ en Figure \ref{fig:blanket}) à propos de l'\emph{observé} représenté par les distributions de probabilité des variables de l'environnement  ($O$ en Figure \ref{fig:blanket}).
+
 
 
 Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
@@ -262,6 +271,7 @@ Plus précisément, l'inférence probabiliste consiste à calaculer la distribut
 La dynamique d'apprentissage de l'organisme est modélisée par un calcul bayésien qui converge vers une distribution de probabilité qui minimise les erreurs de prédiction que l'organisme fait à propos des variables de la couverture de Markov. 
 Ce calcul d'inférence se fait de manière itérative en descendant un gradiant d'\emph{énergie libre} dans le réseau. 
 L'état des variables internes de l'organismes $V_0$ représente finalement la meilleure hypothèse (\an{best guess}) que l'organisme peut faire à propos de l'état des variables cachées de l'environnement pour expliquer la dynamique de ses expériences d'interaction.
+
 
 
 

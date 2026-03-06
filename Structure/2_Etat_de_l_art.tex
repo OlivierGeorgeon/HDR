@@ -255,7 +255,9 @@ Gary Drescher résume le problème de l'inférence ainsi:
 Dans le cadre de l'IA développementale, les choix que nous imposerons à l'appareil d'inférence pourront être inspirés des connaissances-socle discutées en section \ref{sec:core}.
 
 
-\subsection{Cerveau comme machine à inférer}
+
+\subsection{Théorie de l'inférence active}
+\label{sec:active_inference}
 
 
 L'entité est comprise comme un \an{active observer} de son environnement qui agit et perçoit simultanément. 
@@ -266,18 +268,14 @@ La modélisation bayésienne voit la dynamique et l'auto-organisation de l'\an{o
 Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
 
 Le terme inference désigne le processus visant à tirer des conclusions sur l'état des variables d'un réseau sur la base de de connaissance préalables concernant d'autres variables. 
-Plus précisément, l'inférence probabiliste consiste à calaculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
+Plus précisément, l'inférence probabiliste consiste à calculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
 
 La dynamique d'apprentissage de l'organisme est modélisée par un calcul bayésien qui converge vers une distribution de probabilité qui minimise les erreurs de prédiction que l'organisme fait à propos des variables de la couverture de Markov. 
 Ce calcul d'inférence se fait de manière itérative en descendant un gradiant d'\emph{énergie libre} dans le réseau. 
-L'état des variables internes de l'organismes $V_0$ représente finalement la meilleure hypothèse (\an{best guess}) que l'organisme peut faire à propos de l'état des variables cachées de l'environnement pour expliquer la dynamique de ses expériences d'interaction.
+L'état des variables internes de l'organisme $V_0$ représente finalement la meilleure hypothèse (\an{best guess}) que l'organisme peut faire à propos de l'état des variables cachées de l'environnement pour expliquer la dynamique de ses expériences d'interaction.
 
 
 
-
-
-\subsection{Théorie de l'inférence active}
-\label{sec:active_inference}
 
 
 
@@ -286,7 +284,7 @@ Les états du système sensorimoteur entrainent des perturbations dans l'activit
 
 
 Le cerveau est compris comme en système en boucle fermée.
-Les sens ne fournissent pas des données sur le monde en entrée du cerveaun mais viennent simplement perturber cette boucle. 
+Les sens ne fournissent pas des données sur le monde en entrée du cerveau mais viennent simplement perturber cette boucle. 
 Le processus de perception ne consiste pas à assembler des données reçues de sens mais consiste à inférer les causes dans le monde extérieur qui peuvent expliquer ces perturbations.
 
 La théorie de l'inférence active propose que l'agent maintient deux modèles statistique: le \emph{generative model} et le \emph{recognition model}.
@@ -297,15 +295,26 @@ Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{Figures/active_inference.jpg}
-	\caption{Théorie de l'inférence active \cite[Fig.~1]{pezzulo_active_2024}.
-	Le monde a un état $x*$ caché à l'agent qui génère une observation $y$.
-	Notre modèle interne $x$ explique l'observation $y$ 
+	\includegraphics[width=0.4\textwidth]{Figures/2_active_inference.pdf}
+	\caption{Représentation circulaire réduite du cycle l'inférence active d'après Albarracin et al. \cite[Fig.~1]{albarracin_sustainability_2024} montrant les influences mutuelles des  
+	processus stochastiques au temps $t$: $o_t$ : signal sensoriel,
+		$s_t$ : état de l'environnement, 
+		$a_t$ : action de l'agent,
+		$\mu_t$ : état interne de l'agent. 
 	}
-	\label{fig:actu}
+	\label{fig:inference_active}
 \end{figure}
 
-
+Mahault Albarracin, Maxwell Ramstead et leurs coauteurs proposent une présentation récente et épurée de la théorie de l'inférence active dans leur article \og \an{Sustainability under Active Inference} \fg\ \cite{albarracin_sustainability_2024}.
+Un système qui contient un agent est modélisé par les quatre processus stochastiques, dont Figure \ref{fig:inference_active} offre une représentation circulaire réduite. 
+Le processus $o$ est le signal sensoriel, $s$ l'état de l'environnement, $a$ l'action de l'agent, et $\mu$ : état interne (\an{beliefs}) de l'agent. 
+Les flèches représentent les dépendances entre ces processus. 
+Une différence importante avec le DDS de la Figure \ref{fig:dds} tient au fait que la majorité de ces influences sont bidirectionnelles au sein d'un même pas de temps $t$.
+Au temps $t$, $o_t$ dépend de $s_t$ et de $a_t$ (le signal sensoriel dépend de l'état de l'environnement et de l'action),
+$a_t$ dépend de $\mu_t$ et de $o_t$(les croyances internes et les signaux sensoriels influencent les actions),
+$\mu_t$ dépend de $o_t$ et $a_t$ (les signaux sensoriels et les actions influencent les croyances internes),
+et $s_t$ dépend de $a_t$ et de $o_t$ (l'environnement est affecté par l'action mais aussi par le signal sensoriel, selon le principe qu'une mesure peut modifier l'objet qu'elle mesure).
+L'agent, au cours d'une période de temps allant de $0$ à un horizon temporel $T$ est défini par les processus $(o_t, a_t, \mu_t)_{t \in [0,T]}$.
 
 
 La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 

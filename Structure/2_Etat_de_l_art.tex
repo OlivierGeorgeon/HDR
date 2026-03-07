@@ -108,7 +108,8 @@ Cette possibilité pourrait apporter des éléments de réponse à la critique d
 %Ce dernier cas soulève la question évoqué par Weinbaum et Veitas de savoir comment le couplage entre l'agent et l'environnement peut évoluer en impliquant des types d'interactions situés à des échelles de temps variables avec le temps. 
 
 
-\subsection{Représentation bayésienne}
+\subsection{Modélisation bayésienne}
+\label{sec:bn}
 
 \noindent
 La représentation basée sur les réseaux bayésien offre un modèle complémentaire au cycle de décision discret qui prend en compte la diversité des entrées et sorties ainsi que leur possible parallélisme.
@@ -141,7 +142,7 @@ Le processus d'inférence bayésienne consiste à calculer les distributions de 
 A titre d'illustration, $O$ peut représenter une observation acquise par un robot, et $S$ représente l'état de l'environnement caché au robot.
 Le robot ne peut connaitre $S$ qu'indirectement par inférence à partir $O$.
 Le réseau bayesien de la Figure \ref{fig:bn} formalise la relation de dépendance entre les deux.
-Les distributions de probabilités associées à ces deux variables sont reliées par le théorème de Bayes donné en Equation \eqref{eq:bayes}. 
+Les distributions de probabilités associées à ces deux variables sont reliées par le théorème de Bayes donné par l'Equation \eqref{eq:bayes}. 
 
 \begin{equation}
 	\label{eq:bayes}
@@ -156,14 +157,14 @@ Il doit aussi connaitre les distributions de probabilités dites \emph{marginale
 
 
 L'évolution des variables aléatoires au cours du temps peut être modélisée par un Réseau Bayésient Dynamique (\an{Dynamic Bayesian Network}, DBN) \cite{murphy_dynamic_2002}. 
-Les DBNs sont des extensions des BNs définis par un réseau bayésien \an{prior}  $B_0$,  et un réseau bayésien \an{transition} $B_T$.
-$B_0$ représente l'état initial des séries temporelles de variables, et $B_T$ leur transitions à chaque pas de temps.
+Les DBNs sont des extensions des BNs définis par un réseau bayésien initial  $B_0$, et un réseau bayésien de transition $B_T$.
+$B_0$ représente les dépendances initiales des séries temporelles des variables, et $B_T$ leurs transitions à chaque pas de temps.
 Le nombre de pas de temps inclus dans $B_T$ définit la \emph{profondeur de la dépendance temporelle} du DBN, aussi appelée \an{Markov Window}.
 Un $B_T$ avec deux tranches temporelles $t-1$ et $t$ est généralement suffisant car l'état de l'entité et de l'environnement au temps $t$ découle généralement de leur état au temps $t-1$ uniquement.
 Cette hypothèse, dite \emph{markovienne d’ordre un}, est raisonnable dès lors que certaines variables encodent déjà des grandeurs intégratives, telles que des vitesses, des accumulations ou des traces mnésiques, assurant ainsi la prise en compte d’une histoire plus longue.
 
 La partie gauche de la Figure \ref{fig:dbn} montre une représentation séquentielle d'un DBN du premier ordre.
-La partie droite montre une représentation \emph{circulaire réduite} du DBN qui peut être utilisée si on n'a pas besoin de mettre en évidence la structure exacte de la dépendance temporelle. 
+La partie droite montre une représentation \emph{circulaire simplifiée} du DBN qui peut être utilisée si on n'a pas besoin de mettre en évidence la structure exacte de la dépendance temporelle. 
 
 
 \begin{figure}[ht]
@@ -173,7 +174,7 @@ La partie droite montre une représentation \emph{circulaire réduite} du DBN qu
 		Gauche: représentation séquentielle. 
     $B_0$ est le \an{prior}.
 	$B_T$ est le graphe de transition de deux pas de temps.
-	Droite: représentation circulaire réduite.}
+	Droite: représentation circulaire simplifiée.}
 	\label{fig:dbn}
 \end{figure}
 
@@ -182,12 +183,13 @@ En outre, lorsque le nombre de variables aléatoires et leurs cardinalités augm
 Il a été montré qu'il était\an{ NP-Hard} dans le cas général \cite{cooper_computational_1990}.
 Pour ces raisons, nous ne pouvons pas l'utiliser directement en AI dévoppementale.
 
-Sans mobiliser l'inférence bayésienne, je reconnais deux apports intéressants à la représentation par les réseaux bayésiens dynamiques. 
+Sans mobiliser l'inférence bayésienne, j'identifie deux apports intéressants de la représentation par les réseaux bayésiens dynamiques. 
 D'une part, elle permet de rendre compte de l'influence réciproque des différentes entrées et sorties au cours d'un même pas de temps.
-Même si les DBNs sont cadencés en pas de temps discrets comme le DDS, ils offrent des possibilités de présentations plus complexes des interdépendances des entrées et des sorties. 
+Même si les DBNs sont cadencés en pas de temps discrets comme le DDS, ils permettent de mieux rendre compte des interdépendances complexes entre entrées et sorties. 
 %sein d'un même réseau, ce qui offre un alternative au modèle d'alternance entre entrées et sorties. 
-D'autre part, l'inférence bayésienne pose la question fondamentale d'inférer une connaissance du monde comme la meilleure hypothèse explicative (\an{best guess}) sur le monde que l'agent puisse formuler pour rendre compte la dynamique de ses interactions. 
-Elle propose de réaliser cette inférence à partir d'observations qui ne constituent pas en elles-même une représentation directe de l'état du monde, que je qualifierai de \emph{signaux sensoriels non représentationnels}.
+D'autre part, l'inférence bayésienne pose la question fondamentale d'inférer une connaissance du monde comme la meilleure hypothèse explicative (\an{best guess}) sur le monde que l'agent puisse formuler pour rendre compte de la dynamique de ses interactions. 
+Elle propose de réaliser cette inférence à partir d'observations qui ne constituent pas en elles-même une représentation directe de l'état du monde.
+Je qualifierai ces observations de \emph{signaux sensoriels non représentationnels}.
 
 
 
@@ -195,15 +197,16 @@ Elle propose de réaliser cette inférence à partir d'observations qui ne const
 
 
 \noindent
-La dynamique d'une \emph{entité}, vivante ou non vivante, dans un environnement peut être représentée par un DBN dont un sous-ensemble $V_0$ des variables représente l'entité, et son complément $V_e$ représente l'environnement. 
-L'ensemble $V_m$ des variables de $V_0$ qui ont des parents ou des enfants dans $V_e$ définissent l'interface entre l'entité et son environnement. 
-Cet ensemble est appelé la  \emph{couverture de Markov} de l'entité. 
+Un système dynamique contenant une \emph{entité} vivante ou non vivante interagissant avec son environnement peut être représenté par un DBN. 
+L'ensemble des variables de ce DBN se scinde en deux sous-ensembles: $V_0$ qui contient les variables représentant l'entité, et son complément $V_e$ qui contient celles représentant l'environnement.
+Le sous-ensemble $V_m \subset V_0$ des variables de $V_0$  qui ont des parents ou des enfants dans $V_e$ définissent l'interface entre l'entité et son environnement. 
+Ce sous-ensemble $V_m$ est appelé la  \emph{couverture de Markov} de l'entité. 
 
 
 La couverture de Markov se scinde en deux sous-ensembles de variables selon que leurs relations de dépendance vont de l'intérieur vers l'extérieur ou l'inverse. 
 Dans le cas d'un organisme vivant, l'ensemble $V_s \subset V_m$ des variables  qui sont influencés par les variables externes et qui influencent les variables internes sont les \emph{variables sensorielles} de l'organisme.
 L'ensemble $V_a \subset V_m$ des variables qui sont infuencés par les variables internes et qui influencent les variables externes sont les \emph{variables motrices} de l'organisme. 
-La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite[Fig.~5]{ororbia_mortal_2024} donne une représentation circulaire réduite de la couverture de Markov d'un organisme.
+La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite[Fig.~5]{ororbia_mortal_2024} donne une représentation circulaire simplifiée de la couverture de Markov d'un organisme.
 
 \begin{figure}[ht]
 	\centering
@@ -213,7 +216,7 @@ La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl
 		S: états des différents organes sensoriels.
 		A: états des différents affecteurs.
 		O: différentes variables représentant l'environnement.
-		La distribution de probabilité de Z ne dépend que des noeuds S et A qui constituent la \emph{couverture de Markov} de l'organisme qui lui masquent les états des varibales $O$.}
+		La distribution de probabilité de Z ne dépend que des noeuds S et A qui constituent la \emph{couverture de Markov} de l'organisme qui lui masquent les états des variables $O$.}
 	\label{fig:blanket}
 \end{figure}
 
@@ -229,8 +232,10 @@ La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl
 
 
 
-Les théoriciens des réseaux bayésiens tels que Judea Pearl \cite{pearl_probabilistic_1988} ont montré que les statistiques des variables internes de l'orgnaisme sont entièrement définies par les statistiques des variables de la couverture de Markov, et donc indépendantes des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
-Ce résultat est employé en biologie pour signifier qu'il est mathématiquement impossible pour un organisme d'inférer la structure exacte du monde.
+Les théoriciens des réseaux bayésiens tels que Judea Pearl ont montré que les statistiques des variables internes de l'organisme sont entièrement définies par les statistiques des variables de la couverture de Markov \cite{pearl_probabilistic_1988}.
+%Les variables internes sont donc indépendantes des statistiques des autres variables de l'environnement extérieur comme si le monde extérieur étaient caché par la couverture de Markov.
+Ce résultat est employé en biologie pour signifier qu'il est mathématiquement impossible pour un organisme d'inférer la structure exacte de son environnement, 
+comme si la couverture de Markov \emph{cachait} l'état du monde extérieur à l'organisme.
 % car celle ci-est masquée par sa couverture de Markov.
 
 Ce problème fondamental de l'inférence a été identifié sous de multiples formes. 
@@ -243,7 +248,7 @@ Par exemple, l'agent aurait aussi bien pu inférer le modèle  $o_t = 2t^4 - 20 
 Legg note que dans les tests psychotechniques, l'humain utilise naturellement le principe du rasoir d'Occam consistant à choisir le modèle le plus simple qui explique la série d'observations. 
 Il propose que les systèmes d'intelligence artificielle devraient suivre le même principe.
 
-Gary Drescher résume le problème de l'inférence ainsi: 
+Gary Drescher résume ainsi le problème de l'inférence : 
 \begin{quote}
 	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
 	\cite[p.~174]{drescher_made-up_1991}. 
@@ -256,48 +261,24 @@ Dans le cadre de l'IA développementale, les choix que nous imposerons à l'appa
 
 
 
-\subsection{Théorie de l'inférence active}
+\subsection{Théorie de l'inférence active et énergie libre}
 \label{sec:active_inference}
 
-
-L'entité est comprise comme un \an{active observer} de son environnement qui agit et perçoit simultanément. 
-La modélisation bayésienne voit la dynamique et l'auto-organisation de l'\an{observer} comme maintenant des croyances probabilistes représentées par les distributions de probabilité des variables de $V_0$ ($Z$, $S$, et $A$ en Figure \ref{fig:blanket}) à propos de l'\emph{observé} représenté par les distributions de probabilité des variables de l'environnement  ($O$ en Figure \ref{fig:blanket}).
-
-
-
-Karl Friston et ses collorateurs ont proposé la vision que le \an{brain is an inference machine}. 
-
-Le terme inference désigne le processus visant à tirer des conclusions sur l'état des variables d'un réseau sur la base de de connaissance préalables concernant d'autres variables. 
-Plus précisément, l'inférence probabiliste consiste à calculer la distribution de probabilités de certaines variables connaissant la distribution de probabilité de variables données. 
-
-La dynamique d'apprentissage de l'organisme est modélisée par un calcul bayésien qui converge vers une distribution de probabilité qui minimise les erreurs de prédiction que l'organisme fait à propos des variables de la couverture de Markov. 
-Ce calcul d'inférence se fait de manière itérative en descendant un gradiant d'\emph{énergie libre} dans le réseau. 
-L'état des variables internes de l'organisme $V_0$ représente finalement la meilleure hypothèse (\an{best guess}) que l'organisme peut faire à propos de l'état des variables cachées de l'environnement pour expliquer la dynamique de ses expériences d'interaction.
+\noindent
+Karl Friston et ses collaborateurs on proposé la théorie de l'\emph{Inférence Active} (\an{Active Inference}) pour modéliser le fonctionnement du cerveau comme un système d'inférence des état de son  environnement \cite{friston_active_2017}. 
+Les signaux du système sensorimoteur induisent des perturbations dans l'activité neuronale, que le cerveau interprète en inférant des \emph{causes hypothétiques} susceptibles d'expliquer ces perturbations.
+Cette théorie utilise les réseaux bayésiens dynamiques pour modéliser le cerveau comme un observateur actif (\an{active observer}) interagissant avec son environnement, en agissant et en percevant de manière couplée. 
 
 
-
-
-
-
-La théorie de l'inférence active (\an{Active Inference}) a été proposée par Karl Friston et ses collègues pour expliquer comment le cerveau inferre des connaissances sur le monde au cours de l'expérience interactive du sujet. 
-Les états du système sensorimoteur entrainent des perturbations dans l'activité du cerveau qui infere des causes hypothétiques qui peuvent expliquer ces perturbations.
-
-
-Le cerveau est compris comme en système en boucle fermée.
-Les sens ne fournissent pas des données sur le monde en entrée du cerveau mais viennent simplement perturber cette boucle. 
-Le processus de perception ne consiste pas à assembler des données reçues de sens mais consiste à inférer les causes dans le monde extérieur qui peuvent expliquer ces perturbations.
-
-La théorie de l'inférence active propose que l'agent maintient deux modèles statistique: le \emph{generative model} et le \emph{recognition model}.
-L'agent utilise le premier pour tenter de prédire les prochains signaux sensoriels qu'il va recevoir.
-Il utilise le second pour inférer les causse hypothétiques qui peuvent expliquer les signaux sensoriels précédement reçus. 
-Les deux modèles travaillent de concert: le modèle génératif utilise les convictions de l'agent au début du cycle d'interaction pour produire une estimation des futurs signaux sensoriels obtenus. 
-Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les convictions sur l'état du monde extérieur.    
+Mahault Albarracin, Maxwell Ramstead et leurs coauteurs proposent une synthèse récente et épurée de la théorie de l'inférence active dans leur article \og \an{Sustainability under Active Inference} \fg\ \cite{albarracin_sustainability_2024}.
+Un système qui contient un agent est décrit à l'aide de quatre processus stochastiques interdépendants.
+La Figure \ref{fig:inference_active} donne une représentation circulaire simplifiée de ces interdépendances.  
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/2_active_inference.pdf}
-	\caption{Représentation circulaire réduite du cycle l'inférence active d'après Albarracin et al. \cite[Fig.~1]{albarracin_sustainability_2024} montrant les influences mutuelles des  
-	processus stochastiques au temps $t$: $o_t$ : signal sensoriel,
+	\caption{Représentation circulaire simplifiée du cycle l'inférence active d'après Albarracin et al. \cite[Fig.~1]{albarracin_sustainability_2024} montrant les influences mutuelles des  
+		processus stochastiques au temps $t$: $o_t$ : signal sensoriel,
 		$s_t$ : état de l'environnement, 
 		$a_t$ : action de l'agent,
 		$\mu_t$ : état interne de l'agent. 
@@ -305,69 +286,48 @@ Le modèle de reconnaissance récolte les signaux reçus pour mettre à jour les
 	\label{fig:inference_active}
 \end{figure}
 
-Mahault Albarracin, Maxwell Ramstead et leurs coauteurs proposent une présentation récente et épurée de la théorie de l'inférence active dans leur article \og \an{Sustainability under Active Inference} \fg\ \cite{albarracin_sustainability_2024}.
-Un système qui contient un agent est modélisé par les quatre processus stochastiques, dont Figure \ref{fig:inference_active} offre une représentation circulaire réduite. 
-Le processus $o$ est le signal sensoriel, $s$ l'état de l'environnement, $a$ l'action de l'agent, et $\mu$ : état interne (\an{beliefs}) de l'agent. 
+Le processus $o$ est le signal sensoriel, $s$ l'état de l'environnement, $a$ l'action de l'agent, et $\mu$ l'état interne (\an{beliefs}) de l'agent. 
 Les flèches représentent les dépendances entre ces processus. 
-Une différence importante avec le DDS de la Figure \ref{fig:dds} tient au fait que la majorité de ces influences sont bidirectionnelles au sein d'un même pas de temps $t$.
-Au temps $t$, $o_t$ dépend de $s_t$ et de $a_t$ (le signal sensoriel dépend de l'état de l'environnement et de l'action),
-$a_t$ dépend de $\mu_t$ et de $o_t$(les croyances internes et les signaux sensoriels influencent les actions),
+A la différence du cycle DDS de la Figure \ref{fig:dds}, la majorité de ces dépendances sont bidirectionnelles au sein d'un même pas de temps $t$.
+$o_t$ dépend de $s_t$ et de $a_t$ (le signal sensoriel dépend de l'état de l'environnement et de l'action),
+$a_t$ dépend de $\mu_t$ et de $o_t$ (les croyances internes et les signaux sensoriels influencent les actions),
 $\mu_t$ dépend de $o_t$ et $a_t$ (les signaux sensoriels et les actions influencent les croyances internes),
 et $s_t$ dépend de $a_t$ et de $o_t$ (l'environnement est affecté par l'action mais aussi par le signal sensoriel, selon le principe qu'une mesure peut modifier l'objet qu'elle mesure).
-L'agent, au cours d'une période de temps allant de $0$ à un horizon temporel $T$ est défini par les processus $(o_t, a_t, \mu_t)_{t \in [0,T]}$.
+
+Le cerveau est représenté par l'ensemble des trois processus noté $(\mu_t, a_t, o_t)_{t \in [0,T]}$ où $T$ désigne l'horizon temporel.
+Les variables $a_t$ et $o_t$ constituent la couverture de Markov.
+La variable $s_t$ représente l'état de l'environnement qui n'est pas directement observable, aussi appelé \emph{état latent}. 
+La boucle $\mu_t \rightarrow a_t \rightarrow o_t $ représente le fait que le cerveau fonctionne comme une boucle fermée. 
+L'observation $o_t$ n'est pas à comprendre comme une représentation de l'état de l'environnement mais comme une perturbation de cette boucle influencée par l'état de l'environnement.
+De même, l'action $a_t$ n'est pas une \emph{action intentionnelle} mais un simple mouvement qui perturbe d'état de l'environnement. 
 
 
-La théorie de l'active inference a été elaborée à partir du concept du cerveau bayésien. 
-C'est l'idée que notre cerveau raffine en parmanence un modèle interne du monde extérieur en agissant comme une machine d'inférence probabiliste. 
-Le modèle génératif prédit en permanence l'état de l'environnement et compare ses prédictions avec les données des organes sensoriels. Quand un écart se produit, le cerveau met à jour son modèle.
+Le processus $\mu$ comprend deux composantes : le \emph{modèle de reconnaissance} (\an{recognition model}) et le \emph{modèle génératif} (\an{generative model}).
+Le modèle de reconnaissance approxime la distribution a posteriori des \emph{états latents} à partir des observations sensorielles $o_t$. 
+Autrement dit, il infère les causes latentes susceptibles d’avoir généré les signaux observés.
+Le modèle génératif décrit la manière dont ces états latents produisent des observations ; il permet ainsi de générer des prédictions sur les observations futures  $o_{t+1}$.
+Au temps $t$, ces deux modèles fonctionnent de manière conjointe. 
+A partir des états latents inférés, le modèle génératif produit des prédictions sensorielles. Les observations effectivement reçues sont ensuite comparées à ces prédictions, et le modèle de reconnaissance met à jour l’estimation des états latents afin de réduire l’erreur de prédiction qui en résulte.
 
-La théorie de Active Inference est développée par une communauté autour de 
-Karl Friston \cite{friston_active_2017} 
 
-Ryan Smith, Karl Friston et Christopher White ont écrit un tutoriel \cite{smith_step-by-step_2022} pour utiliser cette théorie pour controler un agent dans un POMDP. 
-L'idée est de guider les décisions de l'agent pour choisir les décisions qui apporteront le plus d'information à l'agent. 
-Pour cela on utilise une mesure de l'information gagnée calculées selon le principe de l'énergie libre (free energy).
-L'agent chosit la décision qui a le plus de chance de minimiser ses erreurs de prédiction futures. 
 
-La théorie de l'inférence active rejette l'idée que les sens fourniraient directement une représentation de l'état de l'environnement au cerveau. 
+La stratégie d'apprentissage est gouvernée par le \emph{principe d'énergie libre} (\an{Free Energy Principle}, FEP).
+Le principe d'énergie libre favorise la sélection d'actions qui maximisent l'espérance d'information gagnée et qui minimisent les erreurs de prédiction.
+L'apprentissage se fait de manière itérative en descendant un gradient d'\emph{énergie libre variationnelle} sur les variables internes du modèle \cite{smith_step-by-step_2022} . 
 
-Pierre-Yves Oudeyer remarque que les mathématiques d'inférence bayésienne nécessite que l'espace des états soit donné a priori.
-De plus, il devient untractable quand l'espace d'états augmente \cite[e.g.]{buckley_free_2017}.:
 
+%Comme pour l'inférence bayésienne introduite en Section \ref{sec:bn}, nous ne pouvons pas non plus utiliser les mathématiques mises en \oe uvre par l'inférence active sous le principe d'énergie libre, car elle nécessite que l'espace latent soit donné à priori. 
+
+Comme l'inférence bayésienne introduite en Section \ref{sec:bn}, l'inférence active sous le principe d'énergie libre se heurte malheureusement à des limitions très bien exprimées par Pierre-Yves Oudeyer :
 
 \begin{quote}
-	\an{Such a normative Bayesian framework requires that the modelled human subjects initially know the full space of possible hypotheses about possible world states, possible policies, possible model parameters, and possible model structures. [...] \\
-		Active structured Bayesian inference is computationally very costly [Buckley et al., 2017], and quickly become computationally intractable for problems of moderate size }
+	\an{Such a normative Bayesian framework requires that the modelled human subjects initially know the full space of possible hypotheses about possible world states, possible policies, possible model parameters, and possible model structures. [...]  Active structured Bayesian inference is computationally very costly [Buckley et al., 2017], and quickly becomes computationally intractable for problems of moderate size }
 	\cite[p.~9]{oudeyer_computational_2018}.
 \end{quote}
 
-
-
-\subsection{Inversion du cycle d'interaction}
-\label{sec:inversion}
-
-Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
-
-La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
-Le cycle inversé (à droite) offre deux avantages: 
-\begin{itemize}
-	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
-	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
-\end{itemize}
-
-On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
-Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
-
-\cite{georgeon_inverting_2014}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
-	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
-		Gauche: cycle des POMDP classiques.
-		Droite: cycle inversé.}
-	\label{fig:inversion}
-\end{figure}
+Bien que ces raisons rendent l'inférence active inapplicable directement à l'IA développementale, cette théorie introduit une réflexion intéressante sur les principes qui gouvernent le comportement d’un agent.
+Le principe d'énergie libre suggère une forme de motivation de l'agent qui vise à mettre à jour ses croyances internes afin de mieux expliquer les données observées, ou à sélectionner les actions qui modifient l'environnement de manière rendre les observations conformes aux prédictions du modèle.
+Perception et action ne constituent plus des processus distincts mais différentes manifestation d'un même principe d'optimisation.
 
 
 
@@ -425,45 +385,6 @@ Cette heuristique a été  implémentés pour l'apprentissage de la locomotion e
 
 Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
 Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
-
-\subsection{Mesure de l'information gagnée}
-
-\noindent
-Dans la théorie de l'information de Claude Shannon, l'information qu'un agent possède à propos d'une variable $X$, pouvant prendre $n$ valeurs distinctes, est représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n))$.
-Cette distribution, parfois appelée \an{belief state}, signifie que l'agent \og croit \fg que, pour chacune valeurs $x_i$ parmi les $n$ valeurs possibles de $X$, il y a une probabilité $p(x_i)$ que $X$ soit égale à $x_i$. 
-
-Shannon interprète la grandeur $I(x_i) = -log_2(p(x_i))$ comme la quantité d'information (exprimée en nombre de bits) apportée par la connaissance que $X = x_i$. 
-Intuitivement, quand l'agent reçoit une valeur qu'il attendait, il gagne peu d'information, mais quand il reçoit une valeur qu'il jugeait improbable, il en gagne beaucoup.
-$I(x_i)$ peut aussi s'interpréter comme la \og surprise attendue \fg  par l'agent. 
-Plus $x_i$ est probable ($p(x_i)$ proche de 1), plus l'agent s'attend à une surprise faible ($I(x_i)$ proche de 0) s'il observe $X = x_i$. 
-A l'inverse, quand $p(x_i)$ approche 0, la surprise attendue pour l'observation de $X=x_i$ tend vers l'infini. 
-Sur cette base, Shannon définit l'entropie de $d$ comme l'espérance de surprise (\an{expected surprise}), obtenue en pondérant chaque valeur de surprise par sa probabilité d'occurence.
-L'entropie $H(d)$ est donc formalisée par l'Equation \eqref{eq:shannon} dans laquelle l'indice $i$ est omis pour simplifier :
-
-\begin{equation}\label{eq:shannon}
-	H(d) = - \sum_{p(x) \in d} p(x) log_2(p(x))
-\end{equation}
-
-Lorsque la probabilité $p(x_i)$ d'une valeur $x_i$ tend vers 1 tandis que celles des autres valeurs tendent vers 0, $H(d)$ tend vers 0.
-Un \an{belief state} d'entropie nulle correspond donc à une situation dans laquelle l'agent \og se sent certain \fg de la valeur de $X$. 
-Inversement, lorsque toutes les valeurs possibles sont équiprobables ($p(x_i) = 1/n$ pour tout $i$), l'entropie atteint sa valeur maximale qui vaut $H(d) = log(n)$. 
-Un \an{belief state} d'entropie maximale traduit le fait que l'agent estime n'avoir aucune information sur $X$.
-L'entropie du \an{belief state} ne fournit donc pas d'indication sur la justesse objective de la croyance de l'agent.
-Elle doit plutôt être interprétée comme une mesure de son degré de certitude subjective : elle quantifie à quel point l’agent se considère sûr de sa propre croyance, qu’elle soit juste ou fausse.
-
-Dans le cas d'un agent interagissant avec son environnement de manière cyclique, et pour lequel la variable $X$ représente le signal sensoriel reçu au cycle $t$, on peut implémenter une distribution $d_t$ pour représenter les probabilités estimées par l'agent du prochain signal sensoriel. 
-Dans ce cas, la baisse de l'entropie de $d$ au cours du temps peut être interprétée comme un indicateur des progrès d'apprentissage de l'agent. 
-
-% On peut également calculer une fonction de perte (\an{loss}) 
-
-\subsection{Principe d'énergie libre}
-
-Il existe différentes mesures refléter l'évolution du \an{belief state} de l'agent. 
-L'une d'elle est la divergence de Kullback-Leibler
-
-
-
-\subsection{Autonomie constitutive}
 
 
 
@@ -539,6 +460,36 @@ Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour 
 En revanche, pour le sujet lui même, le \an{motor} constitue la variable indépendante et le \an{sensor} la variable dépendante. 
 Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
 Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte du point de vue subjectif du sujet percevant. 
+
+
+\subsection{Inversion du cycle d'interaction}
+\label{sec:inversion}
+
+Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
+
+La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
+Le cycle inversé (à droite) offre deux avantages: 
+\begin{itemize}
+	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
+	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
+\end{itemize}
+
+On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
+Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
+
+\cite{georgeon_inverting_2014}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
+	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
+		Gauche: cycle des POMDP classiques.
+		Droite: cycle inversé.}
+	\label{fig:inversion}
+\end{figure}
+
+
+
 
 
 \subsection{L'émergence de sémantique ancrée dans l'expérience sensorimotrice}
@@ -619,6 +570,9 @@ C'est un système dont le designer ne connait pas a priori le nombre d'états, r
 Compte tenu du fait qu'un système de décision artificiel base ses prédictions sur son modèle de monde interne qui est nécessairerment fermé, la recherche pour permettre à des systèmes artificiels de démontrer une intelligence en monde ouvert doit porter sur la capacité du système à faire évoluer son modèle du monde à partir de ses expériences effectuées dans le monde ouvert. 
 Notons le state space peut etre infini et pour autant fermé. 
 ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
+
+
+\subsection{Autonomie constitutive}
 
 
 

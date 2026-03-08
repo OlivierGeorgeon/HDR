@@ -193,7 +193,7 @@ Je qualifierai ces observations de \emph{signaux sensoriels non représentationn
 
 
 
-\subsection{Couverture de Markov}
+\subsection{Couverture de Markov et problème de l'inférence}
 
 
 \noindent
@@ -315,7 +315,6 @@ La stratégie d'apprentissage est gouvernée par le \emph{principe d'énergie li
 Le principe d'énergie libre favorise la sélection d'actions qui maximisent l'espérance d'information gagnée et qui minimisent les erreurs de prédiction.
 L'apprentissage se fait de manière itérative en descendant un gradient d'\emph{énergie libre variationnelle} sur les variables internes du modèle \cite{smith_step-by-step_2022} . 
 
-
 %Comme pour l'inférence bayésienne introduite en Section \ref{sec:bn}, nous ne pouvons pas non plus utiliser les mathématiques mises en \oe uvre par l'inférence active sous le principe d'énergie libre, car elle nécessite que l'espace latent soit donné à priori. 
 
 Comme l'inférence bayésienne introduite en Section \ref{sec:bn}, l'inférence active sous le principe d'énergie libre se heurte malheureusement à des limitions très bien exprimées par Pierre-Yves Oudeyer :
@@ -330,61 +329,48 @@ Le principe d'énergie libre suggère une forme de motivation de l'agent qui vis
 Perception et action ne constituent plus des processus distincts mais différentes manifestation d'un même principe d'optimisation.
 
 
-
-
-\subsection{Finalité et motivations de l'agent}
-\label{sec:motivation_intrinseque}
+\subsection{Théorie des contingences sensorimotrices}
+\label{sec:SMC}
 
 \noindent
-La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
-La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
-Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+La \emph{Théorie des Contingences Sensorimotrices} (\an{Sensorimotor Contingencies}, SMC) de Kevin O'Regan et Alva Noë offre un éclairage intéressant sur les relations entre action, signal sensoriel, et perception \cite{oregan_sensorimotor_2001}.
+Les auteurs expliquent cette théorie en utilisant la métaphore d'une équipe d'ingénieurs qui télé-comman\-derait un sous-marin comme illustré en Figure \ref{fig:smc}. 
+Un monstre marin aurait mélangé toutes les connexions à destination et en provenance des différents éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
+Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commandent n'ont plus leurs fonctions habituelles. 
 
-Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
-Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/2_smc.pdf}
+	\caption{Métaphore du sous-marin de O'Regan et Noë \cite{oregan_sensorimotor_2001}.
+		Le cerveau serait dans la situation de la personne qui télécommande un sous-marin (qu'il ne voit pas), alors que toutes les connexions entrantes et sortantes ont été mélangées par un monstre marin. 
+	}
+	\label{fig:smc}
+\end{figure}
 
-L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
-\og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007} 
+En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. Selon O'Regan et Noë : 
 
-Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
-On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
-C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
-Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
-Examinons cela plus en détail.
-On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
-Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
-Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
-En pratique il n'est pas nécessaire d'implémenter un arbitre. 
-Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
-Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
-Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
-
-
-Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
-
-Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
-
-Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
+\begin{quote}
+	%\an{Imagine a team of engineers operating a remote-controlled underwater vessel exploring the remains of the Titanic, and imagine a villainous aquatic monster that has interfered with the control cable by mixing up the connections to and from the underwater cameras, sonar equipment, robot arms, actuators, and sensors. What appears on the many screens, lights, and dials, no longer makes any sense, and the actuators no longer have their usual functions. What can the engineers do to save the situation? By observing the \emph{structure of the changes} on the control panel that occur when they press various buttons and levers, the engineers should be able to deduce which buttons control which kind of motion of the vehicle, and which lights correspond to information deriving from the sensors mounted outside the vessel, which indicators correspond to sensors on the vessel’s tentacles, and so on.}
+	\an{There is an analogy to be drawn between this example and the situation faced by the brain. From the point of view of the brain, there is nothing that in itself differentiates nervous influx coming from retinal, haptic, proprioceptive, olfactory, and other senses, and there is nothing to discriminate motor neurons that are connected to extraocular muscles, skeletal muscles, or any other structures.}
+	\cite{oregan_sensorimotor_2001}
+\end{quote}
 
 
-Il serait peut etre plus judicieux de distinguer entre "objectifs internes" et "objectifs externes".
-La notion de motivation extrinsèque pose problème car toute motivation peut etre considérée comme intrinsèque. 
-La notion de motivation intrinsèque doit deux plutot etre compris comme n'antinomique de "récompense externe". 
+Puisqu'il n'y a pas de distinction à priori entre les différents signaux sensoriels et moteurs, O'Regan propose que ce qui distingue les différentes expériences perceptives soit les lois qui gouvernent la \emph{structure des contingences sensorimotrices}. 
+Selon lui, l'expérience de \emph{percevoir} se produit quand l'organisme maitrise ces lois.
 
-\subsection{Curiosité artificielle}
-\label{sec:curiosite}
+Cette conception rappelle la phrase de Merleau-Ponty citée en Section \ref{sec:phenomenologie}: \og la vision est le palpé de l’œil \fg. 
+En maintenant vivante cette conception phénoménologique de la perception à l'ère de l'informatique,  O'Regan aide à imaginer comment elle pourrait être implémentée dans un système artificiel. 
+Dans ce nouveau contexte, les contingences sensorimotrices correspondent à la dynamique des signaux moteurs et sensoriels émis et reçus par un système informatique ou robotique. 
 
-Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
+O'Regan ne se prononce pas sur la manière dont les signaux moteurs et sensoriels sont constitués, mais, dans un commentaire ouvert à son article, Donald Laming  insiste sur l'importance de distinguer entre \emph{contingences sensorimotrice} et \emph{contingences motosensorielles} \cite{laming_distinction_2001}. 
+Selon Laming, ces deux  types de contingences sont radicalement différentes. 
+Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour qui le \an{sensor} constituerait la variable indépendante, et le \an{motor} la variable dépendante. 
+En revanche, pour le sujet lui même, le \an{motor} constitue la variable indépendante et le \an{sensor} la variable dépendante. 
+Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
+Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte du point de vue subjectif du sujet percevant. 
 
-Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
-Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
-A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
-Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
-Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
-Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
 
-Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
-Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
 
 
@@ -420,73 +406,9 @@ De plus, dans la théorie de l'enaction, la valeur n'est pas données: \\
 Identity is nothing more than a set of variables being kept within a certain range of values. Identity and values therefore co-define each other.
 
 
-\subsection{Théorie des contingences sensorimotrices}
-\label{sec:SMC}
+\subsection{Autonomie constitutive}
 
-\noindent
-Kevin O'Regan et Alva Noë ont proposé la \emph{Théorie des Contingences Sensorimotrices} \cite{oregan_sensorimotor_2001}.
-Ils expliquent cette théorie en utilisant la métaphore d'une équipe d'ingénieurs qui télé-comman\-derait un sous-marin comme illustré en Figure \ref{fig:smc}. 
-Un monstre marin aurait mélangé toutes les connexions à destination et en provenance des différents éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
-Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commandent n'ont plus leurs fonctions habituelles. 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/2_smc.pdf}
-	\caption{Métaphore du sous-marin de O'Regan et Noë \cite{oregan_sensorimotor_2001}.
-		Le cerveau serait dans la situation de la personne qui télécommande un sous-marin (qu'il ne voit pas), alors que toutes les connexions entrantes et sortantes ont été mélangées par un monstre marin. 
-	}
-	\label{fig:smc}
-\end{figure}
-
-En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. Selon O'Regan et Noë : 
-
-\begin{quote}
-%\an{Imagine a team of engineers operating a remote-controlled underwater vessel exploring the remains of the Titanic, and imagine a villainous aquatic monster that has interfered with the control cable by mixing up the connections to and from the underwater cameras, sonar equipment, robot arms, actuators, and sensors. What appears on the many screens, lights, and dials, no longer makes any sense, and the actuators no longer have their usual functions. What can the engineers do to save the situation? By observing the \emph{structure of the changes} on the control panel that occur when they press various buttons and levers, the engineers should be able to deduce which buttons control which kind of motion of the vehicle, and which lights correspond to information deriving from the sensors mounted outside the vessel, which indicators correspond to sensors on the vessel’s tentacles, and so on.}
-\an{There is an analogy to be drawn between this example and the situation faced by the brain. From the point of view of the brain, there is nothing that in itself differentiates nervous influx coming from retinal, haptic, proprioceptive, olfactory, and other senses, and there is nothing to discriminate motor neurons that are connected to extraocular muscles, skeletal muscles, or any other structures.}
-\cite{oregan_sensorimotor_2001}
-\end{quote}
-
-
-Puisqu'il n'y a pas de distinction à priori entre les différents signaux sensoriels et moteurs, O'Regan propose que ce qui distingue les différentes expériences perceptives soit les lois qui gouvernent la \emph{structure des contingences sensorimotrices}. 
-Selon lui, l'expérience de \emph{percevoir} se produit quand l'organisme maitrise ces lois.
-
-Cette conception rappelle la phrase de Merleau-Ponty citée en Section \ref{sec:phenomenologie}: \og la vision est le palpé de l’œil \fg. 
-En maintenant vivante cette conception phénoménologique de la perception à l'ère de l'informatique,  O'Regan aide à imaginer comment elle pourrait être implémentée dans un système artificiel. 
-Dans ce nouveau contexte, les contingences sensorimotrices correspondent à la dynamique des signaux moteurs et sensoriels émis et reçus par un système informatique ou robotique. 
-
-O'Regan ne se prononce pas sur la manière dont les signaux moteurs et sensoriels sont constitués, mais, dans un commentaire ouvert à son article, Donald Laming  insiste sur l'importance de distinguer entre \emph{contingences sensorimotrice} et \emph{contingences motosensorielles} \cite{laming_distinction_2001}. 
-Selon Laming, ces deux  types de contingences sont radicalement différentes. 
-Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour qui le \an{sensor} constituerait la variable indépendante, et le \an{motor} la variable dépendante. 
-En revanche, pour le sujet lui même, le \an{motor} constitue la variable indépendante et le \an{sensor} la variable dépendante. 
-Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
-Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte du point de vue subjectif du sujet percevant. 
-
-
-\subsection{Inversion du cycle d'interaction}
-\label{sec:inversion}
-
-Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
-
-La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
-Le cycle inversé (à droite) offre deux avantages: 
-\begin{itemize}
-	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
-	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
-\end{itemize}
-
-On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
-Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
-
-\cite{georgeon_inverting_2014}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
-	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
-		Gauche: cycle des POMDP classiques.
-		Droite: cycle inversé.}
-	\label{fig:inversion}
-\end{figure}
+David Vernon
 
 
 
@@ -514,17 +436,30 @@ Il soulève la question de l'interpretabilité du modèle:
 Citer aussi "Behavior Is Everything: Towards Representing Concepts with Sensorimotor Contingencies" de Dileep George et al.
 
 
-\subsection{Modèle du monde}
+\subsection{Motivation intrinsèque / curiosité artififielle}
+\label{sec:curiosite}
 
-David Ha et Jürgen Schmidhuber ont proposé un système capable d'apprendre un modèle du monde dans des environnement d'apprentissage par renforcement populaires \cite{ha_world_2018}.
-
-Karl Friston et ses coauteurs abordent la question de l'apprentissage d'un \an{world model} dirigé par le principe d'énergie libre \cite{friston_world_2021}
-
-Yann LeCun a argumenté que le chemin vers IA de niveau humain dans la prochaine décennie reposera sur des modèles du monde qui permettent le raisonnement et la planification.
-\og \an{Joint-Embedding Predictive Architecture} \fg (JEPA) \cite{balestriero_lejepa_2025}
+L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
+\og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007} 
 
 
-\subsection{Apprentissage et monde \og ouvert \fg}
+
+Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
+
+Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
+Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
+A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
+Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
+Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
+Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
+
+Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
+Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
+
+
+
+
+\subsection{Apprentissage et monde ouvert}
 
 Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
 Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
@@ -572,49 +507,7 @@ Notons le state space peut etre infini et pour autant fermé.
 ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
 
 
-\subsection{Autonomie constitutive}
 
 
 
 
-\subsection{L'apprentissage des structures spatiales}
-
-\noindent
-La question de savoir si l'espace physique est constitue un \og a priori de l'entendement \fg comme Kant l'a suggéré ou s'il est un concept construit à partir de l'expérience sensorimotrice est encore d'actualité dans les recherches en intelligence artificielle. 
-On trouve souvent attribuée au mathématicien Henri Pointcaré la paternité de l'idée que la connaissance de l'espace pourrait etre construit à partir de l'expérience sensorimotrice: 
-
-\begin{quote}
-\og Localiser un objet, c'est représenter les mouvements que l'on devrait exécuter pour l'atteindre. 
-Il ne s’agit pas de représenter ces mouvements dans l’espace, mais de se représenter seulement les sensations musculaires qui accompagnent ces mouvements et qui, elles, ne supposent pas l’existence de l’espace. \fg \cite[p.~67]{pointcare_science_1902}.
-\end{quote}
-
-Pointcaré a suggéré que le concept d'espace émergait à travers la découverte de changement sensoriels compensables qui sont générés par un changement dans l'environnement mais qui peuvent être annulés par un action de l'agent. 
-
-Bowen Xu et Pei Wang \cite{xu_essence_2025} expriment l'intérêt de ce genre de recherche : 
-\begin{quote}
-\an{While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
-	AGI research aims not only to engineer machines but also to uncover principles of intelligence. 
-	Different studies strike a balance between these two objectives. 
-	Understanding how spatial sense emerges, without assuming space, advances the latter goal, since we can imagine a system without any notion of the physical space in the beginning but capable of learning to interact with the physical world and developing spatial sense} \cite[p.~2]{xu_essence_2025}
-\end{quote}
-
-Simon Gay s'est intéressé à ce sujet dans sa thèse de doctorat \cite{gay_autonomous_2017} 
-
-Citons l'article d'Alban Laflaquière et Michael Garcia Ortiz \og \an{Unsupervised Emergence of Egocentric Spatial Structure from Sensorimotor Prediction} \fg \cite{laflaquiere_unsupervised_2019}.
-Alexander Terekov et Kevin O'Regan ont proposé un modèle d'apprentissage de l'espace à partir des contingences sensorimotrices \cite{terekhov_learning_2019},  utilisant la question de l'émergence de structures spatiales comme un exemple de l'émergence de concepts abstraits
-Les travaux récents de l'équipe de Deleep George font peut être partie des plus avancées sur cette question à ce jour \cite{raju_space_2022}.
-
-Ces travaux ont en commun le fait que l'apprentissage des structures spatiales est démontrée dans un environnement fermé à la complexité limitée. 
-A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de structures spatiales en environnement ouvert. 
-
-
-
-\section{Conclusion}
-
-L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
-
-
-L'apprentissage sur différentes échelles de temps est un problème souvent identifié mais qui reste encore ouvert 
-(voir les références dans l'article ECA)
-
-Le stade de la maitrise de l'appareil sensorioteur, le premier stade identifié par Piaget, n'est pas encore résolu en intelligence artificielle. Pourtant il s'agit bien d'un problème qui relève de l'intelligence au plein sens du terme. Citer Josha Back, fondateur de Californian Institute of Machine Consciousness.

@@ -301,6 +301,40 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 % Si la récompense reflète la désirabilité de l'état obtenu alors  $r_t = r(s_t, a_t) = r(s_{t+1})$.
 % Il existe deux grandes classes d'algorithmes d'apprentissage par renforcement: les algorithme à mémoire (memory based) et sans mémoire (memory-less).
 
+
+\subsection{L'apprentissage des structures spatiales}
+
+\noindent
+La question de savoir si l'espace physique est constitue un \og a priori de l'entendement \fg comme Kant l'a suggéré ou s'il est un concept construit à partir de l'expérience sensorimotrice est encore d'actualité dans les recherches en intelligence artificielle. 
+On trouve souvent attribuée au mathématicien Henri Pointcaré la paternité de l'idée que la connaissance de l'espace pourrait etre construit à partir de l'expérience sensorimotrice: 
+
+\begin{quote}
+	\og Localiser un objet, c'est représenter les mouvements que l'on devrait exécuter pour l'atteindre. 
+	Il ne s’agit pas de représenter ces mouvements dans l’espace, mais de se représenter seulement les sensations musculaires qui accompagnent ces mouvements et qui, elles, ne supposent pas l’existence de l’espace. \fg \cite[p.~67]{pointcare_science_1902}.
+\end{quote}
+
+Pointcaré a suggéré que le concept d'espace émergait à travers la découverte de changement sensoriels compensables qui sont générés par un changement dans l'environnement mais qui peuvent être annulés par un action de l'agent. 
+
+Bowen Xu et Pei Wang \cite{xu_essence_2025} expriment l'intérêt de ce genre de recherche : 
+\begin{quote}
+	\an{While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
+		AGI research aims not only to engineer machines but also to uncover principles of intelligence. 
+		Different studies strike a balance between these two objectives. 
+		Understanding how spatial sense emerges, without assuming space, advances the latter goal, since we can imagine a system without any notion of the physical space in the beginning but capable of learning to interact with the physical world and developing spatial sense} \cite[p.~2]{xu_essence_2025}
+\end{quote}
+
+Simon Gay s'est intéressé à ce sujet dans sa thèse de doctorat \cite{gay_autonomous_2017} 
+
+Citons l'article d'Alban Laflaquière et Michael Garcia Ortiz \og \an{Unsupervised Emergence of Egocentric Spatial Structure from Sensorimotor Prediction} \fg \cite{laflaquiere_unsupervised_2019}.
+Alexander Terekov et Kevin O'Regan ont proposé un modèle d'apprentissage de l'espace à partir des contingences sensorimotrices \cite{terekhov_learning_2019},  utilisant la question de l'émergence de structures spatiales comme un exemple de l'émergence de concepts abstraits
+Les travaux récents de l'équipe de Deleep George font peut être partie des plus avancées sur cette question à ce jour \cite{raju_space_2022}.
+
+Ces travaux ont en commun le fait que l'apprentissage des structures spatiales est démontrée dans un environnement fermé à la complexité limitée. 
+A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de structures spatiales en environnement ouvert. 
+
+
+
+
 \section{Mesure de l'information gagnée}
 
 \noindent
@@ -519,6 +553,8 @@ Patrick Hammer et ses collègues ont utilisé NARS pour contrôler un robot coll
 
 \section{Les architectures cognitives bio-inspirées}
 
+Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
+
 
 
 \begin{figure}[ht]
@@ -591,6 +627,17 @@ On pourrait proposer une définition de l'intelligence selon laquelle Un systèm
 
 \section{Conclusion}
 
+
+L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
+
+
+L'apprentissage sur différentes échelles de temps est un problème souvent identifié mais qui reste encore ouvert 
+(voir les références dans l'article ECA)
+
+Le stade de la maitrise de l'appareil sensorioteur, le premier stade identifié par Piaget, n'est pas encore résolu en intelligence artificielle. Pourtant il s'agit bien d'un problème qui relève de l'intelligence au plein sens du terme. Citer Josha Back, fondateur de Californian Institute of Machine Consciousness.
+
+
+
 NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéme ne peuvent pas dire ça.
 Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
 
@@ -600,7 +647,7 @@ On pourrait dire que c'est précisément l'objet de l'IA développementale préc
 
 Le probleme du \an{credit assignment} \cite{minsky_steps_1961}.
 
-L'apprentissage par renforcement n'apprend aucune abstraction. Il trouve seulement un obtpimum dans un problème très bien contraint. Si on fait la plus petite modification dans le problème alors il est perdu. 
+L'apprentissage par renforcement n'apprend aucune abstraction. Il trouve seulement un optimum dans un problème très bien contraint. Si on fait la plus petite modification dans le problème alors il est perdu. 
 Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite[e.g.]{fujita_alphavit_2025}. 
 
 L'apprentissage développemental n'est pas un apprentissage par renforcement. 
@@ -620,3 +667,78 @@ L'apprentissage développemental est un apprentissage non-markovien mais le form
 Il est important de rajouter une notion de motivation intrinsèque au schema méchanism.
 
 Nous construisons la façon qu'a le monde de nous apparaitre.
+
+
+\subsection{Finalité et motivations de l'agent}
+\label{sec:motivation_intrinseque}
+
+\noindent
+La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
+La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
+Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+
+Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
+Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
+
+%L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
+%\og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007} 
+
+Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
+On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
+C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
+Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
+Examinons cela plus en détail.
+On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
+Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
+Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
+En pratique il n'est pas nécessaire d'implémenter un arbitre. 
+Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
+Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
+Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
+
+
+Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
+
+Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
+
+
+Il serait peut etre plus judicieux de distinguer entre "objectifs internes" et "objectifs externes".
+La notion de motivation extrinsèque pose problème car toute motivation peut etre considérée comme intrinsèque. 
+La notion de motivation intrinsèque doit plutot etre compris comme antinomique de "récompense externe". 
+
+\subsection{Inversion du cycle d'interaction}
+\label{sec:inversion}
+
+Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
+
+La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
+Le cycle inversé (à droite) offre deux avantages: 
+\begin{itemize}
+	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
+	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
+\end{itemize}
+
+On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
+Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
+
+\cite{georgeon_inverting_2014}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
+	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
+		Gauche: cycle des POMDP classiques.
+		Droite: cycle inversé.}
+	\label{fig:inversion}
+\end{figure}
+
+
+\subsection{Modèle du monde}
+
+David Ha et Jürgen Schmidhuber ont proposé un système capable d'apprendre un modèle du monde dans des environnement d'apprentissage par renforcement populaires \cite{ha_world_2018}.
+
+Karl Friston et ses coauteurs abordent la question de l'apprentissage d'un \an{world model} dirigé par le principe d'énergie libre \cite{friston_world_2021}
+
+Yann LeCun a argumenté que le chemin vers IA de niveau humain dans la prochaine décennie reposera sur des modèles du monde qui permettent le raisonnement et la planification.
+\og \an{Joint-Embedding Predictive Architecture} \fg (JEPA) \cite{balestriero_lejepa_2025}
+

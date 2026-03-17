@@ -448,10 +448,46 @@ Ensuite je rapprocherai l'IA développementale de ce que Hutto et Myin appelle u
 %Identity is nothing more than a set of variables being kept within a certain range of values. Identity and values therefore co-define each other.
 
 
-\subsection{Autonomie constitutive}
+\subsection{Autonomie constitutive et auto-programmation}
 
-David Vernon
+\noindent
+Le concept d'autonomie a fait l'objet de nombreuses discussions dans le domaine de l'intelligence artificielle. 
+David Vernon, Robert Lowe, Serge Thill, et Tom Ziemke proposent la définition suivante: 
+\og \an{the degree of self-determination of a system, i.e., the degree to which a system’s behavior is not determined by the environment and, thus, the degree to which a system determines its own goals.} \fg\ \cite[p.~3]{vernon_embodied_2015}.
+Ces auteurs, de même que Ezequiel Di Paolo \cite{di_paolo_autopoiesis_2005} et Froese et Ziemke \cite{froese_enactive_2009} distinguent deux sortes d'autonomie: l'\emph{autonomie comportementale} (\an{behavioral autonomy}) et l'\emph{autonomie constitutive} (\an{constitutive autonomy}):  
 
+\begin{quote}
+	\an{Behavioral autonomy focuses on the external characteristics of the system: the extent to which the system sets its 	own goals and its robustness and flexibility in dealing with an uncertain and possibly precarious environment. [...] [C]onstitutive autonomy focuses on the internal organization and the organizational process that keep the system viable and maintain itself as an identifiable autonomous entity}
+	\cite[p.~3]{vernon_embodied_2015}.
+\end{quote}
+
+Vernon fait une distinction entre \an{setting goals} (autonomie comportementale) et \an{determining goals} (autonomie constitutive). 
+Dans le premier cas, un objectifs est \emph{fixé} à partir d'un ensemble prédéfini d'objectifs possibles dans un domaine modélisé à priori, 
+alors que dans le second cas, les objectifs sont \emph{déterminés} de manière ouverte au fur et à mesure que le système se découvre lui même et découvre le monde. 
+
+L'autonomie constitutive est observée chez les êtres vivants mais la question se pose de savoir si elle est possible chez une entité artificielle telle qu'un robot contrôlé par un ordinateur. 
+La notion de \an{plastic structure-determined system} proposé par Maturana \cite{maturana_organization_1975} permet d'imaginer que oui. 
+La structure peut etre définie par le sofware du système et dans ce cas l'autonomie constitutive est liée à la capacité à réorganiser ou développer de noueaux éléments de software à fil de l'existence de l'entité. 
+En terme informatique, celà  consiste à acquérir du nouveau \emph{code exécutable} plutot que de nouvelles \emph{données}(telles que des paramètres, poids, ou symboles).  
+Cette distinction a été identifiée par Terry Winograd et Fernando Flores qui différencie (a) l'ajustement de paramètres, (b) la formation combinatoire de concepts et (c) évolution de structure. 
+Il argumentent que c'est seulement quand le système initial n'a pas une structure direcement reliée à la tache envisagée par son concepteur qu'un système computationnel peut produire de nouvelles structures modelées par ses interactions avec l'environnement. 
+Ils notent que ceci est valable pour \og any system whose internal structure can change as a result of perturbations, and computer programs share this quality \fg.
+De tels software flexible pourrait dépasser les limitations de leurs programmes initiaux. 
+Alexander Riegler a aussi argumenté que le couplage structurel n'est pas nécessairement limité au domaine physique, mais il les software informatiques peuvent aussi devenir "incarnés" et construire leurs propres objectifs qui sont nouveaux par rapport au système initial défini par le programmeur. 
+
+Le concept d'auto-programmation (\an{self-programming}) est n'est pas nouveau. 
+Allan Newel et Herbert Simon l'ont anticipé dans leur lecture fondatrice donnée à leur \an{Turing Award} \cite{newell_computer_1976}. 
+Juyang Weng a proposé la notion de \an{self-affecting cognitive architecture} \cite{weng_developmental_2004}. 
+Plus récement, Kristinn Thórisson, Eric Nivel, Ricardo Sanz et Pei Wang ont édité un numéro spécial \og \an{Self-Programming and Constructivist Methodologies for AGI} \fg\ de la revue \an{Journal of Artificial General Intelligence} \cite{thorisson_self-programming_2012}. 
+
+La question de comment cela peut être mise en \oe uvre est encore complètement ouverte. 
+En particulier elle soulève de nombreuses questions parmi lesquelles: 
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item Pourquoi une entité devrait acquérir un nouveau programme particulier plutôt qu'un autre ? Cette question est liée au système de valeur et à le motivation propre de l'entité.
+	\item Quelle serait une méthode convenable pour exprimer les nouveaux programmes acquis ?  En termes concrets: dans quel langage de programmation l'entité devrait-elle se programmer elle-même? Ce langage de programmation serait-il différent que celui utilisé par le programmeur humain ? 
+
+\end{itemize}
 
 
 

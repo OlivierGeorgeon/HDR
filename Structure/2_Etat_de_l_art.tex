@@ -465,23 +465,29 @@ Vernon fait une distinction entre \an{setting goals} (autonomie comportementale)
 Dans le premier cas, un objectifs est \emph{fixé} à partir d'un ensemble prédéfini d'objectifs possibles dans un domaine modélisé à priori, 
 alors que dans le second cas, les objectifs sont \emph{déterminés} de manière ouverte au fur et à mesure que le système se découvre lui même et découvre le monde. 
 
-L'autonomie constitutive est observée chez les êtres vivants mais la question se pose de savoir si elle est possible chez une entité artificielle telle qu'un robot contrôlé par un ordinateur. 
-La notion de \an{plastic structure-determined system} proposé par Maturana \cite{maturana_organization_1975} permet d'imaginer que oui. 
-La structure peut etre définie par le sofware du système et dans ce cas l'autonomie constitutive est liée à la capacité à réorganiser ou développer de noueaux éléments de software à fil de l'existence de l'entité. 
-En terme informatique, celà  consiste à acquérir du nouveau \emph{code exécutable} plutot que de nouvelles \emph{données}(telles que des paramètres, poids, ou symboles).  
-Cette distinction a été identifiée par Terry Winograd et Fernando Flores qui différencie (a) l'ajustement de paramètres, (b) la formation combinatoire de concepts et (c) évolution de structure. 
-Il argumentent que c'est seulement quand le système initial n'a pas une structure direcement reliée à la tache envisagée par son concepteur qu'un système computationnel peut produire de nouvelles structures modelées par ses interactions avec l'environnement. 
-Ils notent que ceci est valable pour \og any system whose internal structure can change as a result of perturbations, and computer programs share this quality \fg.
-De tels software flexible pourrait dépasser les limitations de leurs programmes initiaux. 
-Alexander Riegler a aussi argumenté que le couplage structurel n'est pas nécessairement limité au domaine physique, mais il les software informatiques peuvent aussi devenir "incarnés" et construire leurs propres objectifs qui sont nouveaux par rapport au système initial défini par le programmeur. 
+L'autonomie constitutive est observée chez les êtres vivants mais peut-elle également exister chez une entité artificielle telle qu'un robot contrôlé par un ordinateur ?  
+Certains auteurs ont proposé une conceptualisation de cette possibilité. 
+Maturana a proposé la notion de \an{plastic structure-determined system} \cite{maturana_organization_1975} pour désigner les systèmes, naturels ou artificiels, qui sont déterminés par une structure interne plastique.
+Il argumente que la structure d'un système informatique est définie par son logiciel (\an{software}).
+Dans ce cas, l'autonomie constitutive de l'entité est liée à sa capacité à réorganiser ou développer de nouveaux éléments de \an{software} au fil de son existence. 
+Terry Winograd et Fernando Flores \cite{winograd_understanding_1987} introduisent trois types de changement logicielles possibles:  l'ajustement de paramètres, la formation combinatoire de concepts et l'évolution de structure.
+L'évolution de structure d'un software, correspond, en terme informatique, à la réorganisation de son \emph{code exécutable} et possiblement à l'acquisition de nouveau code exécutable.
+Winograd et Flores argumentent que c'est seulement quand le système initial n'a pas une structure directement reliée à la tache envisagée par son concepteur qu'un système computationnel peut produire de nouvelles structures modelées par ses interactions avec l'environnement. 
+Ils notent que ceci est valable pour \og any system whose internal structure can change as a result of perturbations, and computer programs share this quality \fg, et que de tels \an{software} flexible pourrait dépasser les limitations de leurs programmes initiaux. 
+Alexander Riegler \cite{riegler_when_2002} a aussi argumenté que le couplage structurel n'est pas nécessairement limité au domaine physique, mais les software informatiques peuvent aussi devenir \emph{incarnés} par le fait de l'évolution de leur couplage avec leur environnement et construire leurs propres objectifs qui sont nouveaux par rapport au système initial défini par le programmeur. 
 
-Le concept d'auto-programmation (\an{self-programming}) est n'est pas nouveau. 
-Allan Newel et Herbert Simon l'ont anticipé dans leur lecture fondatrice donnée à leur \an{Turing Award} \cite{newell_computer_1976}. 
+%Cette distinction entre code exécutable et donnée a également été faite par Terry Winograd et Fernando Flores \cite{winograd_understanding_1987}.
+%La génération de nouveau code exécutable se rapproche de ce que Winograd a appelé l'évolution de structure, alors que l'acquisition de données se rapproche de l'ajustement de paramètres ou la formation combinatoire de concepts. 
+%Le code exécutable constitue la structure d'un système computationnel alors que les données en constituent des paramètres ou des éléments combinatoires. entre (a) l'ajustement de paramètres, (b) la formation combinatoire de concepts et (c) l'évolution de structure. 
+
+
+L'idée de réaliser des systèmes informatiques capables de modifier leur propre code n'est pas nouvelle. 
+Allan Newel et Herbert Simon ont anticipé cette possibilité dans leur lecture fondatrice donnée à leur \an{Turing Award} \cite{newell_computer_1976}. 
 Juyang Weng a proposé la notion de \an{self-affecting cognitive architecture} \cite{weng_developmental_2004}. 
 Plus récement, Kristinn Thórisson, Eric Nivel, Ricardo Sanz et Pei Wang ont édité un numéro spécial \og \an{Self-Programming and Constructivist Methodologies for AGI} \fg\ de la revue \an{Journal of Artificial General Intelligence} \cite{thorisson_self-programming_2012}. 
 
-La question de comment cela peut être mise en \oe uvre est encore complètement ouverte. 
-En particulier elle soulève de nombreuses questions parmi lesquelles: 
+La question de la conception d'un système capable de mettre en \oe uvre des effets d'auto-programmation (self-programming) est encore complètement ouverte. 
+Elle soulève de nombreuses questions parmi lesquelles: 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Pourquoi une entité devrait acquérir un nouveau programme particulier plutôt qu'un autre ? Cette question est liée au système de valeur et à le motivation propre de l'entité.
@@ -524,9 +530,9 @@ L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce ter
 
 Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
 
-Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curisité \cite{oudeyer_computational_2018}.
-Les approches normatives utilisent des algorithms de maximization d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
-A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potientiels d'apprentissage. 
+Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
+Les approches normatives utilisent des algorithmes de maximisation d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
+A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
 Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
 Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
 Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 

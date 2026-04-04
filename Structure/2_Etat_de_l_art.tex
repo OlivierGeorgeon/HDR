@@ -391,6 +391,13 @@ encourager le rapprochement des sciences cognitives contemporaines vers les idé
 
 La théorie de l'énaction rejette la division tripartie classique de l'esprit entre perception, système de contrôle et action.
 Cette division a été malicieusement critiqué par Suzan Hurley, qui l'a surnommée \an{classic sandwich model} dans son livre \og \an{Consciousness in action} \fg\ \cite{hurley_consciousness_2002}. 
+Ce rejet est exprimé ainsi par Evan Thompson: 
+
+\begin{quote}
+\an{The enactive approach is based on the thesis that basic cognition is not mediated or constituted by internal semantic representations (elements whose internal structure and causal role make them stand for things outside themselves, which they match or fail to match, according to correctness conditions)}
+\cite{thompson_review_2018}.
+\end{quote}
+
 Comme alternative, la théorie de l'enaction propose le concept de \emph{couplage structurel} entre l'orgnisme et son environnement. 
 L'ensemble des interactions mises en \oe uvre dans ce couplage est appelé le \emph{domaine relationnel}. 
 La théorie de l'enaction souligne que ce domaine relationnel évolue au cours de la vie de l'organisme d'une façon qui ne dépend pas uniquement de l'organisme mais aussi de l'environnement et de l'histoire de leurs interactions.
@@ -413,7 +420,7 @@ Dans leur article \og \an{Enactive artificial intelligence} \fg\ \cite{froese_en
 C'est une condition préalable à la fabrique de signification (\an{sense-making}) et à la construction de l'apparition d'une finalité propre (\an{intrinsic teleology}).
 L’organisme ne se contente pas de réagir à un environnement donné; il participe activement à la configuration des relations pertinentes qui structurent son propre domaine d’interaction.
 
-Selon Daniel Hutto et Erik Myin \cite{hutto_radicalizing_2013}, la théorie de l'enaction peut être déclinée en trois courants principaux: \emph{autopoïétique}, \emph{sensorimoteur} et \emph{radical}. 
+Selon Daniel Hutto et Erik Myin \cite{hutto_radicalizing_2013}, la théorie de l'enaction se décline en trois courants principaux: \emph{autopoïétique}, \emph{sensorimoteur} et \emph{radical}. 
 Le courant autopoïétique correspond à l'approche initialement développée par Varela et Maturana, qui cherche à fonder la cognition sur les processus biologiques des systèmes vivants. 
 L'autopoïèse désigne la capacité d'un système vivant à se produire et à se maintenir lui-même en générant et renouvelant continuellement ses propres composants. 
 Elle implique la \an{fermeture opérationnelle} (\an{operational closure}) du système qui maintient son organisation interne face aux perturbations extérieures.
@@ -508,7 +515,40 @@ A quoi est ancré la connaissance ? Est elle ancrée dans le langage, dans la ph
 
 
 Pei Wang \cite{wang_experience-grounded_2005} pose la question de l'émergence sémantique ancrée dans l'expérience sensorimotrice (\an{experience-grounded semantics}).
+La sémantique est l'étude de comment la vérité et le sens sont affectés à des mots et des énoncés. 
+Wang note qu'en mathématique et en intelligence artificielle, la plupart des sémantiques sont basées sur un modèle \an{model-theoretic}, en référence à la \an{foundation of semantics} d'Alfred Tarski \cite{tarski_semantic_1944}.
+Une sémantique basée sur un modèle d'un langage $L$ implique un modèle $M$ et une interprétation $I$ qui met en corresondance les mots de $L$ avec les objets et les relations de $M$: ``the meaning of a word in L is defined as its image in M under I, and whether a statement in L is true is determined by whether it is mapped by I onto a fact in M'' \cite[p.~284]{wang_experience-grounded_2005}. 
+
+En intelligence artificiellen, cependant, une sémantique basée sur un modèle nécessite que le concepteur fournisse le modèle à l'agent. 
+Dans ce cas, Wang dit que la sémantique ``tells us what the words mean to us, but says nothing about what they mean to the system'' \cite[p.~284]{wang_experience-grounded_2005}
+
+Contrairement à une sémantique basée sur un modèle, une sémantique basée sur l'expérience définit la vérité et le sens des expressions en fonction de leur role dans l'historique des interactions entre l'agent et l'environnement. 
+Wang note que la sémantique basée sur l'expérience  ``qualifies to be a semantics in the broad (and original) sense of the notion'' because the concept of truth and meaning still make sense: ``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
+
+La sémantique basée sur l'expérience trouve ses racines dans l'épistémologie pragmatique introduite en section \ref{sec:pragmatisme} dans la mesure ou elle fonde le sens sur l'usage. 
+
+Wang a proposé une implémentation d'une sémantique ancrée sur l'expérience dans son Non Axiomatic Reasoning System (NARS). 
+La valeur de vérité d'une expression est calculée à partir de la quantité d'expérience qui confirment cette expression de de celles qui l'infirment. 
+NARS associe à chaque expression une fréquence $f$ qui est le nombre d'évidences positives sur le nombre total d'évidences. 
+La confience $c$ est une indication du nombre total d'évidence. 
+Le tuple (f,c) est appelé un jugement.
+
+
 A la différence des raisonnements mathématiques fondés sur des axiomes, l'architecture NARS (\an{Non Axiomatic Raisoning System}) effectue un raisonnement non axiomatique, basés sur l'expérience.
+
+%A model-theoretic semantics of a language $L$ involves a model $M$ and an interpretation $I$ that maps the words in $L$ onto the objects and relations in $M$: 
+
+Truth and meaning are defined with regard to the experience of the system -- the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms.
+
+we mean that to solve the semantic problems in NARS (that is, to understand the language and to justify the rules), we need to explain why the system treats each term and statement as different from other terms and statements, and such explanation should be based on the relation between the language and the world, not merely on the syntactic natures defined within the system. Since the relation between NARS (the system in which the language is used) and its environment (which is the ‘‘world’’ to the system) is indicated by the experience of the system, the semantic features of a term or statement have to be determined according to its role in the experience of the system, because in NARS there is no other way to talk about the outside world.
+
+
+A positive evidence is an experience in which the conclusions if true after the premice is true.
+A negative evidence is an experience in which the conclusion de false after the premice is true.
+The frequency f of evidence is the amount over the total number of evidence.
+The confidence c of evidence is an indication of the number of evidences
+the tuple (f,c) is called the judgment 
+
 
 Récement, Bowen Xu \cite{xu_brain-inspired_2025} a utilisé ce principe pour implémenter un système d'apprentissage séquentiel. 
 Il soulève la question de l'interpretabilité du modèle: 
@@ -518,6 +558,8 @@ Il soulève la question de l'interpretabilité du modèle:
 
 
 Citer aussi "Behavior Is Everything: Towards Representing Concepts with Sensorimotor Contingencies" de Dileep George et al.
+
+
 
 
 \subsection{Motivation intrinsèque / curiosité artificielle}

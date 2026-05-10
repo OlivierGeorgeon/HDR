@@ -7,7 +7,7 @@ Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intell
 
 Si nous ne savons pas vraiment ce qu'est l'intelligence, nous ne partons quand même pas de zéro. 
 Cette question a occupé des nombreux penseurs depuis de nombreux siècles et je crois qu'il est important de savoir nous y référer. 
-Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en \oe uvre par les êtres vivants, sur la base de l'épistémologie, la psychologie et les sciences cognitives. 
+Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en \oe uvre par les êtres vivants, sur la base de l'épistémologie, la psychologie, des sciences cognitives et des neurosciences. 
 
 La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
 
@@ -298,6 +298,15 @@ Gilbert Simondon élargit la problématique développementale de Piaget en l'ins
 Dans la lignée de Whitehead, Simondon propose une \emph{philosophie de l'individuation} basée sur une conception dynamique de l'être, où l'essentiel n'est pas l'individu constitué mais le processus même qui le fait devenir  \cite{simondon_individu_1995}. 
 Ce faisant, il renverse le primat ontologique accordé par la philosophie classique à l'être sur le devenir, au résultat sur l'opération, à l'individu sur l'individuation. 
 Sa pensée affirme ainsi la primauté des \emph{processus d'individuation}, a partir desquels Simondon élabore une conception des individus en transformation continue jusqu'à leur disparition. 
+
+Il concoit l'individuation humaine dans la continuité de l'individuation animale: 
+
+\begin{quote}
+\og Les anciens cherchaient à dire ``ce qui est vrai de l'homme, est vrai, en quelque mesure de l'animal'', ensuite, le cartésianisme a affirmé  ``ce qui est vrai de l'homme n'est vrai en aucune mesure de l'animal'', enfin, les thèses contemporaines avancent que ce que nous découvrons au niveau de la vie instinctive de la maturation, du développement comportemantal dans la réalité animale, permet de penser aussi, en une certaine mesure la réalité humaine. \fg\
+\cite{simondon_deux_2004}
+\end{quote}
+
+
 
 Simondon décrit le processus d'individuation en empruntant à la cristallographie le terme de \emph{transduction}. 
 Dans ce domaine, ce terme désigne l'opération par laquelle un germe cristallin structure de proche en proche une solution en état d'équilibre métastable, jusqu'à former un cristal de grande dimension. 
@@ -913,6 +922,20 @@ Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'env
 
 
 \section{Conclusion (en construction)}
+
+% Revue de "Regimes of error and the epistemology of learning: from cybernetics to large language models
+La revue des méthodes de mesure de l'intelligence souligne l'importance du concept \emph{d'erreur} dans les approches d'apprentissage artificiel. 
+Il y a un régime 1 selon lequel l'erreur est une distance qui doit être réduite, et un régime 2 selon lequel l'erreur est un indicateur d'un défaut d'organisation interne. 
+En régime 1, ce qui compte comme erreur n'est pas découvert mais est spécifié par le concepteur. L'erreur est ce qui est défini par la loss function, l'apprentissage est ce qui la réduit.
+En régime 2, l'erreur est traitée comme une indication de comment le système est organisé. 
+La question du diagnostique n'est pas simplement "quelle est la distance entre le signal de sortie et la consigne", mais "quelles sont les règles, hypothèses, et décompositions qui rendent cette erreur inévitable?".
+Le choix du régime n'est pas neutre d'un point de vue épistémologique.
+Il arrive souvent que les deux régimes soint hybridés: on entraine un système sous le régime 1 et leurs échecs sont interprétés comme des indices pour réviser l'orgnisation interne. 
+Le processus d'apprentissage set redéscriptif et reconstructif.
+
+Piaget insiste que les structures cognitives ne sont pas réductibles à des mécanismes de controle parce qu'elles impliquent des opérations réversibles et des réorganisations qui changent ce qui compte comme équilibre (Piaget 1953)
+En cybernétique la régulation par l'erreur présuppose une référence stable. En termes de développement la référence elle même peut etre transformée à travers la construcction de nouvelles coordinations. 
+... les erreurs systématiques devient informatives parce qu'elles structurent ldes traces d'organisation localement incohérente. La transformation de cette organisation nécessite davantage que de corriger un signal de sortie mais aussi de changer les coordinations qui les produisent. 
 
 %Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
 %\begin{quote}

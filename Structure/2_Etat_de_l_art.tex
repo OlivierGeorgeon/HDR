@@ -505,29 +505,32 @@ Elle soulève de nombreuses questions parmi lesquelles:
 
 
 
-\subsection{L'émergence de sémantique ancrée dans l'expérience sensorimotrice}
+\subsection{Ancrage de la connaissance dans l'expérience}
 
-Tous les modèles sont "ancrés" dans quelque chose. 
-Par exemple les LLMs sont ancrés dans leurs données d'entrainement. 
-La question est de savoir quel sorte d'ancrage on veut. 
-A quoi est ancré la connaissance ? Est elle ancrée dans le langage, dans la physique ? dans l'expérience 
-? % Dr Jeff Beck machine learning street talk
+\noindent
+La notion d'\emph{ancrage} de la connaissance, des symboles, ou de la signification, peut recouvrir plusieurs aspects. 
+Elle est généralement à entendre dans le sens \og \emph{d'ancrage dans} \fg\ plutôt que \og \emph{d'ancrage à} \fg, car elle renvoie davantage à l'idée d'un fondement sous-jacent plutôt qu'à un point d'attache prévenant la dérive. 
+L'anglais utilise le terme \an{grounding}.
+On peut soutenir qu'un système de connaissance artificiel est toujours ancré dans quelque chose; par exemple, les LLMs seraient ancrés dans leur corpus d'entrainement. 
+La question n'est donc pas tant de savoir si un système est ancrée, mais plutôt \emph{dans quoi} il l'est, et comment cet ancrage confère du sens aux connaissances. 
+Le célèbre article de Stephen Harnad ``\an{The symbol grounding problem}'' \cite{harnad_symbol_1990} a initié ce débat en proposant une première approche pour ancrer les symboles dans un niveau \emph{sub-symbolique} fondé sur des représentations dites \emph{iconiques}. 
+% Dr Jeff Beck machine learning street talk
+%La question est de savoir quel sorte d'ancrage on veut. A quoi est ancré la connaissance ? Est elle ancrée dans le langage, dans la physique ? dans l'expérience 
 
+Certains auteurs ont prolongé la réflexion sur l'ancrage des symboles en l'inscrivant plus solidement dans la théorie empiriste de la connaissance selon laquelle celle-ci s'ancre dans l'\emph{expérience}. 
+Parmi eux, Pei Wang a introduit l'expression de \emph{sémantique ancrée dans l'expérience} \cite[\an{experience-grounded semantics}]{wang_experience-grounded_2005}.
+La sémantique désigne l'étude des mécanismes par lesquels un sens et des conditions de vérité sont attribués aux mots, aux symboles et aux énoncés. 
 
-Pei Wang \cite{wang_experience-grounded_2005} pose la question de l'émergence sémantique ancrée dans l'expérience sensorimotrice (\an{experience-grounded semantics}).
-La sémantique est l'étude de comment la vérité et le sens sont affectés à des mots et des énoncés. 
-Wang note qu'en mathématique et en intelligence artificielle, la plupart des sémantiques sont basées sur un modèle \an{model-theoretic}, en référence à la \an{foundation of semantics} d'Alfred Tarski \cite{tarski_semantic_1944}.
-Une sémantique basée sur un modèle d'un langage $L$ implique un modèle $M$ et une interprétation $I$ qui met en corresondance les mots de $L$ avec les objets et les relations de $M$: ``the meaning of a word in L is defined as its image in M under I, and whether a statement in L is true is determined by whether it is mapped by I onto a fact in M'' \cite[p.~284]{wang_experience-grounded_2005}. 
+Wang se réfère aux  travaux d'Alfred Tarski \cite[\an{foundation of semantics} ]{tarski_semantic_1944} pour constater qu'en mathématique comme en intelligence artificielle, la plupart des sémantiques reposent sur un \emph{modèle}.
+Dans cette conception dite \an{model-theoretic}, la sémantique d'un langage $L$ implique un modèle $M$ et une interprétation $I$ qui mette en corresondance les mots de $L$ avec les objets et les relations de $M$: ``\an{the meaning of a word in L is defined as its image in M under I, and whether a statement in L is true is determined by whether it is mapped by I onto a fact in M}'' \cite[p.~284]{wang_experience-grounded_2005}. 
+Pour qu'une \an{model--theoretic semantics} indique ce que les symboles signifient pour l'agent, il faudrait donc qu'elle soit basée sur un modèle construit par l'agent lui-même.
+En effet, si elle se base sur un modèle fourni par un humain, elle indiquera ce que les symboles signifient pour l'humain. 
+Fort de cette constatation, Wang propose son \an{experience--grounded semantics} comme une alternative aux \an{model--théoretic semantics} qui évite de recourir à un modèle présupposé.  
+%Dans le cas d'un agent artificiel, Wang dit que la sémantique ``\an{tells us what the words mean to us, but says nothing about what they mean to the system}'' \cite[p.~284]{wang_experience-grounded_2005}.
 
-En intelligence artificiellen, cependant, une sémantique basée sur un modèle nécessite que le concepteur fournisse le modèle à l'agent. 
-Dans ce cas, Wang dit que la sémantique ``tells us what the words mean to us, but says nothing about what they mean to the system'' \cite[p.~284]{wang_experience-grounded_2005}
-
-Contrairement à une sémantique basée sur un modèle, une sémantique basée sur l'expérience définit la vérité et le sens des expressions en fonction de leur role dans l'historique des interactions entre l'agent et l'environnement. 
-Wang note que la sémantique basée sur l'expérience  ``qualifies to be a semantics in the broad (and original) sense of the notion'' because the concept of truth and meaning still make sense: ``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
-
-La sémantique basée sur l'expérience trouve ses racines dans l'épistémologie pragmatique introduite en section \ref{sec:pragmatisme} dans la mesure ou elle fonde le sens sur l'usage. 
-
-Wang a proposé une implémentation d'une sémantique ancrée sur l'expérience dans son Non Axiomatic Reasoning System (NARS). 
+Une sémantique ancrée sur l'expérience émerge en même temps que le modèle du monde de l'agent, et définit le sens et les conditions de vérité des expressions à travers leurs rôles dans le flux d'expérience de l'agent. 
+Wang et ses collègues ont implémenté cette idée dans leur Non Axiomatic Reasoning System (NARS). 
+NARS interagit avec un utilisateur dans un langage formel appelé le \emph{Narsais}. 
 La valeur de vérité d'une expression est calculée à partir de la quantité d'expérience qui confirment cette expression de de celles qui l'infirment. 
 NARS associe à chaque expression une fréquence $f$ qui est le nombre d'évidences positives sur le nombre total d'évidences. 
 La confience $c$ est une indication du nombre total d'évidence. 
@@ -560,6 +563,9 @@ Il soulève la question de l'interpretabilité du modèle:
 Citer aussi "Behavior Is Everything: Towards Representing Concepts with Sensorimotor Contingencies" de Dileep George et al.
 
 
+La sémantique basée sur l'expérience trouve ses racines dans l'épistémologie pragmatique introduite en section \ref{sec:pragmatisme} dans la mesure ou elle fonde le sens sur l'usage. 
+
+Wang note que la sémantique basée sur l'expérience  ``qualifies to be a semantics in the broad (and original) sense of the notion'' because the concept of truth and meaning still make sense: ``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
 
 
 \subsection{Motivation intrinsèque / curiosité artificielle}

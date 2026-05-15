@@ -193,7 +193,7 @@ Je qualifierai ces observations de \emph{signaux sensoriels non représentationn
 
 
 
-\subsection{Couverture de Markov et problème de l'inférence}
+\subsection{Couverture de Markov et problème de l'induction}
 
 
 \noindent
@@ -238,7 +238,7 @@ Ce résultat est employé en biologie pour signifier qu'il est mathématiquement
 comme si la couverture de Markov \emph{cachait} l'état du monde extérieur à l'organisme.
 % car celle ci-est masquée par sa couverture de Markov.
 
-Ce problème fondamental de l'inférence a été identifié sous de multiples formes. 
+Le problème de l'inférence dans les réseaux bayésiens rejoins le celui général de l'induction qui été identifié sous de multiples formes. 
 Legg \cite{legg_universal_2007} l'illustre par un exemple simple. 
 Supposons que l'agent ait effectué la série d'observation \emph{2, 4, 6, 8}. 
 Il pourrait inférer un modèle de l'environnement qui génère l'observation $o_t = 2t$. 
@@ -248,7 +248,7 @@ Par exemple, l'agent aurait aussi bien pu inférer le modèle  $o_t = 2t^4 - 20 
 Legg note que dans les tests psychotechniques, l'humain utilise naturellement le principe du rasoir d'Occam consistant à choisir le modèle le plus simple qui explique la série d'observations. 
 Il propose que les systèmes d'intelligence artificielle devraient suivre le même principe.
 
-Gary Drescher résume ainsi le problème de l'inférence : 
+Gary Drescher résume ainsi le problème de l'induction : 
 \begin{quote}
 	\an{Whatever experiences an organism or mechanism has had, there are infinitely many mutually contradictory generalizations that are consistent with those experiences. Therefore, any induction apparatus must impose a choice among those consistent generalizations}
 	\cite[p.~174]{drescher_made-up_1991}. 
@@ -257,7 +257,7 @@ Gary Drescher résume ainsi le problème de l'inférence :
 %Le fait même que les tests d'intelligence attentent que le sujet l'utilise indique que son utilisation efficace est considérée comme une facette importante de l'intelligence.   
 
 
-Dans le cadre de l'IA développementale, les choix que nous imposerons à l'appareil d'inférence pourront être inspirés des connaissances-socle discutées en section \ref{sec:core}.
+Dans le cadre de l'IA développementale, les choix que nous imposerons à l'appareil d'induction pourront être inspirés des connaissances-socle discutées en section \ref{sec:core}.
 
 
 
@@ -509,9 +509,9 @@ Elle soulève de nombreuses questions parmi lesquelles:
 
 \noindent
 La notion d'\emph{ancrage} de la connaissance et des symboles a souvent été proposée pour tenter d'expliquer comment la connaissance acquérait une signification. 
-L'anglais utilise le terme \an{grounding} qui correspond au sens de \og \emph{ancrage dans} \fg\ plutôt que \og \emph{ancrage à} \fg. 
-Cet encrage renvoie davantage à un fondement sous-jacent plutôt qu'à un point d'attache évitant une dérive. 
-Aux premiers temps de l'IA, les systèmes à base de règle ont été critiqués pour manipuler des connaissances \og hors sol \fg , mais aujourd'hui il est possible d'argumenter que les systèmes d'apprentissage machine sont ancrés dans leurs données d'entrainement: par exemple, les LLMs seraient ancrés dans des corpus de texte. 
+L'anglais utilise le terme \an{grounding} qui correspond au sens de \og \emph{ancrage dans} \fg\ plutôt que \og \emph{ancrage à} \fg, 
+renvoyant à l'idée d'un fondement sous-jacent plutôt qu'à un point d'attache évitant une dérive. 
+Aux premiers temps de l'IA, les systèmes à base de règle ont été critiqués pour manipuler des connaissances \og hors sol \fg , mais aujourd'hui il est possible d'argumenter que les systèmes d'apprentissage machine sont toujours ancrés dans quelque chose: par exemple, les LLMs seraient ancrés dans leurs corpus de texte d'entrainement. 
 La question n'est donc pas tant de savoir \emph{si} un système est ancrée, mais plutôt \emph{dans quoi} il l'est, et dans quelle mesure cet ancrage confère du sens aux connaissances. 
 % Dr Jeff Beck machine learning street talk
 %La question est de savoir quel sorte d'ancrage on veut. A quoi est ancré la connaissance ? Est elle ancrée dans le langage, dans la physique ? dans l'expérience 
@@ -534,16 +534,17 @@ Wang et ses collègues ont proposé leur \an{Non Axiomatic Reasoning System} (NA
 NARS interagit avec un utilisateur dans un langage formel appelé le \emph{Narsais}. 
 Quand NARS rencontre des concepts et des relations, il les encodes dans un graphe de connaissance.
 Chaque relation entre concepts se voit attribuer deux valeurs numériques nommées \emph{fréquence} et \emph{confiance}.
-NARS les mets à jour chaque fois qu'il reçoit un énoncé qui confirme ou infirme cette relation par des \an{positive} ou des \an{negative evidences}. 
+NARS mets à jour ces valeurs chaque fois qu'il reçoit un énoncé qui confirme ou infirme cette relation par des \an{positive} ou des \an{negative evidences}. 
 La fréquence ($f$) est égale au nombre de \an{positive evidences} divisé par le nombre total d'\an{évidences}, de telle sorte qu'elle soit égale à $1$ s'il n'y a que des \an{positive evidences} et à 0 s'il n'y a que des \an{negative evidence}.
 La confiance ($c$) est le nombre total d'\an{evidences} divisé par le nombre total d'\emph{évidence} plus 1, de telle sorte qu'elle soit nulle s'il y a zéro evidence et qu'elle tende vers 1 quand le nombre d'\an{evidences} tend vers l'infini. 
 Le tuple $(f,c)$ est appelé un \emph{jugement}.
 Cependant, comme NARS utilise des énoncés composés de concepts et de relations déjà formés par un utilisateur humain, il n'explique pas comment un agent autonome pourrait par lui-même déterminer quels concept et relations sont pertinentes par rapport à ses propres préférences. 
 
-Ron Sun \cite[\an{Symbol grounding: A new look at an old idea}]{sun_symbol_2000} a argumenté que l'ancrage du sens dans l'expérience impliquait l'acquisition d'habitudes sensorimotrices.
-Il se réfère à la phénoménologie de Heidegger évoquée en Section \ref{sec:phenomenologie} pour argumenter que le sens s'ancre dans les habitudes d'interactions acquises.  
-Selon la phénoménologie, ses habitudes sont prises sur la base de tendances à interagir avec les choses qui ne nécessitent pas d'objectifs prédéfinis ni de représentations explicites.   
-Dileep George et ses collègues ont proposé une implémentation de cette idée \cite[\an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}]{hay_behavior_2018} dans laquelle les concepts sont représentés comme des séquences d'événements d'interaction sensorimotrices.
+Ron Sun \cite[\an{Symbol grounding: A new look at an old idea}]{sun_symbol_2000} a argumenté que le sens s'ancrait dans des  \emph{habitudes d'interaction acquises}.
+Il emprunte le concept \emph{d'être-auprès-de} (\an{sein-bei}) à la phénoménologie de Heidegger évoquée en Section \ref{sec:phenomenologie}, pour argumenter qu'un agent peut acquérir ces habitudes sur la base de tendances à interagir avec les choses sans qu'il n'ait besoin d'objectifs prédéfinis ni de représentations explicites.   
+%En référence au concept heideggerien \emph{d'être-auprès-de} (\an{sein-bei}), Sun argumente qu'un agent peut acquérir ces habitudes d'interactions sur la base de tendances à interagir avec les choses sans qu'il n'aie besoin d'objectifs prédéfinis ni de représentations explicites.   
+Dileep George et ses collègues ont implémentaté une idée similaire \cite[\an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}]{hay_behavior_2018}.
+Ils se réfèrent à la théorie des contingences sensorimotrices présentée en Section \ref{sec:SMC} pour proposer un agent qui représente les concepts comme des séquences d'événements d'interaction sensorimotrices.
 
 %we mean that to solve the semantic problems in NARS (that is, to understand the language and to justify the rules), we need to explain why the system treats each term and statement as different from other terms and statements, and such explanation should be based on the relation between the language and the world, not merely on the syntactic natures defined within the system. Since the relation between NARS (the system in which the language is used) and its environment (which is the ‘‘world’’ to the system) is indicated by the experience of the system, the semantic features of a term or statement have to be determined according to its role in the experience of the system, because in NARS there is no other way to talk about the outside world.
 
@@ -556,24 +557,54 @@ Dileep George et ses collègues ont proposé une implémentation de cette idée 
 %	Explainability is a crucial issue in AI safety, and a major criticism of neural networks is their lack of transparency: these models often operate as black or grey boxes, making it difficult for developers to understand their internal workings and address unexpected behaviors. One approach to addressing this issue is to ensure that a model adheres to a logical framework. In other words, a model is considered interpretable if it can be described through logical representation \cite[p.~1]{xu_brain-inspired_2025}.
 %\end{quote}
 
-La question de comment un agent peut construire du sens à partir de son expérience sensorimotrices est une question fondamentale de l'intelligence qui reste ouverte. 
-Cette question peut s'inscrire dans le champ de la sémantique si on conçoit cette discipline dans son acception large, c'est à dire, comme le suggère Wang, un cadre de pensée dans lequel les concepts de signification et de vérité ont un sens. 
-Cette sémantique basée sur l'expérience suggère que la signification serait ancrée dans l'usage sensorimoteur, dans la lignée d'une épistémologie pragmatique introduite en section \ref{sec:pragmatisme}. 
+A ce jour, la question de comment un agent peut construire du sens sur la base de son expérience sensorimotrices reste une question ouverte. 
+On peut inscrire cette question dans le champ de la sémantique si on conçoit cette discipline dans son sens large.
+Wang note que la sémantique basée sur l'expérience  ``\an{qualifies to be a semantics in the broad (and original) sense of the notion [...] because the concept of truth and meaning still make sense}''.
+%``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
+%conçoit cette discipline dans son acception large, c'est à dire, comme le suggère Wang, un cadre de pensée dans lequel les concepts de signification et de vérité ont un sens. 
+Cette sémantique basée sur l'expérience suggère que la signification serait ancrée dans l'usage que l'agent peut faire des symboles pour organiser ses interactions avec le monde. 
+Elle s'inscrit dans la lignée d'une épistémologie pragmatique introduite en section \ref{sec:pragmatisme}. 
+
 Cette importance de l'usage soulève la question des préférences et motivations de l'agent que nous allons aborder dans la prochaine section.
 
 
-%Wang note que la sémantique basée sur l'expérience  ``qualifies to be a semantics in the broad (and original) sense of the notion'' because the concept of truth and meaning still make sense: ``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
 
 
-\subsection{Motivation intrinsèque / curiosité artificielle}
-\label{sec:curiosite}
+\subsection{Motivation propre}
+\label{sec:motivation}
 
-L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
-\og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007} 
+\noindent
+La question des principes qui orientent les comportements de l'agent se pose dès qu'il est question d'autonome.
+En effet, un robot à qui \og tout serait égal \fg\ pourrait se contenter de sélectionner aléatoirement chacun de ses mouvements parmi tous ceux à sa disposition. 
+Cela produirait une dynamique erratique pouvant mener à la destruction du robot ou à son immobilisation par épuisement de ses ressources énergétiques, ce qui compromettrait son intérêt pratique et scientifique. 
+Différents principes ont donc été imaginés pour orienter les décisions de l'agent.
+Ces principes ont été désignés par différentes appellations, telles que \emph{préférences}, \emph{système de valeur}, ou \emph{motivation} qui renvoient à l'idée générale que \og tout n'est pas égal \fg\ pour l'agent.
+
+Le terme de motivation, ou \emph{motivation propre} (\an{self-motivation}) a commencé à être utilisé pour faire la distinction entre des systèmes qui ne font que tenter de résoudre un problème modélisé à l'avance et des systèmes qui miment une forme d'autonomie plus sophistiquée. 
+Dans le premier cas, on parle de \emph{motivation externe} car l'agent a pour but d'atteindre un objectif (\an{goal state}) qui est défini par le concepteur en fonction de l'état du monde extérieur. 
+Un exemple typique est un système artificiel qui joue aux échecs. 
+Dans le second cas on parle de \emph{motivation interne}. 
+La distinction entre les deux n'as pas toujours nette car la séparation entre ce qui fait partie de l'agent et ce qui fait partie du monde extérieur peut dépendre du point de vue du concepteur. 
+
+Pierre-Yves Oudeyer et Frederic Kaplan ont passé en revue les différentes formes des motivation interne dans leur article \og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007}. 
+Ils font une distinction entre motivation \emph{homéostatique} et \emph{hétérostatique}. 
+La motivation homéostatique vise à maintenir certaines variables internes dans une fourchette viable ou de confort. 
+La motivation hétérostatique pousse au contraire le système à sortir de son équilibre et à perturber l'état des variables internes, sans jamais atteindre un état de satisfaction statique. 
+Ils font ensuite une distinction entre motivation \emph{fixe} et \emph{adaptative}.
+Un motivation fixe est une motivation qui évalue toujours la même situation sensorimotrice de la même manière au cours de l'existence de l'agent. 
+Au contraire, une motivation adaptative va évaluer la même situation sensorimotrice différemment avec le passage du temps.
+Enfin ils distinguent entre motivation \emph{intrinsèque} et \emph{extrinsèque}. 
+Une motivation intrinsèque pousse l'agent à effectuer une activité pour le simple fait de l'effectuer, alors que la motivation extrinsèque pousse l'agent à l'effectuer pour obtenir un résultat particulier.
+
+Des exemples de motivation intrinsèque sont le \an{flow} et la \emph{curiosité}. 
+Faire une activité en étant motivé par le \an{flow} renvoie au plaisir que procure la maitrise et l'attention liée au contrôle de cette activité. 
+Faire une activité en étant motivé par la curiosité renvoie au plaisir et au désir d'apprendre. 
+Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{gordon_new_2018} étudient les apports mutuels entre la psychologie et la robotique pour faire progresser une science de la curiosité.
 
 
+% La notion de récompense (\an{reward}) est souvent utilisée comme \og monnaie commune \fg\ pour unifier différents principes motivationnels. 
 
-Dans son livre \an{The new science of curiosity}, le roboticien Goren Gordon passe en revue différentes approches pour créer des agents artificiels intelligent et mieux comprendre la curiosité chez l'humain et l'animal \cite{gordon_new_2018}. 
+
 
 Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
 Les approches normatives utilisent des algorithmes de maximisation d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
@@ -581,12 +612,15 @@ A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales off
 Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
 Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
 Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
-
-Oudeyer note que les approches normatives et heuristiques ne sont pas antagonistes. 
-Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
+%Il note que les approches normatives et heuristiques ne sont pas antagonistes. Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
 
-
+L'article de Oudeyer, Kaplan et Hafner ``\an{Intrinsic motivation systems for autonomous mental development}'' compte parmi les premiers qui ont relié ce terme au cadre de l'intelligence artificielle développementale \cite{oudeyer_intrinsic_2007}.
+Il argumente que l'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
+L'apprentissage doit etre \an{open-ended} dans un environnement ouvert. 
+L'agent a besoin de principes motivationels qui orientent sa trajectoire développementale qui doivent etre définis sans faire références à un environnement prédéfini. 
+Je retiens le fait d'associer ces principes motivationnels à des événements d'interaction sensorimotrices et des approches basées sur des heuristiques inspirées du vivant. 
+Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
 \subsection{Apprentissage et monde ouvert}
 

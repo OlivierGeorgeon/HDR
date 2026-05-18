@@ -576,28 +576,32 @@ Cette importance de l'usage soulève la question des préférences et motivation
 \noindent
 La question des principes qui orientent les comportements de l'agent se pose dès qu'il est question d'autonome.
 En effet, un robot à qui \og tout serait égal \fg\ pourrait se contenter de sélectionner aléatoirement chacun de ses mouvements parmi tous ceux à sa disposition. 
-Cela produirait une dynamique erratique pouvant mener à la destruction du robot ou à son immobilisation par épuisement de ses ressources énergétiques, ce qui compromettrait son intérêt pratique et scientifique. 
+Cela produirait une dynamique erratique sans aucune forme d'intelligence et mènerait rapidement à la destruction du robot ou à son immobilisation par épuisement de ses ressources énergétiques. 
 Différents principes ont donc été imaginés pour orienter les décisions de l'agent.
 Ces principes ont été désignés par différentes appellations, telles que \emph{préférences}, \emph{système de valeur}, ou \emph{motivation} qui renvoient à l'idée générale que \og tout n'est pas égal \fg\ pour l'agent.
 
 Le terme de motivation, ou \emph{motivation propre} (\an{self-motivation}) a commencé à être utilisé pour faire la distinction entre des systèmes qui ne font que tenter de résoudre un problème modélisé à l'avance et des systèmes qui miment une forme d'autonomie plus sophistiquée. 
-Dans le premier cas, on parle de \emph{motivation externe} car l'agent a pour but d'atteindre un objectif (\an{goal state}) qui est défini par le concepteur en fonction de l'état du monde extérieur. 
-Un exemple typique est un système artificiel qui joue aux échecs. 
+Dans le premier cas, on parle de \emph{motivation externe} car l'agent a pour but d'atteindre un \emph{état-objectif} (\an{goal state}) qui est défini par le concepteur en fonction de l'état du monde extérieur. 
 Dans le second cas on parle de \emph{motivation interne}. 
 La distinction entre les deux n'as pas toujours nette car la séparation entre ce qui fait partie de l'agent et ce qui fait partie du monde extérieur peut dépendre du point de vue du concepteur. 
 
-Pierre-Yves Oudeyer et Frederic Kaplan ont passé en revue les différentes formes des motivation interne dans leur article \og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007}. 
-Ils font une distinction entre motivation \emph{homéostatique} et \emph{hétérostatique}. 
-La motivation homéostatique vise à maintenir certaines variables internes dans une fourchette viable ou de confort. 
+Un exemple de motivation externe est un système artificiel qui joue aux échecs. 
+Dans un sens faible du mot motivation, on peut dire que le système est motivé pour mettre son adversaire en échec et mat, mais cette motivation est entièrement imposée par le concepteur. 
+Cette motivation est \og close \fg\ dans le sens ou elle contraint entièrement les décisions de l'agent et elle disparait une fois l'objectif atteint.
+
+Au contraire, la motivation interne n'impliquent pas de fonction de reconnaissance d'un \an{goal state}, c'est à dire un état-objectif reconnaissable parmi tous les états possibles de l'environnement.
+Elles ne sont toutefois pas entièrement déconnectées de l'environnement: elles impliquent des dynamiques de l'état des capteurs et des actionneurs, c'est à dire des événements d'interaction. 
+Pierre-Yves Oudeyer et Frederic Kaplan  proposent une classification des motivations internes selon plusieurs axes dans leur article \og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007}.
+Ils distinguent l'axe \emph{homéostatique} -- \emph{hétérostatique}, l'axe \emph{fixe} -- \emph{adaptative}, et l'axe \emph{intrinsèque} -- \emph{extrinsèque}.
+
+La motivation homéostatique vise à maintenir certaines variables internes dans une fourchette de viabilité ou de confort. 
 La motivation hétérostatique pousse au contraire le système à sortir de son équilibre et à perturber l'état des variables internes, sans jamais atteindre un état de satisfaction statique. 
-Ils font ensuite une distinction entre motivation \emph{fixe} et \emph{adaptative}.
-Un motivation fixe est une motivation qui évalue toujours la même situation sensorimotrice de la même manière au cours de l'existence de l'agent. 
-Au contraire, une motivation adaptative va évaluer la même situation sensorimotrice différemment avec le passage du temps.
-Enfin ils distinguent entre motivation \emph{intrinsèque} et \emph{extrinsèque}. 
+Un motivation fixe est une motivation qui évalue toujours la même situation de la même manière au cours de l'existence de l'agent. 
+Au contraire, une motivation adaptative va évaluer la même situation différemment au cours de l'existence de l'agent.
 Une motivation intrinsèque pousse l'agent à effectuer une activité pour le simple fait de l'effectuer, alors que la motivation extrinsèque pousse l'agent à l'effectuer pour obtenir un résultat particulier.
 
 Des exemples de motivation intrinsèque sont le \an{flow} et la \emph{curiosité}. 
-Faire une activité en étant motivé par le \an{flow} renvoie au plaisir que procure la maitrise et l'attention liée au contrôle de cette activité. 
+Du point de vue psychologique, faire une activité en étant motivé par le \an{flow} renvoie au plaisir que procure la maitrise et l'attention liée au contrôle de cette activité. 
 Faire une activité en étant motivé par la curiosité renvoie au plaisir et au désir d'apprendre. 
 Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{gordon_new_2018} étudient les apports mutuels entre la psychologie et la robotique pour faire progresser une science de la curiosité.
 
@@ -605,8 +609,7 @@ Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{go
 % La notion de récompense (\an{reward}) est souvent utilisée comme \og monnaie commune \fg\ pour unifier différents principes motivationnels. 
 
 
-
-Pierre-Yves Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
+Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
 Les approches normatives utilisent des algorithmes de maximisation d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
 A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
 Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
@@ -616,30 +619,30 @@ Cette heuristique a été  implémentés pour l'apprentissage de la locomotion e
 
 
 L'article de Oudeyer, Kaplan et Hafner ``\an{Intrinsic motivation systems for autonomous mental development}'' compte parmi les premiers qui ont relié ce terme au cadre de l'intelligence artificielle développementale \cite{oudeyer_intrinsic_2007}.
-Il argumente que l'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
+Ils argumentent que l'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
 L'apprentissage doit etre \an{open-ended} dans un environnement ouvert. 
-L'agent a besoin de principes motivationels qui orientent sa trajectoire développementale qui doivent etre définis sans faire références à un environnement prédéfini. 
-Je retiens le fait d'associer ces principes motivationnels à des événements d'interaction sensorimotrices et des approches basées sur des heuristiques inspirées du vivant. 
+L'agent a besoin de principes motivationels qui orientent sa trajectoire développementale qui doivent etre définis sans faire références à des états prédéfinis du monde mais plutot à des événements d'interaction. 
+Ces motivations peuvent être basées sur des heuristiques inspirées du vivant. 
 Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
 \subsection{Apprentissage et monde ouvert}
 
 Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
-Pour cette raison, nous le qualifions \og d'ouvert \fg dans le sens ou l'espace des possibles n'est pas délimité.
-Par contraste, nous qualifions certains environnements de \og fermés \fg quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
+Pour cette raison, nous le qualifions \og d'ouvert \fg\ dans le sens ou l'espace des possibles n'est pas délimité.
+Par contraste, nous qualifions certains environnements de \og fermés \fg\ quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
 Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique. 
 Ils sont contraint par un ensemble bien défini de règles qui spécifient leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
 La distinction n'est pourtant pas toujours évidente à définir. 
-Qu'en est il par exemple d'un jeu de billard ? 
+Qu'en est-il par exemple d'un jeu de billard ? 
 Il semble qu'on puisse qualifier le jeu de billard d'environnement fermé si on néglige les influences externes à la table, telles que les vibrations provenant du sol, les déplacement de l'air, etc. 
-Dans ce cas un environnement \og continu \fg (par opposition à \og discret \fg dans le sens ou les boules peuvent occuper une infinité d'états possibles ) peut être considéré comme un environnement fermé mais uniquement en tant que représentation théorique qui considère les influences extérieures comme négligeables. 
-Il faut toutefois noter que du point de vue d'un jour, que ce soit sur un terrain discret comme les échecs, ou continu comme le billard, bien que le terrain soit un terrain fermé, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
+Dans ce cas un environnement \og continu \fg\ (par opposition à \og discret \fg\ dans le sens ou les boules peuvent occuper une infinité d'états possibles ) peut être considéré comme un environnement fermé mais uniquement en tant que représentation théorique qui considère les influences extérieures comme négligeables. 
+Il faut toutefois noter que du point de vue d'un joueur, que ce soit sur un terrain discret comme les échecs, ou continu comme le billard, bien que le terrain soit un terrain fermé, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
 Cependant, si on fait l'hypothèse que le joueur adverse joue dans le but de gagner le jeu, on peut modéliser son processus de décision de manière identique à celui du système d'IA lui même. 
 
-En général la recherche en IA vise à construire des systèmes capables de prendre une décision optimum la base d'une représentation de l'environnement et de sa dynamiques (le \an{problem space}) en intégrant éventuellement un facteur d'inconnu sous la forme d'un processus aléatoire. 
+En général la recherche en IA vise à construire des systèmes capables de prendre une décision optimum sur la base d'une représentation de l'environnement et de sa dynamiques (le \an{problem space}) en intégrant éventuellement un facteur d'inconnu sous la forme d'un processus aléatoire. 
 Beaucoup de recherches en IA se consistent à rechercher la décision optimum dans un environnement modélisé dans le système d'IA. 
 Le système d'IA effectue des prédictions sur la base d'un monde fermé, le \an{problem space}.
-Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité pour .  
+Cette décision peut etre mise en oeuvre dans le monde physique, et elle sera appropriée si le modèle de monde utilisé par l'IA est suffisamment fidèle à la réalité.  
 
 L'étude de l'adaptation de l'IA à des environnements physiques complexes devient de plus en plus un sujet d'attention au fur et à mesure que les applications de l'IA se développent, comme en témoigne la publication récente d'un numéro spécial de le revue \an{Artificial Intelligence}  intitulée \an{Open-world AI} \cite{holder_introduction_2025}, ou la création d'un nouveau \an{Workshop on open-world agents} à la conférence NeurIPS 2024. 
 La question de définir un environnement de test qui soit ouvert se pose alors. 
@@ -659,15 +662,15 @@ Dans son article \an{What Do You Mean by ``Open Worl''?}, Bowen Xu note que la n
 	In fully open worlds, tasks are not predefined by human developers, so researchers must focus on problem-independent aspects of intelligence 
 	\cite[p.~3]{xu_what_2024}.
 \end{quote}
-Il argumente que tester l'existence d'environnements de test ouvert pourra générer de nouveaux problemes d'apprentissage en IA. 
+Il argumente que l'existence d'environnements de test ouvert pourra générer de nouveaux problemes d'apprentissage en IA. 
 
 
-Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par par rapport au système qu'on considère. 
+Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par rapport au système qu'on considère. 
 
 C'est un système dont le designer ne connait pas a priori le nombre d'états, rendant inapplicable les algorithmes qui préssuposent l'espace d'états (state space). 
 Compte tenu du fait qu'un système de décision artificiel base ses prédictions sur son modèle de monde interne qui est nécessairerment fermé, la recherche pour permettre à des systèmes artificiels de démontrer une intelligence en monde ouvert doit porter sur la capacité du système à faire évoluer son modèle du monde à partir de ses expériences effectuées dans le monde ouvert. 
 Notons le state space peut etre infini et pour autant fermé. 
-ON passe généralement d'une mathématique en monde fini à une mathématique en monde conitnu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
+On passe généralement d'une mathématique en monde fini à une mathématique en monde continu en changeant les sommes en intégrales et en raisonnant sur des distributions de probabilités. 
 
 
 

@@ -612,14 +612,14 @@ Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{go
 Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
 Les approches normatives utilisent des algorithmes de maximisation d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
 A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
-Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration.
+Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration \cite{oudeyer_intrinsic_2007}.
 Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
 Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
 %Il note que les approches normatives et heuristiques ne sont pas antagonistes. Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
 
-L'article de Oudeyer, Kaplan et Hafner ``\an{Intrinsic motivation systems for autonomous mental development}'' compte parmi les premiers qui ont relié ce terme au cadre de l'intelligence artificielle développementale \cite{oudeyer_intrinsic_2007}.
-Ils argumentent que l'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
+%L'article de Oudeyer, Kaplan et Hafner ``\an{Intrinsic motivation systems for autonomous mental development}'' compte parmi les premiers qui ont relié ce terme au cadre de l'intelligence artificielle développementale \cite{oudeyer_intrinsic_2007}.
+L'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
 L'apprentissage doit etre \an{open-ended} dans un environnement ouvert. 
 L'agent a besoin de principes motivationels qui orientent sa trajectoire développementale qui doivent etre définis sans faire références à des états prédéfinis du monde mais plutot à des événements d'interaction. 
 Ces motivations peuvent être basées sur des heuristiques inspirées du vivant. 
@@ -627,11 +627,34 @@ Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
 \subsection{Apprentissage et monde ouvert}
 
-Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
-Pour cette raison, nous le qualifions \og d'ouvert \fg\ dans le sens ou l'espace des possibles n'est pas délimité.
-Par contraste, nous qualifions certains environnements de \og fermés \fg\ quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
-Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique. 
+\noindent
+La question des concevoir des systèmes d'IA capables d'opérer en monde ouvert est en train de recevoir un intérêt croissant. 
+En 2025, la revue \an{Artificial Intelligence} a publié un numéro spécial intitulée \an{Open-world AI} \cite{holder_introduction_2025}.
+En 2024, la conférences majeure NeurIPS \an{Annual Conference on Neural Information Processing Systems} a accueilli un \an{Workshop on open-world agents}. 
+L'article \an{What Do You Mean by ``Open Worl''?} publié dans ce workshop par Bowen Xu note que la notion de monde ouvert implique deux choses: 
+
+1. Les règles qui gouvernent les transitions d'état de l'environnement ne sont pas immuables ou sont impossibles à connaitre complètement par l'agent: 
+\begin{quote}
+\an{	Whether we assume that the laws governing the world are unchanging but beyond the machine’s reach, or that no such unchanging laws exist, the implication for AI remains the same: intelligent machines must be theoretically prepared for these potential changes, rather than relying on the assumption that the world’s rules are fixed and pre-programmed by human developers} \cite[p.~3]{xu_what_2024}.
+\end{quote}
+
+2. La tache de l'agent n'est pas prédéfinie par le concepteur:  
+\begin{quote}
+	\an{In fully open worlds, tasks are not predefined by human developers, so researchers must focus on problem-independent aspects of intelligence} 
+	\cite[p.~3]{xu_what_2024}.
+\end{quote}
+
+
+%Le monde physique nous semble offrir une infinité de futurs possibles qui peuvent se dérouler sur des trajectoires éternellement changeantes. 
+%Pour cette raison, nous le qualifions \og d'ouvert \fg\ dans le sens ou l'espace des possibles n'est pas délimité.
+%Par contraste, nous qualifions certains environnements de \og fermés \fg\ quand leurs trajectoires futures nous apparaissent contrainte par leur dynamique interne. 
+Les jeux de plateau comme le jeu d'échec constituent un exemple emblématique de monde \emph{fermé}. 
 Ils sont contraint par un ensemble bien défini de règles qui spécifient leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
+Le fait que le jeu contiennent un nombre fini d'états et de transitions possibles n'est pas une condition indispensable pour caractériser un monde fermé. 
+On pourrait considérer un jeu de billard comme un environnement fermé s'il est régi uniquement par les lois de la mécaniques des boules sur le plateau, mais un jeu de billard réel soumis aux influences telles que les vibrations du sol et de l'air devra être considéré comme un monde ouvert. 
+Il faut également noter que du point de vue d'un joueur, que ce soit sur un terrain discret fermé comme les échecs, ou continu comme le billard, le déroulement futur de la partie est influencé par une cause externe qui est le joueur adverse. 
+Cependant, si on fait l'hypothèse que le joueur adverse joue dans le but de gagner le jeu, on peut modéliser son processus de décision de manière identique à celui du système d'IA lui même. 
+
 La distinction n'est pourtant pas toujours évidente à définir. 
 Qu'en est-il par exemple d'un jeu de billard ? 
 Il semble qu'on puisse qualifier le jeu de billard d'environnement fermé si on néglige les influences externes à la table, telles que les vibrations provenant du sol, les déplacement de l'air, etc. 

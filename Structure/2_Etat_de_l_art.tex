@@ -626,7 +626,7 @@ L'agent a besoin de principes motivationels qui orientent sa trajectoire dévelo
 Ces motivations peuvent être basées sur des heuristiques inspirées du vivant. 
 Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
-\subsection{Apprentissage ouvert dans un monde ouvert}
+\subsection{Apprentissage en monde ouvert}
 
 \noindent
 La distinction entre \emph{monde fermé} et \emph{monde ouvert} suscite un intérêt croisant dans la recherche en IA. 
@@ -656,16 +656,16 @@ un jeu de billard disposant d'un espace d'état continu peut aussi être consid�
 Du point de vue d'un joueur, l'évolution future d'une partie peut malgré tout dépendre de causes externes telles que les autres joueurs ou des phénomènes aléatoires. 
  
 Pour qu’un environnement puisse être qualifié de \emph{monde ouvert}, il ne suffit pas qu’il comporte de l’incertitude ou un grand nombre d’états possibles. 
-Il doit surtout permettre l’apparition continue de situations nouvelles, susceptibles de toujours mettre en défaut les anticipations de l'agent et de donner lieu à de nouveaux apprentissages. 
+Il doit surtout permettre l’apparition continue de situations nouvelles, susceptibles de mettre en défaut les anticipations de l'agent et de donner lieu à de nouveaux apprentissages. 
 Un monde ouvert se caractérise donc par l’impossibilité d’énumérer exhaustivement l’ensemble des futurs envisageables.
 Le monde physique constitue l'exemple paradigmatique d'un monde ouvert, s'il n'est pas artificiellement restreint par les conditions expérimentales.
 
-Dans l'analyse de cette dichotomie entre monde ouvert et monde fermé, il est important de distinguer l'environnement lui-même du domaine relationnel, tel qu'il a été défini dans la Section \ref{sec:enaction} consacrée à la théorie de l'enaction. 
-Le domaine relationnel d'un agent est fermé car il est déterminé par ses capteurs et ses actionneurs. 
+Dans l'analyse de la dichotomie entre monde ouvert et monde fermé, il est important de distinguer l'environnement lui-même du domaine relationnel, tel qu'il a été défini dans la Section \ref{sec:enaction} consacrée à la théorie de l'enaction. 
+Le domaine relationnel est toujours fermé car il est déterminé par les capteurs et les actionneurs de l'agent. 
 Ceci est vrai indépendamment du fait que les espaces de perception et d'action soient discrets ou continus. 
 La question devient alors: un agent qui fait l'expérience d'un monde ouvert à travers un domaine relationnel fermé peut-il développer une forme d'apprentissage ouverte? 
 
-Une question pratique est de déterminer comment établir de manière convaincante la capacités d'un système à apprendre en monde ouvert. 
+Une question pratique est de déterminer comment démontrer de manière convaincante la capacités d'un système à apprendre en monde ouvert. 
 En effet, toute expérimentation, quelle qu'elle soit, apparait nécessairement fermée lorsqu'elle est rapportée par écrit ou sous forme de vidéo. 
 Même si elle est effectuée avec un robot dans le monde physique, il subsiste toujours la possibilité que l'environnement ait été contrôlé, simplifié, ou stabilisé.
 La simple présentation des résultats expérimentaux ne suffit donc pas.
@@ -682,70 +682,91 @@ Le chercheur doit également fournir les éléments qui permettent de comprendre
 
 \section{Techniques d'apprentissage artificiel}
 
-Introduction en cours de construction
+\textbf{Introduction en cours de construction}
 
 Cette section aborde de façon plus technique différent algorithmes, formalisme mathématiques, et cadre conceptuels utilisées actuellement pour concevoir des agents capable d'apprendre par interaction. 
 Je n'utilise pas directement les algorithmes existant mais je reprends certains formalismes et concepts. 
 Cette présentation permettra de comparer mon approche et de comprendre en quoi elle diffère et ce quelles questions nouvelle elle adresse. 
 
 
-\subsection{Apprentissage à partir d'expérience avec un humain dans la boucle}
+\subsection{Apprentissage à partir d'expérience dirigé par un humain}
 
-La construction de connaissance à partir de traces d'activité est un champ de recherche du domaine de la psychologie, l'éthologie, l'ergonomie, et la modélisation cognitive. 
-Une \textit{trace d'activité} est un ensemble de données temporelles ou séquentielles qui enregistrent, au moins partiellement, une activité effectuée par un \textit{sujet}.
-Comme des traces de pas, les traces informatiques peuvent être analysée pour comprendre ce qui s'est passé, à la différences près que les traces informatiques ne sont pas fortuites mais résultent d'un travail d'ingénierie de la part du concepteur du système d'information. 
-La trace d'activité est analysée par une \textit{analyste} qui souhaite produire différents types de \textit{résultats d'analyse}.
-Par exemple, l'analyste peut etre un ergonome qui souhaite concevoir de meilleures interfaces utilisateurs, un éthologues dans le cas de l'analyse de comportements animal, un coach sportif souhaitant améliorer les performances d'un athlète, un chercheur en psychologie cognitive souhaitant produire des modèles de l'activité cognitive humaine. 
-Certaines recherches en ergonomie des système informatiques ont même tenté d'aider le sujet lui même à mieux comprendre son usage du système en lui permettant d'analyser lui même ses traces d'activité \cite{choe_understanding_2017}, un thème qui a été investigué au sein de l'écupe Silex du LIRIS.  
+\noindent
+Cette section présente les techniques issues de l'ingénierie des connaissances qui permettent à un analyste d'interpréter et de comprendre une activité observée et enregistrée à l'aide d'outils numériques. 
+L’objectif est de mettre en évidence les enjeux liés à ce processus de construction des connaissances à partir de l’expérience.
+Ces techniques sont notamment employées en éthologie, en psychologie et en ergonomie afin d’analyser les comportements humains ou animaux, puis d’élaborer des théories et des modèles permettant de les décrire, de les expliquer et, dans certains cas, de les prédire.
 
 
-Notons que le choix des données recueilli n'est pas neutre.
-Les traces d'activité ne peuvent pas contenir une inscription de "tout ce qui s'est passé" (en supposant que cela aie même un sens), 
-Le système de recueil de traces fait donc inévitablement des hypothèse, implicites ou explicites, d'une part sur ce qui est significatif pour le sujet, et d'autre part sur ce qui intéresse l'analyste. 
+L'enregistrement de l'activité est appelé \emph{trace d'activité}. 
+C'est l'ensemble des données temporelles ou séquentielles contenant des informations sur la situation de l'agent, de l'environnement et de leurs interactions.
+Une trace d'activité est une série chronologique \emph{d'événements}.
+Comme des traces de pas sur le sol, ces traces informatiques peuvent être analysée pour comprendre ce qui s'est passé, mais elles peuvent aussi faire l'objet de traitements automatisés. 
 
-Du fait que les traces d'activité dépendent des connaissances et hypothèses de l'analyste, elles peuvent seulement etre modélisée de manière itérative, chaque itération produisant de nouvelles connaissances conduisant à de nouvelles hypothèses pour l'itération suivante. 
-De plus, aucune itération ne peut produire une connaissance qui pourrait dont on pourrait démonter qu'elle est vraie dans un sens absolu, mais seulement une connaissance. 
+On appelle \emph{trace brute} le niveau de base produit par le mécanisme de collecte, à partir duquel l'analyste construit ensuite des traces interprétées et des modèles d'activité. 
+Le choix des données collectées est loin d'être neutre.
+%La trace brute ne peut pas contenir une inscription de \og tout ce qui s'est passé \fg\ (en supposant que cela aie même un sens).
+Le système de collecte de traces traduit inévitablement des hypothèse, implicites ou explicites, d'une part sur ce qui est significatif pour l'agent, et d'autre part sur ce qui intéresse l'analyste. 
+%La trace d'activité est analysée par une \textit{analyste} qui souhaite produire différents types de \textit{résultats d'analyse}.
+%Par exemple, l'analyste peut etre un ergonome qui souhaite concevoir de meilleures interfaces utilisateurs, un éthologues dans le cas de l'analyse de comportements animal, un coach sportif souhaitant améliorer les performances d'un athlète, un chercheur en psychologie cognitive souhaitant produire des modèles de l'activité cognitive humaine. 
+%Certaines recherches en ergonomie des système informatiques ont même tenté d'aider le sujet lui même à mieux comprendre son usage du système en lui permettant d'analyser lui même ses traces d'activité \cite{choe_understanding_2017}, un thème qui a été investigué au sein de l'écupe Silex du LIRIS.  
 
-La prise en compte des ces aspects évolutioniste et pragmatique de la construction de connaissance sont important pour concevoir une méthodologie et un outil informatique pour la modélisation de trace d'activité. 
 
-L'outil aide l'analyste à créer des  symboles qui représentent des motifs détectés dans la trace et à spécifier les règles qui génèrent ces symboles chaque fois que le motif apparait. 
-Si un symbole est utile pour mieux comprendre l'activité, l'analyse le conserve, sinon il le rejette. 
-L'outil est conçu pour faciliter et raccourcir ce cycle de formulation d'hypothèse, utilisation, et validation ou réjection.
+Par exemple dans le cadre des mes travaux de thèse \cite{georgeon_analyse_2008}, j'ai conçu un outil d'ingénierie des connaissance interactive pour l'analyse d'activité. 
+Cet outil aide l'analyste à spécifier des règles pour détecter des motifs récurrents dans la trace, et générer des symboles pour visualiser ses motifs à un niveau d'abstration plus élevé.
+Lorsqu'un symbole contribue à une meilleure compréhension de l'activité, l'analyse le conserve, sinon il le rejette.
+Le processus d'analyse suit un cycle itératif d'induction et de révision de connaissance qui renvoie à aux épistémologies évolutionistes et pragmatiques présentées dans les Sections \ref{sec:popper} et \ref{sec:pragmatisme}.  
+L'outil est conçu pour faciliter et accélérer ce cycle de formulation d'hypothèse, de mise à l'épreuve par l'usage, puis de validation ou de rejet des interprétations produites.
+%Ce processus conduit à la formalisation du savoir d'analyse (le savoir de l'analyste sur comment comprendre l'activité à partir de la trace).  Il permet à l'analyste conserver ce savoir et offre la possibilité à une communauté d'analystes de le partager et de l'échanger. 
 
-Ce processus conduit à la formalisation du savoir d'analyse (le savoir de l'analyste sur comment comprendre l'activité à partir de la trace). 
-Il permet à l'analyste conserver ce savoir et offre la possibilité à une communauté d'analystes de le partager et de l'échanger. 
+La Figure \ref{fig:trace_modelisee} présente un exemple de trace modélisée d'une activité de conduite automobile en situation de changement de voie sur autoroute. 
+Les cercles en bas de la figure représentent des événements bruts issus de différentes sources d'enregistrement de l'activité. 
+Les triangles sont des symboles abstraits progressivement générés à partir de règles détectant des motifs de symboles de niveau inférieur. 
+La partie supérieure de la figure représente l'ontologie des symboles. 
+Le triangle violet \texttt{L.C. Indicator} constitue un indicateur précoce de changement de voie.
+Il est généré à partir l'enfoncement de la pédale d'accélérateur et de certains mouvements oculaires du conducteur. 
+Cet indicateur est généré environ une seconde avant l'activation du clignotant (triangle orange) et l'engagement effectif du véhicule dans le changement de voie. 
 
-Par exemple, la Figure \ref{fig:trace_modelisee} présente un exemple de trace modélisée d'une activité de conduite automobile en situation de changement de voie sur autoroute. 
-Les cercles en bas de la figure représentent des événements primitifs issus de différentes sources d'enregistrement de l'activité. 
-Les triangles représentent des symboles abstraits générés par l'analyste à partir de règles détectant des motifs de symboles de plus bas niveau. 
-La partie haute représente l'ontologie des symboles. 
-Le triangle violet "L.C. Indicator" est un indicateur de changement de voie (\an{Line Change}) qui est généré à partir de variation sur la pédale d'accélérateur et de mouvements oculaires. Cet indicateur est généré environ une seconde avant que le conducteur ne mette son clignotant (triangle orange) et ne s'engage dans le changement de voie. 
+%Les aspects graphiques des symboles (forme, couleur, taille, position verticale) sont choisis par l'analyste de façons à ce qu'ils soient le plus facile possible à comprendre.  Dans cet exemple la position verticale représente un niveau d'abstraction qui augmente plus le symbole est placé haut. 
 
-Les aspects graphiques des symboles (forme, couleur, taille, position verticale) sont choisis par l'analyste de façons à ce qu'ils soient le plus facile possible à comprendre. 
-Dans cet exemple la position verticale représente un niveau d'abstraction qui augmente plus le symbole est placé haut. 
-
-Comme la plupart des ontologies, l'ontologie de symboles créé par l'analyste de manière pragmatique. 
-Il est probable que deux analystes créerons deux ontologies différentes. 
-L'outil ne peut pas démontrer que l'une est meilleure que l'autre, mais il aide à effectuer des comparaison et favorise la convergence vers une ontologie qui fasse consensus au sein d'une communauté d'analyse. 
-La Figure \ref{fig:modelisation_trace} résume ce processus d'analyse. 
+%Comme la plupart des ontologies, l'ontologie de symboles créé par l'analyste de manière pragmatique.  Il est probable que deux analystes créerons deux ontologies différentes.  L'outil ne peut pas démontrer que l'une est meilleure que l'autre, mais il aide à effectuer des comparaison et favorise la convergence vers une ontologie qui fasse consensus au sein d'une communauté d'analyse. 
+%La Figure \ref{fig:modelisation_trace} résume ce processus d'analyse. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Figures/3_trace_modelisee.pdf}
-	\caption{Trace modélisée dans un système de gestion de la connaissance selon Georgeon et al.  \cite[Fig.~2]{georgeon_supporting_2012}.
+	\caption{Trace modélisée dans un système de gestion de la connaissance selon Georgeon et al.  \cite[Fig.~2]{georgeon_supporting_2012}
+		Cercles sur la ligne du bas: événements de la trace brute.
+		Triangles: symboles représentant des événements abstraits inféré à partir de motifs d'événements de plus bas niveau.
+		Haut: ontologie des symboles produite par le processus d'abstraction et permettant des raisonnements symboliques.
 	}
 	\label{fig:trace_modelisee}
 \end{figure}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.3\textwidth]{Figures/3_modelisation_trace.pdf}
-	\caption{Processus de modélisation cognitive à partir de traces d'interaction selon Georgeon et al.  \cite[Fig.~10]{georgeon_supporting_2012}.
-	}
-	\label{fig:modelisation_trace}
-\end{figure}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.3\textwidth]{Figures/3_modelisation_trace.pdf}
+%	\caption{Processus de modélisation cognitive à partir de traces d'interaction selon Georgeon et al.  \cite[Fig.~10]{georgeon_supporting_2012}.
+%	}
+%	\label{fig:modelisation_trace}
+%\end{figure}
 
-\subsection{Apprentissage par renforcement}
+Dans ce processus d'induction, l'humain intervient à trois niveaux:
+
+\begin{enumerate}
+	\item La conception du dispositif de collecte de la trace brute, qui suppose des choix sur les informations à enregistrer ainsi que sur les modalités techniques de leur acquisition.
+	\item Une créativité consistant à imaginer les règles d'induction et une sémantique associée aux symboles construits.
+	\item Un jugement évaluatif permettant d'accepter, de rejeter ou d'ajuster progressivement les abstractions produites.
+\end{enumerate}
+
+Pour tirer transposer ces  enseignements au cas des agents artificiels autonomes, il faut tenir compte d'une différence essentielle: l’agent apprend en ligne (\an{online}), tandis que l’analyste humain travaille sur une trace préalablement collectée.
+
+S'agissant du point 1, on peut envisager que le mécanisme de génération de la trace brute soit codé en dur dans l'agent, en s’inspirant de dispositifs sensorimoteurs observés chez les organismes vivants.
+Il reste alors deux questions majeures: comment concevoir un mécanisme capable de produire automatiquement des règles d'induction et des interprétations sémantiques associées aux symboles, et comment doter l'agent d'un mécanisme permettant d'évaluer les abstractions produites?
+
+
+
+
+\subsection{Apprentissage par renforcement computationnel}
 \label{sec:rl}
 
 \noindent

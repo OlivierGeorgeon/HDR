@@ -571,7 +571,7 @@ Cette importance de l'usage soulève la question des préférences et motivation
 
 
 
-\subsection{Motivation propre}
+\subsection{Motivation interne}
 \label{sec:motivation}
 
 \noindent
@@ -581,7 +581,7 @@ Cela produirait une dynamique erratique sans aucune forme d'intelligence et mèn
 Différents principes ont donc été imaginés pour orienter les décisions de l'agent.
 Ces principes ont été désignés par différentes appellations, telles que \emph{préférences}, \emph{système de valeur}, ou \emph{motivation} qui renvoient à l'idée générale que \og tout n'est pas égal \fg\ pour l'agent.
 
-Le terme de motivation, ou \emph{motivation propre} (\an{self-motivation}) a commencé à être utilisé pour faire la distinction entre des systèmes qui ne font que tenter de résoudre un problème modélisé à l'avance et des systèmes qui miment une forme d'autonomie plus sophistiquée. 
+Le terme motivation a commencé à être utilisé pour faire la distinction entre des systèmes qui ne font que tenter de résoudre un problème modélisé à l'avance et des systèmes qui miment une forme d'autonomie plus sophistiquée. 
 Dans le premier cas, on parle de \emph{motivation externe} car l'agent a pour but d'atteindre un \emph{état-objectif} (\an{goal state}) qui est défini par le concepteur en fonction de l'état du monde extérieur. 
 Dans le second cas on parle de \emph{motivation interne}. 
 La distinction entre les deux n'as pas toujours nette car la séparation entre ce qui fait partie de l'agent et ce qui fait partie du monde extérieur peut dépendre du point de vue du concepteur. 
@@ -627,6 +627,7 @@ Ces motivations peuvent être basées sur des heuristiques inspirées du vivant.
 Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
 \subsection{Apprentissage en monde ouvert}
+\label{sec:monde-ouvert}
 
 \noindent
 La distinction entre \emph{monde fermé} et \emph{monde ouvert} suscite un intérêt croisant dans la recherche en IA. 
@@ -680,7 +681,7 @@ Le chercheur doit également fournir les éléments qui permettent de comprendre
 %Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par rapport au système qu'on considère. 
 
 
-\section{Techniques d'apprentissage artificiel}
+\section{Techniques d'apprentissage à partir d'expérience}
 
 \textbf{Introduction en cours de construction}
 
@@ -693,16 +694,16 @@ Cette présentation permettra de comparer mon approche et de comprendre en quoi 
 
 \noindent
 Cette section présente les techniques issues de l'ingénierie des connaissances qui permettent à un analyste d'interpréter et de comprendre une activité observée et enregistrée à l'aide d'outils numériques. 
-L’objectif est de mettre en évidence les enjeux liés à ce processus de construction des connaissances à partir de l’expérience.
-Ces techniques sont notamment employées en éthologie, en psychologie et en ergonomie afin d’analyser les comportements humains ou animaux, puis d’élaborer des théories et des modèles permettant de les décrire, de les expliquer et, dans certains cas, de les prédire.
+Ces techniques sont notamment employées en éthologie, en psychologie et en ergonomie afin d’analyser les comportements humains ou animaux, puis d’élaborer des théories et des modèles permettant de décrire ces comportements, de les expliquer et, dans certains cas, de les prédire.
+L'objectif de cette rapide présentation est de mettre en évidence les défis liés à ce processus de construction des connaissances à partir d'expérience.
 
 
 L'enregistrement de l'activité est appelé \emph{trace d'activité}. 
-C'est l'ensemble des données temporelles ou séquentielles contenant des informations sur la situation de l'agent, de l'environnement et de leurs interactions.
+C'est l'ensemble des données temporelles ou séquentielles contenant des informations sur la situation de l'agent, de son environnement et de leurs interactions.
 Une trace d'activité est une série chronologique \emph{d'événements}.
 Comme des traces de pas sur le sol, ces traces informatiques peuvent être analysée pour comprendre ce qui s'est passé, mais elles peuvent aussi faire l'objet de traitements automatisés. 
 
-On appelle \emph{trace brute} le niveau de base produit par le mécanisme de collecte, à partir duquel l'analyste construit ensuite des traces interprétées et des modèles d'activité. 
+On appelle \emph{trace brute} le niveau de base produit par le mécanisme de collecte, à partir duquel l'analyste construit des traces interprétées et des modèles d'activité. 
 Le choix des données collectées est loin d'être neutre.
 %La trace brute ne peut pas contenir une inscription de \og tout ce qui s'est passé \fg\ (en supposant que cela aie même un sens).
 Le système de collecte de traces traduit inévitablement des hypothèse, implicites ou explicites, d'une part sur ce qui est significatif pour l'agent, et d'autre part sur ce qui intéresse l'analyste. 
@@ -711,7 +712,7 @@ Le système de collecte de traces traduit inévitablement des hypothèse, implic
 %Certaines recherches en ergonomie des système informatiques ont même tenté d'aider le sujet lui même à mieux comprendre son usage du système en lui permettant d'analyser lui même ses traces d'activité \cite{choe_understanding_2017}, un thème qui a été investigué au sein de l'écupe Silex du LIRIS.  
 
 
-Par exemple dans le cadre des mes travaux de thèse \cite{georgeon_analyse_2008}, j'ai conçu un outil d'ingénierie des connaissance interactive pour l'analyse d'activité. 
+Mes travaux de thèse ont porté sur la conception d'un outil d'ingénierie des connaissances pour l'analyse de l'activité \cite{georgeon_analyse_2008}. 
 Cet outil aide l'analyste à spécifier des règles pour détecter des motifs récurrents dans la trace, et générer des symboles pour visualiser ses motifs à un niveau d'abstration plus élevé.
 Lorsqu'un symbole contribue à une meilleure compréhension de l'activité, l'analyse le conserve, sinon il le rejette.
 Le processus d'analyse suit un cycle itératif d'induction et de révision de connaissance qui renvoie à aux épistémologies évolutionistes et pragmatiques présentées dans les Sections \ref{sec:popper} et \ref{sec:pragmatisme}.  
@@ -719,10 +720,10 @@ L'outil est conçu pour faciliter et accélérer ce cycle de formulation d'hypot
 %Ce processus conduit à la formalisation du savoir d'analyse (le savoir de l'analyste sur comment comprendre l'activité à partir de la trace).  Il permet à l'analyste conserver ce savoir et offre la possibilité à une communauté d'analystes de le partager et de l'échanger. 
 
 La Figure \ref{fig:trace_modelisee} présente un exemple de trace modélisée d'une activité de conduite automobile en situation de changement de voie sur autoroute. 
-Les cercles en bas de la figure représentent des événements bruts issus de différentes sources d'enregistrement de l'activité. 
+Les cercles en bas de la figure représentent des événements bruts issus de différentes sources de collecte. 
 Les triangles sont des symboles abstraits progressivement générés à partir de règles détectant des motifs de symboles de niveau inférieur. 
 La partie supérieure de la figure représente l'ontologie des symboles. 
-Le triangle violet \texttt{L.C. Indicator} constitue un indicateur précoce de changement de voie.
+Le triangle violet \texttt{L.C. Indicator} constitue un indicateur précoce de changement de voie (\an{Lane Change}).
 Il est généré à partir l'enfoncement de la pédale d'accélérateur et de certains mouvements oculaires du conducteur. 
 Cet indicateur est généré environ une seconde avant l'activation du clignotant (triangle orange) et l'engagement effectif du véhicule dans le changement de voie. 
 
@@ -734,7 +735,7 @@ Cet indicateur est généré environ une seconde avant l'activation du clignotan
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Figures/3_trace_modelisee.pdf}
-	\caption{Trace modélisée dans un système de gestion de la connaissance selon Georgeon et al.  \cite[Fig.~2]{georgeon_supporting_2012}
+	\caption{Trace modélisée dans un système de gestion de la connaissance selon Georgeon et al.  \cite[Fig.~2]{georgeon_supporting_2012}.
 		Cercles sur la ligne du bas: événements de la trace brute.
 		Triangles: symboles représentant des événements abstraits inféré à partir de motifs d'événements de plus bas niveau.
 		Haut: ontologie des symboles produite par le processus d'abstraction et permettant des raisonnements symboliques.
@@ -750,7 +751,7 @@ Cet indicateur est généré environ une seconde avant l'activation du clignotan
 %	\label{fig:modelisation_trace}
 %\end{figure}
 
-Dans ce processus d'induction, l'humain intervient à trois niveaux:
+Dans ce processus d'induction, l'humain produit trois apports:
 
 \begin{enumerate}
 	\item La conception du dispositif de collecte de la trace brute, qui suppose des choix sur les informations à enregistrer ainsi que sur les modalités techniques de leur acquisition.
@@ -758,22 +759,26 @@ Dans ce processus d'induction, l'humain intervient à trois niveaux:
 	\item Un jugement évaluatif permettant d'accepter, de rejeter ou d'ajuster progressivement les abstractions produites.
 \end{enumerate}
 
-Pour tirer transposer ces  enseignements au cas des agents artificiels autonomes, il faut tenir compte d'une différence essentielle: l’agent apprend en ligne (\an{online}), tandis que l’analyste humain travaille sur une trace préalablement collectée.
+Pour transposer ces  enseignements au cas des agents artificiels autonomes, il faut tenir compte d'une différence essentielle: l’agent autonome apprend en ligne (\an{online}), tandis que dans cet exemple, l'analyste humain travaillait sur une trace préalablement collectée.
 
-S'agissant du point 1, on peut envisager que le mécanisme de génération de la trace brute soit codé en dur dans l'agent, en s’inspirant de dispositifs sensorimoteurs observés chez les organismes vivants.
+S'agissant de l'apport 1, on peut envisager que le mécanisme de génération de la trace brute soit codé en dur dans l'agent, en s’inspirant de dispositifs sensorimoteurs observés chez les organismes vivants.
 Il reste alors deux questions majeures: comment concevoir un mécanisme capable de produire automatiquement des règles d'induction et des interprétations sémantiques associées aux symboles, et comment doter l'agent d'un mécanisme permettant d'évaluer les abstractions produites?
 
 
 
 
-\subsection{Apprentissage par renforcement computationnel}
+\subsection{Apprentissage par renforcement}
 \label{sec:rl}
 
 \noindent
-La théorie de l'apprentissage par renforcement puise ses origines dans la théorie du contrôle optimal (\an{optimal control theory}), dont l’un des pionniers fut le mathématicien Richard Bellman dans les années 1950. 
-La théorie de contrôle optimal vise à optimiser une mesure au sein d’un système dynamique.
-A partir de la fin des années 1990, l'ouvrage \og \an{Reinforcement Learning: An Introduction} \fg de Richard Sutton et Andrew Barto \cite{sutton_reinforcement_2018} s'est imposé comme une référence pour l'apprentissage par renforcement moderne. 
-Dès la page 2, les auteurs y décrivent l'apprentissage par renforcement comme visant à modéliser un agent qui perçoit son environnement, agit sur celui-ci et cherche à atteindre un objectif:
+Pour modéliser le processus d'interaction entre un agent autonome et son environnement, je vais m'appuyer sur la théorie de l'apprentissage par renforcement développée sous l'impulsion de Richard Sutton et Andrew Barto.  
+Cette théorie est parfois désignée sous le terme \emph{d'apprentissage par renforcement computationel} pour la distinguer des théories de l'apprentissage par renforcement en biologie et éthologie.  
+Une différence saillante entre ces deux approches tient au fait que la première nécessite un très grand nombre d'épisodes d'apprentissage pour converger vers un comportement satisfaisant alors que la seconde cherche à expliquer des apprentissages pouvant résulter d'un petit nombre d'expériences.
+Cette section vise aussi à clarifier les différences fondamentales entre l'apprentissage par renforcement computationel et l'apprentissage développemental artificiel.
+
+La théorie de l'apprentissage par renforcement computationnelle trouve ses origines dans les années 1950 avec la théorie du contrôle optimal (\an{optimal control theory}) popularisée par le mathématicien Richard Bellman.
+Sutton et Barto lui ont donné sa forme moderne à partir des années 1990 au cours des versions successives de leur ouvrage \og \an{Reinforcement Learning: An Introduction} \fg\ \cite{sutton_reinforcement_2018}. 
+Ils lui fixent l'objectif très général de modéliser un agent apprenant qui perçoit son environnement, agit sur celui-ci et cherche à atteindre un objectif:
 
 
 \begin{quote}
@@ -818,7 +823,7 @@ Intuitivement, le \an{state signal} est dit markovien s'il contient toute l'info
 	\cite[p.~64]{sutton_reinforcement_2018}.
 \end{quote}
 
-Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain état $s_{t+1}$ conditionnelle à $s_t$ et $a_t$ est égale à sa distribution de probabilité conditionnelle à tout l'historique $s_0$ à $s_t$ et $a_0$ à $a_t$:
+Formellement, la propriété de Markov est respectée si la distribution de probabilité du prochain \an{state signal} $s_{t+1}$ conditionnelle à $s_t$ et $a_t$ est égale à sa distribution de probabilité conditionnelle à tout l'historique $s_0$ à $s_t$ et $a_0$ à $a_t$:
 
 \EqL{p(s_{t+1}|s_t, a_t) = p(s_{t+1}|s_0, a_0, s_1, a_1, ... ,s_t, a_t)}{eq:markov}%\\
 %q(r_{t+1}|s_t, a_t) = q(r_{t+1}|s_0, a_0, s_1, a_1, ... ,s_t, a_t)}
@@ -852,8 +857,7 @@ Un \an{finite Markov Decision Process} utilisé dans le cadre de l'apprentissage
 La fonction interne à l'agent qui sélectionne l'action $a_t$ en fonction du \an{state} $s_t$ est appelée \an{policy} et notée $\pi(s_t)$.
 La fonction stochastique $p$ du MDP est utilisée pour représenter l'incertitude de l'agent sur les futures transitions de l'environnement.
 Sutton et Barto donnent les exemples des jeu de \emph{Tic-tac-toe} et du \emph{bandit manchot à k bras} (\an{k-arm bandit}) ayant différentes espérances de gain.
-
-Dans les jeux de plateau (Tic-tac-toe, Echec, Go, etc.), l'action $a_t$ représente le coup joué par l'agent au temps $t$. 
+%Dans les jeux de plateau (Tic-tac-toe, Echec, Go, etc.), l'action $a_t$ représente le coup joué par l'agent au temps $t$. 
 L'état $s_{t+1}$ est le nouvel état perçu par l'agent résultant de son propre coup et du coup du joueur adverse.
 En l'absence de présupposés, tous les coups adverses possibles sont initialement considérés équiprobables par l'agent. 
 La récompense $r_{t+1}$ est 0 si le match n'est pas terminé ou s'il y a match nul, $1$ si l'agent gagne, et -1 s'il perd.  
@@ -863,17 +867,16 @@ L'état $s_{t+1}$ est le résultat \emph{gagné} ou \emph{perdu} pour le bras $n
 La récompense $r_{t+1}$ est positive pour les états \emph{gagné} ou négative pour les états \emph{perdu} pour le bras $n$.  
 
 L'apprentissage par renforcement vise à apprendre la \an{policy} qui maximise la récompense obtenue cumulée à un certain horizon. 
-Différentes fonctions de cumul de la \an{step reward} sont utilisées en fonction des problèmes, impliquant ou non un \an{discount factor} qui favorise les récompenses rapides au détriment de celles à long terme.  
+Différentes fonctions de cumul de la récomponse $r_t$ (\an{step reward}) sont utilisées en fonction des problèmes, impliquant ou non un \an{discount factor} qui favorise les récompenses rapides au détriment de celles à long terme.  
 L'agent apprend, pour chaque état possible, l'\emph{espérance de récompense actualisée} (\an{expected discounted reward}) de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense actualisée la plus élevée. 
 
 La récompense attendue actualisée d'une \an{policy} $\sigma$ est typiquement notée $\mathbb{E}(R_\sigma)$.
 C'est la somme des récompenses liées aux états obtenus par un agent qui suit cette \an{policy}, pondérées par la probabilité d'atteindre ces états à chaque pas de temps, et \og atténuée \fg par le \an{discount factor}. 
 Son estimation par l'agent est notée $\hat{\mathbb{E}}(R_\sigma)$.
-
 L'apprentissage est dit par \emph{essai-erreur} car l'agent doit essayer des actions et commettre des erreurs pour apprendre à partir des états et récompensent obtenus. 
 %L'apprentissage de la \an{policy} optimum revient à apprendre, pour chaque état possible, l'espérance de récompense cumulée de chaque action si elle est sélectionnée dans cet état, de façon à pouvoir sélectionner l'action ayant l'espérance de récompense cumulée la plus élevée. 
 
-Des algorithmes pour trouver la \an{policy} stationnaire optimale d'un MDP fini ont été proposés \cite{ross_introduction_1983} mais il a été établi que les ressources nécessaires pour la trouver croissent exponentiellement avec le nombre d'états et d'actions possibles.
+Des algorithmes convergeant vers la \an{policy} stationnaire optimale d'un MDP fini ont été proposés \cite{ross_introduction_1983} mais il a été établi que leurs ressources nécessaires croissait exponentiellement avec le nombre d'états et d'actions possibles.
 Bellman a nommé ce problème d'explosion combinatoire \an{the curse of dimensionality}.
 
 Certaines recherches actuelles associent l'apprentissage par renforcement avec des techniques de reconnaissance de motifs (\an{pattern recognition}) permettant de généraliser l'apprentissage et de réduire la dimensionalité de l'espace de recherche et du \an{state signal}. 
@@ -884,7 +887,9 @@ Par exemple, les chercheurs de DeepMind ont utilisé des réseaux de neurone con
 %Ces algorithmes apprennent une correspondance (\an{mapping}) entre les observations et actions. 
 %Ils sont qualifiés de \og sans mémoire \fg car ils ne se souviennent pas des états passés (bien qu'ils gardent en mémoire le mapping entre l'état courant et la meilleure action).
 
-
+Ces algorithmes ne sont pas applicables à l'apprentissage développemental. 
+D'une part, l'objectif de l'agent n'est pas d'atteindre un état défini de manière externe, comme nous l'avons vu dans les sections sur la motivation interne (\ref{sec:motivation}) et sur l'apprentissage ouvert (\ref{sec:monde-ouvert}).
+D'autre part, dans un monde ouvert, l'agent est dans une situation non-markovienne que nous allons détailler davantage dans les sections suivantes.
 
 \subsection{Problème de décision non Markovien}
 \label{sec:NMDP}
@@ -920,12 +925,11 @@ Singh et al. montrent que les algorithmes d'apprentissage par renforcement basé
 \label{fig:ABProblem}
 \end{figure}
 
-Quand le \an{state signal} reçu de l'environnement n'est pas markovion, il est généralement désigné sous le terme d'\an{observation} ou de \an{sensory signal}. 
-Afin de pouvoir appliquer les techniques d'apprentissage par renforcement, il est nécessaire de reformuler le problème en dotant l'agent de la capacité à construire un \an{state signal} markovien interne à partir de l'historique de ses interactions.
+Quand le \an{state signal} reçu de l'environnement n'est pas markovien, il est généralement désigné sous le terme d'\an{observation} ou de \an{sensory signal}. 
+Si on veut appliquer les techniques d'apprentissage par renforcement décrite à la section précédente, il faut reformuler le problème en dotant l'agent de la capacité à construire un \an{state signal} markovien interne à partir de l'historique de ses interactions.
 C'est l'objet du modèle POMDP que je vais présenter maintenant.
 
-Il y a parfois une confusion sur le fait que le "state" soit "interne à l'agent" ou "externe à l'agent". 
-On peut modéliser un robot interagissant avec un environnement controlé par un MDP, dans ce cas il peut y avoir des informations internes à au robot qui font partis du state signal et donc apparaissent à l'extérieur de l'agent sur la figure. 
+% Il y a parfois une confusion sur le fait que le "state" soit "interne à l'agent" ou "externe à l'agent". On peut modéliser un robot interagissant avec un environnement controlé par un MDP, dans ce cas il peut y avoir des informations internes à au robot qui font partis du state signal et donc apparaissent à l'extérieur de l'agent sur la figure. 
 
 
 \subsection{Processus de décision markovien partiellement observable}
@@ -952,7 +956,7 @@ La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état 
 \end{figure}
 
 On peut utiliser un POMDP pour modéliser un robot interagissant avec un environnement. 
-Dans ce cas le terme "l'agent" désigne le software qui pilote le robot, incluant la mémoire interne du robot. 
+Dans ce cas le terme \emph{agent} désigne le software qui pilote le robot, incluant la mémoire interne du robot. 
 L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software. 
 L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
 

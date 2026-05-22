@@ -599,20 +599,17 @@ La motivation homéostatique vise à maintenir certaines variables internes dans
 La motivation hétérostatique pousse au contraire le système à sortir de son équilibre et à perturber l'état des variables internes, sans jamais atteindre un état de satisfaction statique. 
 Un motivation fixe est une motivation qui évalue toujours la même situation de la même manière au cours de l'existence de l'agent. 
 Au contraire, une motivation adaptative va évaluer la même situation différemment au cours de l'existence de l'agent.
-Une motivation intrinsèque pousse l'agent à effectuer une activité pour le simple fait de l'effectuer, alors que la motivation extrinsèque pousse l'agent à l'effectuer pour obtenir un résultat particulier.
+Enfin, une motivation intrinsèque à l'activité pousse l'agent à effectuer une activité pour le simple fait de l'effectuer, alors que la motivation extrinsèque pousse l'agent à effectuer l'activité pour obtenir atteindre un objectif qui en résulte.
 
 Des exemples de motivation intrinsèque sont le \an{flow} et la \emph{curiosité}. 
 Du point de vue psychologique, faire une activité en étant motivé par le \an{flow} renvoie au plaisir que procure la maitrise et l'attention liée au contrôle de cette activité. 
 Faire une activité en étant motivé par la curiosité renvoie au plaisir et au désir d'apprendre. 
-Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{gordon_new_2018} étudient les apports mutuels entre la psychologie et la robotique pour faire progresser une science de la curiosité.
-
-
-% La notion de récompense (\an{reward}) est souvent utilisée comme \og monnaie commune \fg\ pour unifier différents principes motivationnels. 
-
-
+%Certains auteurs comme Goren Gordon  \cite[\an{The new science of curiosity}]{gordon_new_2018} étudient les apports mutuels entre la psychologie et la robotique pour faire progresser une science de la curiosité.
 Oudeyer fait la distinction entre les approches normatives et les approches heuristiques pour générer un comportement de curiosité \cite{oudeyer_computational_2018}.
 Les approches normatives utilisent des algorithmes de maximisation d'une fonction d'utilité basée sur le gain d'information ou la réduction d'incertitude, inspirée de la théorie de l'information et de l'inférence bayésienne.
-A l'opposé, Les approches heuristiques tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
+Nous examinerons plus en détail cette méthode dans la section \ref{sec:information}.
+
+Les approches heuristiques de la curiosité tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
 Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration \cite{oudeyer_intrinsic_2007}.
 Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
 Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
@@ -854,6 +851,7 @@ Un \an{finite Markov Decision Process} utilisé dans le cadre de l'apprentissage
 \end{itemize}
 \end{De}
 
+L'ensemble $\Delta(S)$ est l'ensemble des distributions possibles de la variable $S$.
 La fonction interne à l'agent qui sélectionne l'action $a_t$ en fonction du \an{state} $s_t$ est appelée \an{policy} et notée $\pi(s_t)$.
 La fonction stochastique $p$ du MDP est utilisée pour représenter l'incertitude de l'agent sur les futures transitions de l'environnement.
 Sutton et Barto donnent les exemples des jeu de \emph{Tic-tac-toe} et du \emph{bandit manchot à k bras} (\an{k-arm bandit}) ayant différentes espérances de gain.
@@ -955,17 +953,6 @@ La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état 
 \label{fig:pomdp}
 \end{figure}
 
-On peut utiliser un POMDP pour modéliser un robot interagissant avec un environnement. 
-Dans ce cas le terme \emph{agent} désigne le software qui pilote le robot, incluant la mémoire interne du robot. 
-L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software. 
-L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
-
-Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
-Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
-De manière analogue, la récompense peut dépendre de l'état précédent et de la décision prise (comme dans l'exemple de la Section \ref{sec:NMDP}) voire également de l'état suivant comme c'est le cas dans les expériences du bandit manchot.
-
-
-
 
 \begin{De}[POMDP]
 \label{def:pomdp}
@@ -980,6 +967,16 @@ Un POMDP est défini par un tuple $\langle S, D, O,p,q,r \rangle$ dans lequel:
 \end{itemize}
 \end{De}
 
+On peut utiliser un POMDP pour modéliser un robot interagissant avec son environnement. 
+Le cycle du POMDP de la Figure \ref{fig:pomdp} peut alors être rapproché du cycle du DDS de la Figure \ref{fig:dds}.
+L'\emph{agent} correspond au \an{software} qui pilote le robot, incluant la mémoire interne du robot. 
+L'observation $o_t$ correspond à l'\an{input} passant par le registre d'entrée du robot, et la décision  $d_t$ correspond  à l'output généré par ses registre de sortie. 
+Il subsiste la différence notable de la récompense $r_t$ qui compte parmi ses argument l'état $s_t$ de l'environnement, spécifiant ainsi une motivation externe au robot dans le sens discuté en Section \ref{sec:motivation}.
+%L'observation désigne le contenu du "registre d'entrée" dans lequel les capteurs "évrivent" et qui est lu par le software.  L'action désigne le contenu du "registre de sortie" dans lequel le software écrit une "action" qui rovoque l'activation de certains actionneurs. 
+
+Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
+Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
+De manière analogue, la récompense peut dépendre de l'état précédent et de la décision prise (comme dans l'exemple de la Section \ref{sec:NMDP}) voire également de l'état suivant comme c'est le cas dans les expériences du bandit manchot.
 
 
 Cette formulation très générale permet de modéliser une grande diversité de problèmes, tels que la maintenance prédictive de machines ou la perception active en robotique. 
@@ -996,6 +993,10 @@ La complexité du calcul du \an{belief state} croit exponentiellement avec la du
 Étant donné que la recherche d’une politique optimale dans les POMDPs comme dans les MDPs a été démontrée \an{intractable} dans le cas général, les travaux actuels se concentrent principalement sur des solutions approchées, ou sur l’exploitation de connaissances a priori ou de configurations particulières du domaine permettant des applications pratiques de contrôle optimum.
 Les gains obtenu dans certains domaines se font nécessairement au détriment de la généralité de l'algorithme, une limitation que David Woplert a élégamment formalisée avec le théorème du  \og \an{No free lunch for optimization} \fg \cite{wolpert_no_1997}.
 
+Le modèle POMDP offre une source d'inspiration pour modéliser un agent interagissant avec son environnement sans satisfaire la condition de Markov. 
+En revanche, les algorithmes de POMDP ne s'appliquent pas à l'apprentissage développemental. 
+Par conception, ils sont prévus pour être dirigés par une motivation externe spécifiée par la fonction de récompense $r$ qui compte l'état de l'environnement parmi ses arguments. 
+De plus, le problème général de maximiser cette récompense est reconnu comme \an{intractable} quand la complexité de l'environnement augmente.
 
 
 % Si l'observation $o_t$ est une \og perception \fg qui constitue une représentation partielle de l'état de l'environnement alors $o_t = f(a_{t-1}, s_t) = f(s_t)$.
@@ -1004,14 +1005,19 @@ Les gains obtenu dans certains domaines se font nécessairement au détriment de
 
 
 \subsection{Mesure de l'information gagnée}
+\label{sec:information}
 
 \noindent
-Dans la théorie de l'information de Claude Shannon, l'information qu'un agent possède à propos d'une variable $X$, pouvant prendre $n$ valeurs distinctes, est représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n))$.
-Cette distribution, parfois appelée \an{belief state}, signifie que l'agent \og croit \fg que, pour chacune valeurs $x_i$ parmi les $n$ valeurs possibles de $X$, il y a une probabilité $p(x_i)$ que $X$ soit égale à $x_i$. 
+Certains auteurs ont exploré l'usage de mesures de quantité d'information, issue de la théorie de l'information de Claude Shannon, afin de quantifier l'apprentissage d'un agent autonome.
+Ils ont proposé des mécanismes de sélection des comportements cherchant à maximiser l'information acquise, de façon à générer des comportements mimant la curiosité. 
+L'ouvrage de Goren Gordon, \an{The new science of curiosity}  \cite{gordon_new_2018} dresse un panorama de cet axe de recherche.
+
+Dans la théorie de Shannon, l'information qu'un agent possède à propos d'une variable $X$, pouvant prendre $n$ valeurs distinctes, est représentée par une distribution de probabilités $d= (p(x_1), p(x_2), ... , \allowbreak p(x_n)) \in \Delta(X)$.
+Cette distribution, parfois appelée \an{belief state}, signifie que l'agent \og croit \fg\ que, pour chacune valeurs $x_i$ parmi les $n$ valeurs possibles de $X$, il y a une probabilité $p(x_i)$ que $X$ soit égale à $x_i$. 
 
 Shannon interprète la grandeur $I(x_i) = -log_2(p(x_i))$ comme la quantité d'information (exprimée en nombre de bits) apportée par la connaissance que $X = x_i$. 
 Intuitivement, quand l'agent reçoit une valeur qu'il attendait, il gagne peu d'information, mais quand il reçoit une valeur qu'il jugeait improbable, il en gagne beaucoup.
-$I(x_i)$ peut aussi s'interpréter comme la \og surprise attendue \fg  par l'agent. 
+$I(x_i)$ peut aussi s'interpréter comme la \og surprise attendue \fg\  par l'agent. 
 Plus $x_i$ est probable ($p(x_i)$ proche de 1), plus l'agent s'attend à une surprise faible ($I(x_i)$ proche de 0) s'il observe $X = x_i$. 
 A l'inverse, quand $p(x_i)$ approche 0, la surprise attendue pour l'observation de $X=x_i$ tend vers l'infini. 
 Sur cette base, Shannon définit l'entropie de $d$ comme l'espérance de surprise (\an{expected surprise}), obtenue en pondérant chaque valeur de surprise par sa probabilité d'occurence.
@@ -1022,7 +1028,7 @@ L'entropie $H(d)$ est donc formalisée par l'Equation \eqref{eq:shannon} dans la
 \end{equation}
 
 Lorsque la probabilité $p(x_i)$ d'une valeur $x_i$ tend vers 1 tandis que celles des autres valeurs tendent vers 0, $H(d)$ tend vers 0.
-Un \an{belief state} d'entropie nulle correspond donc à une situation dans laquelle l'agent \og se sent certain \fg de la valeur de $X$. 
+Un \an{belief state} d'entropie nulle correspond donc à une situation dans laquelle l'agent \og se sent certain \fg\ de la valeur de $X$. 
 Inversement, lorsque toutes les valeurs possibles sont équiprobables ($p(x_i) = 1/n$ pour tout $i$), l'entropie atteint sa valeur maximale qui vaut $H(d) = log(n)$. 
 Un \an{belief state} d'entropie maximale traduit le fait que l'agent estime n'avoir aucune information sur $X$.
 L'entropie du \an{belief state} ne fournit donc pas d'indication sur la justesse objective de la croyance de l'agent.
@@ -1031,25 +1037,37 @@ Elle doit plutôt être interprétée comme une mesure de son degré de certitud
 Dans le cas d'un agent interagissant avec son environnement de manière cyclique, et pour lequel la variable $X$ représente le signal sensoriel reçu au cycle $t$, on peut implémenter une distribution $d_t$ pour représenter les probabilités estimées par l'agent du prochain signal sensoriel. 
 Dans ce cas, la baisse de l'entropie de $d$ au cours du temps peut être interprétée comme un indicateur des progrès d'apprentissage de l'agent. 
 
+Cette approche basée sur l'entropie est couramment utilisée pour définir des fonctions de perte (\an{loss functions}) dans les procédures d'optimisation, par exemple en apprentissage profond.
+En apprentissage développemental, on peut théoriquement imaginer que ce type de mesure puisse être employée par un analyste disposant d'une connaissance omnisciente d'un environnement de faible complexité pour évaluer la quantité d'information acquise par l'agent. 
+
+En revanche, un agent ne peut pas utiliser une mesure d'entropie pour estimer son propre gain d'information à propos de l'environnement lorsque celui-ci est ouvert.
+Ce calcul ne peut se faire que dans un environnement fermé pour lequel l'ensemble des états possibles est connu à l'avance. 
+Plus généralement, on peut affirmer sans trop de rique qu'il est impossible pour un agent de quantifier la valeur d'une information relative à un environnement ouvert où tout est possible. 
+Nous ne pouvons donc pas utiliser ce genre de mesure comme signal de motivation intrinsèque chez un agent en milieu ouvert.
+
+
 % On peut également calculer une fonction de perte (\an{loss}) 
 
-\subsection{Mécanisme de schéma de Drescher}
+\subsection{Mécanismes de schéma}
 \label{sec:drescher}
 
-Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
+\noindent
+L'ouvrage de Gary Drescher \an{Made-up minds: a constructivist approach to artificial intelligence} \cite{drescher_made-up_1991}, publié un 1991, constitue la publication fondatrice des travaux se référant explicitement à l'héritage théorique de Piaget. 
+Drescher forge le terme de \emph{mécanisme de schéma} (\an{schema mechanism}) et le popularise à travers cet ouvrage.
 
-Les mécanismes de schéma implémentent le concept piagetien de \og schème \fg qui appartient à l'origine au domaine de la psychologie, sous forme d'une structure de donnée qui peut être manipulée par un ordinateur. 
-Cet ordinateur controle in artéfact (robot ou agent virtuel) qui interagit avec un environnement.
-Le but est que l'ordinateur manipule ces structures de données pour générer des comportements de plus en plus intelligents qui démontrent le développement cognitif du robot. 
-Ce robot évolue en environnement ouvert et le but n'est pas qu'il apprenne une tache spécifique prédéfinie. 
+%Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
+
+Les mécanismes de schéma transposent le concept piagetien de \emph{schème} (en anglais, \an{schema}) provenant du domaine de la psychologie vers le domaine de l'informatique.
+Ces schèmes sont représentés sous la forme de structures de donnée désignées par le terme \emph{schema}. 
+Un mécanisme de schema est donc un \an{software} qui manipule et construit des \an{schémas} servant à piloter les comportements d'un agent, dans le but que ces comportements révèlent une forme de développement cognitif.
 
 
-Gary Drescher a implémenté le premier \an{schema mechanism} en 1991 et forgé ce terme dans son livre \an{Made-up minds: a constructivist approach to artificial intelligence} \cite{drescher_made-up_1991}.
+%Un schema de Drescher est un tuple  \interaction{context, action, result} illustré en Fig. \ref{fig:drescher1}.
 
-Il a modélisé les schémas sous la forme du tuple $\langle \textit{context}, \textit{action}, \textit{result} \rangle$ illustré en Fig. \ref{fig:drescher1}.
-Le \textit{context} et le \textit{result} sont des ensemble d'\textit{items} binaires qui peuvent être \textit{positivement} ou \textit{négativement} inclus. 
-Le contexte d'un schéma est satisfait si tous les items positivement inclus sont \textit{On}, et tous les items négativement inclus sont \textit{Off}.
-Le schéma signifie que si l'action est effectuée quand le contexte est satisfait alors les items positivement inclus dans le résultat passeront à \textit{On} et ceux négativement inclus à \textit{Off}.
+Un schema de Drescher est un tuple  $\langle contexte, action, resultat \rangle$ illustré en Figure \ref{fig:drescher1}.
+Le \emph{contexte} et le \emph{resultat} sont des ensembles d'\emph{items} binaires qui peuvent être \emph{positivement} ou \emph{négativement inclus}. 
+Le contexte d'un schéma est satisfait si tous les items qui y sont positivement inclus sont \emph{On}, et tous les items négativement inclus sont \emph{Off}.
+Le schéma signifie que si l'action est effectuée quand le contexte est satisfait alors les items positivement inclus dans le résultat passeront à \emph{On} et ceux négativement inclus à \emph{Off}.
 
 
 \begin{figure}[ht]
@@ -1060,43 +1078,48 @@ Le schéma signifie que si l'action est effectuée quand le contexte est satisfa
 	\label{fig:drescher1}
 \end{figure}
 
-Le système est initialisé avec un ensemble de \textit{primitive items} et de \textit{primitive actions} qui représentent respectivmenet les possibilités de perception de l'agent et ses possibilités d'action. 
-Pour chaque action primitive, un \an{bare schema} est créé avec un contexte et un résultat vide. 
-Le concepteur a aussi la possibilité d'ajouter d'autres schémas qui représentent des comportements  ‘‘innés'' de l'agent. 
+Le mécanisme est initialisé avec un ensemble d'items \emph{primitifs} et d'actions \emph{primitives} qui représentent respectivement les possibilités de perception et d'action de l'agent. 
+Pour chaque action primitive, un \emph{schéma nu} (\an{bare schema}) est créé avec un contexte et un résultat vide. 
+Le concepteur a aussi la possibilité d'ensemencer le mécanisme avec d'autres schémas appelées \emph{graines} (\an{seed}) qui spécifient des comportements innés. 
 
 
 L'activation d'un schéma consiste à effectuer son action.
-Une fois l'action effectuée le résultat prédit par le schéma est comparé au résultat obtenu. 
-L'enaction du schema est considéré un succès si le résultat prédit a été obtenu, sinon elles considérée un échec. 
-Le rapport entre le nombre de succès et d'échec est appelé \an{reliability} et est enregistré pour chaque schéma.  
+Une fois l'action effectuée, le résultat prédit par le schéma est comparé au résultat obtenu. 
+L'activation du schéma est considérée un succès si le résultat prédit a été obtenu, sinon elles est considérée un échec. 
+Le rapport entre le nombre de succès et d'échec est appelé \an{reliability} et est mémorisé pour chaque schéma.  
 
-L'apprentissage de nouveaux schémas est déclenché par l'identification d'un \textit{résultat saillant} (\an{relevant result}) qui contient des items légèrement plus fréquents que la moyenne. 
-Quand un résultat saillant est identifié, l'agent cherche les conditions dans lesquelles il se produit de manière fiable.
-Ces conditions sont trouvées grace à des nouveaux schémas qui permettent de restituer le contexte qui mène au résultat saillant, et ensuite réexécuter l'action pour évaluer la fiabilité des nouveaux schémas.
+L'apprentissage de nouveaux schémas est déclenché par l'identification d'un \textit{résultat pertinent} (\an{relevant result}).
+Un résultat est considéré comme pertinent lorsqu'il présente une occurrence d'items plus fréquente que celle attendue dans le cas d'un tirage aléatoire. 
+Quand un résultat pertinent est identifié, l'agent cherche les conditions dans lesquelles ce résultat peut être reproduit de manière fiable.
+Cette recherche s’appuie sur la construction de nouveaux schémas permettant à l’agent de rétablir le contexte ayant conduit au résultat pertinent, puis de réexécuter l’action afin de vérifier si le même résultat est répété. 
+%Par cette répétition, l’agent peut estimer la fiabilité du schéma nouvellement acquis et consolider progressivement ses connaissances sur les régularités de l’environnement.
+%Ces conditions sont trouvées grâce à de nouveaux schémas qui permettent à l'agent de retourner dans le contexte qui mène au résultat pertinent, et ensuite réexécuter l'action pour vérifier que le même résultat peut être obtenu à nouveau et ainsi évaluer la fiabilité du schémas appris.
 
-Une fois que des nouveaux schémas ont étés appris, l'agent peut apprendre des nouveaux \og concepts \fg quand il identifie des schémas qui fonctionnent comme des \og sondes \fg pour évoquer la manifestation d'une \og \textit{chose} \fg.
-Ces schémas sont fiables uniquement si cette chose est présente. 
-Quand un tel schéma est découvert, il est considéré un \textit{schéma hôte} pour un nouvel \textit{item synthétique} qui représente cette chose.
-Drescher note que \og \an{a synthetic item thus works backward from a thing's manifestation to define the very thing manifested} \fg \cite[p.~83]{drescher_made-up_1991}.
-Ceci adresse la question fondamentale de l'invention des concepts dans la mesure ou \og \an{a synthetic item is a new element of the system's ontology---an element fundamentally different from the prior contents of the system's conceptual vocabulary} \fg \cite[p.~81]{drescher_made-up_1991}. 
+Une fois de nouveaux schémas acquis, l'agent peut apprendre de nouveaux \emph{concepts} en identifiant certains schémas capables de fonctionner comme des \emph{sondes} (\an{probe}) manifestant la présence d'une \emph{chose}.
+Ces schémas ne produisent un résultat fiable que lorsque cette chose est effectivement présente dans l'environnement. 
+Quand un tel schéma est découvert, il est considéré comme un \emph{schéma hôte} associé à un nouvel \emph{item synthétique} qui constitue alors une représentation interne de cette chose.
+Drescher note que \og \an{a synthetic item thus works backward from a thing's manifestation to define the very thing manifested} \fg\ \cite[p.~83]{drescher_made-up_1991}.
+Ceci adresse la question fondamentale de l'invention des concepts dans la mesure ou \og \an{a synthetic item is a new element of the system's ontology---an element fundamentally different from the prior contents of the system's conceptual vocabulary} \fg\ \cite[p.~81]{drescher_made-up_1991}. 
 
-Le concepteur définit les objectifs de l'agent en assignant des \an{primitive values} au états possibles des \an{primitive items}: positives pour les états désirables et négatives pour les états indésirables.
-Le mécanisme identifie des sous-objectifs définis comme des sous-ensemble spécifiques d'items à activer ou désactiver. 
-Il construit des \an{composite actions} comme des séquences de schemas utilisées pour atteindre un sous-objectif. 
+Le concepteur définit les objectifs de l'agent en attribuant des \emph{valeurs primitives} aux différents états possibles des items primitifs: positives aux états désirables et négatives aux états indésirables.
+Le mécanisme est doté de la capacité d'identifier des sous-objectifs définis comme des configurations particulières d'items à activer ou désactiver. 
+Il construit des \emph{actions composites} constituées de séquences de schémas utilisées pour atteindre un sous-objectif. 
+La valeur d'un item cible est propagée à des items intermédiaires quand le fait de les atteindre augmente les chances d'atteindre l'item cible.
+%Drescher distingue entre propagation de valeur \emph{instrumentale} et \emph{déléguée}. 
+L'agent alterne aléatoirement entre poursuite d'objectifs et exploration, selon une probabilité paramétrée par le concepteur.
 
-La valeur d'un item cible peut être propagée à d'autres items sous la forme d'une \an{instrumental} value ou une \an{delegated value} quand le fait d'atteindre ces autres items augmente les chances d'atteindre l'item cible.
-L'agent alterne aléatoirement entre la poursuite d'objectifs explicites et exploration, avec des probabilités définies par le concepteur.
-
-Drescher démontre son mécanisme dans le \an{microword} fait de la grille 2D $7 \times 7$ montrée en Fig.~\ref{fig:Drescher_microworld}.
-Le mécanisme controle un robot simulé qui a un corps, une main, et un système visuel.
-Ma main peut toucher, saisir, et déplacer des objets dans une région de la grille de $3 \times 3$ devant le robot.
-Le système visuel couvre une région de $5 \times 5$ que le robot peut déplacer sur toute la grille.
+Drescher démontre son mécanisme dans le \an{microword} fait de la grille $7 \times 7$ en Figurge~\ref{fig:Drescher_microworld}.
+Le mécanisme contrôle un robot simulé qui a un corps, une main, et un système visuel.
+La main peut toucher, saisir, et déplacer des objets dans une région de la grille de $3 \times 3$ devant le robot.
+Le système visuel couvre une région de $5 \times 5$ que le robot peut déplacer à l'intérieur de la grille $7 \times 7$.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_Drescher_microworld.png}
 	\caption{Environnement de test de Drescher \cite[Fig.~6.1]{drescher_made-up_1991}.
-		.}
+		Petit carré avec un point: corps de l'agent.
+		Gros point: main qui peut bouger dans un carré $3 \times 3$ devant le corps.
+		Grille $5 \times 5$: champ visuel qui peut bouger dans la grille $7 \times 7$.}
 	\label{fig:Drescher_microworld}
 \end{figure}
 
@@ -1105,8 +1128,22 @@ L'expérimentation montre qu'il apprends ces relations au cours d'un processus q
 Une fois le substrat spatial appris, le mécanisme parvient à construire des items synthétiques qui désignent des objets à partir de leur perception.
 Il donne l'exemple d'un \og \an{synthetic item, which we might call PalpableObjectAt(1,3)  (the name, of course, has no meaning to the mechanism). 
 	The item is defined to represent whatever condition makes the schema reliable; we observers know (but the mechanism does not) that this condition is that there be an object at (1, 3)} 
-\fg \cite[p. 13]{drescher_made-up_1991}.
+\fg\ \cite[p. 13]{drescher_made-up_1991}.
 Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} avec l'item synthétique \an{VisibleObjectAt(1,3)} pour enregistre la découverte qu'ils réfèrent au même objet existant à la position (1, 3).
+
+Drescher a fait un travail remarquable en illustrant pour la première fois une des questions fondamentale de l'apprentissage constructiviste: comment un agent peut-il construire une connaissance des objets qui l'entourent à partir de régularités de schèmes d'interaction.
+En particulier il a mis en évidence l'importance de permettre à l'agent de pouvoir recueillir des expériences contrefactuelles, au cours d'un cycle de formation d'hypothèses, de test, et d'adjudication. 
+
+Selon moi, ce mécanisme de schéma souffre d'une limite importante qui tient au fait que ses items primitifs représentent des propriétés prédéfinies de l'état du monde. 
+Il écrit \og \an{each item represents some condition in the world} \fg\ \cite[p.~5]{drescher_made-up_1991}, présupposant ainsi un monde déjà structuré avec des états et des propriétés identifiables.
+Marco Bettoni exprime cette critique par le fait que \og \an{Drescher's constructivism is not Piaget's constructivism, mainly because of its tacit acceptance of cognitive dogmatism} \fg\ \cite[p.~6]{bettoni_made-up_1993}. 
+En effet, l'usage de signaux sensoriels représentant directement des propriétés de l'environnement introduit une ontologie préalable de l'environnement dans l'architecture de l'agent.
+Cette présupposition se retrouve également dans la définition de la motivation de l'agent: le système de valeurs de l'agent est associées à des propriétés présupposées de l'environnement, constituant ainsi une forme de motivation externe. 
+Ces hypothèses limitent le fonctionnement de ce mécanisme de schéma à un monde fermé.
+Cela explique peut-être pourquoi il n'a pas connu d'extension convaincante à des environnements plus complexes au cours des trente-cinq années qui l'ont suivi. 
+
+Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'épistémologie constructiviste, il serait nécessaire de concevoir des représentations de schèmes piagétiens qui ne reposent pas sur des propriétés présupposées de l'environnement, mais sur des régularités opératoires que l'agent parvient progressivement à stabiliser dans son activité.
+
 
 
 \subsection{Architectures cognitives bio-inspirées}

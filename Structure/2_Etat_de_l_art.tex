@@ -790,7 +790,10 @@ Sutton et Barto traduisent cette idée sous la forme du cycle d'intéraction sé
 A chaque tour $t$ du cycle, la perception est représentée par l'information $s_t$ transmise de l'environnement à l'agent. 
 L'action $a_t$ choisie par l'agent est transmise à l'environnement et fait transitionner celui-ci vers l'état $s_{t+1}$. 
 L'information concernant l'objectif est donnée par la récompense $r_{t+1}$ qui indique dans quel mesure l'état obtenu $s_{t+1}$ est désirable (si positive) ou indésirable (si négative).
-Les auteurs précisent que le terme \og état \fg (\an{state}) désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}, c'est à dire que ce terme doit être compris comme l'état interne de l'agent sur lequel est basée le choix de la prochaine action, cencé représenter autant que possible l'état réel de l'environnement. 
+Cette modélisation implémente l'hypothèse qu'un signal de récompense scalaire est suffisant pour représenter les objectifs de l'agent. 
+Cette hypothèse a été appelée la \an{reward hypothesis} et est discutée par exemple dans l'article \an{Reward is enough} \cite{silver_reward_2021}. 
+
+Sutton et Barto précisent que le terme \og état \fg (\an{state}) désigne \an{whatever information is available to the agent} \cite[p.~62]{sutton_reinforcement_2018}, c'est à dire que ce terme doit être compris comme l'état interne de l'agent sur lequel est basée le choix de la prochaine action, cencé représenter autant que possible l'état réel de l'environnement. 
 Lorsqu'ils ont besoin de faire la distinction entre cet état interne ($s_t$) et l'état de l'environnement, ils désignent plutot $s_t$ par le terme \an{state signal}, en précisant que: 
 
 \begin{quote}
@@ -890,7 +893,7 @@ D'une part, l'objectif de l'agent n'est pas d'atteindre un état défini de mani
 D'autre part, dans un monde ouvert, l'agent est dans une situation non-markovienne que nous allons détailler davantage dans les sections suivantes.
 
 \subsection{Problème de décision non Markovien}
-\label{sec:NMDP}
+\label{sec:non-markov}
 
 \noindent
 Si l'Equation \eqref{eq:markov} est fortement non satisfaite alors le \an{state signal} ne contient pas toutes les informations pertinentes pour prendre une bonne décision et le problème est non-markovien. 
@@ -1042,13 +1045,11 @@ En apprentissage développemental, on peut théoriquement imaginer que ce type d
 
 En revanche, un agent ne peut pas utiliser une mesure d'entropie pour estimer son propre gain d'information à propos de l'environnement lorsque celui-ci est ouvert.
 Ce calcul ne peut se faire que dans un environnement fermé pour lequel l'ensemble des états possibles est connu à l'avance. 
-Plus généralement, on peut affirmer sans trop de rique qu'il est impossible pour un agent de quantifier la valeur d'une information relative à un environnement ouvert où tout est possible. 
+Plus généralement, on peut affirmer sans trop de risque qu'il est impossible pour un agent de quantifier la valeur d'une information relative à un environnement ouvert où tout est possible. 
 Nous ne pouvons donc pas utiliser ce genre de mesure comme signal de motivation intrinsèque chez un agent en milieu ouvert.
 
 
-% On peut également calculer une fonction de perte (\an{loss}) 
-
-\subsection{Mécanismes de schéma}
+\subsection{Mécanisme de schéma de Drescher}
 \label{sec:drescher}
 
 \noindent
@@ -1144,6 +1145,26 @@ Cela explique peut-être pourquoi il n'a pas connu d'extension convaincante à d
 
 Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'épistémologie constructiviste, il serait nécessaire de concevoir des représentations de schèmes piagétiens qui ne reposent pas sur des propriétés présupposées de l'environnement, mais sur des régularités opératoires que l'agent parvient progressivement à stabiliser dans son activité.
 
+\subsection{Mécanismes de schéma modernes}
+
+\noindent
+A la suite des travaux de Drescher, la recherche en IA constuctiviste s'est poursuivie de manière relativement discrète par rapport au paysage scientifique de l'IA.
+Google Scholar recense aujourd'hui plus de 770 publications faisant référence à ses travaux.
+Parmi celles-ci on peut noter celle de Dileep George recruté par DeepMind: \an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}  \cite{hay_behavior_2018}.
+
+Un exemple instructif est le \an{Constructivist Anticipatory Learning Mechanism (CALM)} de Filipo Perotto \cite{perotto_computational_2013}. 
+Il poursuit un objectif proche de Drescher: permettre à un agent d'apprendre un modèle des régularités observées en interagissant avec son environnement, tout en enrichissant son vocabulaire représentationnel afin de dépasser le niveau des expériences sensorimotrices brutes. 
+Perotto s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour se rapprocher davantage de l'apprentissage par renforcement, plus précisément du \an{model-based reinforcement learning}. 
+Il ne se base plus sur des régularités perceptives mais sur des feedbacks sensoriels pour permettre à l'agent de construire un modèle du monde et de ses transitions afin de maximiser une valeur de récompense. 
+
+CALM repose sur la constatation que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce que l'agent ne peut pas percevoir tous les éléments de contexte qui causent ces signaux. 
+L'agent va donc chercher à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
+Lorsqu'il est confronté à un signal sensoriel inexplicable, l'agent crée une nouvelle variable hypothétique destinée à expliquer ce signal.
+
+Perotto démontre le fonctionnement de CALM dans une situation non-markovienne construite à parti de celle de l'exemple de Singh et al. présenté en section  \ref{sec:non-markov}.
+En se basant sur des signaux sensoriels qui sont des \an{feedback} de l'action de l'agent, plutôt que des symboles représentant des propriétés de l'environnement, CALM propose une modélisation des schèmes piagétiens qui se rapproche davantage de l'épistémologie constructiviste que ceux de Drescher. 
+Malheureusement, ce mécanisme n'est démontré que dans un environnement non-markovien très simple, sans fournir d'indication sur les conditions dans lequelles il pourrait être étendu à des environnements plus complexes. 
+
 
 
 \subsection{Architectures cognitives bio-inspirées}
@@ -1171,12 +1192,6 @@ Ron Sun \cite{sun_desiderata_2004} pose les bases des attentes envers les archit
 
 David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de Sun pour spécifier les désiderata pour une architecture cognitive développementale. 
 
-\subsubsection{Constructivist Anticipatory Learning Mechanism (CALM)}
-
-Filipo Perotto \cite{perotto_computational_2013} s'intéresse à l'apprentissage \an{Model Based} dans le cas non markovien introduit en Section \ref{sec:NMDP}.
-Ce qui le distingue par rapport à d'autres approches de POMDP et le rend \emph{constructivist} c'est qu'il s'intéresse au cas extrême ou l'état de l'environnement n'est pas du tout directement observable.
-
-
 
 \subsubsection{Learning Intelligent Decision Agent  LIDA}
 \label{sec:lida}
@@ -1184,7 +1199,7 @@ Ce qui le distingue par rapport à d'autres approches de POMDP et le rend \emph{
 LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
 Sean Kugele \cite{kugele_constructivist_2025} a récement étendu LIDA pour inclure un \an{schema mechanism} inspiré de Drescher. 
 Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
-Les \og percpets \fg ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
+Les \og percepts \fg\ ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
 
 Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
 Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
@@ -1247,9 +1262,14 @@ A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de 
 
 \subsection{Réitération de séquences sensorimotrices}
 
-\cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
+Voir \an{A genealogical map of the concept of habit}  Xabier Barandiaran and Ezequiel Di Paolo. 
+Il différentie entre un courant associationniste et un courante organiciste. 
+Le courant associationniste comme un enregistremnt passif de succession d'événements. 
+Le courant organiciste de l'habitude implique un processus d'auto-organisation:  
+\an{Habits are both cause and effect of their own enactment and therefore constitute their own principle of individuation, as opposed to being the passive result of the recurrence of an otherwise pre-established set of entities (ideas, stimulus, rewards, etc.).}
+Cette conception voit les habitudes comme “intimately involved in the constitution of meaningfulness” dans la lignée de l'épistémologie pragmatique. 
 
-Voir A genealogical map of the concept of habit  Xabier E. Barandiaran 1,2* and Ezequiel A. Di Paolo 2,3,4
+\cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
 
 
 \subsection{Apprentissage profond de séquence}

@@ -1155,42 +1155,54 @@ Parmi celles-ci on peut noter celle de Dileep George recruté par DeepMind: \an{
 Un exemple instructif est le \an{Constructivist Anticipatory Learning Mechanism (CALM)} de Filipo Perotto \cite{perotto_computational_2013}. 
 Il poursuit un objectif proche de Drescher: permettre à un agent d'apprendre un modèle des régularités observées en interagissant avec son environnement, tout en enrichissant son vocabulaire représentationnel afin de dépasser le niveau des expériences sensorimotrices brutes. 
 Perotto s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour se rapprocher davantage de l'apprentissage par renforcement, plus précisément du \an{model-based reinforcement learning}. 
-Il ne se base plus sur des régularités perceptives mais sur des feedbacks sensoriels pour permettre à l'agent de construire un modèle du monde et de ses transitions afin de maximiser une valeur de récompense. 
+Il remplace les \an{primitive items} representationnels de Drescher par des feedbacks sensoriels pour permettre à l'agent de construire un modèle du monde et de ses transitions afin de maximiser une valeur de récompense. 
 
 CALM repose sur la constatation que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce que l'agent ne peut pas percevoir tous les éléments de contexte qui causent ces signaux. 
 L'agent va donc chercher à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
 Lorsqu'il est confronté à un signal sensoriel inexplicable, l'agent crée une nouvelle variable hypothétique destinée à expliquer ce signal.
+Ce processus peut etre réitéré à différents niveaux d'abstraction pour organiser les variables crées dans une structure hiérarchique.
 
 Perotto démontre le fonctionnement de CALM dans une situation non-markovienne construite à parti de celle de l'exemple de Singh et al. présenté en section  \ref{sec:non-markov}.
 En se basant sur des signaux sensoriels qui sont des \an{feedback} de l'action de l'agent, plutôt que des symboles représentant des propriétés de l'environnement, CALM propose une modélisation des schèmes piagétiens qui se rapproche davantage de l'épistémologie constructiviste que ceux de Drescher. 
-Malheureusement, ce mécanisme n'est démontré que dans un environnement non-markovien très simple, sans fournir d'indication sur les conditions dans lequelles il pourrait être étendu à des environnements plus complexes. 
+Malheureusement, ce mécanisme n'est démontré que dans un environnement non-markovien très simple, sans fournir d'indication sur les conditions dans lesquelles il pourrait être étendu à des environnements plus complexes. 
 
 
 
 \subsection{Architectures cognitives bio-inspirées}
 
-Ron Sun s'est posé la question d'intégrer des principes motivationnels dans une architecture cognitive \cite{sun_motivational_2009}.
+\noindent
+Pour étendre les capacités des mécanismes d'apprentissage constructivistes, plusieurs chercheurs les ont intégrés au sein \emph{d'architectures cognitives bio-inspirées}. 
+Dans ce contexte, une architecture cognitive désigne un modèles computationnels génériques de la cognition. 
+Les deux architectures cognitives \og historiques \fg\ des années 1980, et les principales à avoir eu une influence durable au delà de leurs laboratoires d'origine, sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
+Dans sa réflexion rétrospective sur sa vie consacrée à l'étude de la cognition, Paul Rosenbloom, l'un des créateurs, décrit un système cognitif artificiel comme un édifice dont la conception relève d'un travail d'architecte, résumant cette idée par la formule \og \an{architecture is essence} \fg\ \cite{rosenbloom_search_2025}.
+
+
+Dans les années 2000, Alexei Samsonovich a impulsé la création de la \an{Biologically Inspired Cognitive Architecture (BICA) society}. 
+Il a mis en place un \an{Unified Catalog of Implemented Cognitive Architectures} qui a conduit à en recenser plusieurs centaines.  
+Dès qu'un système articule plusieurs modules il devient qualifié d'architecture.
+L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} offre une bonne synthèse des objectifs poursuivis dans ce champ de recherche. 
+Ces desiderata incluent \an{ecological realism}, \an{bio-evolutionary realism}, \an{cognitive realism}, \an{sequentiality}, \an{bottom-up learning}. 
+Ces principes ont guidé le développement de son architecture CLARION qui intègre des capacités d'apprentissage dirigés par une motivation interne \cite{sun_motivational_2009}. 
+David Vernon étend cette liste dans son article \an{Desiderata for developmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'un système de valeur interne et une d'autonomie constitutive. 
+Une question centrale devient alors celle de la frontière entre les structures pré-programmées et les compétences acquises au cours de l'expérience.
+Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes et développementaux, deux d'entre-elles demeurent particulièrement actives : \emph{AERA} et \emph{LIDA}.
 
 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Figures/1_Cognitive_architecture.png}
-	\caption{Architecture cognitive de haut niveau pour une \an{human-like general intelligence} d'après Goertzel 
-		\cite[Fig.~17]{goertzel_general_2021}}
-	\label{fig:Cognitive_architecture}
-\end{figure}
+\subsubsection{Autocatalytic Endogenous Reflective Architecture AERA}
+
+L'équipe de Reykjavik développe AERA. 
+
+S'intéresse principalement à l'explicabilité et la construction de relations causales. 
+
+AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
+
+Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
+
+Les événements internes générés par le système sont aussi observés et traités. 
+Cela ouvre la voie à la réflexivité et à l'auto programmaion.
 
 
-
-Un système cognitif est un édifice dont la conception au niveau le plus général peut se poser comme la conception d'une architecture. 
-
-Paul Rosenbloom argumente que 
-\og \an{architecture is essence} \fg \cite{rosenbloom_search_2025}.
-
-Ron Sun \cite{sun_desiderata_2004} pose les bases des attentes envers les architectures cognitives.
-
-David Vernon \cite{vernon_desiderata_2016} rebondit sur l'article fondateur de Sun pour spécifier les désiderata pour une architecture cognitive développementale. 
 
 
 \subsubsection{Learning Intelligent Decision Agent  LIDA}
@@ -1210,21 +1222,14 @@ Les préférences (liking and disliking) sont distinguées des désirs (wanting 
 
 LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
-\subsubsection{Autocatalytic Endogenous Reflective Architecture AERA}
 
-L'équipe de Reykjavik développe AERA. 
-
-S'intéresse principalement à l'explicabilité et la construction de relations causales. 
-
-AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
-
-Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
-
-Les événements internes générés par le système sont aussi observés et traités. 
-Cela ouvre la voie à la réflexivité et à l'auto programmaion.
-
-
-
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Figures/1_Cognitive_architecture.png}
+	\caption{Architecture cognitive de haut niveau pour une \an{human-like general intelligence} d'après Goertzel 
+		\cite[Fig.~17]{goertzel_general_2021}}
+	\label{fig:Cognitive_architecture}
+\end{figure}
 
 
 
@@ -1282,5 +1287,8 @@ L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel 
 
 \section{Conclusion}
 
-La notion \emph{d'événement valué} est centrale. 
+La notion \emph{d'événement d'interaction valué} est centrale. 
+
+Le problème de la génération d'hypothèses est abordé par les coté des habitudes
+
 

@@ -1188,20 +1188,17 @@ Une question centrale devient alors celle de la frontière entre les structures 
 Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes et développementaux, deux d'entre-elles demeurent particulièrement actives : \emph{AERA} et \emph{LIDA}.
 
 
+La \an{Autocatalytic Endogenous Reflective Architecture AERA} est développée par Kristinn Thórisson et ses collaborateurs à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
+Elle permet à un agent autonome de construire des chaines causales qui servent à expliquer la survenue d'événements. 
+Les schémas qu'elle construit sont traités comme des modèles causaux hypothétiques qui relient des événements causes à des événements conséquences. 
+Ils sont générés lorsqu'un événement inexpliqué est observé, puis testés ce qui peut conduire à leur renforcement ou à leur rejet. 
+L'apprentissage est dirigé par des objectifs spécifiés par l'expérimentateur. AERA ne dispose pas actuelle de système motivationnel.
 
-\subsubsection{Autocatalytic Endogenous Reflective Architecture AERA}
-
-L'équipe de Reykjavik développe AERA. 
-
-S'intéresse principalement à l'explicabilité et la construction de relations causales. 
-
-AEARA traite des événements qui sont observés passivement soit générés activement par l'agent. 
-
-Les événements sont toujours conçus comme des événements cognitifs du point de vue du système.
-
-Les événements internes générés par le système sont aussi observés et traités. 
-Cela ouvre la voie à la réflexivité et à l'auto programmaion.
-
+Contrairement aux schémas de CALM qui n'intègre que des événements d'interaction provoqués par l'agent, ceux d'AERA peuvent également intégrer des événements observés passivement dans l'environnement ainsi que des événements cognitifs issus de l'activité interne d'AERA. 
+L'intégration de schémas observés passivement permet à un agent d'apprendre par observation d'un autre agent ou en étant télé-opéré par un utilisateur pendant une phase d'entrainement. 
+L'intégration d'événements cognitifs interne introduit une forme de réflexivité. 
+AERA peut ainsi apprendre non seulement des séquences d'interaction avec l'environnement mais également des séquences de traitement cognitifs portant sur ses propres représentations internes.
+Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-programmation, dans laquelle l’agent acquiert progressivement de nouveaux processus cognitifs exprimés dans le langage de schéma de l'AERA, appelé \an{Replicode}.
 
 
 
@@ -1225,9 +1222,8 @@ LIDA introduit la notion de \an{stream of behavior} qui est la capacité au méc
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{Figures/1_Cognitive_architecture.png}
-	\caption{Architecture cognitive de haut niveau pour une \an{human-like general intelligence} d'après Goertzel 
-		\cite[Fig.~17]{goertzel_general_2021}}
+	\includegraphics[width=0.7\textwidth]{Figures/2_LIDA.png}
+	\caption{Vue simplifié du cycle cognitif de LIDA }
 	\label{fig:Cognitive_architecture}
 \end{figure}
 

@@ -1202,11 +1202,23 @@ Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-progr
 
 
 
-\subsubsection{Learning Intelligent Decision Agent  LIDA}
-\label{sec:lida}
+L'architecture \an{Learning Intelligent Decision Agent (LIDA)} a été proposée par Stan Franklin \cite{franklin_lida_2014} pour offrir un cadre conceptuel unificateur de différents modèles 
+La Figure \ref{fig:lida} présente son cycle cognitif. 
+Le rectangle pointillé en bas montre un mécanisme de schéma récemment perfectionné par Sean Kugele \cite{kugele_constructivist_2025}.
+Le module \an{Workspace} (haut) maintient une description de la situation courante sous forme d'un graphe de concepts appelé \an{graph node}.
+Un module attentionnel produit une description de la situation sélectionnée dans le module \an{Global Workspace} (droite). 
+Ces graphe active les schémas pertinents stockées dans la \an{procedural memory}.
+Le module \an{action selection} sélectionne une action du schéma actif. 
+Une fois une action sélectionnée, elle est instanciée comme un \an{behavior} ou un \an{stream of behavior} pour les actions composites et ses variables libres (\an{unbound variables}) sont qualifiées. 
+le comportement est effectué dans l'environnement et des signaux sensoriels sont reçus qui sont traités pour produire une représentation de la situation courante
+
+
+
+computationels de fonctions cognitives. 
+Sean Kugele \cite{kugele_constructivist_2025} y a récement inclus un mécanisme d'apprentissage constructivist . 
 
 LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
-Sean Kugele \cite{kugele_constructivist_2025} a récement étendu LIDA pour inclure un \an{schema mechanism} inspiré de Drescher. 
+
 Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
 Les \og percepts \fg\ ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
 
@@ -1222,9 +1234,9 @@ LIDA introduit la notion de \an{stream of behavior} qui est la capacité au méc
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{Figures/2_LIDA.png}
+	\includegraphics[width=0.9\textwidth]{Figures/2_LIDA.png}
 	\caption{Vue simplifié du cycle cognitif de LIDA }
-	\label{fig:Cognitive_architecture}
+	\label{fig:lida}
 \end{figure}
 
 

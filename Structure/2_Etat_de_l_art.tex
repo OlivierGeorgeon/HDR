@@ -1202,40 +1202,60 @@ Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-progr
 
 
 
-L'architecture \an{Learning Intelligent Decision Agent (LIDA)} a été proposée par Stan Franklin \cite{franklin_lida_2014} pour offrir un cadre conceptuel unificateur de différents modèles 
-La Figure \ref{fig:lida} présente son cycle cognitif. 
-Le rectangle pointillé en bas montre un mécanisme de schéma récemment perfectionné par Sean Kugele \cite{kugele_constructivist_2025}.
+L'architecture \an{Learning Intelligent Decision Agent (LIDA)} a été proposée par Stan Franklin \cite{franklin_lida_2014} comme un cadre conceptuel davantage que comme une implémentation effective.
+ 
+La Figure \ref{fig:lida} présente ses principaux modules et leurs interactions. 
 Le module \an{Workspace} (haut) maintient une description de la situation courante sous forme d'un graphe de concepts appelé \an{graph node}.
-Un module attentionnel produit une description de la situation sélectionnée dans le module \an{Global Workspace} (droite). 
-Ces graphe active les schémas pertinents stockées dans la \an{procedural memory}.
-Le module \an{action selection} sélectionne une action du schéma actif. 
-Une fois une action sélectionnée, elle est instanciée comme un \an{behavior} ou un \an{stream of behavior} pour les actions composites et ses variables libres (\an{unbound variables}) sont qualifiées. 
-le comportement est effectué dans l'environnement et des signaux sensoriels sont reçus qui sont traités pour produire une représentation de la situation courante
+Le \emph{module attentionnel} en produit une représentation réduite transmise au \an{Global Workspace} (droite).
+Le contenu du \an{Global Worskpace} transmets cette représentation à la \an{procedural memory} chargée d'activer des schémas comportementaux.
+Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \emph{variables libres} \an{unbound variables} dans leurs contexte, action, et résultats. 
+Une action est sélectionnée à partir des schémas activés. 
+Une action peut etre \an{primitive} ou \an{composite}.
+Les actions primitives sont exécutées en un cycle d'interaction. 
+Les actions composites sont des séries d'actions primitives exécutées au cours de plusieurs cycles d'interaction au sein d'un \an{stream of behavior}.
+Il existe une boucle interne qui permet de simuler des actions dans le workspace pour tenter de prédire leurs conséquences.  
+L'action sélectionnée et instanciée sous la forme d'un comportement (\an{behavior}). 
+Le processus d'instanciation comprend le renseignement de certaines \an{variables libres} qui modulent l'action pour l'adapter à la situation courante.
+Le comportement est effectué dans l'environnement ce qui produit des signaux sensoriels. 
+Les module \an{Perceptual Associative Memory (PAM)} intègre ces signaux sensoriels pour produire des informations sur la situation courante qui sont intégrées dans le \an{Worspace}. 
+
+%Ces graphe active les schémas pertinents stockées dans la \an{procedural memory}.
+%Le module \an{action selection} sélectionne une action du schéma actif. 
+%Une fois une action sélectionnée, elle est instanciée comme un \an{behavior} ou un \an{stream of behavior} pour les actions composites et ses variables libres (\an{unbound variables}) sont qualifiées. 
+%le comportement est effectué dans l'environnement et des signaux sensoriels sont reçus qui sont traités pour produire une représentation de la situation courante
 
 
-
-computationels de fonctions cognitives. 
-Sean Kugele \cite{kugele_constructivist_2025} y a récement inclus un mécanisme d'apprentissage constructivist . 
-
-LIDA est une architecture cognitive générale qui sert à la fois comme modèle conceptuel et système computationnel pour modéliser la cognition. 
-
-Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
-Les \og percepts \fg\ ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
-
-Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
-Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
-Une instance de schema dont les \an{unbound variables} ont été qualifiées est appelé un \an{behavior}.
-
+Sean Kugele \cite{kugele_constructivist_2025} y a récemment modifié LIDA pour l'orienter vers pour lui mettre en oeuvre un apprentissage construcgiviste. 
+Dans cette version la situation courante est représentée en termes d'événements d'interaction sensorimoteurs 
 LIDA associe également une \an{affective valence} aux schémas qui oriente la sélection des comportements vers des résultats désirables.
-Les préférences (liking and disliking) sont distinguées des désirs (wanting and dreading).
+Des préférences (\an{liking and disliking}, \an{wanting and dreading}) sont associées aux schémas pour représenter le système motivationnel de l'agent. 
+Il a démontré ce mécanisme d'apprentissage dans une expérimentation basée sur le k-armed bandit dans lequel l'agent devait apprendre des séquences d'interaction pour maximiser la récompense obtenue. 
+Le fait d'etre capable d'apprendre des séquences d'interactions sensorimotrices est et de les réutiliser dans bon contexte apparait comme un élément crucial de cette approche. 
 
-LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
+sont distinguées des désirs ().
+
+
+
+%Le rectangle pointillé en bas montre son mécanisme de schéma récemment perfectionné par Sean Kugele \cite{kugele_constructivist_2025}.
+
+
+
+
+%Une différence importante est que le mécanisme de schema de LIDA réside au dessus d'un module perceptif appelé \an{Perceptual Associative Memory} (PAM).
+%Les \og percepts \fg\ ne sont donc pas directement reçus de l'environnement mais construits dans le PAM à travers un mécanisme sensorimotor actif. 
+
+%Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \an{unbound variables} dans leurs contexte, action, et résultats. 
+%Les \an{unbound variables} des actions peuvent moduler la façon dont une action est effectuée. 
+%Une instance de schema dont les \an{unbound variables} ont été qualifiées est appelé un \an{behavior}.
+
+
+%LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/2_LIDA.png}
-	\caption{Vue simplifié du cycle cognitif de LIDA }
+	\caption{Vue simplifié du cycle cognitif de LIDA d'après \cite[Fig.~4]{kugele_constructivist_2025}}
 	\label{fig:lida}
 \end{figure}
 
@@ -1275,6 +1295,7 @@ A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de 
 
 \subsection{Réitération de séquences sensorimotrices}
 
+
 Voir \an{A genealogical map of the concept of habit}  Xabier Barandiaran and Ezequiel Di Paolo. 
 Il différentie entre un courant associationniste et un courante organiciste. 
 Le courant associationniste comme un enregistremnt passif de succession d'événements. 
@@ -1282,7 +1303,34 @@ Le courant organiciste de l'habitude implique un processus d'auto-organisation:
 \an{Habits are both cause and effect of their own enactment and therefore constitute their own principle of individuation, as opposed to being the passive result of the recurrence of an otherwise pre-established set of entities (ideas, stimulus, rewards, etc.).}
 Cette conception voit les habitudes comme “intimately involved in the constitution of meaningfulness” dans la lignée de l'épistémologie pragmatique. 
 
-\cite{woolford_precarious_2020} propose la notion de \an{sensorimotor sequence reiterator}. 
+Felix Woolford et Matthew Egbert \cite{woolford_precarious_2020} proposent le \an{Sensorimotor Sequence Reiterator (SSR)}.
+C'est une plateforme pour investiguer l'auto-génération et la maintenance d'un réseau de comportements habituels.
+Il fonctionne comme un controleur de robot qui compare l'activité sensorimotrice récente et qui tente de répéter la séquence de comportement historique la plus similaire.
+Il construit une représentation de l'histoire de ses états sensorimoteurs récents.
+Un état sensorimoteurs est un couple constitué de l'action et des signaux sensoriels qui suivent cette action.
+Il construit ensuite des paires d'états sensorimoteurs au fur et à mesure que l'agent en fait l'expérience.
+Du fait que les noeuds dans la séquence historique ont une durée de vie limitée, les comportements qui n'ont pas été enactés depuis trop longtemps sont perdus.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/2_ssr.pdf}
+	\caption{Exemple de réseaux de comportements impliquant quatre valeurs sensorielles A, B, C, D, et trois valeurs motrices: 1, 2, 3, selon Woolford \cite[Fig.~2]{woolford_precarious_2020}.
+		Gauche: séquence de n\oe uds sensorimoteurs. 
+		Droite: représentation des boucles de comportements.
+		Par exemple, le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
+		 }
+	\label{fig:ssr}
+\end{figure}
+
+La Figure~\ref{fig:ssr} offre une façon intéressante de représenter graphiquement  les structures de comportement appris.
+Dans cet exemple, l'agent dispose de quatre valeurs sensorielles A, B, C, D, et de trois valeurs motrices: 1, 2, 3.
+Le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
+La notation du contexte sensorimoteur A1 prête légèrement à confusion en notant la valeur sensorielle en premier alors qu'elle suit l'action. 
+Il pourrait être plus clair de parler de contexte moteur-sensoriel et de le noter 1A.  
+En fonction de l'état de l'environnement, une action peut induire des signaux sensoriels différents. 
+Par exemple l'action 3 à partir du n\oe ud \schema{C2/3} peut induire le signal C ou D et mener aux n\oe uds \schema{C3/3} ou \schema{D3/1}.
+En fonction de la trajectoire suivie, le même contexte peut proposer des actions différentes, par exemple C2 apparait dans les n\oe uds \schema{C2/1} qui propose l'action 1 et \schema{C2/3} qui propose l'action 3.
+
 
 
 \subsection{Apprentissage profond de séquence}

@@ -499,7 +499,8 @@ Alexander Riegler \cite{riegler_when_2002} a aussi argumenté que le couplage st
 L'idée de réaliser des systèmes informatiques capables de modifier leur propre code n'est pas nouvelle. 
 Allan Newel et Herbert Simon ont anticipé cette possibilité dans leur lecture fondatrice donnée à leur \an{Turing Award} \cite{newell_computer_1976}. 
 Juyang Weng a proposé la notion de \an{self-affecting cognitive architecture} \cite{weng_developmental_2004}. 
-Plus récement, Kristinn Thórisson, Eric Nivel, Ricardo Sanz et Pei Wang ont édité un numéro spécial \og \an{Self-Programming and Constructivist Methodologies for AGI} \fg\ de la revue \an{Journal of Artificial General Intelligence} \cite{thorisson_self-programming_2012}. 
+On retrouve également cette idée dans les \an{Gödel Machines} de  Jürgen Schmidhuber \cite{schmidhuber_goedel_2003}.
+Plus récemment, Kristinn Thórisson, Eric Nivel, Ricardo Sanz et Pei Wang ont édité un numéro spécial \og \an{Self-Programming and Constructivist Methodologies for AGI} \fg\ de la revue \an{Journal of Artificial General Intelligence} \cite{thorisson_self-programming_2012}. 
 
 La question de la conception d'un système capable de mettre en \oe uvre des effets d'auto-programmation (self-programming) est encore complètement ouverte. 
 Elle soulève de nombreuses questions parmi lesquelles: 
@@ -584,7 +585,7 @@ Cette importance de l'usage soulève la question des préférences et motivation
 \noindent
 La question des principes qui orientent les comportements de l'agent se pose dès qu'il est question d'autonome.
 En effet, un robot à qui \og tout serait égal \fg\ pourrait se contenter de sélectionner aléatoirement chacun de ses mouvements parmi tous ceux à sa disposition. 
-Cela produirait une dynamique erratique sans aucune forme d'intelligence et mènerait rapidement à la destruction du robot ou à son immobilisation par épuisement de ses ressources énergétiques. 
+Cela produirait une dynamique erratique sans aucune forme d'intelligence et mènerait rapidement à la sa destruction ou à son immobilisation par épuisement de ses ressources énergétiques. 
 Différents principes ont donc été imaginés pour orienter les décisions de l'agent.
 Ces principes ont été désignés par différentes appellations, telles que \emph{préférences}, \emph{système de valeur}, ou \emph{motivation} qui renvoient à l'idée générale que \og tout n'est pas égal \fg\ pour l'agent.
 
@@ -1178,70 +1179,78 @@ Malheureusement, ce mécanisme n'est démontré que dans un environnement non-ma
 \subsection{Architectures cognitives bio-inspirées}
 
 \noindent
-Pour étendre les capacités des mécanismes d'apprentissage constructivistes, plusieurs chercheurs les ont intégrés au sein \emph{d'architectures cognitives bio-inspirées}. 
-Dans ce contexte, une architecture cognitive désigne un modèles computationnels génériques de la cognition. 
-Les deux architectures cognitives \og historiques \fg\ des années 1980, et les principales à avoir eu une influence durable au delà de leurs laboratoires d'origine, sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
-Dans sa réflexion rétrospective sur sa vie consacrée à l'étude de la cognition, Paul Rosenbloom, l'un des créateurs, décrit un système cognitif artificiel comme un édifice dont la conception relève d'un travail d'architecte, résumant cette idée par la formule \og \an{architecture is essence} \fg\ \cite{rosenbloom_search_2025}.
+Pour étendre les capacités des mécanismes d'apprentissage constructivistes, certains chercheurs les ont intégrés au sein \emph{d'architectures cognitives bio-inspirées}. 
+Dans ce contexte, une architecture cognitive désigne un modèle computationnels génériques de la cognition. 
+Par exemple, les deux architectures cognitives \og historiques \fg\ des années 1980 sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
+%et les principales à avoir eu une influence durable au delà de leurs laboratoires d'origine, 
+Dans sa réflexion rétrospective sur sa vie consacrée à l'étude de la cognition, l'un des créateurs de Soar, Paul Rosenbloom, décrit un modèle computationnel de la cognition comme un édifice dont la conception relève d'un travail d'architecte, résumant le rôle des architectures par la formule \og \an{architecture is essence} \fg\ \cite{rosenbloom_search_2025}.
 
 
-Dans les années 2000, Alexei Samsonovich a impulsé la création de la \an{Biologically Inspired Cognitive Architecture (BICA) society}. 
-Il a mis en place un \an{Unified Catalog of Implemented Cognitive Architectures} qui a conduit à en recenser plusieurs centaines.  
-Dès qu'un système articule plusieurs modules il devient qualifié d'architecture.
-L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} offre une bonne synthèse des objectifs poursuivis dans ce champ de recherche. 
+Dans les années 2000, Alexei Samsonovich a impulsé la création de la \an{Biologically Inspired Cognitive Architecture Society (BICA)}. 
+Il a mis en place un \an{Unified Catalog of Implemented Cognitive Architectures} \cite{samsonovich_toward_2010} qui a conduit à en recenser plusieurs centaines.  
+Dès qu'un modèle computationnel de la cognition intégrait plus d'un module, il devenait qualifié d'architecture.
+
+L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} offre une bonne vue d'ensemble des objectifs poursuivis dans ce champ de recherche. 
 Ces desiderata incluent \an{ecological realism}, \an{bio-evolutionary realism}, \an{cognitive realism}, \an{sequentiality}, \an{bottom-up learning}. 
-Ces principes ont guidé le développement de son architecture CLARION qui intègre des capacités d'apprentissage dirigés par une motivation interne \cite{sun_motivational_2009}. 
-David Vernon étend cette liste dans son article \an{Desiderata for developmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'un système de valeur interne et une d'autonomie constitutive. 
-Une question centrale devient alors celle de la frontière entre les structures pré-programmées et les compétences acquises au cours de l'expérience.
-Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes et développementaux, deux d'entre-elles demeurent particulièrement actives : \emph{AERA} et \emph{LIDA}.
+Ils ont guidé le développement de son architecture CLARION qui compte parmi les premières à s'intéresser à l'apprentissage à partir d'expérience dirigé par une motivation interne \cite{sun_motivational_2009}. 
+David Vernon étend cette liste dans son article \an{Desiderata for developmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'une forme d'autonomie constitutive. 
+Une question centrale devient alors celle de la frontière entre les structures pré-programmées et celles acquises au cours de l'expérience.
+Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes, deux demeurent relativement actives : \emph{AERA} et \emph{LIDA}.
 
 
 La \an{Autocatalytic Endogenous Reflective Architecture AERA} est développée par Kristinn Thórisson et ses collaborateurs à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
 Elle permet à un agent autonome de construire des chaines causales qui servent à expliquer la survenue d'événements. 
 Les schémas qu'elle construit sont traités comme des modèles causaux hypothétiques qui relient des événements causes à des événements conséquences. 
-Ils sont générés lorsqu'un événement inexpliqué est observé, puis testés ce qui peut conduire à leur renforcement ou à leur rejet. 
-L'apprentissage est dirigé par des objectifs spécifiés par l'expérimentateur. AERA ne dispose pas actuelle de système motivationnel.
+Ces schémas sont générés lorsqu'un événement inexpliqué est observé, puis ils sont testés au cours d'interaction avec l'environnement afin d'être renforcés ou rejetés. 
+L'apprentissage est dirigé par des objectifs spécifiés par l'expérimentateur. %AERA ne dispose pas actuelle de système motivationnel.
 
-Contrairement aux schémas de CALM qui n'intègre que des événements d'interaction provoqués par l'agent, ceux d'AERA peuvent également intégrer des événements observés passivement dans l'environnement ainsi que des événements cognitifs issus de l'activité interne d'AERA. 
+Contrairement aux schémas de CALM qui n'intègrent que des événements d'interaction provoqués par l'agent, ceux d'AERA peuvent également intégrer des événements observés passivement dans l'environnement ainsi que des événements cognitifs issus de l'activité interne d'AERA. 
 L'intégration de schémas observés passivement permet à un agent d'apprendre par observation d'un autre agent ou en étant télé-opéré par un utilisateur pendant une phase d'entrainement. 
-L'intégration d'événements cognitifs interne introduit une forme de réflexivité. 
-AERA peut ainsi apprendre non seulement des séquences d'interaction avec l'environnement mais également des séquences de traitement cognitifs portant sur ses propres représentations internes.
-Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-programmation, dans laquelle l’agent acquiert progressivement de nouveaux processus cognitifs exprimés dans le langage de schéma de l'AERA, appelé \an{Replicode}.
+L'intégration d'événements cognitifs internes introduit une forme de réflexivité. 
+AERA peut ainsi non seulement acquérir des séquences d'interaction avec l'environnement mais également des séquences de traitements cognitifs portant sur ses propres représentations internes.
+Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-programmation, dans laquelle l’agent acquerrait progressivement de nouveaux processus cognitifs exprimés dans le langage de schéma d'AERA, appelé \an{replicode}.
 
 
 
-L'architecture \an{Learning Intelligent Decision Agent (LIDA)} a été proposée par Stan Franklin \cite{franklin_lida_2014} comme un cadre conceptuel davantage que comme une implémentation effective.
- 
-La Figure \ref{fig:lida} présente ses principaux modules et leurs interactions. 
+L'architecture \an{Learning Intelligent Decision Agent (LIDA)} a été proposée par Stan Franklin comme un cadre conceptuel davantage que comme une implémentation finalisée \cite{franklin_lida_2014}. 
+La Figure \ref{fig:lida} en présente les principaux modules et leurs interactions. 
 Le module \an{Workspace} (haut) maintient une description de la situation courante sous forme d'un graphe de concepts appelé \an{graph node}.
-Le \emph{module attentionnel} en produit une représentation réduite transmise au \an{Global Workspace} (droite).
-Le contenu du \an{Global Worskpace} transmets cette représentation à la \an{procedural memory} chargée d'activer des schémas comportementaux.
-Dans LIDA, les schémas fonctionnent comme des \an{templates} contenant des \emph{variables libres} \an{unbound variables} dans leurs contexte, action, et résultats. 
-Une action est sélectionnée à partir des schémas activés. 
+Le module \an{Attention Codelets} en produit une représentation réduite transmise au \an{Global Workspace} (droite).
+Celui-ci transmets cette représentation à la \an{Procedural Memory} chargée d'activer des schémas comportementaux.
+
+Les schémas de LIDA fonctionnent comme des \an{templates} contenant des \emph{variables libres} (\an{unbound variables}) dans leurs contexte, action, et résultats. 
+Le module \an{Action Selection} sélectionne une action à partir des schémas activés. 
 Une action peut etre \an{primitive} ou \an{composite}.
 Les actions primitives sont exécutées en un cycle d'interaction. 
 Les actions composites sont des séries d'actions primitives exécutées au cours de plusieurs cycles d'interaction au sein d'un \an{stream of behavior}.
-Il existe une boucle interne qui permet de simuler des actions dans le workspace pour tenter de prédire leurs conséquences.  
-L'action sélectionnée et instanciée sous la forme d'un comportement (\an{behavior}). 
-Le processus d'instanciation comprend le renseignement de certaines \an{variables libres} qui modulent l'action pour l'adapter à la situation courante.
+Il existe une boucle interne qui permet de simuler des actions dans le \an{Workspace} pour tenter de prédire leurs conséquences.  
+L'action sélectionnée et instanciée sous la forme d'un \emph{comportement} (\an{behavior}). 
+Ce processus d'instanciation comprend le renseignement des \an{variables libres} qui modulent l'action pour l'adapter à la situation courante.
 Le comportement est effectué dans l'environnement ce qui produit des signaux sensoriels. 
 Les module \an{Perceptual Associative Memory (PAM)} intègre ces signaux sensoriels pour produire des informations sur la situation courante qui sont intégrées dans le \an{Worspace}. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/2_LIDA.png}
+	\caption{Vue simplifiée du cycle cognitif de LIDA d'après \cite[Fig.~4]{kugele_constructivist_2025}}
+	\label{fig:lida}
+\end{figure}
+
+
+Sean Kugele a récemment implémenté de nouvelles fonctionnalités pour permettre à LIDA de mettre en \oe uvre un apprentissage constructiviste \cite{kugele_constructivist_2025}. 
+Dans cette version, la situation courante est représentée en termes d'événements d'interaction sensorimoteurs dont l'agent vient de faire l'expérience.
+Une \an{affective valence} est également associée aux schémas afin d'orienter la sélection des comportements vers des résultats désirables.
+%Des préférences (\an{liking and disliking}, \an{wanting and dreading}) sont associées aux schémas pour représenter le système motivationnel de l'agent. 
+Kugele a démontré ce mécanisme d'apprentissage dans une expérimentation basée sur le k-armed bandit.
+L'agent devait découvrir la machine produisant statistiquement les meilleurs gains, puis exécuter des séquences consistant à s'assoire devant elle, placer une mise, et déclencher le jeu.  
+Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrices sous formes de \an{stream of behaviors} est et de les réutiliser dans bon contexte caractérisé par des séquences préalablement enactées permet à l'agent d'apprendre cette tâche.
+
+
 
 %Ces graphe active les schémas pertinents stockées dans la \an{procedural memory}.
 %Le module \an{action selection} sélectionne une action du schéma actif. 
 %Une fois une action sélectionnée, elle est instanciée comme un \an{behavior} ou un \an{stream of behavior} pour les actions composites et ses variables libres (\an{unbound variables}) sont qualifiées. 
 %le comportement est effectué dans l'environnement et des signaux sensoriels sont reçus qui sont traités pour produire une représentation de la situation courante
-
-
-Sean Kugele \cite{kugele_constructivist_2025} y a récemment modifié LIDA pour l'orienter vers pour lui mettre en oeuvre un apprentissage construcgiviste. 
-Dans cette version la situation courante est représentée en termes d'événements d'interaction sensorimoteurs 
-LIDA associe également une \an{affective valence} aux schémas qui oriente la sélection des comportements vers des résultats désirables.
-Des préférences (\an{liking and disliking}, \an{wanting and dreading}) sont associées aux schémas pour représenter le système motivationnel de l'agent. 
-Il a démontré ce mécanisme d'apprentissage dans une expérimentation basée sur le k-armed bandit dans lequel l'agent devait apprendre des séquences d'interaction pour maximiser la récompense obtenue. 
-Le fait d'etre capable d'apprendre des séquences d'interactions sensorimotrices est et de les réutiliser dans bon contexte apparait comme un élément crucial de cette approche. 
-
-sont distinguées des désirs ().
-
-
 
 %Le rectangle pointillé en bas montre son mécanisme de schéma récemment perfectionné par Sean Kugele \cite{kugele_constructivist_2025}.
 
@@ -1259,45 +1268,12 @@ sont distinguées des désirs ().
 %LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.9\textwidth]{Figures/2_LIDA.png}
-	\caption{Vue simplifié du cycle cognitif de LIDA d'après \cite[Fig.~4]{kugele_constructivist_2025}}
-	\label{fig:lida}
-\end{figure}
-
-
-
-
-\subsection{Apprentissage des structures spatiales}
-
-\noindent
-La question de savoir si l'espace physique est constitue un \og a priori de l'entendement \fg comme Kant l'a suggéré ou s'il est un concept construit à partir de l'expérience sensorimotrice est encore d'actualité dans les recherches en intelligence artificielle. 
-On trouve souvent attribuée au mathématicien Henri Pointcaré la paternité de l'idée que la connaissance de l'espace pourrait etre construit à partir de l'expérience sensorimotrice, sur la base de simples relations temporelles entre événements de changement : 
-
-\begin{quote}
-	\og Localiser un objet, c'est représenter les mouvements que l'on devrait exécuter pour l'atteindre. 
-	Il ne s’agit pas de représenter ces mouvements dans l’espace, mais de se représenter seulement les sensations musculaires qui accompagnent ces mouvements et qui, elles, ne supposent pas l’existence de l’espace. \fg \cite[p.~67]{pointcare_science_1902}.
-\end{quote}
-
-Pointcaré a suggéré que le concept d'espace émergerait à travers la découverte de changement sensoriels compensables qui sont générés par un changement dans l'environnement mais qui peuvent être annulés par un action de l'agent. L
-
-Bowen Xu et Pei Wang \cite{xu_essence_2025} expriment l'intérêt de ce genre de recherche : 
-\begin{quote}
-	\an{While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
-		AGI research aims not only to engineer machines but also to uncover principles of intelligence. 
-		Different studies strike a balance between these two objectives. 
-		Understanding how spatial sense emerges, without assuming space, advances the latter goal, since we can imagine a system without any notion of the physical space in the beginning but capable of learning to interact with the physical world and developing spatial sense} \cite[p.~2]{xu_essence_2025}
-\end{quote}
-
-Simon Gay s'est intéressé à ce sujet dans sa thèse de doctorat \cite{gay_autonomous_2017} 
-
-Citons l'article d'Alban Laflaquière et Michael Garcia Ortiz \og \an{Unsupervised Emergence of Egocentric Spatial Structure from Sensorimotor Prediction} \fg \cite{laflaquiere_unsupervised_2019}.
-Alexander Terekov et Kevin O'Regan ont proposé un modèle d'apprentissage de l'espace à partir des contingences sensorimotrices \cite{terekhov_learning_2019},  utilisant la question de l'émergence de structures spatiales comme un exemple de l'émergence de concepts abstraits
-Les travaux récents de l'équipe de Deleep George font peut être partie des plus avancées sur cette question à ce jour \cite{raju_space_2022}.
-
-Ces travaux ont en commun le fait que l'apprentissage des structures spatiales est démontrée dans un environnement fermé à la complexité limitée. 
-A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de structures spatiales en environnement ouvert. 
+Une partie importante de mon travail s'ancre dans les apports de la communauté des architectures cognitives bio-inspirées apporte 
+J'ai eu l'honneur de me voir confier la responsabilité d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}. 
+J'entretiens en particulier des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
+Ces collaborations sont riches d'enseignements sur le plan techniques, concernant les façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la sitation courante de l'agent et de ses apprentissages à long terme.
+Le fait d'inclure des variables libres dans les schémas dont les valeurs peuvent être contextualisées en fonction d'autres structures de données est intéressant.
+La capacité à construire des séquences d'interactions sensorimotrices et à les réénacter en tant que séquences entière s'avère importante. 
 
 
 \subsection{Réitération de séquences sensorimotrices}
@@ -1334,6 +1310,39 @@ En fonction de la trajectoire suivie, le même contexte peut proposer des action
 
 Le SSR peut être vu comme un mécanisme de schéma rudimentaire qui représente les schèmes d'une façon inversée à celle de Drescher: au lieu de chainer des perceptions, il chaines des actions en utilisant des schèmes primitifs de la forme \schema{action1, signal, action2}.
 
+
+\subsection{Apprentissage des structures spatiales}
+
+\noindent
+La question de savoir si l'espace physique est constitue un \og a priori de l'entendement \fg comme Kant l'a suggéré ou s'il est un concept construit à partir de l'expérience sensorimotrice est encore d'actualité dans les recherches en intelligence artificielle. 
+On trouve souvent attribuée au mathématicien Henri Pointcaré la paternité de l'idée que la connaissance de l'espace pourrait etre construit à partir de l'expérience sensorimotrice, sur la base de simples relations temporelles entre événements de changement : 
+
+\begin{quote}
+	\og Localiser un objet, c'est représenter les mouvements que l'on devrait exécuter pour l'atteindre. 
+	Il ne s’agit pas de représenter ces mouvements dans l’espace, mais de se représenter seulement les sensations musculaires qui accompagnent ces mouvements et qui, elles, ne supposent pas l’existence de l’espace. \fg \cite[p.~67]{pointcare_science_1902}.
+\end{quote}
+
+Pointcaré a suggéré que le concept d'espace émergerait à travers la découverte de changement sensoriels compensables qui sont générés par un changement dans l'environnement mais qui peuvent être annulés par un action de l'agent. L
+
+Bowen Xu et Pei Wang \cite{xu_essence_2025} expriment l'intérêt de ce genre de recherche : 
+\begin{quote}
+	\an{While the 3D assumption may suffice for practical purposes regarding the physical world, we argue that dropping it has theoretical significance. 
+		AGI research aims not only to engineer machines but also to uncover principles of intelligence. 
+		Different studies strike a balance between these two objectives. 
+		Understanding how spatial sense emerges, without assuming space, advances the latter goal, since we can imagine a system without any notion of the physical space in the beginning but capable of learning to interact with the physical world and developing spatial sense} \cite[p.~2]{xu_essence_2025}
+\end{quote}
+
+Simon Gay s'est intéressé à ce sujet dans sa thèse de doctorat \cite{gay_autonomous_2017} 
+
+Citons l'article d'Alban Laflaquière et Michael Garcia Ortiz \og \an{Unsupervised Emergence of Egocentric Spatial Structure from Sensorimotor Prediction} \fg \cite{laflaquiere_unsupervised_2019}.
+Alexander Terekov et Kevin O'Regan ont proposé un modèle d'apprentissage de l'espace à partir des contingences sensorimotrices \cite{terekhov_learning_2019},  utilisant la question de l'émergence de structures spatiales comme un exemple de l'émergence de concepts abstraits
+Les travaux récents de l'équipe de Deleep George font peut être partie des plus avancées sur cette question à ce jour \cite{raju_space_2022}.
+
+Ces travaux ont en commun le fait que l'apprentissage des structures spatiales est démontrée dans un environnement fermé à la complexité limitée. 
+A notre connaissance, il n'existe pas de travaux démontrant l'apprentissage de structures spatiales en environnement ouvert. 
+
+
+
 \subsection{Apprentissage profond de séquence}
 \label{sec:dsl}
 
@@ -1347,5 +1356,7 @@ L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel 
 La notion \emph{d'événement d'interaction valué} est centrale. 
 
 Le problème de la génération d'hypothèses est abordé par les coté des habitudes
+
+On pourrait proposer une définition de l'intelligence selon laquelle Un système intelligent est un système capable de se programmer lui-même, ou au moins capable de modifier ses propres structures internes de traitement de l'information.
 
 

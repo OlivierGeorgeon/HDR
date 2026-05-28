@@ -42,12 +42,11 @@ Il peut aussi contenir un mécanisme stochatistique qui inclut une composante al
 Par exemple, la plupart des grands modèles de langages sont \emph{univoques stochastiques} au sens ou un \an{prompt} donné conserve la même probabilité de produire une réponse donnée. 
 
 Le modèle DDS puise ses origines dans la cybernétique et la théorie des automates à états finis.
-%Bien qu'il ne soit pas attribué à un autour particulier, on en retrouve différentes formulations dans la littérature en intelligence artificielle et en apprentissage machine. 
 Ben Goertzel y fait explicitement référence dans sa \an{General Theory of General Intelligence} \cite{goertzel_general_2021}. 
 L'ouvrage de référence \textit{Artificial Intelligence, a modern approach} de Stuart Russell et Peter Norvig, de son coté, y fait implicitement référence en annonçant que  \og \an{the problem of AI is to build agents that receive percepts from the environment and perform actions} \fg\   \cite[p.~iv]{russell_artificial_2021}.
 %en faisant référence au modèle similaire de \an{Marvok Decision Process} (MDP) \cite[p.~iv]{russell_artificial_2021}, que je présenterai dans en Section \ref{sec:rl} consacrée à l'apprentissage par renforcement.
 %A ma connaissance, la littérature n'offre pas d'alternative significative à ce découpage en pas de temps discrets. 
-Ce découpage en pas de temps discrets trouve aussi une justification bio-inspirée dans le constat que le cerveau est cadencé par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
+Ce découpage en pas de temps discrets trouve aussi une justification bio-inspirée dans le constat que le cerveau apparait en grande partie cadencé par des vagues de déclenchement synaptiques périodiques à la fréquence des ondes gamma.
 
 %Tout d'abord, le terme \textit{action} n'est peut-être pas le plus adéquat pour désigner l'information transmise de l'agent vers l'environnement.
 
@@ -66,7 +65,7 @@ Engel nous incite à garder à l'esprit que l'\an{output} ne représente pas né
 
 Une seconde limite du DDS est qu'il présuppose une séparation nette entre l'agent et l'environnement. 
 L'agent est défini avec des contours bien établis qui le distinguent de son environnement, et les types d'interactions possibles sont prédéfinies par le concepteur. 
-Ce modèle écarte donc la question du processus d'émergence de la frontière entre l'agent et l'environnement, qui est un des aspects du processus d'\emph{individuation} de l'agent que j'ai évoqué en Section \ref{sec:individuation}.
+Ce modèle écarte donc la question du processus d'émergence de la frontière entre l'agent et l'environnement, qui est un des aspects du processus d'\emph{individuation} de l'agent évoqué en Section \ref{sec:individuation}.
 David Weinbaum et Viktoras Veitas notent que cette émergence pourrait impliquer une forme d'intelligence qui n'est pas prise en compte par le DDS. 
 Dans leur article \og \an{Open ended intelligence: The individuation of intelligent agents} \fg, ils critiquent une définition de l'intelligence qui présuppose la distinction entre l'agent et l'environnement : 
 
@@ -131,7 +130,7 @@ La nature acyclique du graphe est cruciale pour garantir qu'aucun n\oe ud ne soi
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.2\textwidth]{Figures/2_bn.pdf}
-	\caption{Réseau bayésien représentant que \og $S$ infulence son enfant $O$ \fg\ ou que \og $O$ dépend de son parent $S$ \fg\ avec la probabilité conditionnelle $P(O|S)$.
+	\caption{Réseau bayésien représentant que \og $S$ influence son enfant $O$ \fg\ ou que \og $O$ dépend de son parent $S$ \fg\ avec la probabilité conditionnelle $P(O|S)$.
 	%Les différentes probabilités impliquant ces deux variables sont liées par le théorème de Bayes: $P (O) P(S|O) = P(S)P(O|S) = P (O, S)$.
 	}
 	\label{fig:bn}
@@ -179,10 +178,11 @@ La partie droite montre une représentation \emph{circulaire simplifiée} du DBN
 	\label{fig:dbn}
 \end{figure}
 
-L'inférence bayésienne suppose de disposer, en amont, d'une modélisation des observations et des états possibles de l'environnement. 
-En outre, lorsque le nombre de variables aléatoires et leurs cardinalités augmentent, le coût du calcul devient rapidement prohibitif. 
+L'inférence bayésienne suppose des conditions qui la rendent inapplicable en IA développementale.
+Elle nécessite de disposer en amont d'une modélisation des observations et des états possibles de l'environnement. 
+Même si c'est la cas, lorsque le nombre de variables aléatoires et leurs cardinalités augmentent, le coût du calcul devient rapidement prohibitif. 
 Il a été montré qu'il était\an{ NP-Hard} dans le cas général \cite{cooper_computational_1990}.
-Pour ces raisons, nous ne pouvons pas l'utiliser directement en AI dévoppementale.
+%Pour ces raisons, nous ne pouvons pas l'utiliser directement en AI dévoppementale.
 
 Sans mobiliser l'inférence bayésienne, j'identifie deux apports intéressants de la représentation par les réseaux bayésiens dynamiques. 
 D'une part, elle permet de rendre compte de l'influence réciproque des différentes entrées et sorties au cours d'un même pas de temps.
@@ -198,7 +198,7 @@ Je qualifierai ces observations de \emph{signaux sensoriels non représentationn
 
 
 \noindent
-Un système dynamique contenant une \emph{entité} vivante ou non vivante interagissant avec son environnement peut être représenté par un DBN. 
+Comme nous venons de le voir, un système dynamique contenant une \emph{entité} interagissant avec son environnement peut être représenté par un DBN. 
 L'ensemble des variables de ce DBN se scinde en deux sous-ensembles: $V_0$ qui contient les variables représentant l'entité, et son complément $V_e$ qui contient celles représentant l'environnement.
 Le sous-ensemble $V_m \subset V_0$ des variables de $V_0$  qui ont des parents ou des enfants dans $V_e$ définissent l'interface entre l'entité et son environnement. 
 Ce sous-ensemble $V_m$ est appelé la  \emph{couverture de Markov} de l'entité. 
@@ -246,7 +246,7 @@ Il pourrait inférer un modèle de l'environnement qui génère l'observation $o
 Ce modèle prédirait la prochaine observation au temps 5: $o_5 = 10$. 
 Mais bien sûr, il existe une infinité de polynômes de degré $n$ compatibles avec une série de longueur $n$.
 Par exemple, l'agent aurait aussi bien pu inférer le modèle  $o_t = 2t^4 - 20 t^3 + 70t^2 - 98t + 48$, compatible avec les 4 premières observations, mais qui prédirait une cinquième observation différente $o_5 = 58$.
-Legg note que dans les tests psychotechniques, l'humain utilise naturellement le principe du rasoir d'Occam consistant à choisir le modèle le plus simple qui explique la série d'observations. 
+Legg note que dans les tests psychotechniques, l'humain utilise naturellement le principe du rasoir d'Ockham consistant à choisir le modèle le plus simple qui explique la série d'observations. 
 Il propose que les systèmes d'intelligence artificielle devraient suivre le même principe.
 
 Gary Drescher résume ainsi le problème de l'induction : 
@@ -326,18 +326,20 @@ Comme l'inférence bayésienne introduite en Section \ref{sec:bn}, l'inférence 
 \end{quote}
 
 Bien que ces raisons rendent l'inférence active inapplicable directement à l'IA développementale, cette théorie introduit une réflexion intéressante sur les principes qui gouvernent le comportement d’un agent.
-Le principe d'énergie libre suggère une forme de motivation de l'agent qui vise à mettre à jour ses croyances internes afin de mieux expliquer les données observées, ou à sélectionner les actions qui modifient l'environnement de manière rendre les observations conformes aux prédictions du modèle.
-Perception et action ne constituent plus des processus distincts mais différentes manifestation d'un même principe d'optimisation.
+Le principe d'énergie libre suggère une forme de motivation de l'agent qui vise à mettre à jour ses croyances internes afin de mieux expliquer les données observées, ou à sélectionner les actions qui modifient l'environnement de manière à rendre les observations conformes aux prédictions du modèle.
+Perceptions et actions ne constituent plus des processus distincts mais différents éléments d'un processus qui s'optimise dans son ensemble.
+%manifestation d'un même principe d'optimisation.
 
 
 \subsection{Théorie des contingences sensorimotrices}
 \label{sec:SMC}
 
 \noindent
-La \emph{Théorie des Contingences Sensorimotrices} (\an{Sensorimotor Contingencies}, SMC) de Kevin O'Regan et Alva Noë offre un éclairage intéressant sur les relations entre action, signal sensoriel, et perception \cite{oregan_sensorimotor_2001}.
+La \emph{Théorie des Contingences Sensorimotrices} (\an{Sensorimotor Contingencies}, SMC \cite{oregan_sensorimotor_2001}) de Kevin O'Regan et Alva Noë offre un éclairage complémentaire à la théorie de l'inférence active sur l'interdépendance entre action, signal sensoriel, et perception.
 Les auteurs expliquent cette théorie en utilisant la métaphore d'une équipe d'ingénieurs qui télé-comman\-derait un sous-marin comme illustré en Figure \ref{fig:smc}. 
 Un monstre marin aurait mélangé toutes les connexions à destination et en provenance des différents éléments du sous-marin: caméras, sonars, bras robotique, actionneurs, capteurs. 
-Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commandent n'ont plus leurs fonctions habituelles. 
+Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. 
+Les commandes n'ont plus leurs fonctions habituelles. 
 
 \begin{figure}[ht]
 	\centering
@@ -348,7 +350,7 @@ Ce qui apparait sur les écrans et les voyants n'a plus aucun sens. Les commande
 	\label{fig:smc}
 \end{figure}
 
-En observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient. Selon O'Regan et Noë : 
+O'Regan et Noë argumentent qu'en observant la \emph{structure des changements} qui se produisent quand ils appuient sur les boutons, les ingénieurs devraient pouvoir comprendre ce que les commandent et les voyants signifient:
 
 \begin{quote}
 	%\an{Imagine a team of engineers operating a remote-controlled underwater vessel exploring the remains of the Titanic, and imagine a villainous aquatic monster that has interfered with the control cable by mixing up the connections to and from the underwater cameras, sonar equipment, robot arms, actuators, and sensors. What appears on the many screens, lights, and dials, no longer makes any sense, and the actuators no longer have their usual functions. What can the engineers do to save the situation? By observing the \emph{structure of the changes} on the control panel that occur when they press various buttons and levers, the engineers should be able to deduce which buttons control which kind of motion of the vehicle, and which lights correspond to information deriving from the sensors mounted outside the vessel, which indicators correspond to sensors on the vessel’s tentacles, and so on.}
@@ -364,11 +366,11 @@ Cette conception rappelle la phrase de Merleau-Ponty citée en Section \ref{sec:
 En maintenant vivante cette conception phénoménologique de la perception à l'ère de l'informatique,  O'Regan aide à imaginer comment elle pourrait être implémentée dans un système artificiel. 
 Dans ce nouveau contexte, les contingences sensorimotrices correspondent à la dynamique des signaux moteurs et sensoriels émis et reçus par un système informatique ou robotique. 
 
-O'Regan ne se prononce pas sur la manière dont les signaux moteurs et sensoriels sont constitués, mais, dans un commentaire ouvert à son article, Donald Laming  insiste sur l'importance de distinguer entre \emph{contingences sensorimotrice} et \emph{contingences motosensorielles} \cite{laming_distinction_2001}. 
+O'Regan ne se prononce pas sur la manière dont les signaux moteurs et sensoriels sont constitués, mais, dans un commentaire ouvert à son article, Donald Laming  insiste sur l'importance de distinguer entre \emph{contingences sensorimotrice} et \emph{contingences moteur-sensorielles} \cite{laming_distinction_2001}. 
 Selon Laming, ces deux  types de contingences sont radicalement différentes. 
-Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour qui le \an{sensor} constituerait la variable indépendante, et le \an{motor} la variable dépendante. 
-En revanche, pour le sujet lui même, le \an{motor} constitue la variable indépendante et le \an{sensor} la variable dépendante. 
-Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
+Le terme \an{sensorimotor} suggère le point de vue d'un observateur tiers pour qui le \emph{sensoriel} constituerait la variable indépendante, et le \emph{moteur} la variable dépendante. 
+En revanche, pour le sujet lui même, le \emph{moteur} constitue la variable indépendante et le \emph{sensoriel} la variable dépendante. 
+%Entre les deux cas, les dynamiques des statistiques sont radicalement différentes. 
 Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte du point de vue subjectif du sujet percevant. 
 
 
@@ -379,10 +381,11 @@ Laming propose donc le terme \an{motorsensory contingencies} pour rendre compte 
 \label{sec:enaction}
 
 \noindent
-La théorie de l'enaction a été fondée par Franciso Varela, Evan Thompson et Eleanor Rosch dans leur ouvrage séminal \og \an{The embodied mind: cognitive science and human experience} \fg\ \cite{varela_embodied_1993}. 
+La théorie de l'enaction offre un cadre plus large dans lequel s'inscrit les théorie des contingences sensorimotrices.
+Elle a été fondée par Franciso Varela, Evan Thompson et Eleanor Rosch dans leur ouvrage séminal \og \an{The embodied mind: cognitive science and human experience} \fg\ \cite{varela_embodied_1993}. 
 Le terme \emph{enaction} dérive du verbe anglais \an{to enact}, que l'on peut traduire par \emph{mettre en \oe uvre} ou \emph{effectuer}.
-Les auteurs forgent notamment l'expression de \emph{perception enactive} pour désigner le processus par lequel un organisme identifie, ou fil de son activité, les aspects pertinents de son environnement. 
-Varela a approfondi ces idées en collaboration avec le biologiste et philosophe Humberto Maturana, contribuant à les inscrire dans le cadre de la biologie et de la philosophe de l'esprit modernes. 
+Les auteurs forgent notamment l'expression de \og \emph{perception enactive} \fg\ pour désigner le processus par lequel un organisme identifie, ou fil de son activité, les aspects pertinents de son environnement. 
+Varela a approfondi ces idées en collaboration avec le biologiste et philosophe Humberto Maturana, contribuant à les inscrire dans le cadre de la biologie et de la philosophe de l'esprit. 
 
 Par le fait qu'elle place l'action au c\oe ur de la cognition, la théorie de l'enaction s'inscrit dans le prolongement de l'épistémologie pragmatique et de la phénoménologie de la perception évoquées en Section \ref{sec:philosophie}.
 Elle est aujourd'hui généralement rattachée au courant plus large des approches dites 4E de la cognition (\an{embodied}, \an{embedded}, \an{extended}, \an{enactive}) qui mettent l'accent, chacune à leur manière, sur l'inscription de l'activité cognitive dans le corps en interaction avec son environnement.
@@ -435,7 +438,8 @@ L'autopoïèse désigne la capacité d'un système vivant à se produire et à s
 Elle implique la \an{fermeture opérationnelle} (\an{operational closure}) du système qui maintient son organisation interne face aux perturbations extérieures.
 
 Le courant sensorimoteur cherche à expliquer l'expérience perceptive par l'interaction sensorimotrice.
-L'exemple plus plus emblématique en est la théorie des contingences sensorimotrices présentées dans la section précédente. 
+%L'exemple plus plus emblématique en est la théorie des 
+La théorie des contingences sensorimotrices présentées dans la section précédente se situe dans ce courant. 
 La théorie de l'inférence active, introduite en section \ref{sec:active_inference}, a aussi été rapproché de ce courant par Maxwell Ramstead, Michael Kirschhoff et Karl Friston qui ont affirmé \og \an{active inference is enactive inference} \fg\ \cite{ramstead_tale_2020}. 
 
 Le courant radical est le courant défendu par Hutto et Myin eux-même.
@@ -469,14 +473,14 @@ Elle invite ensuite à entrevoir ce que Hutto et Myin appelle un \og \an{Evolvin
 Le concept d'autonomie a fait l'objet de nombreuses discussions dans le domaine de l'intelligence artificielle. 
 David Vernon, Robert Lowe, Serge Thill, et Tom Ziemke proposent la définition suivante: 
 \og \an{the degree of self-determination of a system, i.e., the degree to which a system’s behavior is not determined by the environment and, thus, the degree to which a system determines its own goals.} \fg\ \cite[p.~3]{vernon_embodied_2015}.
-Ces auteurs, de même que Ezequiel Di Paolo \cite{di_paolo_autopoiesis_2005} et Froese et Ziemke \cite{froese_enactive_2009} distinguent deux sortes d'autonomie: l'\emph{autonomie comportementale} (\an{behavioral autonomy}) et l'\emph{autonomie constitutive} (\an{constitutive autonomy}):  
+Ces auteurs, de même qu'Ezequiel Di Paolo \cite{di_paolo_autopoiesis_2005}, ainsi que Froese et Ziemke \cite{froese_enactive_2009}, distinguent deux sortes d'autonomie: l'\emph{autonomie comportementale} (\an{behavioral autonomy}) et l'\emph{autonomie constitutive} (\an{constitutive autonomy}):  
 
 \begin{quote}
 	\an{Behavioral autonomy focuses on the external characteristics of the system: the extent to which the system sets its 	own goals and its robustness and flexibility in dealing with an uncertain and possibly precarious environment. [...] [C]onstitutive autonomy focuses on the internal organization and the organizational process that keep the system viable and maintain itself as an identifiable autonomous entity}
 	\cite[p.~3]{vernon_embodied_2015}.
 \end{quote}
 
-Vernon fait une distinction entre \an{setting goals} (autonomie comportementale) et \an{determining goals} (autonomie constitutive). 
+Dans ce passage, Vernon fait une distinction entre \an{setting goals} (autonomie comportementale) et \an{determining goals} (autonomie constitutive). 
 Dans le premier cas, un objectifs est \emph{fixé} à partir d'un ensemble prédéfini d'objectifs possibles dans un domaine modélisé à priori, 
 alors que dans le second cas, les objectifs sont \emph{déterminés} de manière ouverte au fur et à mesure que le système se découvre lui même et découvre le monde. 
 
@@ -485,10 +489,11 @@ Certains auteurs ont proposé une conceptualisation de cette possibilité.
 Maturana a proposé la notion de \an{plastic structure-determined system} \cite{maturana_organization_1975} pour désigner les systèmes, naturels ou artificiels, qui sont déterminés par une structure interne plastique.
 Il argumente que la structure d'un système informatique est définie par son logiciel (\an{software}).
 Dans ce cas, l'autonomie constitutive de l'entité est liée à sa capacité à réorganiser ou développer de nouveaux éléments de \an{software} au fil de son existence. 
+
 Terry Winograd et Fernando Flores \cite{winograd_understanding_1987} introduisent trois types de changement logicielles possibles:  l'ajustement de paramètres, la formation combinatoire de concepts et l'évolution de structure.
 L'évolution de structure d'un software, correspond, en terme informatique, à la réorganisation de son \emph{code exécutable} et possiblement à l'acquisition de nouveau code exécutable.
 Winograd et Flores argumentent que c'est seulement quand le système initial n'a pas une structure directement reliée à la tache envisagée par son concepteur qu'un système computationnel peut produire de nouvelles structures modelées par ses interactions avec l'environnement. 
-Ils notent que ceci est valable pour \og any system whose internal structure can change as a result of perturbations, and computer programs share this quality \fg, et que de tels \an{software} flexible pourrait dépasser les limitations de leurs programmes initiaux. 
+Ils notent que ceci est valable pour \og \an{any system whose internal structure can change as a result of perturbations, and computer programs share this quality} \fg, et que de tels \an{software} flexibles pourrait dépasser les limitations de leurs programmes initiaux. 
 Alexander Riegler \cite{riegler_when_2002} a aussi argumenté que le couplage structurel n'est pas nécessairement limité au domaine physique, mais les software informatiques peuvent aussi devenir \emph{incarnés} par le fait de l'évolution de leur couplage avec leur environnement et construire leurs propres objectifs qui sont nouveaux par rapport au système initial défini par le programmeur. 
 
 %Cette distinction entre code exécutable et donnée a également été faite par Terry Winograd et Fernando Flores \cite{winograd_understanding_1987}.
@@ -502,7 +507,7 @@ Juyang Weng a proposé la notion de \an{self-affecting cognitive architecture} \
 On retrouve également cette idée dans les \an{Gödel Machines} de  Jürgen Schmidhuber \cite{schmidhuber_goedel_2003}.
 Plus récemment, Kristinn Thórisson, Eric Nivel, Ricardo Sanz et Pei Wang ont édité un numéro spécial \og \an{Self-Programming and Constructivist Methodologies for AGI} \fg\ de la revue \an{Journal of Artificial General Intelligence} \cite{thorisson_self-programming_2012}. 
 
-La question de la conception d'un système capable de mettre en \oe uvre des effets d'auto-programmation (self-programming) est encore complètement ouverte. 
+La question de la conception d'un système capable de mettre en \oe uvre des effets d'auto-programmation (\an{self-programming}) demeurent malgré tout encore complètement ouverte. 
 Elle soulève de nombreuses questions parmi lesquelles: 
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
@@ -526,7 +531,7 @@ La question n'est donc pas tant de savoir \emph{si} un système est ancrée, mai
 %La question est de savoir quel sorte d'ancrage on veut. A quoi est ancré la connaissance ? Est elle ancrée dans le langage, dans la physique ? dans l'expérience 
 
 
-Le célèbre article de Stephen Harnad ``\an{The symbol grounding problem}'' \cite{harnad_symbol_1990} a initié ce débat en proposant une première approche pour ancrer les symboles dans un niveau \emph{sub-symbolique} fondé sur des représentations dites \emph{iconiques}. 
+L'influent article de Stephen Harnad \og \an{The symbol grounding problem} \fg\ \cite{harnad_symbol_1990} a initié ce débat en proposant une première approche pour ancrer les symboles dans un niveau \emph{sub-symbolique} fondé sur des représentations dites \emph{iconiques}. 
 Certains auteurs ont prolongé cette réflexion en l'inscrivant plus solidement dans la théorie empiriste de la connaissance selon laquelle la connaissance s'ancre dans l'\emph{expérience} (c.f., Section \ref{sec:lumieres}). 
 Parmi eux, Pei Wang a introduit l'expression de \emph{sémantique ancrée dans l'expérience} \cite[\an{experience-grounded semantics}]{wang_experience-grounded_2005}.
 La sémantique désigne l'étude des mécanismes par lesquels un sens et des conditions de vérité sont attribués aux mots, aux symboles et aux énoncés. 
@@ -552,8 +557,7 @@ Cependant, comme NARS utilise des énoncés composés de concepts et de relation
 Ron Sun \cite[\an{Symbol grounding: A new look at an old idea}]{sun_symbol_2000} a argumenté que le sens s'ancrait dans des  \emph{habitudes d'interaction acquises}.
 Il emprunte le concept \emph{d'être-auprès-de} (\an{sein-bei}) à la phénoménologie de Heidegger évoquée en Section \ref{sec:phenomenologie}, pour argumenter qu'un agent peut acquérir ces habitudes sur la base de tendances à interagir avec les choses sans qu'il n'ait besoin d'objectifs prédéfinis ni de représentations explicites.   
 %En référence au concept heideggerien \emph{d'être-auprès-de} (\an{sein-bei}), Sun argumente qu'un agent peut acquérir ces habitudes d'interactions sur la base de tendances à interagir avec les choses sans qu'il n'aie besoin d'objectifs prédéfinis ni de représentations explicites.   
-Dileep George et ses collègues ont implémentaté une idée similaire \cite[\an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}]{hay_behavior_2018}.
-Ils se réfèrent à la théorie des contingences sensorimotrices présentée en Section \ref{sec:SMC} pour proposer un agent qui représente les concepts comme des séquences d'événements d'interaction sensorimotrices.
+%Dileep George et ses collègues ont implémentaté une idée similaire \cite[\an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}]{hay_behavior_2018}. Ils se réfèrent à la théorie des contingences sensorimotrices présentée en Section \ref{sec:SMC} pour proposer un agent qui représente les concepts comme des séquences d'événements d'interaction sensorimotrices.
 
 %we mean that to solve the semantic problems in NARS (that is, to understand the language and to justify the rules), we need to explain why the system treats each term and statement as different from other terms and statements, and such explanation should be based on the relation between the language and the world, not merely on the syntactic natures defined within the system. Since the relation between NARS (the system in which the language is used) and its environment (which is the ‘‘world’’ to the system) is indicated by the experience of the system, the semantic features of a term or statement have to be determined according to its role in the experience of the system, because in NARS there is no other way to talk about the outside world.
 
@@ -567,13 +571,11 @@ Ils se réfèrent à la théorie des contingences sensorimotrices présentée en
 %\end{quote}
 
 A ce jour, la question de comment un agent peut construire du sens sur la base de son expérience sensorimotrices reste une question ouverte. 
-On peut inscrire cette question dans le champ de la sémantique si on conçoit cette discipline dans son sens large.
-Wang note que la sémantique basée sur l'expérience  ``\an{qualifies to be a semantics in the broad (and original) sense of the notion [...] because the concept of truth and meaning still make sense}''.
+On peut inscrire cette question dans le champ de la sémantique si, comme Wang, on conçoit cette discipline dans son sens large : la sémantique basée sur l'expérience  ``\an{qualifies to be a semantics in the broad (and original) sense of the notion [...] because the concept of truth and meaning still make sense}'' \cite[p.~286]{wang_experience-grounded_2005}.
 %``the truth value of a statement indicates the amount of available evidence, and the meaning of a term indicates its experienced relations with other terms''. 
 %conçoit cette discipline dans son acception large, c'est à dire, comme le suggère Wang, un cadre de pensée dans lequel les concepts de signification et de vérité ont un sens. 
 Cette sémantique basée sur l'expérience suggère que la signification serait ancrée dans l'usage que l'agent peut faire des symboles pour organiser ses interactions avec le monde. 
 Elle s'inscrit dans la lignée d'une épistémologie pragmatique introduite en section \ref{sec:pragmatisme}. 
-
 Cette importance de l'usage soulève la question des préférences et motivations de l'agent que nous allons aborder dans la prochaine section.
 
 
@@ -585,7 +587,7 @@ Cette importance de l'usage soulève la question des préférences et motivation
 \noindent
 La question des principes qui orientent les comportements de l'agent se pose dès qu'il est question d'autonome.
 En effet, un robot à qui \og tout serait égal \fg\ pourrait se contenter de sélectionner aléatoirement chacun de ses mouvements parmi tous ceux à sa disposition. 
-Cela produirait une dynamique erratique sans aucune forme d'intelligence et mènerait rapidement à la sa destruction ou à son immobilisation par épuisement de ses ressources énergétiques. 
+Cela produirait une dynamique erratique sans aucune forme d'intelligence et mènerait rapidement à sa destruction ou à son immobilisation par épuisement de ses ressources énergétiques. 
 Différents principes ont donc été imaginés pour orienter les décisions de l'agent.
 Ces principes ont été désignés par différentes appellations, telles que \emph{préférences}, \emph{système de valeur}, ou \emph{motivation} qui renvoient à l'idée générale que \og tout n'est pas égal \fg\ pour l'agent.
 
@@ -595,18 +597,18 @@ Dans le second cas on parle de \emph{motivation interne}.
 La distinction entre les deux n'as pas toujours nette car la séparation entre ce qui fait partie de l'agent et ce qui fait partie du monde extérieur peut dépendre du point de vue du concepteur. 
 
 Un exemple de motivation externe est un système artificiel qui joue aux échecs. 
-Dans un sens faible du mot motivation, on peut dire que le système est motivé pour mettre son adversaire en échec et mat, mais cette motivation est entièrement imposée par le concepteur. 
+On peut dire que le système est motivé pour mettre son adversaire en échec et mat, mais cette motivation est entièrement imposée par le concepteur. 
 Cette motivation est \og close \fg\ dans le sens ou elle contraint entièrement les décisions de l'agent et elle disparait une fois l'objectif atteint.
 
-Au contraire, la motivation interne n'impliquent pas de fonction de reconnaissance d'un \an{goal state}, c'est à dire un état-objectif reconnaissable parmi tous les états possibles de l'environnement.
-Elles ne sont toutefois pas entièrement déconnectées de l'environnement: elles impliquent des dynamiques de l'état des capteurs et des actionneurs, c'est à dire des événements d'interaction. 
+La motivation interne évite de recourir à une fonction de reconnaissance d'un  état-objectif reconnaissable parmi tous les états possibles de l'environnement.
+Elles n'est pourtant pas entièrement déconnectées de l'environnement: elle se base sur des dynamiques de l'état des capteurs et des actionneurs, c'est à dire des événements d'interaction. 
 Pierre-Yves Oudeyer et Frederic Kaplan  proposent une classification des motivations internes selon plusieurs axes dans leur article \og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007}.
 Ils distinguent l'axe \emph{homéostatique} -- \emph{hétérostatique}, l'axe \emph{fixe} -- \emph{adaptative}, et l'axe \emph{intrinsèque} -- \emph{extrinsèque}.
 
 La motivation homéostatique vise à maintenir certaines variables internes dans une fourchette de viabilité ou de confort. 
 La motivation hétérostatique pousse au contraire le système à sortir de son équilibre et à perturber l'état des variables internes, sans jamais atteindre un état de satisfaction statique. 
 Un motivation fixe est une motivation qui évalue toujours la même situation de la même manière au cours de l'existence de l'agent. 
-Au contraire, une motivation adaptative va évaluer la même situation différemment au cours de l'existence de l'agent.
+Au contraire, une motivation adaptative évalue la même situation différemment au cours de l'existence de l'agent.
 Enfin, une motivation intrinsèque à l'activité pousse l'agent à effectuer une activité pour le simple fait de l'effectuer, alors que la motivation extrinsèque pousse l'agent à effectuer l'activité pour obtenir atteindre un objectif qui en résulte.
 
 Des exemples de motivation intrinsèque sont le \an{flow} et la \emph{curiosité}. 
@@ -619,7 +621,7 @@ Nous examinerons plus en détail cette méthode dans la section \ref{sec:informa
 
 Les approches heuristiques de la curiosité tentent d'évaluer des zones locales offrant des potentiels d'apprentissage. 
 Une des heuristiques proposées est basée sur la \an{learning progress hypthesis} qui consiste à orienter le robot vers les zones ou l'erreur de prédiction diminue de manière mesurable en évitant les zones trop faciles ou trop difficiles pour organiser le curriculum d'exploration \cite{oudeyer_intrinsic_2007}.
-Un autre exemple est Le processus d'exploration de buts intrinsèquement motivés (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
+Un autre exemple est le \emph{processus d'exploration de buts intrinsèquement motivés} (GEP-PG) qui découple exploration et exploitation via des populations de trajectoires. 
 Cette heuristique a été  implémentés pour l'apprentissage de la locomotion et de la manipulation d'objets souples dans une étude intitulée \an{Intrinsically motivated goal exploration processes with automatic curriculum learning} \cite{forestier_intrinsically_2022}. 
 %Il note que les approches normatives et heuristiques ne sont pas antagonistes. Il se pourrait que les approches normatives permettent de diriger l'attention sur des opportunités d'apprentissage existant dans des échelles de temps courtes, mais que pour des opportunités d'apprentissage à plus longue échelle de temps, les heuristiques soient plus utile pour choisir des activités comme les jeux ou des défis. 
 
@@ -627,8 +629,8 @@ Cette heuristique a été  implémentés pour l'apprentissage de la locomotion e
 %L'article de Oudeyer, Kaplan et Hafner ``\an{Intrinsic motivation systems for autonomous mental development}'' compte parmi les premiers qui ont relié ce terme au cadre de l'intelligence artificielle développementale \cite{oudeyer_intrinsic_2007}.
 L'apprentissage développemental artificiel ne peut pas être dirigé par une motivation externe car il ne doit pas imposer de but final prédéfini à l'agent sous la forme d'un état du monde à atteindre. 
 L'apprentissage doit etre \an{open-ended} dans un environnement ouvert. 
-L'agent a besoin de principes motivationels qui orientent sa trajectoire développementale qui doivent etre définis sans faire références à des états prédéfinis du monde mais plutot à des événements d'interaction. 
-Ces motivations peuvent être basées sur des heuristiques inspirées du vivant. 
+L'agent a besoin de principes motivationnels qui orientent sa trajectoire développementale sans faire références à des états prédéfinis du monde. 
+Ces motivations peuvent se baser sur des événements d'interaction et impliquer des heuristiques inspirées du vivant. 
 Nous allons maintenant examiner la question de ce qu'est un monde ouvert.
 
 \subsection{Apprentissage en monde ouvert}
@@ -1268,38 +1270,32 @@ Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrice
 %LIDA introduit la notion de \an{stream of behavior} qui est la capacité au mécanisme de schema de selectionner un schema composite qui l'engage sur plusieurs cycles d'interaction. 
 
 
-Une partie importante de mon travail s'ancre dans les apports de la communauté des architectures cognitives bio-inspirées apporte 
-J'ai eu l'honneur de me voir confier la responsabilité d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}. 
-J'entretiens en particulier des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
-Ces collaborations sont riches d'enseignements sur le plan techniques, concernant les façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la sitation courante de l'agent et de ses apprentissages à long terme.
-Le fait d'inclure des variables libres dans les schémas dont les valeurs peuvent être contextualisées en fonction d'autres structures de données est intéressant.
-La capacité à construire des séquences d'interactions sensorimotrices et à les réénacter en tant que séquences entière s'avère importante. 
+Mon travail s'inscrit en partie dans le champ des architectures cognitives bio-inspirées. 
+J'ai eu l'honneur d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}, et j'entretiens particulièrement des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
+Ces collaborations sont fécondes sur le plan technique, en particulier sur la façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la situation courante de l'agent et de ses apprentissages à long terme.
+L'introduction de variables libres dans les schémas qui se contextualisent au moment de leur instanciation permet de mieux adapter les comportements à la situation courante. 
+La possibilité pour l'agent de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réenacter des séquences entières préalablement apprises est importante dans la capacité à apprendre des habitudes d'interaction.
+
 
 
 \subsection{Réitération de séquences sensorimotrices}
 
 \noindent
-Felix Woolford et Matthew Egbert \cite{woolford_precarious_2020} se sont appuyés sur la théorie de l'enaction pour argumenter de l'importance de réaliser des simulations informatiques d'apprentissage d'habitudes. 
-Cela les a conduit à proposent le \an{Sensorimotor Sequence Reiterator (SSR)}, un mécanisme d'acquisition, de ré-enaction, et de maintenance d'habitudes sensorimotrices.
+Felix Woolford et Matthew Egbert \cite{woolford_precarious_2020} se sont concentrés sur la conception d'agents qui prennent des habitudes d'interaction avec leur environnement. 
+Ils s'appuient sur la théorie de l'enaction pour argumenter que la prise d'habitude est une capacité fondamentale de la cognition qui mérite une investigation par des simulations informatiques, au même titre que les capacités de résolution de problème.
+La difficulté réside dans le fait que les habitudes ne sont pas des simples séquences d'actions qu'il suffit d'enregistrer et de répéter mais impliquent des boucles de contrôle sensorimotrices qui exploitent des régularités du couplage agent / environnement. 
+Ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} comme une approche possible pour répondre à ce problème.
 
-Le SSR fonctionne comme un controleur de robot qui compare l'activité sensorimotrice récente et qui tente de répéter la séquence de comportement historique la plus similaire.
-Il construit une représentation de l'histoire de ses états sensorimoteurs récents.
-Un état sensorimoteurs est un couple constitué de l'action et des signaux sensoriels qui suivent cette action.
-Il construit ensuite des paires d'états sensorimoteurs au fur et à mesure que l'agent en fait l'expérience.
-Du fait que les noeuds dans la séquence historique ont une durée de vie limitée, les comportements qui n'ont pas été enactés depuis trop longtemps sont perdus.
+Le SSR enregistre l'historique des interactions sensorimotrices. 
+A un instant donné, il compare l'historique récent des interactions avec l'historique complet de façon à retrouver des séquences similaires. 
+Sur la base de cette comparaison, il propose des actions qui tendent à reproduire les séquences les plus longues. 
+L'historique est enregistré comme une séquences \emph{de n\oe uds sensorimoteurs} (\an{sensorimotor nodes}) et conservé sur une durée paramétrée.
+Un n\oe ud sensorimoteurs est un triplet constitué d'une action, un signal sensoriels qui en résulte, et une action suivante.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/2_ssr.pdf}
-	\caption{Exemple de réseaux de comportements impliquant quatre valeurs sensorielles A, B, C, D, et trois valeurs motrices: 1, 2, 3, selon Woolford \cite[Fig.~2]{woolford_precarious_2020}.
-		Gauche: séquence de n\oe uds sensorimoteurs. 
-		Droite: représentation des boucles de comportements.
-		Par exemple, le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
-		 }
-	\label{fig:ssr}
-\end{figure}
+%Il construit ensuite des paires d'états sensorimoteurs au fur et à mesure que l'agent en fait l'expérience.
 
-La Figure~\ref{fig:ssr} offre une façon intéressante de représenter graphiquement  les structures de comportement appris.
+La partie gauche de la Figure~\ref{fig:ssr} montre un exemple de séquence de n\oe uds sensorimoteurs enregistrés par l'agent.  
+La partie gauche offre une façon intéressante de représenter graphiquement  les structures de comportement appris.
 Dans cet exemple, l'agent dispose de quatre valeurs sensorielles A, B, C, D, et de trois valeurs motrices: 1, 2, 3.
 Le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
 La notation du contexte sensorimoteur A1 prête légèrement à confusion en notant la valeur sensorielle en premier alors qu'elle suit l'action. 
@@ -1308,7 +1304,29 @@ En fonction de l'état de l'environnement, une action peut induire des signaux s
 Par exemple l'action 3 à partir du n\oe ud \schema{C2/3} peut induire le signal C ou D et mener aux n\oe uds \schema{C3/3} ou \schema{D3/1}.
 En fonction de la trajectoire suivie, le même contexte peut proposer des actions différentes, par exemple C2 apparait dans les n\oe uds \schema{C2/1} qui propose l'action 1 et \schema{C2/3} qui propose l'action 3.
 
-Le SSR peut être vu comme un mécanisme de schéma rudimentaire qui représente les schèmes d'une façon inversée à celle de Drescher: au lieu de chainer des perceptions, il chaines des actions en utilisant des schèmes primitifs de la forme \schema{action1, signal, action2}.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/2_ssr.pdf}
+	\caption{Exemple de réseaux de comportements impliquant quatre valeurs sensorielles A, B, C, D, et trois valeurs motrices: 1, 2, 3, selon Woolford \cite[Fig.~2]{woolford_precarious_2020}.
+		Gauche: séquence de n\oe uds sensorimoteurs. 
+		Droite: représentation des boucles de comportements.
+		Par exemple, le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
+	}
+	\label{fig:ssr}
+\end{figure}
+
+Une limite du SSR est la complexité computationnelle pour retrouver les séquences similaires les plus longues.
+Pour cette raison, la durée de l'historique est limitée à une fenêtre temporelle prédéfinie. 
+Le calcul est également optimisé par le fait que le SSR attribue un poids aux n\oe uds sensorimoteurs qui renforce ceux qui sont le plus réenactés.  
+
+Les comportements qui n'ont pas été enactés depuis trop longtemps sont perdus.
+
+
+Le SSR peut être vu comme un mécanisme de schéma rudimentaire qui représente les schèmes d'une façon inversée à celle de Drescher: au lieu de chainer des perceptions, il chaines des actions en utilisant les n\oe uds sensorimoteurs comme  schèmes primitifs de la forme \schema{action1, signal, action2}.
+
+Dans son travail de thèse, Felix Woodford propose d'autres approches pour des systèmes d'acquisitions d'habitudes plus généraux capables en particulier de fonctionner avec des domaines d'action et de signal sensoriels continus. 
+J'ai eu le plaisir de servir comme rapporteur dans son jury de sa thèse brillamment soutenue en 2023. 
+Le SSR pose les fondements qui ouvrent la voie à une recherche sur l'apprentissage enactif computationnel.
 
 
 \subsection{Apprentissage des structures spatiales}

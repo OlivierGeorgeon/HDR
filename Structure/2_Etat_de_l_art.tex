@@ -1054,24 +1054,24 @@ Drescher forge le terme de \emph{mécanisme de schéma} (\an{schema mechanism}) 
 
 %Les mécanismes de schéma (schema mechanisms) sont des logiciels qui visent à transcrire les théories d'apprentissages développemental liées à l'épistémologie génétique et l'épistémologie constructiviste introduites en Section \ref{sec:epistemologie_genetique}. 
 
-Les mécanismes de schéma transposent le concept piagetien de \emph{schème} (en anglais, \an{schema}) provenant du domaine de la psychologie vers le domaine de l'informatique.
-Ces schèmes sont représentés sous la forme de structures de donnée désignées par le terme \emph{schema}. 
-Un mécanisme de schema est donc un \an{software} qui manipule et construit des \an{schémas} servant à piloter les comportements d'un agent, dans le but que ces comportements révèlent une forme de développement cognitif.
+Un mécanisme de schéma transpose le concept piagetien de \emph{schème} (en anglais, \an{schema}) provenant du domaine de la psychologie vers le domaine de l'informatique.
+Il représente ces schèmes sous la forme de structures de donnée désignées par le terme \emph{schema}. 
+Un mécanisme de schema est donc un \an{software} qui manipule et construit des \an{schémas} servant à représenter les connaissances acquises et à générer des comportements de façon à révéler une forme de développement cognitif.
 
 
 %Un schema de Drescher est un tuple  \interaction{context, action, result} illustré en Fig. \ref{fig:drescher1}.
 
 Un schema de Drescher est un tuple  $\langle contexte, action, resultat \rangle$ illustré en Figure \ref{fig:drescher1}.
 Le \emph{contexte} et le \emph{resultat} sont des ensembles d'\emph{items} binaires qui peuvent être \emph{positivement} ou \emph{négativement inclus}. 
-Le contexte d'un schéma est satisfait si tous les items qui y sont positivement inclus sont \emph{On}, et tous les items négativement inclus sont \emph{Off}.
+Le contexte d'un schéma est satisfait si tous les items qui y sont positivement inclus sont \emph{On}, et tous ceux négativement inclus \emph{Off}.
 Le schéma signifie que si l'action est effectuée quand le contexte est satisfait alors les items positivement inclus dans le résultat passeront à \emph{On} et ceux négativement inclus à \emph{Off}.
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_Drescher_schema.png}
-	\caption{Schéma d'après Drescher \cite[Fig.~3.2]{drescher_made-up_1991}.
-		Le schéma noté \mbox{$p \!\sim\! qr/a/xy$} signifie que, si l'action $a$ est exécutée dans un contexte où $p$ est \textit{On}, $q$ est \textit{Off} et $r$ est \textit{On}, alors les items $x$ et $y$ passeront à l'état \textit{On}.}
+	\caption{Schéma \mbox{$p \!\sim\! qr/a/xy$} d'après Drescher \cite[Fig.~3.2]{drescher_made-up_1991}.
+		Si l'action $a$ est exécutée dans un contexte où l'item $p$ est \textit{On}, $q$ est \textit{Off} et $r$ est \textit{On}, alors les items $x$ et $y$ passeront à l'état \textit{On}.}
 	\label{fig:drescher1}
 \end{figure}
 
@@ -1080,15 +1080,13 @@ Pour chaque action primitive, un \emph{schéma nu} (\an{bare schema}) est créé
 Le concepteur a aussi la possibilité d'ensemencer le mécanisme avec d'autres schémas appelées \emph{graines} (\an{seed}) qui spécifient des comportements innés. 
 
 
-L'activation d'un schéma consiste à effectuer son action.
-Une fois l'action effectuée, le résultat prédit par le schéma est comparé au résultat obtenu. 
+L'activation d'un schéma consiste à effectuer son action, puis à comparer le résultat prédit avec le résultat obtenu. 
 L'activation du schéma est considérée un succès si le résultat prédit a été obtenu, sinon elles est considérée un échec. 
-Le rapport entre le nombre de succès et d'échec est appelé \an{reliability} et est mémorisé pour chaque schéma.  
+Le rapport entre le nombre de succès et d'échec, appelé \an{reliability}, est mémorisé pour chaque schéma.  
 
-L'apprentissage de nouveaux schémas est déclenché par l'identification d'un \textit{résultat pertinent} (\an{relevant result}).
-Un résultat est considéré comme pertinent lorsqu'il présente une occurrence d'items plus fréquente que celle attendue dans le cas d'un tirage aléatoire. 
+L'apprentissage de nouveaux schémas est déclenché par l'identification d'un \textit{résultat pertinent} (\an{relevant result}), défini par le fait qu'il présente une occurrence d'items plus fréquente que celle attendue dans le cas d'un tirage aléatoire. 
 Quand un résultat pertinent est identifié, l'agent cherche les conditions dans lesquelles ce résultat peut être reproduit de manière fiable.
-Cette recherche s’appuie sur la construction de nouveaux schémas permettant à l’agent de rétablir le contexte ayant conduit au résultat pertinent, puis de réexécuter l’action afin de vérifier si le même résultat est répété. 
+Cette recherche s’appuie sur la construction de nouveaux schémas permettant à l’agent de rétablir le contexte ayant conduit au résultat pertinent, puis de réexécuter l’action afin de vérifier si le même résultat peut être répété. 
 %Par cette répétition, l’agent peut estimer la fiabilité du schéma nouvellement acquis et consolider progressivement ses connaissances sur les régularités de l’environnement.
 %Ces conditions sont trouvées grâce à de nouveaux schémas qui permettent à l'agent de retourner dans le contexte qui mène au résultat pertinent, et ensuite réexécuter l'action pour vérifier que le même résultat peut être obtenu à nouveau et ainsi évaluer la fiabilité du schémas appris.
 
@@ -1098,7 +1096,7 @@ Quand un tel schéma est découvert, il est considéré comme un \emph{schéma h
 Drescher note que \og \an{a synthetic item thus works backward from a thing's manifestation to define the very thing manifested} \fg\ \cite[p.~83]{drescher_made-up_1991}.
 Ceci adresse la question fondamentale de l'invention des concepts dans la mesure ou \og \an{a synthetic item is a new element of the system's ontology---an element fundamentally different from the prior contents of the system's conceptual vocabulary} \fg\ \cite[p.~81]{drescher_made-up_1991}. 
 
-Le concepteur définit les objectifs de l'agent en attribuant des \emph{valeurs primitives} aux différents états possibles des items primitifs: positives aux états désirables et négatives aux états indésirables.
+Le chercheur définit les objectifs de l'agent en attribuant des \emph{valeurs primitives} aux différents états possibles des items primitifs: positives aux états désirables et négatives aux états indésirables.
 Le mécanisme est doté de la capacité d'identifier des sous-objectifs définis comme des configurations particulières d'items à activer ou désactiver. 
 Il construit des \emph{actions composites} constituées de séquences de schémas utilisées pour atteindre un sous-objectif. 
 La valeur d'un item cible est propagée à des items intermédiaires quand le fait de les atteindre augmente les chances d'atteindre l'item cible.
@@ -1106,60 +1104,60 @@ La valeur d'un item cible est propagée à des items intermédiaires quand le fa
 L'agent alterne aléatoirement entre poursuite d'objectifs et exploration, selon une probabilité paramétrée par le concepteur.
 
 Drescher démontre son mécanisme dans le \an{microword} fait de la grille $7 \times 7$ en Figurge~\ref{fig:Drescher_microworld}.
-Le mécanisme contrôle un robot simulé qui a un corps, une main, et un système visuel.
-La main peut toucher, saisir, et déplacer des objets dans une région de la grille de $3 \times 3$ devant le robot.
-Le système visuel couvre une région de $5 \times 5$ que le robot peut déplacer à l'intérieur de la grille $7 \times 7$.
+Il contrôle un robot simulé qui a un corps, une main, et un système visuel.
+La main peut toucher, saisir, et déplacer des objets dans une région $3 \times 3$ devant le robot.
+Le système visuel couvre une région $5 \times 5$ que le robot peut déplacer à l'intérieur de la grille $7 \times 7$.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_Drescher_microworld.png}
 	\caption{Environnement de test de Drescher \cite[Fig.~6.1]{drescher_made-up_1991}.
-		Petit carré avec un point: corps de l'agent.
-		Gros point: main qui peut bouger dans un carré $3 \times 3$ devant le corps.
-		Grille $5 \times 5$: champ visuel qui peut bouger dans la grille $7 \times 7$.}
+		Petit carré avec un point: corps du robot.
+		Gros point: main qui peut bouger dans une région $3 \times 3$ devant le corps.
+		Région $5 \times 5$: champ visuel qui peut bouger dans la grille $7 \times 7$.}
 	\label{fig:Drescher_microworld}
 \end{figure}
 
-Au début, le mécanisme ignore les relations topologiques entre les items sensoriels. 
-L'expérimentation montre qu'il apprends ces relations au cours d'un processus que Drescher nomme \og \an{elaboration of the spatial substrate} \fg. 
-Une fois le substrat spatial appris, le mécanisme parvient à construire des items synthétiques qui désignent des objets à partir de leur perception.
+Au départ, le mécanisme ignore les relations topologiques entre les items sensoriels. 
+L'expérimentation montre qu'il apprends ces relations au cours d'un processus que Drescher nomme \an{elaboration of the spatial substrate}. 
+Une fois le substrat spatial appris, le mécanisme parvient à construire des items synthétiques qui désignent des objets à partir de schémas permettant de les percevoir.
 Il donne l'exemple d'un \og \an{synthetic item, which we might call PalpableObjectAt(1,3)  (the name, of course, has no meaning to the mechanism). 
 	The item is defined to represent whatever condition makes the schema reliable; we observers know (but the mechanism does not) that this condition is that there be an object at (1, 3)} 
 \fg\ \cite[p. 13]{drescher_made-up_1991}.
-Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} avec l'item synthétique \an{VisibleObjectAt(1,3)} pour enregistre la découverte qu'ils réfèrent au même objet existant à la position (1, 3).
+Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} avec l'item synthétique \an{VisibleObjectAt(1,3)} pour enregistre la découverte qu'ils correspondent au même objet existant à la position (1, 3).
 
 Drescher a fait un travail remarquable en illustrant pour la première fois une des questions fondamentale de l'apprentissage constructiviste: comment un agent peut-il construire une connaissance des objets qui l'entourent à partir de régularités de schèmes d'interaction.
-En particulier il a mis en évidence l'importance de permettre à l'agent de pouvoir recueillir des expériences contrefactuelles, au cours d'un cycle de formation d'hypothèses, de test, et d'adjudication. 
+En particulier il a mis en évidence l'importance de permettre à l'agent de pouvoir recueillir des expériences contrefactuelles, au cours d'un cycle de formation d'hypothèses, de test, et d'une décision d'acceptation ou de rejet. 
 
 Selon moi, ce mécanisme de schéma souffre d'une limite importante qui tient au fait que ses items primitifs représentent des propriétés prédéfinies de l'état du monde. 
 Il écrit \og \an{each item represents some condition in the world} \fg\ \cite[p.~5]{drescher_made-up_1991}, présupposant ainsi un monde déjà structuré avec des états et des propriétés identifiables.
 Marco Bettoni exprime cette critique par le fait que \og \an{Drescher's constructivism is not Piaget's constructivism, mainly because of its tacit acceptance of cognitive dogmatism} \fg\ \cite[p.~6]{bettoni_made-up_1993}. 
 En effet, l'usage de signaux sensoriels représentant directement des propriétés de l'environnement introduit une ontologie préalable de l'environnement dans l'architecture de l'agent.
-Cette présupposition se retrouve également dans la définition de la motivation de l'agent: le système de valeurs de l'agent est associées à des propriétés présupposées de l'environnement, constituant ainsi une forme de motivation externe. 
-Ces hypothèses limitent le fonctionnement de ce mécanisme de schéma à un monde fermé.
+Cette présupposition se retrouve également dans la définition de la motivation de l'agent: le système de valeurs de l'agent est associé à des propriétés présupposées de l'environnement, constituant ainsi une forme de motivation externe. 
+Ces hypothèses restreignent ce mécanisme de schéma à un monde fermé.
 Cela explique peut-être pourquoi il n'a pas connu d'extension convaincante à des environnements plus complexes au cours des trente-cinq années qui l'ont suivi. 
 
-Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'épistémologie constructiviste, il serait nécessaire de concevoir des représentations de schèmes piagétiens qui ne reposent pas sur des propriétés présupposées de l'environnement, mais sur des régularités opératoires que l'agent parvient progressivement à stabiliser dans son activité.
+Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'épistémologie constructiviste, cette analyse nous invite à concevoir des représentations de schèmes piagétiens qui ne reposent pas sur des propriétés présupposées de l'environnement, mais sur des régularités opératoires que l'agent parvient progressivement à stabiliser dans son activité.
 
 \subsection{Mécanismes de schéma modernes}
 
 \noindent
-A la suite des travaux de Drescher, la recherche en IA constuctiviste s'est poursuivie de manière relativement discrète par rapport au paysage scientifique de l'IA.
-Google Scholar recense aujourd'hui plus de 770 publications faisant référence à ses travaux.
+Depuis 1991, la recherche en IA constuctiviste s'est poursuivie de manière discrète mais régulière.
+Google Scholar recense aujourd'hui plus de 770 publications citant le livre de Drescher.
 Parmi celles-ci on peut noter celle de Dileep George recruté par DeepMind: \an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}  \cite{hay_behavior_2018}.
 
-Un exemple instructif est le \an{Constructivist Anticipatory Learning Mechanism (CALM)} de Filipo Perotto \cite{perotto_computational_2013}. 
-Il poursuit un objectif proche de Drescher: permettre à un agent d'apprendre un modèle des régularités observées en interagissant avec son environnement, tout en enrichissant son vocabulaire représentationnel afin de dépasser le niveau des expériences sensorimotrices brutes. 
-Perotto s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour se rapprocher davantage de l'apprentissage par renforcement, plus précisément du \an{model-based reinforcement learning}. 
+Un exemple particulièrement instructif est donné par le \an{Constructivist Anticipatory Learning Mechanism} (CALM) de Filipo Perotto \cite{perotto_computational_2013}. 
+%Il poursuit un objectif proche de Drescher: permettre à un agent d'apprendre un modèle des régularités observées en interagissant avec son environnement, tout en enrichissant son vocabulaire représentationnel afin de dépasser le niveau des expériences sensorimotrices brutes. 
+Il s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour se rapprocher davantage de l'apprentissage par renforcement, plus précisément du \an{model-based reinforcement learning}. 
 Il remplace les \an{primitive items} representationnels de Drescher par des feedbacks sensoriels pour permettre à l'agent de construire un modèle du monde et de ses transitions afin de maximiser une valeur de récompense. 
 
 CALM repose sur la constatation que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce que l'agent ne peut pas percevoir tous les éléments de contexte qui causent ces signaux. 
-L'agent va donc chercher à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
-Lorsqu'il est confronté à un signal sensoriel inexplicable, l'agent crée une nouvelle variable hypothétique destinée à expliquer ce signal.
-Ce processus peut etre réitéré à différents niveaux d'abstraction pour organiser les variables crées dans une structure hiérarchique.
+CALM chercher donc à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
+Lorsqu'il est confronté à un signal sensoriel inexplicable, il crée une nouvelle variable hypothétique destinée à expliquer ce signal.
+Ce processus peut être réitéré à différents niveaux d'abstraction pour organiser les variables crées dans une structure hiérarchique.
 
 Perotto démontre le fonctionnement de CALM dans une situation non-markovienne construite à parti de celle de l'exemple de Singh et al. présenté en section  \ref{sec:non-markov}.
-En se basant sur des signaux sensoriels qui sont des \an{feedback} de l'action de l'agent, plutôt que des symboles représentant des propriétés de l'environnement, CALM propose une modélisation des schèmes piagétiens qui se rapproche davantage de l'épistémologie constructiviste que ceux de Drescher. 
+En se basant sur des signaux sensoriels qui sont des \an{feedback} de l'action de l'agent, plutôt que des symboles représentant des propriétés de l'environnement comme le fait Drescher, CALM propose une modélisation des schèmes piagétiens qui se rapproche davantage de l'épistémologie constructiviste. 
 Malheureusement, ce mécanisme n'est démontré que dans un environnement non-markovien très simple, sans fournir d'indication sur les conditions dans lesquelles il pourrait être étendu à des environnements plus complexes. 
 
 
@@ -1169,26 +1167,26 @@ Malheureusement, ce mécanisme n'est démontré que dans un environnement non-ma
 \noindent
 Pour étendre les capacités des mécanismes d'apprentissage constructivistes, certains chercheurs les ont intégrés au sein \emph{d'architectures cognitives bio-inspirées}. 
 Dans ce contexte, une architecture cognitive désigne un modèle computationnels génériques de la cognition. 
-Par exemple, les deux architectures cognitives \og historiques \fg\ des années 1980 sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
+Deux exemples \og historiques \fg\ d'architectures cognitives débutées dans le années 1980 sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
 %et les principales à avoir eu une influence durable au delà de leurs laboratoires d'origine, 
 Dans sa réflexion rétrospective sur sa vie consacrée à l'étude de la cognition, l'un des créateurs de Soar, Paul Rosenbloom, décrit un modèle computationnel de la cognition comme un édifice dont la conception relève d'un travail d'architecte, résumant le rôle des architectures par la formule \og \an{architecture is essence} \fg\ \cite{rosenbloom_search_2025}.
 
 
 Dans les années 2000, Alexei Samsonovich a impulsé la création de la \an{Biologically Inspired Cognitive Architecture Society (BICA)}. 
 Il a mis en place un \an{Unified Catalog of Implemented Cognitive Architectures} \cite{samsonovich_toward_2010} qui a conduit à en recenser plusieurs centaines.  
-Dès qu'un modèle computationnel de la cognition intégrait plus d'un module, il devenait qualifié d'architecture.
+Dès qu'un modèle computationnel de la cognition intègre plus d'un module, on le nomme une architecture.
 
-L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} offre une bonne vue d'ensemble des objectifs poursuivis dans ce champ de recherche. 
+L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} articule une vue d'ensemble des objectifs poursuivis dans ce champ de recherche. 
 Ces desiderata incluent \an{ecological realism}, \an{bio-evolutionary realism}, \an{cognitive realism}, \an{sequentiality}, \an{bottom-up learning}. 
 Ils ont guidé le développement de son architecture CLARION qui compte parmi les premières à s'intéresser à l'apprentissage à partir d'expérience dirigé par une motivation interne \cite{sun_motivational_2009}. 
 David Vernon étend cette liste dans son article \an{Desiderata for developmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'une forme d'autonomie constitutive. 
 Une question centrale devient alors celle de la frontière entre les structures pré-programmées et celles acquises au cours de l'expérience.
-Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes, deux demeurent relativement actives : \emph{AERA} et \emph{LIDA}.
+Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes, deux demeurent actives : \emph{AERA} et \emph{LIDA}.
 
 
-La \an{Autocatalytic Endogenous Reflective Architecture AERA} est développée par Kristinn Thórisson et ses collaborateurs à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
+La \an{Autocatalytic Endogenous Reflective Architecture} (AERA) est développée par Kristinn Thórisson et ses collaborateurs à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
 Elle permet à un agent autonome de construire des chaines causales qui servent à expliquer la survenue d'événements. 
-Les schémas qu'elle construit sont traités comme des modèles causaux hypothétiques qui relient des événements causes à des événements conséquences. 
+Les schémas qu'elle construit sont traités comme des modèles causaux hypothétiques qui relient des \emph{événements causes} à des \emph{événements conséquences}. 
 Ces schémas sont générés lorsqu'un événement inexpliqué est observé, puis ils sont testés au cours d'interaction avec l'environnement afin d'être renforcés ou rejetés. 
 L'apprentissage est dirigé par des objectifs spécifiés par l'expérimentateur. %AERA ne dispose pas actuelle de système motivationnel.
 
@@ -1196,7 +1194,7 @@ Contrairement aux schémas de CALM qui n'intègrent que des événements d'inter
 L'intégration de schémas observés passivement permet à un agent d'apprendre par observation d'un autre agent ou en étant télé-opéré par un utilisateur pendant une phase d'entrainement. 
 L'intégration d'événements cognitifs internes introduit une forme de réflexivité. 
 AERA peut ainsi non seulement acquérir des séquences d'interaction avec l'environnement mais également des séquences de traitements cognitifs portant sur ses propres représentations internes.
-Selon ses auteurs, cette capacité pourrait conduire à une forme d’auto-programmation, dans laquelle l’agent acquerrait progressivement de nouveaux processus cognitifs exprimés dans le langage de schéma d'AERA, appelé \an{replicode}.
+L'objectif affiché est de permettre une forme d’auto-programmation, au cours laquelle l’agent acquerrait progressivement de nouveaux processus cognitifs exprimés dans le langage de schéma d'AERA, appelé \an{replicode}.
 
 
 
@@ -1209,18 +1207,17 @@ Celui-ci transmets cette représentation à la \an{Procedural Memory} chargée d
 Les schémas de LIDA fonctionnent comme des \an{templates} contenant des \emph{variables libres} (\an{unbound variables}) dans leurs contexte, action, et résultats. 
 Le module \an{Action Selection} sélectionne une action à partir des schémas activés. 
 Une action peut etre \an{primitive} ou \an{composite}.
-Les actions primitives sont exécutées en un cycle d'interaction. 
-Les actions composites sont des séries d'actions primitives exécutées au cours de plusieurs cycles d'interaction au sein d'un \an{stream of behavior}.
-Il existe une boucle interne qui permet de simuler des actions dans le \an{Workspace} pour tenter de prédire leurs conséquences.  
+Les actions primitives sont exécutées en un seul cycle d'interaction alors que les actions composites sont des séries d'actions primitives, appelées \an{stream of behavior}, exécutées au cours de plusieurs cycles d'interaction.
+Il existe une boucle interne qui permet de simuler des actions dans le \an{Workspace} pour générer une prédiction de leurs conséquences.  
 L'action sélectionnée et instanciée sous la forme d'un \emph{comportement} (\an{behavior}). 
 Ce processus d'instanciation comprend le renseignement des \an{variables libres} qui modulent l'action pour l'adapter à la situation courante.
-Le comportement est effectué dans l'environnement ce qui produit des signaux sensoriels. 
+Le comportement est ensuite effectué dans l'environnement ce qui produit des signaux sensoriels. 
 Les module \an{Perceptual Associative Memory (PAM)} intègre ces signaux sensoriels pour produire des informations sur la situation courante qui sont intégrées dans le \an{Worspace}. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/2_LIDA.png}
-	\caption{Vue simplifiée du cycle cognitif de LIDA d'après \cite[Fig.~4]{kugele_constructivist_2025}}
+	\caption{Vue simplifiée du cycle cognitif de LIDA \cite[Fig.~4]{kugele_constructivist_2025}}
 	\label{fig:lida}
 \end{figure}
 
@@ -1229,9 +1226,9 @@ Sean Kugele a récemment implémenté de nouvelles fonctionnalités pour permett
 Dans cette version, la situation courante est représentée en termes d'événements d'interaction sensorimoteurs dont l'agent vient de faire l'expérience.
 Une \an{affective valence} est également associée aux schémas afin d'orienter la sélection des comportements vers des résultats désirables.
 %Des préférences (\an{liking and disliking}, \an{wanting and dreading}) sont associées aux schémas pour représenter le système motivationnel de l'agent. 
-Kugele a démontré ce mécanisme d'apprentissage dans une expérimentation basée sur le k-armed bandit.
+Kugele a démontré ce mécanisme d'apprentissage dans une expérimentation dérivée du problème classique en IA du \emph{bandit manchot à k bras} \an{k-armed bandit}.
 L'agent devait découvrir la machine produisant statistiquement les meilleurs gains, puis exécuter des séquences consistant à s'assoire devant elle, placer une mise, et déclencher le jeu.  
-Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrices sous formes de \an{stream of behaviors} est et de les réutiliser dans bon contexte caractérisé par des séquences préalablement enactées permet à l'agent d'apprendre cette tâche.
+Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrices sous formes de \an{stream of behaviors} et de les réutiliser dans un contexte approprié caractérisé par des séquences préalablement enactées permet à l'agent d'apprendre cette tâche.
 
 
 
@@ -1257,8 +1254,9 @@ Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrice
 
 
 Mon travail s'inscrit en partie dans le champ des architectures cognitives bio-inspirées. 
-J'ai eu l'honneur d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}, et j'entretiens particulièrement des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
-Ces collaborations sont fécondes sur le plan technique, en particulier sur la façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la situation courante de l'agent et de ses apprentissages à long terme.
+J'ai effectué mon post-doctorat parmi des membres de cette communauté à \an{Penn State University}.
+J'ai eu l'honneur d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}, et j'entretiens tout particulièrement des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
+Ces collaborations sont fécondes sur le plan technique, en particulier concernant la façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la situation courante de l'agent et de ses apprentissages à long terme.
 L'introduction de variables libres dans les schémas qui se contextualisent au moment de leur instanciation permet de mieux adapter les comportements à la situation courante. 
 La possibilité pour l'agent de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réenacter des séquences entières préalablement apprises est importante dans la capacité à apprendre des habitudes d'interaction.
 
@@ -1272,7 +1270,7 @@ Ils s'appuient sur la théorie de l'énaction présentée en Section \ref{sec:en
 Cette propriété mérite d’être étudiée au moyen de simulations informatiques, au même titre que les capacités de résolution de problèmes plus classiquement étudiées.
 La difficulté réside dans le fait qu'une habitude ne peut pas être réduite à une simples séquence d'actions mémorisée puis répétée.
 Elle implique des boucles de contrôle sensorimotrices exploitant les régularités du couplage dynamique entre l’agent et son environnement.
-Afin de rendre compte de ce processus, ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} comme mécanisme permettant à un agent artificiel de stabiliser et de réitérer des séquences d’interactions sensorimotrices \cite{woolford_precarious_2020}.
+Pour répondre à cette difficulté, ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} comme mécanisme permettant à un agent artificiel de stabiliser et de réitérer des séquences d’interactions sensorimotrices \cite{woolford_precarious_2020}.
 %Ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} pour rendre compte de ce processus.
 
 Le SSR enregistre l’historique des actions produites par l'agent et des signaux sensoriels reçus en retour.
@@ -1283,11 +1281,11 @@ Un nœud sensorimoteur est un triplet composé d’une action effectuée, du sig
 %Cette représentation permet au SSR de capturer non seulement les relations entre actions et perceptions, mais également leur enchaînement temporel au sein de l’interaction agent–environnement.
 
 
-la Figure~\ref{fig:ssr} fournit un exemple.
+la Figure~\ref{fig:ssr} donne un exemple.
 Sa partie gauche montre une séquence de n\oe uds sensorimoteurs enregistrés par l'agent.  
-Dans cet exemple, l'agent dispose de quatre valeurs sensorielles notées A, B, C et D, et de trois actions possibles: 1, 2, 3.
+L'agent dispose de quatre valeurs sensorielles notées A, B, C et D, et de trois actions possibles: 1, 2, 3.
 Le n\oe ud \schema{A1/2} propose de faire action 2 dans le contexte où l'agent a fait l'action 1 et obtenu le signal A.
-La notation du contexte sensorimoteur A1 peut prêter à confusion du fait qu'il note la valeur sensorielle en premier alors qu'elle suit l'action. 
+La notation du contexte sensorimoteur A1 peut prêter à confusion par le fait qu'il note la valeur sensorielle en premier alors que celle-ci suit l'action. 
 Il serait plus clair de parler de contexte moteur-sensoriel et de le noter 1A.  
 La partie droite de la figure offre une façon intéressante de représenter graphiquement  les structures de comportement appris.
 Elle fait apparaitre qu'en fonction de l'état de l'environnement, une action peut induire des signaux sensoriels différents. 
@@ -1308,13 +1306,13 @@ En fonction de la trajectoire suivie, le même contexte peut proposer des action
 
 Une limite du SSR est le coût computationnel associé à la recherche des plus longues séquences similaires au sein de l’historique. 
 Afin de maintenir cette recherche calculable, l’historique est restreint à une fenêtre temporelle de taille prédéfinie. 
-Le calcul est également optimisé par le fait que le SSR attribue un poids aux n\oe uds sensorimoteurs qui renforce ceux qui sont le plus réenactés.  
+Le calcul est également optimisé en attribuant un poids aux n\oe uds sensorimoteurs de façon à renforcer ceux qui sont le plus réenactés.  
 Les comportements qui n'ont pas été enactés depuis trop longtemps sont perdus.
 
 
 Le SSR peut être vu comme un mécanisme de schéma rudimentaire qui représente les schèmes d'une façon inversée à celle de Drescher. 
-Ses n\oe uds sensorimoteurs constituent des schémas de la forme \schema{action1, signal, action2}.
-Alors que le mécanisme de schéma de Drescher chaine des perceptions, le SSR chaine des actions.
+Les n\oe uds sensorimoteurs du SSR constituent des schémas de la forme \schema{action1, signal, action2}, conduisant à chainer les actions là ou Drescher chainait les perceptions.
+%Alors que le mécanisme de schéma de Drescher chaine des perceptions, le SSR chaine des actions.
 
 Malgré ses limitations, le SSR pose les fondements d'une recherche sur les modèles computationnels d'apprentissage d'habitudes enactives, spécifiquement en chainant les événements moteur-sensoriels.
 Dans son travail de thèse, Felix Woolford a ensuite proposé des approches plus générales qui visent à prendre en compte des espaces d'action et de signaux sensoriels continus. 

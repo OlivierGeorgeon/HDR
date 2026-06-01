@@ -1147,18 +1147,22 @@ Google Scholar recense aujourd'hui plus de 770 publications citant le livre de D
 Parmi celles-ci on peut noter celle de Dileep George recruté par DeepMind: \an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}  \cite{hay_behavior_2018}.
 
 Un exemple particulièrement instructif est donné par le \an{Constructivist Anticipatory Learning Mechanism} (CALM) de Filipo Perotto \cite{perotto_computational_2013}. 
-%Il poursuit un objectif proche de Drescher: permettre à un agent d'apprendre un modèle des régularités observées en interagissant avec son environnement, tout en enrichissant son vocabulaire représentationnel afin de dépasser le niveau des expériences sensorimotrices brutes. 
-Il s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour se rapprocher davantage de l'apprentissage par renforcement, plus précisément du \an{model-based reinforcement learning}. 
-Il remplace les \an{primitive items} representationnels de Drescher par des feedbacks sensoriels pour permettre à l'agent de construire un modèle du monde et de ses transitions afin de maximiser une valeur de récompense. 
+Il s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour s'intéresser au cas ou le signal sensoriel constitue un \an{feedback} résultant de l'action.
+L'agent est placé dans une situation non markovienne, et cherche à inférer les états cachés de l'environnement qu'il représente par des variables hypothétiques. 
+Perotto modélise cette situation en utilisant le formalisme POMDP introduit en Section \ref{sec:pomdp} et situe son travail dans le cadre du \an{model-based reinforcement learning}.
 
-CALM repose sur la constatation que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce que l'agent ne peut pas percevoir tous les éléments de contexte qui causent ces signaux. 
-CALM chercher donc à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
-Lorsqu'il est confronté à un signal sensoriel inexplicable, il crée une nouvelle variable hypothétique destinée à expliquer ce signal.
-Ce processus peut être réitéré à différents niveaux d'abstraction pour organiser les variables crées dans une structure hiérarchique.
+CALM adopte une approche dite \emph{d'engagement à la causalité} (\an{commitment to causality}) consistant à  recherche les causes pouvant expliquer un événement inattendu.
+Il part de l'hypothèse que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce qu'ils résultent d'états de l'environnement que l'agent ne perçoit pas. 
+Contrairement au schémas de Drescher, les schémas de CALM n'ont pas de valeur de \an{reliability} qui rendent compte d'un degré d'incertitude: les schémas de CALM représentent une connaissance considérée certaine par l'agent tant qu'elle n'est pas révoquée. 
+%CALM chercher donc à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
+Lorsqu'il est confronté à un signal sensoriel imprévu, l'agent crée une nouvelle variable hypothétique supposée représenter une propriété de l'environnement, qui, si elle était connue, expliquerai ce signal.
+Ce processus peut être réitéré à différents niveaux d'abstraction pour organiser les variables ainsi crées dans une structure hiérarchique.
+Perotto démontre le fonctionnement de CALM dans une expérimentation construite à parti de celle de l'exemple de Singh et al. présenté en section  \ref{sec:non-markov}.
 
-Perotto démontre le fonctionnement de CALM dans une situation non-markovienne construite à parti de celle de l'exemple de Singh et al. présenté en section  \ref{sec:non-markov}.
-En se basant sur des signaux sensoriels qui sont des \an{feedback} de l'action de l'agent, plutôt que des symboles représentant des propriétés de l'environnement comme le fait Drescher, CALM propose une modélisation des schèmes piagétiens qui se rapproche davantage de l'épistémologie constructiviste. 
-Malheureusement, ce mécanisme n'est démontré que dans un environnement non-markovien très simple, sans fournir d'indication sur les conditions dans lesquelles il pourrait être étendu à des environnements plus complexes. 
+Selon moi, Perotto introduit une perspective intéressante concernant le statut des signaux sensoriels dans la modélisation des schèmes piagétiens. 
+Il modélise ces signaux sensoriels dans le contexte de l'apprentissage non markovien dans lequel l'environnement possède des propriétés cachés non directement observables, alors que dans l'expérimentation de Drescher, toutes les propriétés pertinentes de l'environnement son observables par des primitive items.
+Ce cadre conceptuel nous apporte une modélisation des schèmes piagétiens plus fidèle à l'épistémologie constructiviste.
+Malheureusement, ce mécanisme n'est démontré que dans un environnement très simple, sans fournir d'indication sur les conditions dans lesquelles il pourrait être étendu à des environnements plus complexes. 
 
 
 
@@ -1167,7 +1171,7 @@ Malheureusement, ce mécanisme n'est démontré que dans un environnement non-ma
 \noindent
 Pour étendre les capacités des mécanismes d'apprentissage constructivistes, certains chercheurs les ont intégrés au sein \emph{d'architectures cognitives bio-inspirées}. 
 Dans ce contexte, une architecture cognitive désigne un modèle computationnels génériques de la cognition. 
-Deux exemples \og historiques \fg\ d'architectures cognitives débutées dans le années 1980 sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
+Deux exemples \og historiques \fg\ débutés dans le années 1980 sont Soar \cite{laird_soar_2019} et ACT-R \cite{anderson_atomic_2014}.
 %et les principales à avoir eu une influence durable au delà de leurs laboratoires d'origine, 
 Dans sa réflexion rétrospective sur sa vie consacrée à l'étude de la cognition, l'un des créateurs de Soar, Paul Rosenbloom, décrit un modèle computationnel de la cognition comme un édifice dont la conception relève d'un travail d'architecte, résumant le rôle des architectures par la formule \og \an{architecture is essence} \fg\ \cite{rosenbloom_search_2025}.
 
@@ -1184,11 +1188,14 @@ Une question centrale devient alors celle de la frontière entre les structures 
 Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes, deux demeurent actives : \emph{AERA} et \emph{LIDA}.
 
 
-La \an{Autocatalytic Endogenous Reflective Architecture} (AERA) est développée par Kristinn Thórisson et ses collaborateurs à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
-Elle permet à un agent autonome de construire des chaines causales qui servent à expliquer la survenue d'événements. 
-Les schémas qu'elle construit sont traités comme des modèles causaux hypothétiques qui relient des \emph{événements causes} à des \emph{événements conséquences}. 
-Ces schémas sont générés lorsqu'un événement inexpliqué est observé, puis ils sont testés au cours d'interaction avec l'environnement afin d'être renforcés ou rejetés. 
+La \an{Autocatalytic Endogenous Reflective Architecture} (AERA) est maintenue par l'équipe de Kristinn Thórisson à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
+Comme CALM, elle adopte un \emph{engagement à la causalité} : ses schémas représentent des connaissances considérées comme certaines et n'ont pas de valeur de pondération.
+Elle diffère cependant de CALM par le fait qu'elle est conçue dans une logique markovienne qui cherche à trouver des causes dans des propriétés de l'environnement que l'agent peut percevoir.
+Lorsqu'un événements imprévu survient, elle construit des chaines causales pour expliquer cette survenue. 
+Ces schémas sont traités comme des modèles causaux hypothétiques qui relient des \emph{événements causes} à des \emph{événements conséquences}. 
+%Ces schémas sont générés lorsqu'un événement inexpliqué est observé, puis ils sont testés au cours d'interaction avec l'environnement afin d'être renforcés ou rejetés. 
 L'apprentissage est dirigé par des objectifs spécifiés par l'expérimentateur. %AERA ne dispose pas actuelle de système motivationnel.
+Pour atteindre un objectif donné, AERA construits un plan par chainage arrière (\an{backward chaining}) afin de trouver une série d'actions permettant de transformer l'environnement de son état actuel à son état objectif.
 
 Contrairement aux schémas de CALM qui n'intègrent que des événements d'interaction provoqués par l'agent, ceux d'AERA peuvent également intégrer des événements observés passivement dans l'environnement ainsi que des événements cognitifs issus de l'activité interne d'AERA. 
 L'intégration de schémas observés passivement permet à un agent d'apprendre par observation d'un autre agent ou en étant télé-opéré par un utilisateur pendant une phase d'entrainement. 
@@ -1256,9 +1263,15 @@ Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrice
 Mon travail s'inscrit en partie dans le champ des architectures cognitives bio-inspirées. 
 J'ai effectué mon post-doctorat parmi des membres de cette communauté à \an{Penn State University}.
 J'ai eu l'honneur d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}, et j'entretiens tout particulièrement des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
-Ces collaborations sont fécondes sur le plan technique, en particulier concernant la façons de coupler un mécanisme de schémas avec d'autres structures de données permettant de mieux rendre compte de la situation courante de l'agent et de ses apprentissages à long terme.
-L'introduction de variables libres dans les schémas qui se contextualisent au moment de leur instanciation permet de mieux adapter les comportements à la situation courante. 
-La possibilité pour l'agent de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réenacter des séquences entières préalablement apprises est importante dans la capacité à apprendre des habitudes d'interaction.
+
+AERA rapproche la notion de schéma de celle d'événements et nous invite ainsi à concevoir l'enaction d'un schéma sensorimoteur primitif comme un événement d'interaction.
+Je retiens cette nouvelle façon de modéliser un schème piagétien non pas sous forme d'un triplet mais sous forme d'un couple de deux événements: un \emph{événement cause} avec un \emph{événement conséquences}. 
+Considérer l'instanciation d'un de ces schémas comme un nouvel événement pouvant lui même faire partie d'un autre schéma permet de construire des hiérarchies de schémas.
+Je retiens également la possibilité de LIDA de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réenacter des séquences entières préalablement apprises.
+Cette possibilité permet à l'agent de comparer deux séquences d'actions possibles avant de s'engager dans l'une d'elles.
+Enfin, ces deux architectures nous apportent aussi la notion de \an{unbound variable} dont la valeur est spécifiée lors de l'instanciation du schéma. 
+Ce mécanisme permet de définir des schémas génériques et de les utiliser dans une variété de contextes en les adaptant dynamiquement en particulier à des configurations spatiales spécifiques. 
+Cette adaptation s'appuie sur des structures de données complémentaires aux schémas qui complètent la description de la situation courante. 
 
 
 

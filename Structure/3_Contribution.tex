@@ -16,7 +16,7 @@ Cet article examine les évolutions par rapport au \an{schema mechanism} origina
 
 
 
-\section{Principe}
+\section{Modèle d'interaction énactive}
 
 \noindent
 La Figure \ref{fig:trajectoire} illustre le principe. 
@@ -43,26 +43,64 @@ Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qu
 
 La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
 
-\section{Statut représentationnel des signaux sensoriels}
+\subsection{Statut représentationnel des signaux sensoriels}
 
-La revue de l'état de l'art montre que les signaux sensoriels reçu par l'agent n'ont pas toujours le même statut. 
-Je formalise une notion est souvent abordée implicitement: le \emph{statut représentationnel} qui fait la distinction entre les signaux sensoriels qui sont \emph{représentationnels} de ceux qui sont \emph{non-représentationnels}. 
+\noindent
+Au cours de la revue de l'état de l'art du Chapitre \ref{chap:etat}, j'ai évoqué que les signaux sensoriels pouvaient avoir des statuts différents selon les modèles.  
+Cette section vise à clarifier ces différences en introduisant la distinction entre signal sensoriel \emph{représentationnel} et signal sensoriel \an{non-représentationnel}. 
 
-Les signaux sensoriels markoviens sont représentationnels car ils constituent une représentation de l'état de l'environnement. 
+Intuitivement, je qualifie un signal sensoriel de \emph{représentationnel} s'il représente une propriété possédée par un objet de l'environnement. 
+Des exemples sont les signaux sensoriels qui représentent la couleur, la dureté, le goût, ou la forme d'un objet.
+Si ce n'est pas le cas, alors le signal sensoriel est non-représentationnel; 
+par exemple, un signal qui indique un choc avec un objet, un changement de luminosité, ou l'apparition d'une odeur. 
+D'une manière générale, les signaux représentationnels reflètent des propriétés ontologiques associées aux objets présents dans l'environnement, alors que les signaux non-représentationnels signalent des événements.  
 
-En ce qui concerne les signaux non-markoviens, ils sont parfois représentationnels quand ils constituent une observation d'une propriété partielle de l'état de l'environnement. 
+Plus formellement, un signal sensoriel $o$ est représentationnel, si ce sont toujours les mêmes états de l'environnement qui engendrent ce signal.
+Nous pouvons formaliser cette propriété dans le cas d'un environnement fermé dont l'ensemble $S$ des états est connu, et d'une fonction d'observation déterministe. 
+Définissons:
+
+\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+	\item $T$ l'horizon temporel
+	\item $S$ l'ensemble des états de l'environnement, 
+	\item $O$ l'ensemble des signaux sensoriels. 
+	\item La fonction d'observation à l'instant $t$: $ \mathcal{O}_t: S \to O,\quad s \mapsto o = \mathcal{O}_t(s)$ 
+\end{itemize}
+
+%$\exists \{S_1, S2\} \in \mathcal{P}(S) ,\quad \forall t \in T,\quad \forall s \in S_1,\quad \mathcal{O}(s) = o_t$ \text{et} $\forall s \in S_2,\quad \mathcal{O}(s) \ne o_t $
+
+Le signal sensoriel $o \in O$ est représentationnel si et seulement si il existe une partition $\{S_1, S_2\}$ de $S$ telle qu'a chaque instant, tous les états de $S_1$ engendrent le signal $o$, et aucun état de $S_2$ ne l'engendre:
+
+$
+\exists \{S_1, S2\} \in \mathcal{P}(S) ,\quad \forall t \in T,\quad 
+\left\{
+\begin{array}{l}
+	\forall s \in S_1,\quad \mathcal{O}_t(s) = o \\
+	\forall s \in S_2,\quad \mathcal{O}_t(s) \ne o
+\end{array}
+\right.
+$
+
+Si la condition est satisfaite, $o$ représente une propriété de l'environnement qui est possédée par tous les états appartenant à $S_1$ et qui est absente des états appartenant à $S_2$.
+
+De manière similaire, je qualifie une fonction d'observation stochastique de représentationnelle si elle donne toujours la même probabilité de signal sensoriel pour chaque état possible de l'environnement. 
+Cela signifie que le signal sensoriel représente une propriété possédée par certains états de l'environnement mélangé à un bruit aléatoire introduit par la stochasticité. 
+Une fonction d'observation stochastique représentationnelle est donc de la forme: 
+$\mathcal{O} : S \to \Delta(O) $  donnant la distribution de probabilité  $ \mathcal{O}(o_t| s_t)$ d'obtenir le signal $o_t$ dans dans l'état $s_t$.
+
+Un exemple de fonction d'observation stochastique non représentationnelle est la fonction utilisée dans la modélisation générale des POMDPs introduite en Section \ref{sec:pomdp}: $q:S\times S\rightarrow\Delta(O)$ qui donne la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ des observations $o_{t} \in O$ conditionnelle à l'état $s_t\in S$ et à la décision précédente $d_{t-1}$.
+
+
+
+Une fonction d'observation stochastique est utilisée pour représenter un capteur bruité qui peut renvoyer un signal erronée avec une certaine probabilité. 
+
+
+Le statut représentationnel peut être rapproché du statut markovien introduit en Section \ref{sec:rl}. 
+Les signaux markoviens sont représentationnels par définition car ils représentent l'état complet de l'environnement.
+Les signaux non-markoviens sont parfois représentationnels quand ils constituent une observation d'une propriété partielle de l'état de l'environnement. 
 Ils sont non-représentationnels quand ils constituent un \an{feedback} résultant de l'action.
 
-Cette distinction peut s'exprimer de manière formelle quand l'environnement est défini par un ensemble fini d'états 
-Soit 
 
-$S = {s_1, s_2, s_n}$. 
-Un signal sensoriel pouvant prendre plusieurs valeurs $O = {o_1, o_2, o_j}$ est représentationnel 
-
-
-
-
-\section{Enactive Decision Process (EDP)}
+\subsection{Enactive Decision Process (EDP)}
 \label{sec:edp}
 
 \noindent
@@ -137,7 +175,7 @@ Les flèches représentent les dépendances entre ces variables données par $q$
 
 
 
-\section{Motivation interactionnelle}
+\subsection{Motivation interactionnelle}
 \label{sec:motivation_interactionnelle}
 
 \noindent
@@ -169,8 +207,9 @@ Cependant, dans les implémentations existantes, par exemple celles de  Ryan Smi
 Il en découle que les agents contrôlés par cette approche manifestent des préférences pour certains signaux sensoriels mais pas pour des schèmes d'interaction.
 
 
+\section{Mécanisme de schéma enactif}
 
-\section{Apprentissage séquentiel hiérarchique}
+\subsection{Apprentissage séquentiel hiérarchique}
 
 \noindent
 La description technique complète du \an{Schema Mechanism 2.0} est présentée dans mon tutoriel basé sur des Jupyter Notebooks \cite{georgeon_schema_2025-1}. 
@@ -207,7 +246,7 @@ Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
 	\label{fig:agent10}
 \end{figure}
 
-\section{Affordance du contexte}
+\subsection{Affordance du contexte}
 
 \noindent
 J'ai indiqué qu'une interaction composite $i_c$ est une séquence de deux sous-interactions, composites ou primitives. 
@@ -228,7 +267,7 @@ Cette connaissance repose sur des séquences préalablement apprises et réactiv
 En dotant l'agent d'un mécanisme de décision visant à tenter de réenacter l'une des interactions affordée, on obtient un agent capable d'apprendre et réitère des habitudes d'interaction. 
 Il nous reste maintenant a déterminer comment sélectionner une décisions parmi l'ensemble $F_t$ de celles qui sont affordées par le contexte courant.
 
-\section{Mécanisme de décision}
+\subsection{Mécanisme de décision}
 
 \noindent
 Le mécanisme de décision fondé sur la motivation interactionnelle tente d'enacter les interactions qui ont la plus haute valence.
@@ -305,7 +344,9 @@ Bien que le calcul de proclivité favorise les interactions qui ont les valences
 Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences qui consistant à enacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
 Nous allons maintenant analyser les comportements obtenus dans des exemples.  
 
-\section{Expérimentation du \emph{Small Loop Challenge}}
+\section{Experimentations}
+
+\subsection{Expérimentation du \emph{Small Loop Challenge}}
 
 \noindent
 Nos premières expérimentations ont été réalisées dans les environnements du types de ceux présentés en Figure \ref{fig:small_loop}.
@@ -365,7 +406,7 @@ Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensi
 
 
 
-\section{Analyse comportementale}
+\subsection{Analyse comportementale}
 
 
 La Figure \ref{fig:trace} montre une analyse des comportements
@@ -378,7 +419,7 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \end{figure}
 
 
-\section{Analyse de similarités sémantiques dans l'espace d'\emph{embedding}}
+\subsection{Analyse de similarités sémantiques dans l'espace d'\emph{embedding}}
 
 Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
 
@@ -395,17 +436,17 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 	\label{fig:embedding}
 \end{figure}
 
-\section{Comparaison avec le modèle POMDP}
+\subsection{Comparaison avec le modèle POMDP}
 
 Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
 
 
-\section{Méthode d'observation de l'émergence sémantique}
+\subsection{Méthode d'observation de l'émergence sémantique}
 
 Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
 
 
-\section{Auto-programmation moto-sensorielle}
+\subsection{Auto-programmation moto-sensorielle}
 
 L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environment à différents niveau d'échelle de temps.  
 
@@ -428,7 +469,7 @@ La reiteration de \an{stream of behaviors} permet de parler d'auto programmation
 
 
 
-\section{Implémentation de comportements instinctifs}
+\subsection{Implémentation de comportements instinctifs}
 \label{sec:horseshoe}
 
 \noindent
@@ -485,7 +526,7 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
 
 
-\section{Navigation dans une scène variée}
+\subsection{Navigation dans une scène variée}
 
 \noindent
 En nous appuyant sur les comportements décris au paragraphe précédent, nous avons étudié comment concevoir un agent capable de naviguer entre des cibles variées. 
@@ -528,7 +569,7 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 \end{figure}
 
 
-\section{Comportements naturels dans une scène dynamique continue}
+\subsection{Comportements naturels dans une scène dynamique continue}
 
 \cite{guillermin_artificial_2022}
 

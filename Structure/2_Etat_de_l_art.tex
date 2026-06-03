@@ -1,6 +1,7 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Etat de l'art}
+\label{chap:etat}
 
 Introduction en cours de construction
 
@@ -53,7 +54,7 @@ Ce découpage en pas de temps discrets trouve aussi une justification bio-inspir
 
 Sans remettre en cause le modèle DDS, il convient de garder à l'esprit certaines de ses limites.
 Une première limite tient au fait qu'il tend à prendre pour acquis qu'on puisse assimiler l'\an{output} du \an{software} à l'action de agent.  
-Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs critiquent cette assimulation entre \an{output} et action. %en s'appuyant sur la définition donnée par la \an{Stanford Encyclopedia of Philosophy}.
+Dans leur article \og \an{Where's the action? The pragmatic turn in cognitive science} \fg, Andreas Engel et ses coauteurs critiquent cette assimilation entre \an{output} et action. %en s'appuyant sur la définition donnée par la \an{Stanford Encyclopedia of Philosophy}.
 Selon eux, une \an{action} n'est pas un simple signal de sortie mais un contrôle intentionnel de l'environnement en vu d'une certaine finalité anticipée :
 \begin{quote}
 	\an{actions (i) are driven by goals and [...] they can reach these goals or fail to do so; (ii) often involve some degree of volitional control; (iii) require planning and decisions among alternatives; (iv) involve prediction or anticipation of an intended outcome; (v) are often, albeit not always, associated with a sense of agency, that is, the agent’s conscious awareness of carrying out the particular action and of its goals}
@@ -77,7 +78,7 @@ Dans leur article \og \an{Open ended intelligence: The individuation of intellig
 
 Une troisième critique porte sur la séparation stricte entre \an{input} et \an{output} qui tend à minimiser l'importance de leur couplage réciproque et de leur interdépendance. 
 Il est fréquent que les données d'entrée de l'agent n'aient de sens qu'en relation avec l'action qui les a précédées. 
-Par example, dans la cybernétique de Norbert Wiener \cite{wiener_cybernetics_1948}, les données d'entrée constituent des \emph{rétroactions} (\an{feedback}) résultant de l'action.  
+Par exemple, dans la cybernétique de Norbert Wiener \cite{wiener_cybernetics_1948}, les données d'entrée constituent des \emph{rétroactions} (\an{feedback}) résultant de l'action.  
 De plus, les actions peuvent aussi posséder une structure hiérarchique : certaines actions de haut niveau se découpant en séries d'actions de plus bas niveau.
 Différentes actions peuvent parfois être exécutées en parallèle au cours de périodes de temps qui se recouvrent.
 Si le modèle DDS n'exclut pas de telles possibilités, il comporte néanmoins le risque de conduire à une vision trop appauvrie des systèmes d'IA.
@@ -207,7 +208,7 @@ Ce sous-ensemble $V_m$ est appelé la  \emph{couverture de Markov} de l'entité.
 
 La couverture de Markov se scinde en deux sous-ensembles de variables selon que leurs relations de dépendance vont de l'intérieur vers l'extérieur ou l'inverse. 
 Dans le cas d'un organisme vivant, l'ensemble $V_s \subset V_m$ des variables  qui sont influencés par les variables externes et qui influencent les variables internes sont les \emph{variables sensorielles} de l'organisme.
-L'ensemble $V_a \subset V_m$ des variables qui sont infuencés par les variables internes et qui influencent les variables externes sont les \emph{variables motrices} de l'organisme. 
+L'ensemble $V_a \subset V_m$ des variables qui sont influencées par les variables internes et qui influencent les variables externes sont les \emph{variables motrices} de l'organisme. 
 La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl Friston intitulé \og \an{Mortal Computation: A Foundation for Biomimetic Intelligence} \fg \cite[Fig.~5]{ororbia_mortal_2024} donne une représentation circulaire simplifiée de la couverture de Markov d'un organisme.
 
 \begin{figure}[ht]
@@ -216,9 +217,9 @@ La Figure \ref{fig:blanket}, provenant de l'article de Alexander Ororbia et Karl
 	\caption{Modélisation bayésienne d'un organisme dans son environnement \cite[Fig.~5]{ororbia_mortal_2024}.
 		Z: état interne de l'organisme. 
 		S: états des différents organes sensoriels.
-		A: états des différents affecteurs.
+		A: états des différents effecteurs.
 		O: différentes variables représentant l'environnement.
-		La distribution de probabilité de Z ne dépend que des noeuds S et A qui constituent la \emph{couverture de Markov} de l'organisme qui lui masquent les états des variables $O$.}
+		La distribution de probabilité de Z ne dépend que des n\oe uds S et A qui constituent la \emph{couverture de Markov} de l'organisme qui lui masquent les états des variables $O$.}
 	\label{fig:blanket}
 \end{figure}
 
@@ -389,10 +390,10 @@ La théorie des contingences sensorimotrice nous suggère de créer un agent ne 
 La théorie de l'enaction offre un cadre plus large dans lequel s'inscrit les théorie des contingences sensorimotrices.
 Elle a été fondée par Franciso Varela, Evan Thompson et Eleanor Rosch dans leur ouvrage séminal \og \an{The embodied mind: cognitive science and human experience} \fg\ \cite{varela_embodied_1993}. 
 Le terme \emph{enaction} dérive du verbe anglais \an{to enact}, que l'on peut traduire par \emph{mettre en \oe uvre} ou \emph{effectuer}.
-Les auteurs forgent notamment l'expression de \og \emph{perception enactive} \fg\ pour désigner le processus par lequel un organisme identifie, ou fil de son activité, les aspects pertinents de son environnement. 
+Les auteurs forgent notamment l'expression de \og \emph{perception énactive} \fg\ pour désigner le processus par lequel un organisme identifie, ou fil de son activité, les aspects pertinents de son environnement. 
 Varela a approfondi ces idées en collaboration avec le biologiste et philosophe Humberto Maturana, contribuant à les inscrire dans le cadre de la biologie et de la philosophe de l'esprit. 
 
-Par le fait qu'elle place l'action au c\oe ur de la cognition, la théorie de l'enaction s'inscrit dans le prolongement de l'épistémologie pragmatique et de la phénoménologie de la perception évoquées en Section \ref{sec:philosophie}.
+Par le fait qu'elle place l'action au c\oe ur de la cognition, la théorie de l'énaction s'inscrit dans le prolongement de l'épistémologie pragmatique et de la phénoménologie de la perception évoquées en Section \ref{sec:philosophie}.
 Elle est aujourd'hui généralement rattachée au courant plus large des approches dites 4E de la cognition (\an{embodied}, \an{embedded}, \an{extended}, \an{enactive}) qui mettent l'accent, chacune à leur manière, sur l'inscription de l'activité cognitive dans le corps en interaction avec son environnement.
 Cette convergence a été mise en évidence dans l'ouvrage collectif  \og \an{The Oxford Handbook of 4E Cognition} \fg\ \cite{newen_oxford_2018}.
 Andreas Engel et Kark Friston, dans \og \an{The pragmatic turn: toward action-oriented views in cogntive science} \fg\ \cite{engel_pragmatic_2015} s'appuie sur ces approches pour 
@@ -459,8 +460,8 @@ Les système cognitifs basiques seraient constitués par de schèmes d'engagemen
 
 
 Dans ce manuscrit, j'adopte une francisation du verbe \an{to enact} sous la forme du verbe \emph{enacter} pour désigner la mise en \oe uvre d'une boucle d'interaction sensorimotrice. 
-La théorie de l'enaction incite à prendre comme point de départ l'étude de l'organisation autonome de schèmes sensorimoteurs ne faisant pas appel à des structures de données représentant explicitement l'environnement. Sur cette base, elle invite à étudier comment l'acquisition de nouveau schèmes par sédimentation d'habitudes peut contribuer à une forme d'évolution du couplage structurel.
-Elle invite ensuite à entrevoir ce que Hutto et Myin appelle un \og \an{Evolving Enactivism} \fg\ \cite{hutto_evolving_2017} qui propose d'examiner la cognition comme une articulation entre un mécanisme de schéma non réprésentationnel et un mécanisme faisant intervenir certaines formes de représentation.
+La théorie de l'énaction incite à prendre comme point de départ l'étude de l'organisation autonome de schèmes sensorimoteurs ne faisant pas appel à des structures de données représentant explicitement l'environnement. Sur cette base, elle invite à étudier comment l'acquisition de nouveau schèmes par sédimentation d'habitudes peut contribuer à une forme d'évolution du couplage structurel.
+Elle invite ensuite à entrevoir ce que Hutto et Myin appelle un \og \an{Evolving Enactivism} \fg\ \cite{hutto_evolving_2017} qui propose d'examiner la cognition comme une articulation entre un mécanisme de schéma non représentationnel et un mécanisme faisant intervenir certaines formes de représentation.
 
 %Weinbaum note que le concept de \an{operational closure} est un concept central de la théorie de l'enaction \cite{weinbaum_open_2015}: 
 
@@ -551,7 +552,7 @@ Wang se réfère aux  travaux d'Alfred Tarski \cite[\an{foundation of semantics}
 Dans cette conception dite \an{model-theoretic}, la sémantique d'un langage $L$ implique un modèle $M$ et une interprétation $I$ qui mette en corresondance les mots de $L$ avec les objets et les relations de $M$: ``\an{the meaning of a word in L is defined as its image in M under I, and whether a statement in L is true is determined by whether it is mapped by I onto a fact in M}'' \cite[p.~284]{wang_experience-grounded_2005}. 
 Pour qu'une sémantique \an{model--theoretic} indique ce que les symboles signifient pour l'agent, il faudrait donc qu'elle soit basée sur un modèle construit par l'agent lui-même.
 En effet, si elle se base sur un modèle fourni par un humain, elle indiquera ce que les symboles signifient pour l'humain. 
-Fort de cette constatation, Wang propose son \an{experience--grounded semantics} comme une alternative aux \an{model--théoretic semantics} qui évite de recourir à un modèle présupposé.  
+Fort de cette constatation, Wang propose son \an{experience-grounded semantics} comme une alternative aux \an{model-théoretic semantics} qui évite de recourir à un modèle présupposé.  
 %Dans le cas d'un agent artificiel, Wang dit que la sémantique ``\an{tells us what the words mean to us, but says nothing about what they mean to the system}'' \cite[p.~284]{wang_experience-grounded_2005}.
 Une sémantique ancrée dans l'expérience émerge en même temps que les connaissances de l'agent, et définit le sens et les conditions de vérité des expressions à travers leurs rôles dans le flux d'expérience de l'agent. 
 
@@ -678,7 +679,7 @@ Il doit surtout permettre l’apparition continue de situations nouvelles, susce
 Un monde ouvert se caractérise donc par l’impossibilité d’énumérer exhaustivement l’ensemble des futurs envisageables.
 Le monde physique constitue l'exemple paradigmatique d'un monde ouvert, s'il n'est pas artificiellement restreint par les conditions expérimentales.
 
-Dans l'analyse de la dichotomie entre monde ouvert et monde fermé, il est important de distinguer l'environnement lui-même du domaine relationnel, tel qu'il a été défini dans la Section \ref{sec:enaction} consacrée à la théorie de l'enaction. 
+Dans l'analyse de la dichotomie entre monde ouvert et monde fermé, il est important de distinguer l'environnement lui-même du domaine relationnel, tel qu'il a été défini dans la Section \ref{sec:enaction} consacrée à la théorie de l'énaction. 
 Le domaine relationnel est toujours fermé car il est déterminé par les capteurs et les actionneurs de l'agent. 
 Ceci est vrai indépendamment du fait que les espaces de perception et d'action soient discrets ou continus. 
 La question devient alors: un agent qui fait l'expérience d'un monde ouvert à travers un domaine relationnel fermé peut-il développer une forme d'apprentissage ouverte? 
@@ -788,7 +789,7 @@ Nous allons maintenant examiner comment modéliser un agent autonome pour poser 
 \noindent
 %Pour modéliser le processus d'interaction entre un agent autonome et son environnement, je vais m'appuyer sur 
 La théorie de l'apprentissage par renforcement développée sous l'impulsion de Richard Sutton et Andrew Barto offre le cadre de modélisation le plus répandu pour représenter les interactions entre un agent autonome et son environnement.  
-Cette théorie est parfois désignée sous le terme \emph{d'apprentissage par renforcement computationel} pour la distinguer des théories de l'apprentissage par renforcement en biologie et éthologie.  
+Cette théorie est parfois désignée sous le terme \emph{d'apprentissage par renforcement computationnel} pour la distinguer des théories de l'apprentissage par renforcement en biologie et éthologie.  
 Une différence saillante entre les deux tient au fait que la première nécessite un très grand nombre d'épisodes d'apprentissage pour converger vers un comportement satisfaisant alors que la seconde cherche à expliquer des apprentissages pouvant résulter d'un petit nombre d'expériences.
 Cette section vise à introduire les concepts fondamentaux apportés par l'apprentissage par renforcement computationnel et à pauser les bases des sections suivantes qui expliquerons les différences fondamentales avec l'apprentissage développemental artificiel.
 
@@ -941,6 +942,7 @@ C'est l'objet du modèle POMDP que je vais présenter maintenant.
 
 \noindent
 Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien \cite{kaelbling_planning_1998}. 
+Il sert à modéliser des agents qui ne peuvent percevoir que certaines propriétés de l'état de l'environnement.
 la Figure \ref{fig:pomdp} illustre leur formulation la plus générale telle qu'on la trouve, par exemple, dans l'article de Matthijs Spaan et al. \cite{spaan_partially_2012}. 
 La Définition \ref{def:pomdp} présente leur formalisme qui est de la Définition \ref{def:mdp} des MDP.
 L'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond au \an{state signal} du MDP, mais dont on ne fait plus l'hypothèse qu'il soit markovien.
@@ -969,7 +971,7 @@ Un POMDP est défini par un tuple $\langle S, D, O,p,q,r \rangle$ dans lequel:
 	\item $D$ est un ensemble fini de décisions, aussi appelées actions;
 	\item $O$ est un ensemble fini d'observations, aussi appelées signaux sensoriels;
 	\item $p:S\times D\rightarrow\Delta(S)$ est une fonction de transition stochastique $p(s_{t+1}|s_t,d_t)$ qui donne la distribution de probabilité de l'état suivant $s_{t+1}$ conditionnelle à état $s_t\in S$ et à la décision $d_t\in D$;
-	\item $q:S\times D\rightarrow\Delta(O)$ est une fonction d'observation stochastique $q(o_{t}|s_t,d_t)$ qui donne la distribution de probabilité des observations $o_{t+1} \in O$ conditionnelle à l'état $s_t\in S$ et à la décision $d_t\in D$ ;
+	\item $q:D\times S\rightarrow\Delta(O)$ est une fonction d'observation stochastique $q(o_{t}|d_{t-1}, s_t)$ qui donne la distribution de probabilité des observations $o_{t} \in O$ conditionnelle à l'état $s_t\in S$ et à la décision précédente $d_{t-1}\in D$ ;
 	\item $r:S\times D \times S \rightarrow \mathbb{R} $ est la fonction donnait la récompense instantanée $R(s_t, d_t, s_{t+1})$ (\an{step reward function}).
 \end{itemize}
 \end{De}
@@ -1151,7 +1153,7 @@ Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'�
 \subsection{Mécanismes de schéma modernes}
 
 \noindent
-Depuis 1991, la recherche en IA constuctiviste s'est poursuivie de manière discrète mais régulière.
+Depuis 1991, la recherche en IA constructiviste s'est poursuivie de manière discrète mais régulière.
 Google Scholar recense aujourd'hui plus de 770 publications citant le livre de Drescher.
 Parmi celles-ci on peut noter celle de Dileep George recruté par DeepMind: \an{Behavior is everything: Towards representing concepts with sensorimotor contingencies}  \cite{hay_behavior_2018}.
 
@@ -1193,14 +1195,14 @@ Dès qu'un modèle computationnel de la cognition intègre plus d'un module, on 
 L'article influant de Ron Sun  \an{Desiderata for cognitive architectures} \cite{sun_desiderata_2004} articule une vue d'ensemble des objectifs poursuivis dans ce champ de recherche. 
 Ces desiderata incluent \an{ecological realism}, \an{bio-evolutionary realism}, \an{cognitive realism}, \an{sequentiality}, \an{bottom-up learning}. 
 Ils ont guidé le développement de son architecture CLARION qui compte parmi les premières à s'intéresser à l'apprentissage à partir d'expérience dirigé par une motivation interne \cite{sun_motivational_2009}. 
-David Vernon étend cette liste dans son article \an{Desiderata for developmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'une forme d'autonomie constitutive. 
+David Vernon étend cette liste dans son article \an{Desiderata for dvelopmental cognitive architectures} \cite{vernon_desiderata_2016} en y ajoutant l'exigence d'une forme d'autonomie constitutive. 
 Une question centrale devient alors celle de la frontière entre les structures pré-programmées et celles acquises au cours de l'expérience.
 Parmi les architectures qui tentent explicitement d’intégrer les principes constructivistes, deux demeurent actives : \emph{AERA} et \emph{LIDA}.
 
 
 La \an{Autonomous Empirical Reasoning Architecture} (AERA) est maintenue par l'équipe de Kristinn Thórisson à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
-Comme CALM, elle adopte un \emph{engagement à la causalité} qui la conduit à rechercher des causes certaines d'événements imprévus plutot que prendre en charge des prédictions probabilistes.
-Elle en diffère cependant par le fait qu'elle cherche les causes dans des propriétés perceptibles de l'état du monde plutot que dans des propriétés cachées.
+Comme CALM, elle adopte un \emph{engagement à la causalité} qui la conduit à rechercher des causes certaines d'événements imprévus plutôt que de gérer des prédictions probabilistes.
+Elle en diffère cependant par le fait qu'elle cherche les causes dans des propriétés perceptibles de l'état du monde plutôt que dans des propriétés cachées.
 Ses schémas sont similaires à ceux de Drescher à la différence qu'ils contiennent des variables libres (\an{unbound variables}). 
 AERA introduit des \an{composite state models} qui servent à décrire des aspects pertinents de l'état du monde, sur la base desquels les variables libres des schémas sont renseignés.
 Lorsqu'un état imprévu apparait, AERA construit des chaines causales qui alternent des états et des événements pour expliquer cette apparition. 
@@ -1244,7 +1246,7 @@ Dans cette version, la situation courante est représentée en termes d'événem
 Une \an{affective valence} est également associée aux schémas afin d'orienter la sélection des comportements vers des résultats désirables.
 %Des préférences (\an{liking and disliking}, \an{wanting and dreading}) sont associées aux schémas pour représenter le système motivationnel de l'agent. 
 Kugele a démontré ce mécanisme d'apprentissage dans une expérimentation dérivée du problème classique en IA du \emph{bandit manchot à k bras} \an{k-armed bandit}.
-L'agent devait découvrir la machine produisant statistiquement les meilleurs gains, puis exécuter des séquences consistant à s'assoire devant elle, placer une mise, et déclencher le jeu.  
+L'agent devait découvrir la machine produisant statistiquement les meilleurs gains, puis exécuter des séquences consistant à s'assoir devant elle, placer une mise, et déclencher le jeu.  
 Le fait d'être capable d'apprendre des séquences d'interactions sensorimotrices sous formes de \an{stream of behaviors} et de les réutiliser dans un contexte approprié caractérisé par des séquences préalablement enactées permet à l'agent d'apprendre cette tâche.
 
 
@@ -1274,10 +1276,10 @@ Mon travail s'inscrit en partie dans le champ des architectures cognitives bio-i
 J'ai effectué mon post-doctorat parmi des membres de cette communauté à \an{Penn State University}.
 J'ai eu l'honneur d'organiser la conférence BICA à Lyon en 2015 en tant que \an{local chair}, et j'entretiens tout particulièrement des collaborations avec les personnes impliquées dans le développement de AERA et LIDA. 
 
-AERA rapproche la notion de schéma de celle d'événements en nous invitant à concevoir l'enaction d'un schéma sensorimoteur primitif comme un événement d'interaction.
+AERA rapproche la notion de schéma de celle d'événements en nous invitant à concevoir l'énaction d'un schéma sensorimoteur primitif comme un événement d'interaction.
 %Je retiens cette nouvelle façon de modéliser un schème piagétien non pas sous forme d'un triplet mais sous forme d'un couple de deux événements: un \emph{événement cause} avec un \emph{événement conséquences}. 
 Considérer l'instanciation d'un schéma comme un nouvel événement pouvant lui-même faire partie d'un autre schéma permet de construire des hiérarchies de schémas.
-Je retiens également la possibilité de LIDA de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réenacter des séquences entières préalablement apprises.
+Je retiens également la possibilité de LIDA de prendre une décision qui l'engage sur plusieurs cycles d'interaction pour réénacter des séquences entières préalablement apprises.
 Cette possibilité permet à l'agent de s'engager dans des séquences conduisant à une récompense finale élevée, alors que les étapes intermédiaires n'auraient pas été sélectionnées si la décision était prise à chaque cycle.
 Enfin, ces deux architectures nous apportent la notion de \an{unbound variable} dont la valeur est spécifiée lors de l'instanciation du schéma. 
 Ce mécanisme permet de définir des schémas génériques et de les utiliser dans une variété de contextes en les adaptant dynamiquement. 

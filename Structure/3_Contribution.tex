@@ -3,6 +3,8 @@
 \chapter{Mécanisme de schéma en monde ouvert}
 
 \noindent
+Introduction en cours de construction
+
 Je propose une nouvelle définition d'un mécanisme de schéma: 
 
 \emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales.}
@@ -19,45 +21,23 @@ Cet article examine les évolutions par rapport au \an{schema mechanism} origina
 \section{Modèle d'interaction énactive}
 
 \noindent
-La Figure \ref{fig:trajectoire} illustre le principe. 
-L'agent est initialisé avec des schémas primitifs de bas niveau représentés par des petites flèches en bas à gauche. 
-Au fil du temps, l'agent apprend des schémas de plus haut niveau représentés par des flèches plus longues. 
-Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par agrégation d'une série de schémas de niveau inférieur pour représenter une régularité d'interaction rencontrée par l'agent. 
-Les schémas de plus haut niveau sont ainsi des compositions hiérarchiques de schémas de plus bas niveau jusqu'au niveau de base défini par les schémas primitifs.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/4_trajectoire.pdf}
-	\caption{Trajectoire développementale, adaptée de \cite[Fig.~3]{georgeon_demonstrating_2013}.
-	L'abscisse représente deux échelles de temps: le temps de l'activité dans lequel sont représentés les schémas qui durent un ou plusieurs cycles d'interaction, et le temps développemental qui représente la vie entière de l'agent.
-	L'ordonnée représente le niveau hiérarchique des schémas. 
-	Au cours de son développement, l'agent apprend et réutilise des schémas de plus en plus haut niveau.   }
-	\label{fig:trajectoire}
-\end{figure}
-
-La situation courante est représentée par les schémas qui viennent d'être enactés. 
-Ces schémas réactivent les schémas de plus haut niveau dont ils font partie. 
-Le mécanisme tente de compléter l'enaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
-Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptés aux différentes situations qu'il rencontre. 
-%Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
-
-La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
+Introduction en cours de construction
+%Cette section présente principes fondamentaux 
 
 \subsection{Statut représentationnel des signaux sensoriels}
 
 \noindent
-Au cours de la revue de l'état de l'art du Chapitre \ref{chap:etat}, j'ai évoqué que les signaux sensoriels pouvaient avoir des statuts différents selon les modèles.  
-Cette section vise à clarifier ces différences en introduisant la distinction entre signal sensoriel \emph{représentationnel} et signal sensoriel \an{non-représentationnel}. 
+L'état de l'art présenté au Chapitre \ref{chap:etat} a introduit différents types de signaux sensoriels reçus par l'agent.
+Cette section vise à expliciter ces types en introduisant la distinction entre signal sensoriel \emph{représentationnel} et signal sensoriel \emph{non-représentationnel}. 
 
-Intuitivement, je qualifie un signal sensoriel de \emph{représentationnel} s'il représente une propriété possédée par un objet de l'environnement. 
-Des exemples sont les signaux sensoriels qui représentent la couleur, la dureté, le goût, ou la forme d'un objet.
-Si ce n'est pas le cas, alors le signal sensoriel est non-représentationnel; 
-par exemple, un signal qui indique un choc avec un objet, un changement de luminosité, ou l'apparition d'une odeur. 
-D'une manière générale, les signaux représentationnels reflètent des propriétés ontologiques associées aux objets présents dans l'environnement, alors que les signaux non-représentationnels signalent des événements.  
+L'idée centrale est de qualifier un signal sensoriel de \emph{représentationnel} lorsqu'il reflète une propriété d'un objet ou d'une entité de l'environnement. 
+Il constitue alors une représentation d'un aspect du monde extérieur attribué à cet objet, par exemple sa couleur, sa forme, ou son goût.
+A l'inverse, un signal sera qualifié de non-représentationnel s'il ne renseigne pas directement sur la propriété d'un objet, par exemple, un signal qui indique une collision avec un obstacle, un changement de luminosité, ou l'augmentation d'une odeur. 
+D'une manière générale, les signaux représentationnels reflètent des propriétés ontologiques de l'environnement, alors que les signaux non-représentationnels signalent des événements.  
 
-Plus formellement, un signal sensoriel $o$ est représentationnel, si ce sont toujours les mêmes états de l'environnement qui engendrent ce signal.
-Nous pouvons formaliser cette propriété dans le cas d'un environnement fermé dont l'ensemble $S$ des états est connu, et d'une fonction d'observation déterministe. 
-Définissons:
+Une première formalisation de cette distinction peut être effectuée dans le cadre simplifié d'un environnement fermé dont l'ensemble des états est connu, et pour lequel la fonction d'observation est déterministe.
+Un signal sensoriel $o$ est représentationnel, si ce sont toujours les mêmes états de l'environnement qui engendrent ce signal.
+Considérons:
 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item $T$ l'horizon temporel
@@ -66,9 +46,7 @@ Définissons:
 	\item La fonction d'observation à l'instant $t$: $ \mathcal{O}_t: S \to O,\quad s \mapsto o = \mathcal{O}_t(s)$ 
 \end{itemize}
 
-%$\exists \{S_1, S2\} \in \mathcal{P}(S) ,\quad \forall t \in T,\quad \forall s \in S_1,\quad \mathcal{O}(s) = o_t$ \text{et} $\forall s \in S_2,\quad \mathcal{O}(s) \ne o_t $
-
-Le signal sensoriel $o \in O$ est représentationnel si et seulement si il existe une partition $\{S_1, S_2\}$ de $S$ telle qu'a chaque instant, tous les états de $S_1$ engendrent le signal $o$, et aucun état de $S_2$ ne l'engendre:
+Le signal sensoriel $o \in O$ est représentationnel si et seulement si il existe une partition $\{S_1, S_2\}$ de $S$ telle qu'a chaque instant, tout état appartenant à $S_1$ engendre  $o$, et aucun état appartenant à $S_2$ n'engendre $o$:
 
 $
 \exists \{S_1, S2\} \in \mathcal{P}(S) ,\quad \forall t \in T,\quad 
@@ -80,36 +58,68 @@ $
 \right.
 $
 
-Si la condition est satisfaite, $o$ représente une propriété de l'environnement qui est possédée par tous les états appartenant à $S_1$ et qui est absente des états appartenant à $S_2$.
+Si cette condition est satisfaite, $o$ représente une propriété de l'environnement qui est possédée par tous les états appartenant à $S_1$ et qui est absente des états appartenant à $S_2$.
+Autrement dit, c'est l'invariabilité au cours du temps de la correspondance entre les états et le signal qui constitue le caractère représentationnel du signal.
 
-De manière similaire, je qualifie une fonction d'observation stochastique de représentationnelle si elle donne toujours la même probabilité de signal sensoriel pour chaque état possible de l'environnement. 
-Cela signifie que le signal sensoriel représente une propriété possédée par certains états de l'environnement mélangé à un bruit aléatoire introduit par la stochasticité. 
-Une fonction d'observation stochastique représentationnelle est donc de la forme: 
-$\mathcal{O} : S \to \Delta(O) $  donnant la distribution de probabilité  $ \mathcal{O}(o_t| s_t)$ d'obtenir le signal $o_t$ dans dans l'état $s_t$.
-
-Un exemple de fonction d'observation stochastique non représentationnelle est la fonction utilisée dans la modélisation générale des POMDPs introduite en Section \ref{sec:pomdp}: $q:S\times S\rightarrow\Delta(O)$ qui donne la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ des observations $o_{t} \in O$ conditionnelle à l'état $s_t\in S$ et à la décision précédente $d_{t-1}$.
-
-
-
-Une fonction d'observation stochastique est utilisée pour représenter un capteur bruité qui peut renvoyer un signal erronée avec une certaine probabilité. 
+Cette définition peut s'étendre au cas où la fonction d'observation est stochastique.
+Une fonction d'observation stochastique peut être qualifiée de \emph{représentationnelle} lorsque sa distribution de probabilité dépend uniquement de l'état de l'environnement et demeure invariante au cours du temps.
+Dans ce cas, l'incertitude introduite par la stochasticité ne remet pas en cause le caractère représentationnel du signal. 
+Elle traduit simplement la présence d'un bruit aléatoire affectant le processus perceptif.
+Une fonction d'observation stochastique représentationnelle est donc une fonction $\mathcal{O} : S \to \Delta(O) $ 
+qui donne la probabilité  $ \mathcal{O}(o_t| s_t)$ d'obtenir le signal $o_t$ dans l'état $s_t$.
 
 
-Le statut représentationnel peut être rapproché du statut markovien introduit en Section \ref{sec:rl}. 
-Les signaux markoviens sont représentationnels par définition car ils représentent l'état complet de l'environnement.
-Les signaux non-markoviens sont parfois représentationnels quand ils constituent une observation d'une propriété partielle de l'état de l'environnement. 
-Ils sont non-représentationnels quand ils constituent un \an{feedback} résultant de l'action.
+A l'inverse, une fonction d'observation stochastique est \emph{non représentationnelle} lorsque la distribution des signaux sensoriels ne dépend pas uniquement de l'état courant de l'environnement. 
+Dans ce cas, l'apparition d'un signal sensoriel peut également être influencée par d'autres facteurs, notamment l'action précédemment effectuée par l'agent.
+Un exemple est fourni par la fonction d'observation utilisée dans la formulation générale des POMDPs présentée en Section \ref{sec:pomdp} : $q:D\times S\rightarrow\Delta(O)$ qui donne la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ du signal $o_{t}$ conditionnellement à l'état $s_t$ et à la décision précédente $d_{t-1}$.
+Dans ce cas, le signal sensoriel ne reflète plus uniquement une propriété de l'état courant, mais également la dynamique de l'interaction entre l'agent et son environnement, ce qui lui retire son caractère strictement représentationnel.
 
 
-\subsection{Enactive Decision Process (EDP)}
+
+%Une fonction d'observation stochastique est utilisée pour représenter un capteur bruité qui peut renvoyer un signal erronée avec une certaine probabilité. 
+
+
+Le statut représentationnel est lié à la propriété de Markov introduite en Section \ref{sec:rl} sans toutefois lui être identique. 
+Par définition, un signal markovien est nécessairement représentationnel puisqu'il identifie complètement l'état courant de l'environnement.
+La réciproque n'est cependant pas vraie:
+un signal peut être représentationnel sans être markovien lorsqu'il ne représente que des propriétés de certaines entités de l'environnement.
+%C'est le cas des signaux générés par une distribution de la forme $q(o_{t}| s_t)$ dans certains POMDPs.
+Un signal non-représentationnel est, quant à lui, nécessairement non-markovien puisqu'il ne représente pas l'état de l'environnement.
+%C'est le cas des signaux générés par une distribution de la forme $q(o_{t}|d_{t-1}, s_t)$ où le signal dépend de la décision précédente et est parfois désigné sous le terme de \an{feedback}. 
+
+La notion de statut représentationnel peut également s'appliquer à la valeur de récompense. 
+Une valeur de récompense sera qualifiée de \an{représentationnelle} si elle est liée aux états de l'environnement d'une manière invariante.
+C'est le cas de la valeur de récompense des MDPs.
+Par définition, une valeur de récompense représentationnelle spécifie une motivation externe pour l'agent comme nous l'avons défini en Section \ref{sec:motivation}.   
+
+%Les signaux markoviens sont représentationnels par définition car ils représentent l'état complet de l'environnement.
+%Les signaux non-markoviens sont parfois représentationnels quand ils constituent une observation d'une propriété partielle de l'état de l'environnement. 
+%Ils sont non-représentationnels dans tous les autres cas, notamment quand ils constituent un \an{feedback} résultant de l'action.
+
+J'appelle \emph{hypothèse de représentationnalité}, l'hypothèse faite par le concepteur d'un algorithme d'apprentissage selon laquelle le signal sensoriel de l'agent est représentationnel.
+Parmi les exemples qui exploitent cette hypothèse figurent le mécanisme de schéma de Drescher (Sec.~\ref{sec:drescher}), certaines architectures cognitives, et certains algorithmes de POMDPs. 
+Parmi ceux qui n'exploitent pas cette hypothèse figurent le mécanisme de schéma CALM de Perotto (Sec.~\ref{sec:perotto}) et le \an{Sensorimotor Sequence Reiterator} de Woolford (Sec.~\ref{sec:ssr}). 
+
+Lorsque des chercheurs implémentent dans un robot en monde ouvert un algorithme qui exploite l'hypothèse de représentationnalité, ils imposent une modélisation du monde sous la forme d'un ensemble d'états identifiés par eux.
+Ces algorithmes ne permettent pas au robot de construire sa propre perception du monde.
+Or, la perception humaine ne repose précisément pas sur de tels états prédéfinis. 
+C'est ce que la phénoménologie nous enseigne, comme nous l'avons vu en section \ref{sec:phenomenologie}, notamment à travers l'affirmation husserlienne qu'il n'existe pas de perception objective. 
+Les algorithmes qui évitent l'hypothèse de représentationnalité du signal sensoriel et de la valeur de récompense me paraissent donc mieux adaptés à l'étude des mécanismes de perception et d'apprentissage a partir d'expérience. 
+
+
+
+\subsection{Processus de décision énactif}
 \label{sec:edp}
 
 \noindent
-Le \an{Schema mechanims 2.0} repose sur un modèle d'interaction que je nomme \an{Enactive Decision Process} (EDP).
-Son formalisme s'inspire de celui des POMDPs présenté en Section \ref{sec:pomdp} et intègre le principe d'inversion du cycle d'interaction introduit en Section \ref{sec:inversion}.
+Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux sensoriels non représentationnels et qui ne reçoit pas de récompense externe.
+Ce modèle intègre le fait que le signal sensoriel n'est pas une représentation partielle du monde mais dépend également de la décision qui l'a précédé comme nous l'avons vu à la section précédente. 
+Il s'appuie sur le modèle du POMDP de la définition \ref{def:pomdp}, en mettant en évidence que la décision impacte le signal sensoriel et en éliminant la fonction de récompense qui provenant de l'environnement.
 
 
-Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans lequel:
-
+\begin{De}[EDP]
+	\label{def:edp}
+	Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans lequel:
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item $S$ est un ensemble fini d'états,
 	\item $D$ est un ensemble fini de décisions,
@@ -117,38 +127,32 @@ Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans
 	\item $q: S\times D \to \Delta(O)$ est une distribution de probabilité $q(i_t|s_t,d_t)$ qui donne la probabilité d'obtenir $i_t \in O$ sachant un état $s_t \in S$ et une décision $d_t \in D$,
 	\item $p:S\times O\to \Delta(S)$ est une distribution de probabilité $p(s_{t+1}|s_t,i_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$ et l'interaction $i_t \in I$.
 \end{itemize}
+\end{De}
 
-Comme son nom l'indique, l'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
+A chaque cycle $t \geq 0$, l'agent prend une décision $d_t\in D$. 
+L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
+L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
+
+L'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
 Mathématiquement, on impose une relation injective de $D$ vers $I$ qui fait que chaque décision $d \in D$ ne peut donner lieu qu'a une interaction appartenant à un sous-ensemble prédéfini de $I$, et que chaque interaction $i \in I$ ne peut résulter que d'une décision prédéfinie dans $D$. 
-Ainsi, chaque interaction $i_t$ enactée au temps $t$ contient l'information de la décision $d_t$.
+Ainsi, chaque interaction $i_t$ énactée au temps $t$ contient l'information de la décision $d_t$.
 L'historique des interactions n'a donc plus besoin de contenir les décisions mais contient uniquement les interactions $h_t = \langle i_0, ..., i_{t-1} \rangle$.
 
-Le cycle de l'EDP se déroule comme ceci:
-\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item L'EDP est initialisé avec un état $s_0 \in S$, une décision $d_0 \in D$ et une interaction $i_0 \in I$.
-	% and an initial decision $d_0 \in \mathcal{D}$.
-	\item A chaque cycle $t \geq 0$,
-	l'agent prend une décision $d_t\in D$.
-	L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$.
-	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
-\end{itemize}
 
-Par exemple, la décision $d_1$ peut consister à essayer d'avancer pendant une seconde. 
-En fonction de l'environnement, il peut en découler une interaction $i_1$ qui consister à avoir effectivement avancé pendant une seconde ou alors une interaction $i_2$ qui consiste à percuter un obstacle.
-En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ en fin de cycle, résultante de la décision $d_t$.
-Notons que dans les deux cas, $o_t$ et $i_t$ sont non markoviennes car elles ne constitue pas un \an{state signal} suffisant pour prendre la prochaine décision. 
-L'historique des interactions enactées est la seule source d'information de l'agent à propos du monde. 
-%Mais dans cette information ne provient plus d'une observation de l'état mais d'une interaction avec l'état.
+%Le cycle de l'EDP se déroule comme ceci:
 
-%La façon dont l'agent récupère des informations sur le monde est pourtant différente: l'interaction $i_t$ ne constitue pas une observation partielle de l'état $s_t$ d'un processus markovien.
+%\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+%	\item L'EDP est initialisé avec un état $s_0 \in S$, une décision $d_0 \in D$ et une interaction $i_0 \in I$.
+%	% and an initial decision $d_0 \in \mathcal{D}$.
+%	\item A chaque cycle $t \geq 0$,
+%	l'agent prend une décision $d_t\in D$.
+%	L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$.
+%	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
+%\end{itemize}
 
-Une autre différence est que l'agent ne reçoit plus de récompense $r_t$ provenant de l'état.
-Un agent EDP n'est pas destiné à atteindre des états auxquels sont associées des récompenses positives.
-Il n'observe pas des propriétés partielles et bruitées d'un processus markovien dont il pourrait reconstituer l'état caché connaissant a priori les probabilités de transition.
-L'EDP a vocation à être utilisé quand on ignore les distributions de probabilité $p$ et $q$.
-On ne peut donc pas construire la fonction de mise à jour du \an{beleif state} comme présenté en Section \ref{sec:pomdp} sur les POMDPs. 
-%Un agent EDP fait des expériences d'interaction avec un processus markovien   
+%Par exemple, la décision $d_1$ peut consister à essayer d'avancer pendant une seconde. En fonction de l'environnement, il peut en découler une interaction $i_1$ qui consister à avoir effectivement avancé pendant une seconde ou alors une interaction $i_2$ qui consiste à percuter un obstacle.En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ en fin de cycle, résultante de la décision $d_t$. Notons que dans les deux cas, $o_t$ et $i_t$ sont non markoviennes car elles ne constitue pas un \an{state signal} suffisant pour prendre la prochaine décision. L'historique des interactions enactées est la seule source d'information de l'agent à propos du monde. 
 
+%Une autre différence est que l'agent ne reçoit plus de récompense $r_t$ provenant de l'état. Un agent EDP n'est pas destiné à atteindre des états auxquels sont associées des récompenses positives. Il n'observe pas des propriétés partielles et bruitées d'un processus markovien dont il pourrait reconstituer l'état caché connaissant a priori les probabilités de transition. L'EDP a vocation à être utilisé quand on ignore les distributions de probabilité $p$ et $q$. On ne peut donc pas construire la fonction de mise à jour du \an{beleif state} comme présenté en Section \ref{sec:pomdp} sur les POMDPs. 
 
 Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde ne changent pas au cour du temps. 
 L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
@@ -208,6 +212,34 @@ Il en découle que les agents contrôlés par cette approche manifestent des pr�
 
 
 \section{Mécanisme de schéma enactif}
+
+Le \an{Schema mechanims 2.0} repose sur un modèle d'interaction que je nomme \an{Enactive Decision Process} (EDP).
+
+
+La Figure \ref{fig:trajectoire} illustre le principe. 
+L'agent est initialisé avec des schémas primitifs de bas niveau représentés par des petites flèches en bas à gauche. 
+Au fil du temps, l'agent apprend des schémas de plus haut niveau représentés par des flèches plus longues. 
+Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par agrégation d'une série de schémas de niveau inférieur pour représenter une régularité d'interaction rencontrée par l'agent. 
+Les schémas de plus haut niveau sont ainsi des compositions hiérarchiques de schémas de plus bas niveau jusqu'au niveau de base défini par les schémas primitifs.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/4_trajectoire.pdf}
+	\caption{Trajectoire développementale, adaptée de \cite[Fig.~3]{georgeon_demonstrating_2013}.
+		L'abscisse représente deux échelles de temps: le temps de l'activité dans lequel sont représentés les schémas qui durent un ou plusieurs cycles d'interaction, et le temps développemental qui représente la vie entière de l'agent.
+		L'ordonnée représente le niveau hiérarchique des schémas. 
+		Au cours de son développement, l'agent apprend et réutilise des schémas de plus en plus haut niveau.   }
+	\label{fig:trajectoire}
+\end{figure}
+
+La situation courante est représentée par les schémas qui viennent d'être enactés. 
+Ces schémas réactivent les schémas de plus haut niveau dont ils font partie. 
+Le mécanisme tente de compléter l'enaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
+Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptés aux différentes situations qu'il rencontre. 
+%Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
+
+La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
+
 
 \subsection{Apprentissage séquentiel hiérarchique}
 

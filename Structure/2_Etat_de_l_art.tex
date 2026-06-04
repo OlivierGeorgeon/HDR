@@ -944,16 +944,18 @@ C'est l'objet du modèle POMDP que je vais présenter maintenant.
 Le modèle \an{Partially Observable Markov Decision Process} (POMDP) a été proposé pour représenter un problème de décision dans lequel l'agent reçoit un \an{sensory signal} non markovien \cite{kaelbling_planning_1998}. 
 Il sert à modéliser des agents qui ne peuvent percevoir que certaines propriétés de l'état de l'environnement.
 la Figure \ref{fig:pomdp} illustre leur formulation la plus générale telle qu'on la trouve, par exemple, dans l'article de Matthijs Spaan et al. \cite{spaan_partially_2012}. 
-La Définition \ref{def:pomdp} présente leur formalisme qui est de la Définition \ref{def:mdp} des MDP.
+La Définition \ref{def:pomdp} présente leur formalisme qui est dérivée de la Définition \ref{def:mdp} des MDP.
 L'état $s_t$ désigne l'état de l'environnement caché à l'agent, et $o_t$ désigne le \an{sensory signal}, qui correspond au \an{state signal} du MDP, mais dont on ne fait plus l'hypothèse qu'il soit markovien.
 Le \an{sensory signal} $o_t$ est tiré selon la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ conditionnel à la décision précédente $d_{t-1}$ et à l'état de l'environnement $s_t$. 
 La récompense $r_{t+1} = r(s_{t}, d_{t}, s_{t+1})$ est une fonction de l'état précédent $s_{t}$, la décision $d_{t}$ et l'état résultant $s_{t+1}$. 
+Spaan inclut $s_{t+1}$ dans les arguments de $r_t$ afin d'inclure la récompense obtenue aux traitements liés au temps $t$. 
+D'autres formalismes existent mais ils n'évitent généralement pas la lourdeur induite par le décalage entre le temps de l'action et le temps de la récompense.
 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.4\textwidth]{Figures/3_pomdp.pdf}
-\caption{Représentation d'un POMDP général d'après Spaan et al. \cite{spaan_partially_2012}.
+\caption{Représentation d'un POMDP général d'après la description de Spaan et al. \cite{spaan_partially_2012}.
 	Au temps $t$, l'agent reçoit un signal sensoriel $o_t$ selon une distribution de probablité $q$ conditionnelle à l'état de l'environnement $s_t$ et à la décision précédente $d_{t-1}$.
 	L'agent prend une décision $d_t$. 
 	L'environnement tansitionne vers l'état $s_{t+1}$ selon une distribution de probabilité $p$ conditionnelle à $s_t$ et $d_t$.
@@ -979,7 +981,7 @@ Un POMDP est défini par un tuple $\langle S, D, O,p,q,r \rangle$ dans lequel:
 %Les POMDP sont utilisés pour modéliser un robot interagissant avec son environnement. 
 Le cycle du POMDP de la Figure~\ref{fig:pomdp} se rapproche du cycle du DDS de la Figure~\ref{fig:dds}.
 L'\emph{agent} correspond au \an{software}, l'observation $o_t$ à l'\an{input}, et la décision  $d_t$ à l'\an{output}. 
-Il subsiste la différence notable de la récompense $r_t$ qui compte parmi ses argument l'état $s_t$ de l'environnement, spécifiant ainsi une motivation externe à l'agent dans le sens discuté en Section \ref{sec:motivation}.
+Il subsiste la différence notable de la récompense $r_t$ qui compte parmi ses argument l'état de l'environnement, spécifiant ainsi une motivation externe à l'agent dans le sens discuté en Section \ref{sec:motivation}.
 
 Le fait de générer le \an{sensory signal} $o_t$ à partir d'une fonction stochastique permet de modéliser des capteurs bruités, susceptibles de générer des observations inexactes pour un même état de l'environnement $s_t$.
 Par ailleurs, le conditionnement de cette fonction stochastique à la décision précédente $d_{t-1}$ autorise la modélisation d'une perception active dans laquelle différentes décisions peuvent engendrer des signaux sensoriels distincts (des \an{feedback}) pour un même état environnemental.  
@@ -1151,6 +1153,7 @@ Cela explique peut-être pourquoi il n'a pas connu d'extension convaincante à d
 Pour dépasser cette limitation, et pour être plus fidèle aux principes de l'épistémologie constructiviste, cette analyse nous invite à concevoir des représentations de schèmes piagétiens qui ne reposent pas sur des propriétés présupposées de l'environnement, mais sur des régularités opératoires que l'agent parvient progressivement à stabiliser dans son activité.
 
 \subsection{Mécanismes de schéma modernes}
+\label{sec:perotto}
 
 \noindent
 Depuis 1991, la recherche en IA constructiviste s'est poursuivie de manière discrète mais régulière.
@@ -1346,35 +1349,43 @@ J’ai eu le plaisir de participer à son jury de thèse en tant que rapporteur,
 
 
 \subsection{Apprentissage de structures spatiales}
+\label{sec:ssr}
 
 \noindent
-Dans le domaine de l’apprentissage à partir d'expérience, une question qui survient rapidement est de savoir si un agent peut, à partir de seules séquences sensorimotrices, inférer que le monde physique s’organise selon une structure spatiale euclidienne à trois dimensions. 
-Les arguments en faveur de cette hypothèse renvoient souvent à une citation du mathématicien Henry Pointcaré (1902) :
+Une question survient rapidement dans le domaine de l'apprentissage à partir d'expérience: un agent peut-il, à partir de seules séquences sensorimotrices, inférer que le monde physique s'organise selon une structure spatiale euclidienne à trois dimensions ?
+%Dans le domaine de l’apprentissage à partir d'expérience, une question qui survient rapidement est de savoir si un agent peut, à partir de seules séquences sensorimotrices, inférer que le monde physique s’organise selon une structure spatiale euclidienne à trois dimensions. 
+Les arguments en faveur de cette hypothèse renvoient souvent à une citation du mathématicien Henri Pointcaré (1902) :
 
 \begin{quote}
 	\og Localiser un objet, c'est représenter les mouvements que l'on devrait exécuter pour l'atteindre. 
 	Il ne s’agit pas de représenter ces mouvements dans l’espace, mais de se représenter seulement les sensations musculaires qui accompagnent ces mouvements et qui, elles, ne supposent pas l’existence de l’espace. \fg\ \cite[p.~67]{pointcare_science_1902}.
 \end{quote}
 
-Les objections à cette hypothèse renvoient, de manière fondamentale, à l'idée kantienne selon laquelle les structures spatiales constitueraient des \og formes a priori de l’entendement \fg\ conditionnant la possibilité même de toute expérience.
+Si cette inférence s'avère impossible, nous sommes conduits à inscrire explicitement dans l'agent des mécanismes présupposant les structures spatiales. 
+%alors il faut programmer explicitement des mécanismes qui présupposent les structures spatiales dans l'agent. 
+Cette alternative renvoie, en profondeur,  à l'idée kantienne selon laquelle l'espace constituerait une \og forme a priori de la sensibilité \fg , condition de possibilité de l'expérience plutôt que résultat de celle-ci.
 
 Dans leur article \an{On the essence of spatial sense and objects in intelligence} \cite{xu_essence_2025}, Bowen Xu et Pei Wang soulignent que même si présupposer l'espace physique peut suffire dans certaines applications, s'affranchir de cette présupposition présente un intérêt scientifique en soi.
 Cela pourrait permettre de concevoir des mécanismes généraux capables d'inférer la structure d'environnements abstraits obéissant à des géométries différentes de celle du monde physique. 
 
-Différents systèmes d'apprentissage des structures spatiales ont été proposés. 
-Alexander Terekov a travaillé avec Kevin O'Regan pour présenter l'espace comme une exemple de concept abstrait pouvant être inféré dans le cade de la théorie des contingences sensorimotrices \cite{terekhov_learning_2019}.  
+L'inférence du \emph{substrat spatial} de Drescher évoquée en Section \ref{sec:drescher} fait partie des premières tentatives d'inférer la structures bi-dimensionnelle d'un environnement constitué d'une grille. 
+%Différents systèmes d'apprentissage des structures spatiales ont été proposés. 
+Plus récemment, Alexander Terekov a travaillé avec Kevin O'Regan pour présenter l'espace comme une exemple de concept abstrait pouvant être inféré dans le cade de la théorie des contingences sensorimotrices \cite{terekhov_learning_2019}.  
 Alban Laflaquière et Michael Garcia Ortiz ont également abordé ce sujet dans leur étude intitulée \og \an{Unsupervised emergence of egocentric spatial structure from sensorimotor prediction} \fg \cite{laflaquiere_unsupervised_2019}.
 Les travaux récents de l'équipe de Dileep George utilisent une modélisation à partir de chaines de Markov cachées pour représenter l'espace physique comme une  \og \an{latent sequence} \fg\ \cite{raju_space_2022}.
 Ces travaux ont cependant en commun qu'ils démontrent l'apprentissage des structures spatiales dans un environnement fermé à la complexité limitée. 
-A ma connaissance, il n'existe pas de travaux démontrant cette inférence en environnement ouvert tels que chez des robots. 
+A ma connaissance, il n'existe pas de travaux démontrant cette inférence en environnement ouvert tel que chez des robots. 
 
 
-Le fait que l'inférence de structures spatiales se heurte à un problème de complexité croissante avec la complexité de l'environnement m'incite à formuler l'hypothèse que dans un environnement ouvert, un agent a besoin de certaines présuppositions codées en dur pour pouvoir faire cet apprentissage. 
-Un robot qui ne disposerait d'aucune préconception sur la structure spatiale du monde physique serait probablement aussi handicapé qu'un animal qui naitrait sans avoir hérité de la capacité de développer les structures cérébrales permettant l'organisation spatiale de ses comportements décrites dans les sections \ref{sec:anatomie} et \ref{sec:espace}. 
-A ma connaissance on ne connait pas d'animal viable ayant un handicap neurologique aussi généralisé.  
+Le fait que l'inférence de structures spatiales se heurte à un problème de complexité croissante avec la complexité de l'environnement suggère l'hypothèse que dans un environnement ouvert, un agent a besoin de certaines présuppositions codées en dur pour pouvoir faire cet apprentissage. 
+La question se pose donc de savoir quels seraient les présupposés minimaux nécessaires.  
+Mon doctorant Simon Gay a contribué à cette question dans sa thèse de doctorat \cite{gay_autonomous_2017}. 
+La revue des systèmes de représentations spatio-temporelles du cerveau de la Section~\ref{sec:espace} et des connaissances socles de la Section.~\ref{sec:core} nous incite à étudier la possibilité de doter les robots de mécanismes analogues.
 
-En monde ouvert, se pose donc la question de savoir quels sont les présupposés minimaux permettant à agent d'organiser ses comportements de manière intelligente dans l'espace.  
-Mon doctorant Simon Gay s'est intéressé à ce sujet dans sa thèse de doctorat \cite{gay_autonomous_2017} 
+%Un robot qui ne disposerait d'aucune préconception sur la structure spatiale du monde physique serait probablement aussi handicapé qu'un animal qui naitrait sans avoir hérité de la capacité de développer les structures cérébrales permettant l'organisation spatiale de ses comportements décrites dans les sections \ref{sec:anatomie} et \ref{sec:espace}. 
+%A ma connaissance on ne connait pas d'animal viable ayant un handicap neurologique aussi généralisé.  
+
+%En monde ouvert, se pose donc la question de savoir quels sont les présupposés minimaux permettant à agent d'organiser ses comportements de manière intelligente dans l'espace.  
 
 
 

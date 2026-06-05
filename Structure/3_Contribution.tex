@@ -112,70 +112,78 @@ Les algorithmes qui évitent l'hypothèse de représentationnalité du signal se
 \label{sec:edp}
 
 \noindent
-Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux sensoriels non représentationnels et qui ne reçoit pas de récompense externe.
-Ce modèle intègre le fait que le signal sensoriel n'est pas une représentation partielle du monde mais dépend également de la décision qui l'a précédé comme nous l'avons vu à la section précédente. 
-Il s'appuie sur le modèle du POMDP de la définition \ref{def:pomdp}, en mettant en évidence que la décision impacte le signal sensoriel et en éliminant la fonction de récompense qui provenant de l'environnement.
+Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux sensoriels sont non-représentationnels et qui ne reçoit pas de récompense externe.
+Le EDP est représenté en Figure~\ref{fig:edp} et formalisé dans la Définition \ref{def:edp}. 
+Il s'inspire du modèle POMDP représenté en Figure \ref{fig:pomdp} et formalisé en Définition \ref{def:pomdp} mais présente trois  différences majeures.
+La première est que le cycle commence par la décision de l'agent, ce qui est matérialisé par la puce noire sur la figure.
+La seconde est que le signal sensoriel est un événement d'interaction, nommé $i_t$,  qui intègre une information sur la décisions qui l'a précédé.
+La troisième est que l'agent ne reçoit pas de récompense en provenance de l'environnement.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_edp.pdf}
+	\caption{Enactive Decision Process.
+		Au temps $t$, l'agent prend une décision $d_t$, puis reçoit un signal sensoriel $i_t$ selon une distribution de probabilité $q$ conditionnelle à l'état de l'environnement $s_t$ et à la décision $d_{t}$.
+		L'environnement tansitionne vers l'état $s_{t+1}$ selon une distribution de probabilité $p$ conditionnelle à $s_t$ et $i_t$.
+	}
+	\label{fig:edp}
+\end{figure}
+
 
 
 \begin{De}[EDP]
 	\label{def:edp}
 	Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans lequel:
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item $S$ est un ensemble fini d'états,
+	\item $S$ est un ensemble d'états,
 	\item $D$ est un ensemble fini de décisions,
 	\item $I$ est un ensemble fini d'interactions,
-	\item $q: S\times D \to \Delta(O)$ est une distribution de probabilité $q(i_t|s_t,d_t)$ qui donne la probabilité d'obtenir $i_t \in O$ sachant un état $s_t \in S$ et une décision $d_t \in D$,
-	\item $p:S\times O\to \Delta(S)$ est une distribution de probabilité $p(s_{t+1}|s_t,i_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$ et l'interaction $i_t \in I$.
+	\item $q: S\times D \to \Delta(I)$ est une distribution de probabilité $q(i_t|s_t,d_t)$ qui donne la probabilité d'obtenir $i_t \in I$ sachant l'état $s_t \in S$ et la décision $d_t \in D$,
+	\item $p:S\times I\to \Delta(S)$ est une distribution de probabilité $p(s_{t+1}|s_t,i_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$ et l'interaction $i_t \in I$.
 \end{itemize}
 \end{De}
 
 A chaque cycle $t \geq 0$, l'agent prend une décision $d_t\in D$. 
-L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
+Le signal sensoriel  $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
 L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
 
-L'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
-Mathématiquement, on impose une relation injective de $D$ vers $I$ qui fait que chaque décision $d \in D$ ne peut donner lieu qu'a une interaction appartenant à un sous-ensemble prédéfini de $I$, et que chaque interaction $i \in I$ ne peut résulter que d'une décision prédéfinie dans $D$. 
-Ainsi, chaque interaction $i_t$ énactée au temps $t$ contient l'information de la décision $d_t$.
-L'historique des interactions n'a donc plus besoin de contenir les décisions mais contient uniquement les interactions $h_t = \langle i_0, ..., i_{t-1} \rangle$.
-
-
-%Le cycle de l'EDP se déroule comme ceci:
-
-%\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-%	\item L'EDP est initialisé avec un état $s_0 \in S$, une décision $d_0 \in D$ et une interaction $i_0 \in I$.
-%	% and an initial decision $d_0 \in \mathcal{D}$.
-%	\item A chaque cycle $t \geq 0$,
-%	l'agent prend une décision $d_t\in D$.
-%	L'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$.
-%	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
-%\end{itemize}
-
-%Par exemple, la décision $d_1$ peut consister à essayer d'avancer pendant une seconde. En fonction de l'environnement, il peut en découler une interaction $i_1$ qui consister à avoir effectivement avancé pendant une seconde ou alors une interaction $i_2$ qui consiste à percuter un obstacle.En comparaison avec le modèle POMDP, le cycle d'interaction a été inversé: l'agent ne reçoit plus une observation $o_t$ en début de cycle mais une \emph{interaction enactée} $i_t$ en fin de cycle, résultante de la décision $d_t$. Notons que dans les deux cas, $o_t$ et $i_t$ sont non markoviennes car elles ne constitue pas un \an{state signal} suffisant pour prendre la prochaine décision. L'historique des interactions enactées est la seule source d'information de l'agent à propos du monde. 
-
-%Une autre différence est que l'agent ne reçoit plus de récompense $r_t$ provenant de l'état. Un agent EDP n'est pas destiné à atteindre des états auxquels sont associées des récompenses positives. Il n'observe pas des propriétés partielles et bruitées d'un processus markovien dont il pourrait reconstituer l'état caché connaissant a priori les probabilités de transition. L'EDP a vocation à être utilisé quand on ignore les distributions de probabilité $p$ et $q$. On ne peut donc pas construire la fonction de mise à jour du \an{beleif state} comme présenté en Section \ref{sec:pomdp} sur les POMDPs. 
 
 Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde ne changent pas au cour du temps. 
 L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
 Les variables stochastiques $S_t, D_t, I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
 Les flèches représentent les dépendances entre ces variables données par $q$ et $p$. 
+La variables $S$ est représentée en grisé pour indiquer qu'elle est cachée à l'agent. 
+L'historique des interactions $i_t$ constitue la couverture de Markov de l'agent.
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Figures/4_edp.pdf}
 	\caption{Enactive Decision Process représenté par un \an{2-step DBN} adapté de \cite[Fig.~4]{georgeon_artificial_2024}.
-		La décision $D_t$ est prise par un mécanisme non représenté qui intègre la connaissance de $I_{t-1}$.	
-		L'état $S_t$ dépend de $I_{t-1}$ et de $S_{t-1}$ selon la distribution de probabilité $p(s_{t+1}|s_{t},i_{t})$.
+		La décision $D_t$ intègre la connaissance de l'interaction précédente $I_{t-1}$.	
+		L'état $S_t$ dépend de $I_{t-1}$ et de $S_{t-1}$ selon la distribution de probabilité $p(s_{t}|s_{t-1},i_{t-1})$.
 		L'interaction $I_t$ dépend de $D_{t}$ et de $S_{t}$ selon la distribution de probabilité $q(i_{t}|s_{t},d_{t})$.
-		Les états $S$ et les probabilités $q$ et $p$ sont cachés pour l'agent.
+		Les états $S$ et les probabilités $q$ et $p$ sont cachés à l'agent.
 		Les variables $I$ constituent la couverture de Markov de l'agent.}
 	\label{fig:dbn_edp}
 \end{figure}
 
 
 
+Par rapport au POMDP, le modèle EDP présente l'avantage de rendre clairement visible le fait que le signal sensoriel peut dépendre de la décision de l'agent.
+Cela rappelle au chercheur de ne pas implémenter l'hypothèse de représentationnalité.
+Cette dépendance n'interdit cependant pas que certains signaux sensoriels puissent être représentationnels. 
+Le fait que la décision et le signal sensoriel qui en résulte soient rattachés au même cycle $t$ évite certaines lourdeurs du POMDP évoquées en Section~\ref{sec:pomdp}.
+L'historique $h_t$ des interactions au temps $t$ est également simplifié sous la forme d'une série constitué d'une seule variable $h_t = \langle i_0, ..., i_{t} \rangle$, au lieu des deux variables $d_t$ et $o_t$ dans le cas des POMDPs.
+
+Nous avons présenté une version préliminaire de ce modèle sous le nom de \an{Enactive Markov Decision Process} avec James Marshall et Riccardo Manzotti \cite{georgeon_eca_2013}. 
+Le terme Markov a ensuite été retiré pour indiquer que, bien qu'il s'inspire du POMDP, ce modèle n'a plus rien de markovien.
+Amélie Cordier et moi avons publié une théorisation de l'inversion du cycle d'interaction dans l'article \an{Inverting the interaction cycle to model embodied agents} \cite{georgeon_inverting_2014}.
+La formalisation en DBN a été réalisée avec les étudiants en mathématique Marouane Toumi, Pierre Martin et David Lurie \cite{georgeon_artificial_2024}.
+
+
 %Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
 %L'usage du mot Markov dans le nom donne donc une fausse image et il est préférable de l'enlever pour garder seulement EDP.  
-
 
 
 
@@ -239,6 +247,15 @@ Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qu
 %Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
 
 La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
+
+
+\subsection{Schémas primitifs}
+
+L'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
+Mathématiquement, on impose une relation injective de $D$ vers $I$ qui fait que chaque décision $d \in D$ ne peut donner lieu qu'a une interaction appartenant à un sous-ensemble prédéfini de $I$, et que chaque interaction $i \in I$ ne peut résulter que d'une décision prédéfinie dans $D$. 
+Ainsi, chaque interaction $i_t$ énactée au temps $t$ contient l'information de la décision $d_t$.
+L'historique des interactions n'a donc plus besoin de contenir les décisions mais contient uniquement les interactions $h_t = \langle i_0, ..., i_{t-1} \rangle$.
+
 
 
 \subsection{Apprentissage séquentiel hiérarchique}
@@ -556,6 +573,21 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 	\item Le comportement tangentiel consiste à répéter l'interaction \interaction{forward, increase left} jusuq'à obtenir \interaction{forward, decrease} quand la cible est dépassée, puis \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}. En effet, l'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
 \end{itemize}
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
+
+
+\subsection{Sémantique émergente}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
+	\caption{Analyse des structures du Transformer. 
+	Gauche: Projection de l'espace d'\an{embedding}.
+	Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
+	La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
+	\label{fig:attention}
+\end{figure}
+
+
 
 
 \subsection{Navigation dans une scène variée}

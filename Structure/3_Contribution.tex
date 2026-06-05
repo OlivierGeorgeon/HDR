@@ -112,19 +112,20 @@ Les algorithmes qui évitent l'hypothèse de représentationnalité du signal se
 \label{sec:edp}
 
 \noindent
-Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux sensoriels sont non-représentationnels et qui ne reçoit pas de récompense externe.
-Le EDP est représenté en Figure~\ref{fig:edp} et formalisé dans la Définition \ref{def:edp}. 
+Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux d'entrée sont non-représentationnels et qui ne reçoit pas de récompense externe.
+L'EDP est représenté en Figure~\ref{fig:edp} et formalisé dans la Définition \ref{def:edp}. 
 Il s'inspire du modèle POMDP représenté en Figure \ref{fig:pomdp} et formalisé en Définition \ref{def:pomdp} mais présente trois  différences majeures.
-La première est que le cycle commence par la décision de l'agent, ce qui est matérialisé par la puce noire sur la figure.
-La seconde est que le signal sensoriel est un événement d'interaction, nommé $i_t$,  qui intègre une information sur la décisions qui l'a précédé.
+La première est que le cycle commence par la décision de l'agent plutôt que par l'observation. 
+Ce début de cycle est matérialisé par la puce noire sur la figure.
+La seconde est que le signal d'entrée reçu par l'agent est un événement d'interaction, nommé $i_t$,  qui intègre une information sur la décision qui l'a précédé associée au signal sensorielle.
 La troisième est que l'agent ne reçoit pas de récompense en provenance de l'environnement.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/3_edp.pdf}
 	\caption{Enactive Decision Process.
-		Au temps $t$, l'agent prend une décision $d_t$, puis reçoit un signal sensoriel $i_t$ selon une distribution de probabilité $q$ conditionnelle à l'état de l'environnement $s_t$ et à la décision $d_{t}$.
-		L'environnement tansitionne vers l'état $s_{t+1}$ selon une distribution de probabilité $p$ conditionnelle à $s_t$ et $i_t$.
+		Au temps $t$, l'agent prend une décision $d_t$, puis reçoit un événement d'interaction $i_t$ selon la distribution de probabilité $q(i_t|s_t,d_t)$.
+		L'environnement tansitionne vers l'état $s_{t+1}$ selon la distribution de probabilité $p(s_{t+1}|s_t,i_t)$.
 	}
 	\label{fig:edp}
 \end{figure}
@@ -133,22 +134,33 @@ La troisième est que l'agent ne reçoit pas de récompense en provenance de l'e
 
 \begin{De}[EDP]
 	\label{def:edp}
-	Un \an{Enactive Decision Process} se défini par un tuple $(S, D, I, p, q)$ dans lequel:
+	Un \an{Enactive Decision Process} se définit par un tuple $(S, D, I, p, q)$ dans lequel:
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item $S$ est un ensemble d'états,
 	\item $D$ est un ensemble fini de décisions,
-	\item $I$ est un ensemble fini d'interactions,
+	\item $I$ est un ensemble fini d'événements d'interaction,
 	\item $q: S\times D \to \Delta(I)$ est une distribution de probabilité $q(i_t|s_t,d_t)$ qui donne la probabilité d'obtenir $i_t \in I$ sachant l'état $s_t \in S$ et la décision $d_t \in D$,
 	\item $p:S\times I\to \Delta(S)$ est une distribution de probabilité $p(s_{t+1}|s_t,i_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$ et l'interaction $i_t \in I$.
 \end{itemize}
 \end{De}
 
 A chaque cycle $t \geq 0$, l'agent prend une décision $d_t\in D$. 
-Le signal sensoriel  $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
-L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$.
+L'événement d'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
+L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$ dépendant de l'état précédent et de l'événement d'interaction qui s'est produit.
+
+Un événement d'interaction $i \in I$ représente un schème piagétien élémentaire. 
+L'EDP implémente ainsi l'idée piagétienne que les schèmes sensorimoteurs sont les briques élémentaires de l'apprentissage.
+Un tel événement associe une information sur la décision de l'agent et sur le résultat induit sur les capteurs.
+L'équivalent dans un POMDP serait un couple \schema{$d, o$}.
+Dans un robot, il correspond à une boucle sensorimotrice élémentaire, par exemple une boucle de contrôle de déplacement surveillant un capteur de collision.
+Des collisions quand le robot avance ou recule pourront ainsi être signalées par des événements différents même si elles sont détectées par le même capteur.
+L'historique $h_t$ des interactions au temps $t$ est donc simplifié. 
+Il est constitué de la série des événements d'interaction $h_t = \langle i_0, ..., i_{t} \rangle$, au lieu des deux variables $d_t$ et $o_t$ dans le cas des POMDPs.
+
+%Un élément conceptuel important de l'EDP tient au fait que les événements d'interactions ne sont pas générés à partir des capteurs uniquement mais intègrent une information sur les effecteurs qui ont entrainé cet événement.  Ils représentent des schèmes piagétiens élémentaires. 
 
 
-Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde ne changent pas au cour du temps. 
+Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde sont immuables. 
 L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
 Les variables stochastiques $S_t, D_t, I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
 Les flèches représentent les dépendances entre ces variables données par $q$ et $p$. 
@@ -170,16 +182,12 @@ L'historique des interactions $i_t$ constitue la couverture de Markov de l'agent
 
 
 
-Par rapport au POMDP, le modèle EDP présente l'avantage de rendre clairement visible le fait que le signal sensoriel peut dépendre de la décision de l'agent.
-Cela rappelle au chercheur de ne pas implémenter l'hypothèse de représentationnalité.
-Cette dépendance n'interdit cependant pas que certains signaux sensoriels puissent être représentationnels. 
-Le fait que la décision et le signal sensoriel qui en résulte soient rattachés au même cycle $t$ évite certaines lourdeurs du POMDP évoquées en Section~\ref{sec:pomdp}.
-L'historique $h_t$ des interactions au temps $t$ est également simplifié sous la forme d'une série constitué d'une seule variable $h_t = \langle i_0, ..., i_{t} \rangle$, au lieu des deux variables $d_t$ et $o_t$ dans le cas des POMDPs.
+% Par rapport au POMDP, le modèle EDP présente l'avantage de rendre clairement visible le fait que le signal sensoriel peut dépendre de la décision de l'agent. Cela rappelle au chercheur de ne pas implémenter l'hypothèse de représentationnalité. Cette dépendance n'interdit cependant pas que certains signaux sensoriels puissent être représentationnels.  Le fait que la décision et le signal sensoriel qui en résulte soient rattachés au même cycle $t$ évite certaines lourdeurs du POMDP évoquées en Section~\ref{sec:pomdp}.
 
 Nous avons présenté une version préliminaire de ce modèle sous le nom de \an{Enactive Markov Decision Process} avec James Marshall et Riccardo Manzotti \cite{georgeon_eca_2013}. 
-Le terme Markov a ensuite été retiré pour indiquer que, bien qu'il s'inspire du POMDP, ce modèle n'a plus rien de markovien.
+La référence à Markov provenait de l'inspiration des POMDP mais je l'ai maintenant retirée pour exprimer le fait que ce modèle n'a plus rien de markovien.
 Amélie Cordier et moi avons publié une théorisation de l'inversion du cycle d'interaction dans l'article \an{Inverting the interaction cycle to model embodied agents} \cite{georgeon_inverting_2014}.
-La formalisation en DBN a été réalisée avec les étudiants en mathématique Marouane Toumi, Pierre Martin et David Lurie \cite{georgeon_artificial_2024}.
+La formalisation sous forme de DBN a été réalisée avec les étudiants en mathématique Marouane Toumi, Pierre Martin et David Lurie \cite{georgeon_artificial_2024}.
 
 
 %Dans certains articles, j'ai appelé ce modèle \og Enactive Markov Decision Process \fg en référence au Markov Decision Process sous-jacent. 
@@ -191,32 +199,45 @@ La formalisation en DBN a été réalisée avec les étudiants en mathématique 
 \label{sec:motivation_interactionnelle}
 
 \noindent
-Comme indiqué plus haut, le modèle EDP ne comporte pas de fonction de récompense directement associée à l'état $s_t$.
-Il permet en revanche d'attribuer une \emph{valence} aux interactions, définie sous forme d'une fonction scalaire $v: I \to \mathbb{R}$.
-Le \an{schema mechanism} peut utiliser cette valence comme critère dans le processus de sélection de la décision.
-Pour chaque décision possible dans le contexte courant, il tente d'anticiper les interactions susceptibles d'en découler, afin de sélectionner la décision qui a le plus de chance de mener à des interactions à valence positive, et d'écarter celles qui risquent de produire des interactions à valence négative. 
-Les sections suivantes décrivent ce mécanisme plus en détail.
+%Comme indiqué plus haut, le modèle EDP ne comporte pas de fonction de récompense directement associée à l'état $s_t$.
+Le modèle EDP permet d'attribuer une \emph{valence} à chaque type d'événement d'interaction  $v: I \to \mathbb{R}$. 
+% qui leur attribue une valeur scalaire:   $i \in I \mapsto v(i) \in \mathbb{R}$.
+L'algorithme de l'agent peut interpréter cette valence comme une préférence $v(i) \in \mathbb{R}$ associée à chaque type interactions : désirable si positive ou indésirable si négative. 
+Cette valence peut donc servir de signal de motivation interne pour l'agent, qui fait que toutes les interactions ne lui sont pas égales. 
 
-C'est le concepteur qui définit les interactions primitives et leur attribue leurs valences au moyen de la fonction $v$.
-Compte tenu de la manière dont le \an{schema mechanism} les exploite, ces valences apparaissent comme des préférences ou des aversions innées:
-pour un observateur extérieur, l'agent semble préférer enacter les interactions à valence positive et éviter les interactions à valence négative. 
+La valence se rapproche de la récompense utilisée en apprentissage par renforcement (Sections~\ref{sec:rl} et \ref{sec:pomdp}) mais en diffère par le fait qu'elle n'inclut pas l'état de l'environnement parmi ses arguments.
+Ce n'est donc pas une motivation externe au sens évoqué en Section~\ref{sec:motivation}.
 
-Comme la fonction de valence ne prend pas en compte l'état du monde extérieur parmi ses arguments, nous l'avons d'abord rapprochée d'un critère de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}). 
-Ce principe motivationnel peut en effet être entièrement encodée dans un robot sans nécessiter un signal de récompense issu de l'environnement.
-Ce rapprochement a toutefois été critiqué %par la communauté travaillant sur la motivation intrinsèque des agent artificiels, 
-au motif que la valence reste liée aux objets du monde: certains objets \an{affordent} des interactions qui ont une valence positive, comme l'interaction \texttt{eat}, d'autres négatives, comme \texttt{bump}. 
-L'agent sembler motivé par le fait de vouloir atteindre ou éviter certains objets de l'environnement.
-Nous pouvons cependant rétorquer que, bien qu'associée à des objets extérieurs, cette forme de motivation peut être définie sans présupposer une ontologie préalable du monde. 
-Par exemple, le caractère repoussants ou attirant d'un objet n'est pas une propriété ontologique de cet objet: un même objet peut afforder certaines interactions pour certains agents mais pas pour d'autres.
+Elle se rapproche de la notion de \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et de \an{prior preference distribution} dans la théorie de l'inférence active (Sec.~\ref{sec:active_inference}). 
+Cependant, elle en diffère par le fait que dans ces approches, les signaux sensoriels proviennent directement des capteurs, alors que dans l'EDP les événements d'interaction incluent la décision de l'agent. 
+Par exemple, là ou LIDA et l'inférence active spécifieront la même valeur à une collision vers l'avant ou vers l'arrière, l'EDP permet de spécifier des valeurs différentes.
+Le fait de pouvoir associer des préférences aux événements d'interaction plutôt qu'aux états des capteurs est important pour valuer l'expérience d'interaction dans un apprentissage empiriste et constructiviste.
 
-Les arguments contre le terme \emph{motivation intrinsèque} semblant tout aussi recevable que ceux contre le terme \emph{motivation extrinsèque}, il m'a semblé approprié de proposer la nouvelle notion de \emph{motivation interactionnelle} (\an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012}).
+
+ 
+%Comme évoqué en Section \ref{sec:active_inference}, cette théorie considère les \emph{observations} comme des résultats de décisions dans un cycle d'interaction inversé proche du notre.  Leurs observations se rapprochent donc de nos interactions.  Cependant, dans les implémentations existantes, par exemple celles de  Ryan Smith, Kark Friston, et Christopher Whyte  \cite{smith_step-by-step_2022}, l'observation n'intègre pas la décision. %[p.~6] Il en découle que les agents contrôlés par cette approche manifestent des préférences pour certains signaux sensoriels mais pas pour des schèmes d'interaction.
+
+
+%Le \an{schema mechanism} peut utiliser cette valence comme critère dans le processus de sélection de la décision. Pour chaque décision possible dans le contexte courant, il tente d'anticiper les interactions susceptibles d'en découler, afin de sélectionner la décision qui a le plus de chance de mener à des interactions à valence positive, et d'écarter celles qui risquent de produire des interactions à valence négative. 
+
+% C'est le concepteur qui définit les interactions primitives et leur attribue leurs valences au moyen de la fonction $v$. Compte tenu de la manière dont le \an{schema mechanism} les exploite, ces valences apparaissent comme des préférences ou des aversions innées:pour un observateur extérieur, l'agent semble préférer enacter les interactions à valence positive et éviter les interactions à valence négative. 
+
+Avec Frank Ritter, nous avons introduit ce principe motivationnel dans l'article \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}.
+Nous l'avions alors décrit comme un principe de motivation intrinsèque parce qu'il n'est pas lié à un état objectif à atteindre dans l'environnement. 
+Ce rapprochement a toutefois été critiqué au motif que la valence reste liée aux objets du monde: certains objets \an{affordent} des interactions qui ont une valence positive, comme de pouvoir les manger, et d'autres négatives comme se prêter à des collisions. 
+L'agent semble alors motivé par le fait de vouloir atteindre ou éviter certains objets de l'environnement.
+Pour prendre en compte ces critiques, nous avons renommé ce principe \emph{motivation interactionnelle} dans l'article \an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012} avec Simon Gay et James Marshall.
 Pour reprendre les mots de Piaget, la motivation interactionnelle se situe \og à la frontière entre le sujet et l'objet \fg.
 
-Notons que la fonction de valence $v$ se rapproche de la notion de \an{prior preference distribution} définie sur les \emph{observations} dans l'approche de l'\emph{inférence active}. 
-Comme évoqué en Section \ref{sec:active_inference}, cette théorie considère les \emph{observations} comme des résultats de décisions dans un cycle d'interaction inversé proche du notre. 
-Leurs observations se rapprochent donc de nos interactions. 
-Cependant, dans les implémentations existantes, par exemple celles de  Ryan Smith, Kark Friston, et Christopher Whyte  \cite{smith_step-by-step_2022}, l'observation n'intègre pas la décision. %[p.~6]
-Il en découle que les agents contrôlés par cette approche manifestent des préférences pour certains signaux sensoriels mais pas pour des schèmes d'interaction.
+Je garde maintenant l'appellation de motivation interactionnelle en la classant parmi les forme de motivation interne, au sens défini en Section \ref{sec:motivation}.
+Elle peut tout autant générer des comportements qui exhibent une motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions, ou une motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets spécifiques.
+Signalons aussi qu'elle n'est pas incompatibles avec d'autres principes motivationnels comme nous allons le voir dans la suite.
+
+
+%Comme la fonction de valence ne prend pas en compte l'état du monde extérieur parmi ses arguments, nous l'avons d'abord rapprochée d'un critère de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}).  Ce principe motivationnel peut en effet être entièrement encodée dans un robot sans nécessiter un signal de récompense issu de l'environnement.
+%Nous pouvons cependant rétorquer que, bien qu'associée à des objets extérieurs, cette forme de motivation peut être définie sans présupposer une ontologie préalable du monde. Par exemple, le caractère repoussants ou attirant d'un objet n'est pas une propriété ontologique de cet objet: un même objet peut afforder certaines interactions pour certains agents mais pas pour d'autres.
+
+%Les arguments contre le terme \emph{motivation intrinsèque} semblant tout aussi recevable que ceux contre le terme \emph{motivation extrinsèque}, il m'a semblé approprié de proposer la nouvelle notion de \emph{motivation interactionnelle} (\an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012}).
 
 
 \section{Mécanisme de schéma enactif}

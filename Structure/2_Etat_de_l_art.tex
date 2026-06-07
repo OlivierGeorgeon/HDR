@@ -1399,9 +1399,13 @@ L'utilisation de réseaux de neurones profonds pour l'apprentissage séquentiel 
 
 
 
-\section{Conclusion}
+\section{Conclusion (en cours de construction)}
 
 La notion \emph{d'événement d'interaction valué} est centrale. 
+
+
+citer Banafsheh Rafiee et  Richard Sutton \an{Toward enactive artificial intelligence} (2026)
+
 
 Le problème de la génération d'hypothèses est abordé par les coté des habitudes
 
@@ -1448,83 +1452,15 @@ Nous n'avons pas de distribution d'observation des états $p(o|s)$.
 
 L'apprentissage développemental est un apprentissage non-markovien mais le formalisme POMDP n'est pas l'idéal car il n'y a pas de distribution d'observation ni de récompense fonction de l'état caché du monde. 
 
-Il est important de rajouter une notion de motivation intrinsèque au schema méchanism.
+Il est important de rajouter une notion de motivation interne au schema méchanism.
 
 Nous construisons la façon qu'a le monde de nous apparaitre.
 
 
-\subsection{Finalité et motivations de l'agent}
-\label{sec:motivation_intrinseque}
-
-\noindent
-La distinction entre motivation extrinsèque et motivation intrinsèque est relativement intuitive quand on parle des motivations humaines: on fait quelque chose soit pour obtenir un certain résultats final (motivation extrinsèque) soit pour la satisfaction de le faire (motivation intrinsèque).
 La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
 Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
 
-Cependant cette distinction devient plus délicate à définir dans le cas d'un système artificiel.
-Le terme même de "motivation" est un terme qui relève de la psychologie, c'est pourquoi le qualificatif "télique" "atélique" appliqué à la tache est plus utile. 
 
-%L'article de Pierre-Yves Oudeyer compte parmi les premiers qui ont placé ce terme dans le domaine de la robotique  \cite{oudeyer_intrinsic_2007}.
-%\og \an{What is intrinsic motivation? A typology of computational approaches} \fg \cite{oudeyer_what_2007} 
-
-Un programme qui joue aux échec est un bon exemple de système artificiel "dirigé par une motivation extrinsèque". 
-On peut créer un programme qui apprend à jouer au échecs en lui donnant une récompense positive quand il gagne et négative quand il perd, et nulle quand il fait un match nul. 
-C'est un cas emblématique d'apprentissage par renforcement en situation markovienne.
-Pour cela il faut implémenter un environnement qui soit capable de détecter les situations gagnantes, perdantes, et nulles sur l'échiquier de façon à générer ce signal d'erreur. 
-Examinons cela plus en détail.
-On pourrait implémenter un système "arbitre" complètement extérieur au programme de jeu qui déclarerait la fin de partie. 
-Cet arbitre doit intégrer toutes les règles du jeu pour déterminer si l'un des deux rois est en situation d'échec et mat. 
-Il doit aussi surveiller les cas de figures qui mènent à une situation de match nul par différentes modalités (pat, etc.) ce qui n'est pas immédiat dans le cas de nul par répétition de position. 
-En pratique il n'est pas nécessaire d'implémenter un arbitre. 
-Notons que le programme lui même doit pouvoir détecter la fin de partie et son status.
-Il n'est donc pas nécessaire d'implémenter un arbitre externe, on peut utiliser la capacité du programme lui meme pour connaitre le gagnant et générer le signal de récompense. 
-Mais si le signal de récompense est interne au programme, ne peut on pas dire que la récompense est intrinsèque. 
-
-
-Il est plus simple d'implémenter quelques sous-programme dédiés à la détection 
-
-Mais ce qui se passe en pratique c'est que c'est le programme lui meme qui évalue la situation et qui génère la récom 
-
-
-Il serait peut etre plus judicieux de distinguer entre "objectifs internes" et "objectifs externes".
-La notion de motivation extrinsèque pose problème car toute motivation peut etre considérée comme intrinsèque. 
-La notion de motivation intrinsèque doit plutot etre compris comme antinomique de "récompense externe". 
-
-\subsection{Inversion du cycle d'interaction}
-\label{sec:inversion}
-
-Un certain nombre d'auteurs ont fait remarquer que la direction du cycle d'interaction n'était pas neutre. 
-
-La Figure \ref{fig:inversion} met matérialise le début et la fin du cycle d'interaction par une puce et un triangle noir. 
-Le cycle inversé (à droite) offre deux avantages: 
-\begin{itemize}
-	\item il évite la références à l'action au cycle précédent $a_{t-1}$ : toutes les variables sont on cycle $t$.
-	\item la récompense est une fonction de l'état $s_t$ obtenu après l'action, alors que dans le cycle classique la récompense (à gauche) est une fonction de l'état résultant de l'action précédente. 
-\end{itemize}
-
-On pourrait penser que puisque le cycle d'interaction se répète indéfiniment, peu importe quand il commence et quand il finit. 
-Mais dans la pratique, la façon dont le designer comprend ce cycle influence la façon dont il conçoit l'agent.
-
-\cite{georgeon_inverting_2014}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/3_inversion.pdf}
-	\caption{L'inversion du cycle d'interaction \cite{georgeon_inverting_2014} montrant le début (puce noire) et fin (triangle noir) du cycle.
-		Gauche: cycle des POMDP classiques.
-		Droite: cycle inversé.}
-	\label{fig:inversion}
-\end{figure}
-
-
-\subsection{Modèle du monde}
-
-David Ha et Jürgen Schmidhuber ont proposé un système capable d'apprendre un modèle du monde dans des environnement d'apprentissage par renforcement populaires \cite{ha_world_2018}.
-
-Karl Friston et ses coauteurs abordent la question de l'apprentissage d'un \an{world model} dirigé par le principe d'énergie libre \cite{friston_world_2021}
-
-Yann LeCun a argumenté que le chemin vers IA de niveau humain dans la prochaine décennie reposera sur des modèles du monde qui permettent le raisonnement et la planification.
-\og \an{Joint-Embedding Predictive Architecture} \fg (JEPA) \cite{balestriero_lejepa_2025}
 
 
 

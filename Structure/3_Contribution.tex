@@ -1,20 +1,23 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Mécanisme de schéma en monde ouvert}
+\chapter{Théorie des Evénements d'Interaction Valués (EIV)}
 
 \noindent
 Introduction en cours de construction
 
-Je propose une nouvelle définition d'un mécanisme de schéma: 
 
-\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales.}
+Si on en croit les théories présentées dans les chapitres précédents, un agent capable d'apprendre des habitudes sensorimotrices et qui a des préférences devrait exhiber la capacité de donner du sens à ses expériences.
 
-Avec Frank Ritter, nous avons présenté la première version dans l'article ``\an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}'' \cite{georgeon_intrinsically-motivated_2012}.
-Au fil des années, j'ai mieux compris et amélioré ce mécanisme. 
-J'ai récemment réécrit un tutoriel complet en Python basé sur dix Jupyter Notebooks permettant de le redévelopper à partir de zéro \cite{georgeon_schema_2025-1}.  
+Le fait de disposer de préférences devrait permettre à l'agent de réaliser une abstraction significative de ses expériences.
 
-Avec l'aide de Filipo Perotto, Kristinn Thórisson, Paul Robertson, et Gary Drescher, nous avons proposé le label \og 2.0 \fg  dans l'article ``\an{Schema mechanisms 2.0 for developmental artificial intelligence}'' \cite{georgeon_schema_2025}.  
-Cet article examine les évolutions par rapport au \an{schema mechanism} original de Drescher présenté en Section \ref{sec:drescher}.
+
+%Je propose une nouvelle définition d'un mécanisme de schéma: 
+
+%\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales.}
+
+% Avec Frank Ritter, nous avons présenté la première version dans l'article ``\an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}'' \cite{georgeon_intrinsically-motivated_2012}. Au fil des années, j'ai mieux compris et amélioré ce mécanisme.  J'ai récemment réécrit un tutoriel complet en Python basé sur dix Jupyter Notebooks permettant de le redévelopper à partir de zéro \cite{georgeon_schema_2025-1}.  
+
+%Avec l'aide de Filipo Perotto, Kristinn Thórisson, Paul Robertson, et Gary Drescher, nous avons proposé le label \og 2.0 \fg  dans l'article ``\an{Schema mechanisms 2.0 for developmental artificial intelligence}'' \cite{georgeon_schema_2025}.   Cet article examine les évolutions par rapport au \an{schema mechanism} original de Drescher présenté en Section \ref{sec:drescher}.
 
 
 
@@ -242,14 +245,17 @@ Signalons aussi qu'elle n'est pas incompatibles avec d'autres principes motivati
 
 \section{Mécanisme de schéma enactif}
 
-Le \an{Schema mechanims 2.0} repose sur un modèle d'interaction que je nomme \an{Enactive Decision Process} (EDP).
+\noindent
+Cette section présente le fonctionnement du nouveau mécanisme de schéma que j'ai développé sur la base de l'EDP et du principe de motivation interactionnelle. 
+Sa description technique complète est décrite dans mon tutoriel basé sur des Jupyter Notebooks \cite{georgeon_schema_2025-1}. 
 
-
-La Figure \ref{fig:trajectoire} illustre le principe. 
+La Figure \ref{fig:trajectoire} illustre son fonctionnement général. 
 L'agent est initialisé avec des schémas primitifs de bas niveau représentés par des petites flèches en bas à gauche. 
 Au fil du temps, l'agent apprend des schémas de plus haut niveau représentés par des flèches plus longues. 
-Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par agrégation d'une série de schémas de niveau inférieur pour représenter une régularité d'interaction rencontrée par l'agent. 
-Les schémas de plus haut niveau sont ainsi des compositions hiérarchiques de schémas de plus bas niveau jusqu'au niveau de base défini par les schémas primitifs.
+Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par concaténation d'une séquence de schémas de niveau inférieur.
+On obtient ainsi une hiérarchie de schémas dont la base est constituée des schémas primitifs.
+Cette hiérarchie de schéma finit par refléter certains aspects de la hiérarchie des régularités présentes dans le couplage structurel entre l'agent et son environnement, qui sont pertinents au regard de la motivation de l'agent.
+
 
 \begin{figure}[ht]
 	\centering
@@ -261,47 +267,53 @@ Les schémas de plus haut niveau sont ainsi des compositions hiérarchiques de s
 	\label{fig:trajectoire}
 \end{figure}
 
-La situation courante est représentée par les schémas qui viennent d'être enactés. 
+La situation courante de l'agent est représentée par les schémas qui viennent d'être énactés. 
 Ces schémas réactivent les schémas de plus haut niveau dont ils font partie. 
-Le mécanisme tente de compléter l'enaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
-Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptés aux différentes situations qu'il rencontre. 
+Le mécanisme tente de compléter l'énaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
+Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptées aux régularités offertes par son couplage structurel. 
 %Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
 
-La sélection des futurs schémas à enacter parmi ceux qui sont activés par la situation courante se fait sur la base de préférences interactionnelles définies par le concepteur. 
+Le choix des futurs schémas à énacter parmi ceux affordés par la situation courante se fait sur la base de leur espérance de valence estimée. 
+Ce principe motivationnel associe donc une tendance à répéter des séquences déjà apprises avec une préférence pour les interactions ayant la plus grande valence. 
+Il regroupe ainsi des idées d'apprentissage d'habitudes d'interaction présentes dans le \an{Sensorimotor Sequence Reiterator} de Woolford (Sec.~\ref{sec:ssr}), et d'apprentissage hiérarchique influencé par des préférences innées présente dans CALM de Perotto (Sec.~\ref{sec:perotto}).
+
+Ce mécanisme adopte la terminologie du EDP et utilise le terme \emph{interaction} pour désigner les schémas.
+Le terme \emph{interaction primitive} désigne des schémas prédéfinis par le chercheur sur la base des possibilités motrices et sensorielles de l'agent.
+L'ensemble des interactions primitives est noté $I_p$.
+Le terme \emph{interaction composite} désigne les schémas appris par l'agent. 
+Leur ensemble est noté $I_c$.
+L'ensemble $I = I_p \cup I_c$ désigne maintenant l'ensemble de toutes les interactions, primitives et composites.
+De même, l'ensemble $D = D_p \cup D_c$ désigne l'ensemble de toutes les décisions à la disposition de l'agent, les décisions primitives définies par le chercheur et les décisions composites apprises par l'agent.  
 
 
-\subsection{Schémas primitifs}
+\subsection{Interaction primitives}
 
-L'interaction $i_t$ représente un schéma d'interaction entre l'agent et l'environnement qui intègre à la fois des commandes motrices et des rétroactions sensoriels. 
-Mathématiquement, on impose une relation injective de $D$ vers $I$ qui fait que chaque décision $d \in D$ ne peut donner lieu qu'a une interaction appartenant à un sous-ensemble prédéfini de $I$, et que chaque interaction $i \in I$ ne peut résulter que d'une décision prédéfinie dans $D$. 
-Ainsi, chaque interaction $i_t$ énactée au temps $t$ contient l'information de la décision $d_t$.
-L'historique des interactions n'a donc plus besoin de contenir les décisions mais contient uniquement les interactions $h_t = \langle i_0, ..., i_{t-1} \rangle$.
+\noindent
+L'agent est initialisé avec l'ensemble $D$ des décisions à sa disposition, et l'ensemble $I$ des interactions qu'il peut détecter.
+Le fait que les interactions représentent des schèmes sensorimoteurs se traduit par le fait qu'il existe une relation surjective de l'ensemble des interactions vers l'ensemble des décisions $\mathcal{D}: I \to D$ qui, pour chaque interaction $i \in I$ donne la décision $\mathcal{D}(i) \in D$ qui l'a précédée.
+La relation inverse $\mathcal{D}^{-1}$ permet à l'agent de connaitre, pour chaque décision $d$ l'ensemble $I_d \in I$ des interactions qui peuvent en résulter. 
+
 
 
 
 \subsection{Apprentissage séquentiel hiérarchique}
 
 \noindent
-La description technique complète du \an{Schema Mechanism 2.0} est présentée dans mon tutoriel basé sur des Jupyter Notebooks \cite{georgeon_schema_2025-1}. 
-J'en expose ici les principes essentiels.
+L'agent est initialisé avec l'ensemble $D_p$ des décisions primitives qu'il peut prendre, et l'ensemble $I_p$ des interactions primitives qu'il peut détecter.
+Aux temps $t= 0$ et $t=1$, l'agent pioche des décisions arbitraires dans $D_p$.
 
-Au temps $t$, l'agent enregistre la séquence des deux interactions $i_{t-2}$ et $i_{t-1}$ enactées aux deux cycles précédents, sous la forme d'une \emph{interaction composite} $i_c = \langle i_{t-2}, i_{t-1} \rangle$, qui est ajoutée à l'ensemble des interactions $I$. 
-Les interactions composites possèdent un \emph{poids}, incrémenté chaque fois qu'elles sont à nouveau enactées.
-Une \emph{décision composite} $d_c$ est également ajoutée à l'ensemble $D$. 
-L'interaction composite $i_c$ est appelée \an{intended interaction} de $d_c$.
-C'est à dire que $d_c$ consiste à tenter de re-enacter $i_c$ sur deux cycles d'interactions primitifs consécutifs.
-Lors du premier cycle, $d_c$ consiste à rejouer la décision primitive $d_{t-2}$. 
-Si l'agent obtient effectivement $i_{t-2}$, il rejoue ensuite $d_{t-1}$.
-Dans le cas contraire, la tentative de re-enaction de $i_c$ est interrompue et l'agent prend une nouvelle décision.
 
-Lorsqu'une interaction composite est enactée avec succès, elle entraine la construction d'autres interactions composites de niveau supérieur. 
-Ce processus conduit à l'édification progressive d'une hiérarchie de décisions composites, illustrée en Figure \ref{fig:agent10}. 
-Nous avons montré que le nombre d'interactions composites croissait linéairement avec le temps \cite{georgeon_schema_2025-1}.
-C'est  d'autant plus acceptable qu'il est possible de supprimer les interactions composites non utilisées sans affecter le comportement de l'agent.
+Au temps $t \ge 2 $, l'agent enregistre la séquence des deux interactions $i_{t-2}$ et $i_{t-1}$ enactées aux deux cycles précédents, sous la forme d'une \emph{interaction composite} $i_c = \langle i_{t-2}, i_{t-1} \rangle$, qui est ajoutée à l'ensemble des interactions $I$. 
+Les interactions composites possèdent un \emph{poids}, initialisé à $1$  et incrémenté chaque fois qu'elles sont à nouveau énactées.
 
-Une interaction composite est donc une séquence de deux sous-interactions qui peuvent être soit composites soit primitives. 
-La première est appelée la \emph{pré-intéraction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
-Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
+Une \emph{décision composite} $d_c = \langle i_{t-2}, d_{t-1} \rangle$ est également ajoutée à l'ensemble $D$. 
+Quand cette décision sera sélectionnée, elle consistera à tenter de re-énacter $i_c$ comme une séquence entière.
+L'interaction composite $i_c$ est appelée \emph{interaction intentionnelle} de $d_c$.
+Cette re-énaction consistera à rejouer la décision primitive $d_{t-2}$, puis, si l'agent obtient bien à nouveau $i_{t-2}$, rejouer ensuite $d_{t-1}$.
+Si l'agent n'obtient pas $i_{t-2}$ alors la tentative de re-énacter $i_c$ est interrompue et l'agent prendra une nouvelle décision au cycle suivant.
+
+Ce mécanisme d'apprentissage fonctionne de la même manière pour apprendre une interactions composites de plus haut niveau sur la base de deux interactions composites qui viennent d'être énactées consécutivement.
+Ce processus conduit donc à l'édification progressive d'une hiérarchie de décisions composites, illustrée en Figure \ref{fig:agent10}. 
 
 
 \begin{figure}[ht]
@@ -316,20 +328,28 @@ Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
 	\label{fig:agent10}
 \end{figure}
 
+Une interaction composite $i_c$ est donc une séquence de deux sous-interactions qui peuvent être soit composites soit primitives. 
+La première est appelée la \emph{pré-intéraction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
+Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
+
+Etant donné qu'une interaction composite doit être réénactée pour donner lieu à une apprentissage d'une interaction composite de plus haut niveau, le nombre d'interactions composite ne croit pas trop rapidement comme nous le verrons plus loin.
+%Nous avons montré que le nombre d'interactions composites croissait linéairement avec le temps \cite{georgeon_schema_2025-1}. C'est  d'autant plus acceptable qu'il est possible de supprimer les interactions composites non utilisées sans affecter le comportement de l'agent.
+
+
 \subsection{Affordance du contexte}
 
 \noindent
-J'ai indiqué qu'une interaction composite $i_c$ est une séquence de deux sous-interactions, composites ou primitives. 
-La première, appelée \emph{pré-intéraction} est notée $pre(i_c)$, précède la seconde, la \emph{post-interaction}, notée $post(i_c)$. 
-Ainsi nous avons $i_c = \langle pre(i_c), post(i_c)\rangle$.
-
-A l'instant $t$, la situation courante de l'agent dans l'environnement est caractérisée par l'ensemble des interactions qui viennent d'être enactées ainsi que par leurs post-interactions. 
-Notons $C_t \subset I$ cet ensemble dont les éléments sont en gris sur la Figure \ref{fig:agent10}.
+A l'instant $t$, le contexte courant est caractérisée par les interactions que l'agent vient juste d'énacter.
+La Figure~\ref{fig:agent10} illustre ces interactions en gris. 
+Ce contexte contient l'interaction $i_{d-1}$ que l'agent a décidé d'énacter lors de sa décision précédente.
+Il contient également des interactions composites de plus haut niveau qui se terminent par $i_{d-1}$.
+Enfin, il contient les post-interacions de plus bas niveau que $i_{d-1}$, qui peuvent soit être primitives comme $i_{t-1}$ sur la figure, ou soit avoir elles-même des post-interactions à inclure dans le contexte. 
+L'ensemble de toutes ces interactions qui constitue le contexte est noté  $C_t \subset I$. %cet ensemble dont les éléments sont en gris sur la Figure \ref{fig:agent10}.
 
 Soit $A_t \subset I$ l'ensemble des interactions composites dont la pre-interaction appartient à $C_t$: $A_t = \{i \in I \mid pre(i) \in C_t\}$.
-L'ensemble $A_t$ est ainsi l'ensemble des interactions composites qui sont \emph{activées} par le contexte au temps $t$. 
+L'ensemble $A_t$ désigne l'ensemble des interactions composites qui sont \emph{activées} par le contexte au temps $t$. 
 
-Définissons maintenant l'ensemble $F_t$ des post-interactions des interactions activées: $F_t = \{pre(a) \in I \mid a \in A_t\}$.
+Définissons maintenant l'ensemble $F_t$ des post-interactions des interactions activées: $F_t = \{post(a) \in I \mid a \in A_t\}$.
 Les interactions dans $F_t$ sont les interactions \emph{affordées} par le contexte courant. 
 
 Les interactions affordées au temps $t$ sont donc celles que l'agent a appris qu'il pourrait probablement réenacter dans le contexte courant. 
@@ -340,12 +360,13 @@ Il nous reste maintenant a déterminer comment sélectionner une décisions parm
 \subsection{Mécanisme de décision}
 
 \noindent
-Le mécanisme de décision fondé sur la motivation interactionnelle tente d'enacter les interactions qui ont la plus haute valence.
-Pour cela il utilise une estimation de la \emph{valence attendue} des différentes décisions possible dans un contexte donné.
-Cette section décrit ce mécanisme. 
-Je présenterai d'autres critères possibles impliquant d'autres principes motivationnels dans les chapitres suivants. 
+Un mécanisme de décision qui serait fondé uniquement sur la motivation interactionnelle tenterait d'enacter les interactions qui ont la plus haute valence.
+Pour cela il aurait besoin d'une estimation de la \emph{valence attendue} des différentes décisions possible dans un contexte donné.
+Mais bien-sûr, l'agent n'a pas la possibilité de calculer une estimation fiable de cette valence attendue car il ne dispose que d'une connaissance très incomplète de l'environnement.
+Cette section examine ce que serait un calcul de valence attendue qui s'inspirerait des techniques d'apprentissage par renforcement introduite en Section~\ref{sec:rl}, pour finalement proposer une approche qui couple la valence attendue avec un mécanisme d'apprentissage d'habitude.
 
-La valence attendue rappelle la \emph{récompense espérée} utilisée en apprentissage par renforcement présenté en Section \ref{sec:rl}. 
+
+%La valence attendue rappelle la \emph{récompense espérée} utilisée en apprentissage par renforcement présenté en Section \ref{sec:rl}. 
 En suivant les conventions de l'apprentissage par renforcement, nous notons $\mathbb{E}_t(V_i)$ la valence attendue d'une interaction affordée $i$ au temps $t$. 
 Cette valence attendue est la somme des valences des interactions primitives qui composent $i$ multipliées par la probabilité que chacune soit enactée avec succès au moment où l'agent tentera de l'enacter. 
 Cela est exprimé par l'Equation \eqref{eq:ev}:
@@ -377,11 +398,8 @@ De plus, les interactions affordées n'ont pas toutes la même longueur, ce qui 
 Si on compare simplement la valence attendue d'une interaction $i_1$ longue de deux cycles d'interaction avec celle d'une interaction $i_2$ longue de quatre cycles, on ne prend pas en compte les valences qui pourraient être obtenues dans les deux cycles qui suivraient l'enaction de $i_1$ correspondant au temps d'enaction de $i_2$.
 
 Pour ces raisons, nous ne pouvons pas mettre en place un mécanisme de décision basé sur la motivation interactionnelle pure. 
-Nous avons ajouté un deuxième principe d'organisation des comportements: le principe de \emph{réiteration d'habitudes}.
-Ce principe biaise la sélection des décisions en faveur des décisions qui répètent les habitudes d'interactions les plus renforcées. 
-
-Pour mixer la motivation interactionnelle et la réiteration d'habitude, 
-nous calculons une valeur de \emph{proclivité} de chaque decision affordée comme  la somme des poids des interactions activées qui affordent $d$, multipliée par la valence des interactions affordées:
+Nous ajoutons le principe de \emph{réiteration d'habitudes} qui biaise la sélection des décisions en faveur des décisions qui répètent les séquences d'interactions les plus renforcées. 
+Pour cela, nous calculons une valeur de \emph{proclivité} de chaque decision affordée comme  la somme des poids des interactions activées qui affordent $d$, multipliée par la valence des interactions affordées:
 
 \begin{equation}\label{eq:proclivity}
 	\displaystyle proclivity_t(d) = \sum_{a \in A_d} (w_t(a) \cdot v(post(a)))
@@ -390,15 +408,15 @@ nous calculons une valeur de \emph{proclivité} de chaque decision affordée com
 $A_d \subset A_t$ est l'ensemble des interactions activées qui proposent la décision $d$ au temps $t$.
 $w_t(a)$ est la poids de l'interaction activée $a$ à l'instant $t$.
 $v(post(a))$ est la valence de l'interaction affordée par $a$.
-Le mécanisme construit un tableau des proclivités de chaque décision affordée au temps $t$ (Figure \ref{fig:agent8}), et sélectionne la décision qui a la proclivité la plus élevée.
-
+Le mécanisme construit un tableau des proclivités de chaque décision affordée au temps $t$, dans lequel il sélectionne la décision qui a la proclivité la plus élevée.
+La Figure \ref{fig:agent8} montre un exemple. 
 %donnée par l'Equation \eqref{eq:proclivity}:
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_agent8.pdf}
 	\caption{Mécanisme de décision. 
-	Les interactions qui forme le contexte à l'instant $t$ (en gris) activent les interactions de la colonne \an{activated}.
+	Les interactions qui forment le contexte à l'instant $t$ (en gris) activent les interactions de la colonne \an{activated}.
 	Les interactions affordées sont aggrégées par leurs décisions (colonne \an{decision}).
 	La proclivité de chaque décision est calculée (\an{proclivity}).
 	La décision qui a la plus grande proclivité est sélectionnée.
@@ -411,10 +429,34 @@ Ce double principe motivationnel fait que l'agent ne va pas nécessairement trou
 Du point de vue d'un observateur extérieur, l'agent semble acquérir des habitudes d'interactions qui sont simplement satisfaisantes du point de vue de la valence reçue.
 
 Bien que le calcul de proclivité favorise les interactions qui ont les valences les plus élevées, l'agent n'aura pas un comportement purement \an{greedy} qui consisterait à privilégier les récompenses immédiates. 
-Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences qui consistant à enacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
+Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences consistant à énacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
 Nous allons maintenant analyser les comportements obtenus dans des exemples.  
 
-\section{Experimentations}
+\subsection{Niveaux de couplage structurel}
+
+L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environnement à différents niveau d'échelle de temps.  
+
+La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
+\cite{georgeon_cash_2019}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/4_couplage.pdf}
+	\caption{Différents niveaux de couplage, adapté de \cite{georgeon_cash_2019} Fig. 1.
+		Le cadre gris délimite le \an{software} couplé au \emph{monde} à travers les registres de sortie (\an{output values}) et d'entrée (\an{input values}). 
+		%Les \emph{valeurs de sortie} commandent des actionneurs et \emph{valeurs d'entrée} sont déterminées par des capteurs.
+		La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui enacte les schémas primitifs.
+		%L'interface contrôle l'enaction des schémas primitifs en commandant les actionneurs par l'intermédiaire des valeurs de sortie et en traitant les \an{outcomes} reçus des capteurs à travers les \emph{valeurs d'entrée}.   
+		Le \emph{couplage cognitif} sépare le système de décisions (au dessus) du système de contrôle des schémas composites (en dessous). 
+		Ce couplage évolue avec l'apprentissage de schémas de plus en plus haut niveau.
+	}
+	\label{fig:couplage}
+\end{figure}
+
+
+
+
+\section{Experimentations avec des couplages séquentielles hiérarchiques}
 
 \subsection{Expérimentation du \emph{Small Loop Challenge}}
 
@@ -476,8 +518,6 @@ Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensi
 
 
 
-\subsection{Analyse comportementale}
-
 
 La Figure \ref{fig:trace} montre une analyse des comportements
 
@@ -489,7 +529,8 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \end{figure}
 
 
-\subsection{Analyse de similarités sémantiques dans l'espace d'\emph{embedding}}
+\subsection{La Sniff Experiment}
+
 
 Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
 
@@ -497,49 +538,31 @@ Chaque interaction est associée à un token utilisé dans le transformer.
 
 La Figure \ref{fig:embedding} montre des projections de l'embedding des interactions qui met en évidence que les interactions sont regroupées dans l'espace lattent en fonction de leur sémantique inférée par l'agent. 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
-	\caption{Projections 3D de l'\an{embedding} des interactions. 
-		Gauche: regroupement par type d'objet de l'environnement: \texttt{empty} (en rose en haut à gauche) et \texttt{wall} (en gris foncé en bas à droite).
-		Droite: regroupement par direction relative à l'agent: \texttt{left} (en bas à droite), \texttt{front} (en bas à gauche) et \texttt{right} (en haut à gauche).}
-	\label{fig:embedding}
-\end{figure}
-
-\subsection{Comparaison avec le modèle POMDP}
-
-Georgeon, Casado et Matignon \cite{georgeon_modeling_2015} ont comparé a mécanisme de schéma avec un algorithme typique d'apprentissage par renforcement on markovien. 
-
-
-\subsection{Méthode d'observation de l'émergence sémantique}
-
-Comment démontrer l'émergence du sens \cite{georgeon_demonstrating_2013}
-
-
-\subsection{Auto-programmation moto-sensorielle}
-
-L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environment à différents niveau d'échelle de temps.  
-
-La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
-\cite{georgeon_cash_2019}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
+%	\caption{Projections 3D de l'\an{embedding} des interactions. 
+%		Gauche: regroupement par type d'objet de l'environnement: \texttt{empty} (en rose en haut à gauche) et \texttt{wall} (en gris foncé en bas à droite).
+%		Droite: regroupement par direction relative à l'agent: \texttt{left} (en bas à droite), \texttt{front} (en bas à gauche) et \texttt{right} (en haut à gauche).}
+%	\label{fig:embedding}
+%\end{figure}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/4_couplage.pdf}
-	\caption{Différents niveaux de couplage, adapté de \cite{georgeon_cash_2019} Fig. 1.
-		Le cadre gris délimite le \an{software} couplé au \emph{monde} à travers les registres de sortie (\an{output values}) et d'entrée (\an{input values}). 
-		%Les \emph{valeurs de sortie} commandent des actionneurs et \emph{valeurs d'entrée} sont déterminées par des capteurs.
-		La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui enacte les schémas primitifs.
-		%L'interface contrôle l'enaction des schémas primitifs en commandant les actionneurs par l'intermédiaire des valeurs de sortie et en traitant les \an{outcomes} reçus des capteurs à travers les \emph{valeurs d'entrée}.   
-		Le \emph{couplage cognitif} sépare le système de décisions (au dessus) du système de contrôle des schémas composites (en dessous). 
-		Ce couplage évolue avec l'apprentissage de schémas de plus en plus haut niveau.
-	}
-	\label{fig:couplage}
+	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
+	\caption{Analyse des structures du Transformer. 
+		Gauche: Projection de l'espace d'\an{embedding}.
+		Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
+		La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
+	\label{fig:attention}
 \end{figure}
 
 
 
-\subsection{Implémentation de comportements instinctifs}
+
+
+
+\subsection{Couplage sensoriel distal}
 \label{sec:horseshoe}
 
 \noindent
@@ -596,20 +619,56 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
 
 
-\subsection{Sémantique émergente}
+\section{Architecture spatiale}
+
+\noindent
+Pour permettre l'organisation intelligente des comportements d'un agent interagissant avec un environnement spatial, tel qu'un robot dans le monde physique, les comportements ne doivent pas seulement s'organiser dans le temps mais aussi dans l'espace. 
+
+\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques spatio-séquentiels sur la base de préférences interactionnelles initiales. }
+
+
+Ron Sun réutilise la notion de \og \an{representational redescription} \fg\ proposée par Annette Karmiloff-Smith \cite{karmiloff-smith_meta-processes_1986}.
+
+\an{Here I take the more ``eclectic'' proposition that acknowledge representation is important while maintaining that it is mediated by direct comportement} \cite[p.~10]{sun_symbol_2000}
+
+
+
+\subsection{Inférence de la structure spatiale}
+
+L'article ``\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}'' \cite{gay_autonomous_2017} présente comment l'agent peut inférer la structure de l'espace à partir de ses expériences d'interaction.
+
+
+\subsection{Spatial Enactive Decision Process (SEDP)}
+\label{sec:sedp}
+
+Le Spatial Enactive Decision Process (SEDP) étend le Enactive Decision Process introduit en section \ref{sec:edp} en ajoutant des propriétés spatiales à l'outcome: une position et un déplacement.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
-	\caption{Analyse des structures du Transformer. 
-	Gauche: Projection de l'espace d'\an{embedding}.
-	Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
-	La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
-	\label{fig:attention}
+	\includegraphics[width=0.6\textwidth]{Figures/5_sedp.pdf}
+	\caption{Spatial Enactive Decision process (\cite{georgeon_artificial_2024}, Fig. 5) }
+	\label{fig:sedp}
 \end{figure}
 
 
+\subsection{Ontologie basée sur les affordances}
 
+Renvoie à la notion de bundle introduite dans la Section \ref{sec:pragmatisme} sur l'épistémologie pragmatique.
+
+\subsection{Enactive Cognitive Architecture (ECA)}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/5_ECA.pdf}
+	\caption{The Enactive Cognitive Architecture (ECA) depuis \cite{georgeon_reducing_2024}}
+	\label{fig:ECA}
+\end{figure}
+
+La Figure \ref{fig:ECA} montre la Enactive Cognitive Architecture décrite dans \cite{georgeon_reducing_2024}
+
+
+
+\section{Expérimentation en couplage spatial}
 
 \subsection{Navigation dans une scène variée}
 
@@ -669,42 +728,4 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 \end{figure}
 
 
-\section{Interactionisme radical}
-
-Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
-Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
-
-\cite{georgeon_radical_2013}
-
-L'interactionisme radical est illustrée en Figure \ref{fig:ir}.
-A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$.
-Enacter $i_{cd}$ consiste à successivement tenter d'enacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
-Si chaque chaque interaction primitive est enactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
-Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
-	\caption{Le cycle de l'Interactionisme Radical, adapté de \cite{georgeon_eca_2013}, Fig.~2.
-	A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd} \in C_d$ consistant à tenter d'enacter k interactions primitives $i_{p1} ... i_{pk} \in I$.
-	Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps d \fg à un niveau d'abstraction supérieur.}
-	\label{fig:ir}
-\end{figure}
-
-
-Compared to a POMDP, the main conceptual difference of an EMDP lies in the fact that the decider receives an \textit{interaction} at the end of the cycle, rather than a \textit{signal} at the beginning.
-We introduce the concept of \textit{interaction} as a primitive of the model to represent a sensorimotor pattern that involves both motor actions and sensory signals.
-As such, an interaction implements the fact that ``perception and action cannot be pulled apart'' stressed by the theory of enactive inference introduced in Section \ref{seq:intro}.
-In constructivist learning theory, an interaction corresponds to a Piagetian sensorimotor \textit{scheme}.
-In a robot, an interaction can be implemented through a \textit{control loop} involving actuator motion and sensory feedback \cite{georgeon_cash_2019}.
-Because interactions depend both on the decision and on the state, they can be seen as the counterpart of the couple (decision, signal) in a POMDP.
-
-In an EMDP, the enacted interaction $i_t$ contains information on the previous decision $d_t$.
-The notion of history introduced in section \ref{seq:pomdp}, is therefore simplified in the form of the sequence of enacted interactions $h_t = \{i_0, ..., i_{t-1}\}$ before step $t$.
-As with POMDPs, the history contains the relevant information for the decision-making process.
-It constitutes the Markov blanket that hides the environment's structure to the agent.
-
-
-
-%Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
-%Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
+\section{Conclusion (en construction)}

@@ -1,0 +1,137 @@
+% !TEX root = ../HDR.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Vers une robotique développementale}
+
+\an{Developmental robotics, optimal artificial curiosity, creativity, music, and the fine arts} \cite{schmidhuber_developmental_2006}
+
+\an{Developmental Robotics: From Babies to Robots} \cite{cangelosi_developmental_2015}
+
+The study of robot consciousness will thus shift the focus from internal processes and structures to the analysis of the ontogenetic and epigenetic relations that a body develops and maintains with the external world during its life. Methodologies of developmental robotics will be a valuable help in this effort. \cite{manzotti_good_2018}
+
+% Cette section pourrait etre incluse dans la précédente "Apprentissage spatio-séquentiel".
+
+Ce chapitre examine comment les mécanismes de schema spatiaux pourraient trouver des applications en robotique. 
+Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
+Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néammoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
+L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
+
+
+\section{Méthodologie}
+
+Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
+Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
+On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
+
+
+\section{Le projet Petitcat}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/6_Petitcat.png}
+	\caption{Le robot Petitcat depuis \cite[Fig.~1]{schneider_grounding_2024}}
+	\label{fig:Petitcat}
+\end{figure}
+
+La Figure \ref{fig:Petitcat} montre le robot Petitcat.
+
+\section{Inférence des objets physiques}
+
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/6_cycle.pdf}
+	\caption{Le cycle d'interaction robotique \cite[Fig.~1]{georgeon_simultaneous_2022}}
+	\label{fig:cycle}
+\end{figure}
+
+
+``\an{Simultaneous Localisation and Phenomenon Inference}'' {pmlr-v192-georgeon22a}.
+
+\cite{georgeon_simultaneous_2022}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.49\textwidth]{Figures/6_moneybox.png}
+	\hfill
+	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/6_phenomenon.png}
+	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~13]{georgeon_schema_2025}.
+		Gauche: le robot observant l'objet. 
+		Droite: le phénomène identifié par le robot. 
+		Le phénomène est constitué de l'ensemble des \og manifestations \fg de l'objet cylindrique à travers les meures d'écho-localisation réalisées quand le robot tourne autour de lui. 
+		Les triangles bleus représentent les cônes du signal ultrasonique émis depuis différentes positions. 
+		La ligne noire est la forme du phénomène reconstituée à parti des échos.
+	}
+	\label{fig:robot}
+\end{figure}
+
+
+
+\section{Robotique émotionnelle}
+
+
+\section{Interactionisme radical}
+
+Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
+Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
+
+\cite{georgeon_radical_2013}
+
+L'interactionisme radical est illustrée en Figure \ref{fig:ir}.
+A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$.
+Enacter $i_{cd}$ consiste à successivement tenter d'enacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
+Si chaque chaque interaction primitive est enactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
+Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
+	\caption{Le cycle de l'Interactionisme Radical, adapté de \cite{georgeon_eca_2013}, Fig.~2.
+		A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd} \in C_d$ consistant à tenter d'enacter k interactions primitives $i_{p1} ... i_{pk} \in I$.
+		Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps d \fg à un niveau d'abstraction supérieur.}
+	\label{fig:ir}
+\end{figure}
+
+
+Compared to a POMDP, the main conceptual difference of an EMDP lies in the fact that the decider receives an \textit{interaction} at the end of the cycle, rather than a \textit{signal} at the beginning.
+We introduce the concept of \textit{interaction} as a primitive of the model to represent a sensorimotor pattern that involves both motor actions and sensory signals.
+As such, an interaction implements the fact that ``perception and action cannot be pulled apart'' stressed by the theory of enactive inference introduced in Section \ref{seq:intro}.
+In constructivist learning theory, an interaction corresponds to a Piagetian sensorimotor \textit{scheme}.
+In a robot, an interaction can be implemented through a \textit{control loop} involving actuator motion and sensory feedback \cite{georgeon_cash_2019}.
+Because interactions depend both on the decision and on the state, they can be seen as the counterpart of the couple (decision, signal) in a POMDP.
+
+In an EMDP, the enacted interaction $i_t$ contains information on the previous decision $d_t$.
+The notion of history introduced in section \ref{seq:pomdp}, is therefore simplified in the form of the sequence of enacted interactions $h_t = \{i_0, ..., i_{t-1}\}$ before step $t$.
+As with POMDPs, the history contains the relevant information for the decision-making process.
+It constitutes the Markov blanket that hides the environment's structure to the agent.
+
+
+
+%Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
+%Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
+
+
+\section{Simulation interne}
+
+Game Engine in The Head
+
+\section{Explicabilité et inference causale}
+
+\section{Conclusion}
+
+Critique de la discrétisation temporelle
+
+Les mécanismes de schéma sont basées sur des cycles d'interaction qui ne permettre qu'une prise en compte d'une temporalité discrète. 
+On peut ce demander si cette limitation n'est pas trop contraignante pour permettre de générer des comportements naturels. 
+
+Un contre argument est qu'on peut se fixer des schémas primitifs arbitrairement cours. 
+Il faut cependant garder à l'esprit que le mécanisme de schéma permet de monter dans des échelles de temps de plus en plus longues. 
+
+
+
+
+Critique du réductionnisme
+
+Est ce que la théorie de Piaget est trop réductionniste et parvient elle à capture les fondements de la conscience ? 
+
+C'est, à mon sens, la critique principale de cette approche et je n'ai pas la réponse. 

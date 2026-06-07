@@ -529,36 +529,6 @@ La Figure \ref{fig:trace} montre une analyse des comportements
 \end{figure}
 
 
-\subsection{La Sniff Experiment}
-
-
-Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
-
-Chaque interaction est associée à un token utilisé dans le transformer. 
-
-La Figure \ref{fig:embedding} montre des projections de l'embedding des interactions qui met en évidence que les interactions sont regroupées dans l'espace lattent en fonction de leur sémantique inférée par l'agent. 
-
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
-%	\caption{Projections 3D de l'\an{embedding} des interactions. 
-%		Gauche: regroupement par type d'objet de l'environnement: \texttt{empty} (en rose en haut à gauche) et \texttt{wall} (en gris foncé en bas à droite).
-%		Droite: regroupement par direction relative à l'agent: \texttt{left} (en bas à droite), \texttt{front} (en bas à gauche) et \texttt{right} (en haut à gauche).}
-%	\label{fig:embedding}
-%\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
-	\caption{Analyse des structures du Transformer. 
-		Gauche: Projection de l'espace d'\an{embedding}.
-		Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
-		La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
-	\label{fig:attention}
-\end{figure}
-
-
-
 
 
 
@@ -602,9 +572,9 @@ En combinant les deux yeux avec un capteur de colision devant l'agent nous obten
 	\centering
 	\includegraphics[width=1\textwidth]{Figures/4_horseshoe_crab.pdf}
 	\caption{La \an{Horseshoe crab experiment} (\cite{georgeon_model_2011}, Fig. 1). 
-	Gauche: le système visuel de l'agent.
-	Droite-haut: la stratégie diagonale.
-	Droite-bas: la stratégie tangentielle}
+		Gauche: le système visuel de l'agent.
+		Droite-haut: la stratégie diagonale.
+		Droite-bas: la stratégie tangentielle}
 	\label{fig:horseshoe}
 \end{figure}
 
@@ -617,6 +587,75 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 	\item Le comportement tangentiel consiste à répéter l'interaction \interaction{forward, increase left} jusuq'à obtenir \interaction{forward, decrease} quand la cible est dépassée, puis \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}. En effet, l'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
 \end{itemize}
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
+
+
+
+\subsection{La Sniff Experiment}
+
+
+Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
+
+Chaque interaction est associée à un token utilisé dans le transformer. 
+
+La Figure \ref{fig:embedding} montre des projections de l'embedding des interactions qui met en évidence que les interactions sont regroupées dans l'espace lattent en fonction de leur sémantique inférée par l'agent. 
+
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=1\textwidth, trim = 50 20 0 60, clip]{Figures/4_embedding.pdf}
+%	\caption{Projections 3D de l'\an{embedding} des interactions. 
+%		Gauche: regroupement par type d'objet de l'environnement: \texttt{empty} (en rose en haut à gauche) et \texttt{wall} (en gris foncé en bas à droite).
+%		Droite: regroupement par direction relative à l'agent: \texttt{left} (en bas à droite), \texttt{front} (en bas à gauche) et \texttt{right} (en haut à gauche).}
+%	\label{fig:embedding}
+%\end{figure}
+
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_AIRIS.png}
+	\caption{}
+	\label{fig:airis}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_sniff_trace.pdf}
+	\caption{}
+	\label{fig:sniff_trace}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
+	\caption{Analyse des structures du Transformer. 
+		Gauche: Projection de l'espace d'\an{embedding}.
+		Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
+		La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
+	\label{fig:attention}
+\end{figure}
+
+\subsection{Expérimentations robotiques}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=0.2\textwidth]{Figures/3_epuck.jpg}%
+	\quad
+	\includegraphics[height=0.2\textwidth]{Figures/3_Eddie1.png}
+	\caption{}. 
+	\label{fig:robot_serie}
+\end{figure}
+
+Expérimentation avec un robot e-puck avec Christian Wolf et Simon Gay \cite{georgeon_enactive_2013}
+
+Martin Kody\v{s} \cite{kodis_approche_2014}.
+
+Nous avons conclu qu'il fallait une plateforme robotique flexible qui nous permette de configurer davantages de boucles sensorimotrices que sur les plateformes standards.
+
+Il faut aussi que le robot est un moyen d'organiser ses comportements dans l'espace, en plus de les organiser dans le temps.
 
 
 \section{Architecture spatiale}
@@ -659,12 +698,22 @@ Renvoie à la notion de bundle introduite dans la Section \ref{sec:pragmatisme} 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/5_ECA.pdf}
-	\caption{The Enactive Cognitive Architecture (ECA) depuis \cite{georgeon_reducing_2024}}
+	\includegraphics[width=0.6\textwidth]{Figures/3_ECA.pdf}
+	\caption{The Enactive Cognitive Architecture (ECA) depuis \cite[Fig.~4]{georgeon_eca_2013}}
 	\label{fig:ECA}
 \end{figure}
 
 La Figure \ref{fig:ECA} montre la Enactive Cognitive Architecture décrite dans \cite{georgeon_reducing_2024}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_Trace.pdf}
+	\caption{Analyse de comportement \cite[Fig.~8]{georgeon_eca_2013}}
+	\label{fig:ECA}
+\end{figure}
+
+
 
 
 

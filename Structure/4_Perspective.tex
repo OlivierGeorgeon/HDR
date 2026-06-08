@@ -1,6 +1,7 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Vers une robotique développementale}
+\label{chap:perspective}
 
 \an{Developmental robotics, optimal artificial curiosity, creativity, music, and the fine arts} \cite{schmidhuber_developmental_2006}
 
@@ -16,15 +17,16 @@ Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réalise
 L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
 
 
-\section{Méthodologie}
+\section{Inférence de structures spatiales}
 
-Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
-Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
-Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
-On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
 
+
+
+\section{Le projet PetitCat}
 
 \subsection{Game Engine In The Head}
+
+Simulation interne
 
 \begin{figure}[ht]
 	\centering
@@ -33,9 +35,15 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 	\label{fig:ECA}
 \end{figure}
 
+\subsection{Comportements innés}
+
+Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
+Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
+On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
 
 
-\section{Le projet Petitcat}
+
 
 \begin{figure}[ht]
 	\centering
@@ -46,7 +54,7 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 
 La Figure \ref{fig:Petitcat} montre le robot Petitcat.
 
-\section{Inférence des objets physiques}
+\subsection{Simultaneous Localisation And Phenomenon Inference}
 
 
 \begin{figure}[]
@@ -78,10 +86,23 @@ La Figure \ref{fig:Petitcat} montre le robot Petitcat.
 
 
 
-\section{Robotique émotionnelle}
+\subsection{Apprentissage ludique}
 
 
-\section{Interactionisme radical}
+\subsection{Place cells}
+
+
+
+
+%Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
+%Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
+
+
+
+
+\section{Conclusion}
+
+Cette approche a été nommée interactionisme radical \cite{georgeon_radical_2013}
 
 Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
 Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
@@ -104,31 +125,8 @@ Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ �
 \end{figure}
 
 
-Compared to a POMDP, the main conceptual difference of an EMDP lies in the fact that the decider receives an \textit{interaction} at the end of the cycle, rather than a \textit{signal} at the beginning.
-We introduce the concept of \textit{interaction} as a primitive of the model to represent a sensorimotor pattern that involves both motor actions and sensory signals.
-As such, an interaction implements the fact that ``perception and action cannot be pulled apart'' stressed by the theory of enactive inference introduced in Section \ref{seq:intro}.
-In constructivist learning theory, an interaction corresponds to a Piagetian sensorimotor \textit{scheme}.
-In a robot, an interaction can be implemented through a \textit{control loop} involving actuator motion and sensory feedback \cite{georgeon_cash_2019}.
-Because interactions depend both on the decision and on the state, they can be seen as the counterpart of the couple (decision, signal) in a POMDP.
-
-In an EMDP, the enacted interaction $i_t$ contains information on the previous decision $d_t$.
-The notion of history introduced in section \ref{seq:pomdp}, is therefore simplified in the form of the sequence of enacted interactions $h_t = \{i_0, ..., i_{t-1}\}$ before step $t$.
-As with POMDPs, the history contains the relevant information for the decision-making process.
-It constitutes the Markov blanket that hides the environment's structure to the agent.
 
 
-
-%Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
-%Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
-
-
-\section{Simulation interne}
-
-Game Engine in The Head
-
-\section{Explicabilité et inference causale}
-
-\section{Conclusion}
 
 Critique de la discrétisation temporelle
 

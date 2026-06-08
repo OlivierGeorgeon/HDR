@@ -232,15 +232,17 @@ L'agent semble alors motivé par le fait de vouloir atteindre ou éviter certain
 Pour prendre en compte ces critiques, nous avons renommé ce principe \emph{motivation interactionnelle} dans l'article \an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012} avec Simon Gay et James Marshall.
 Pour reprendre les mots de Piaget, la motivation interactionnelle se situe \og à la frontière entre le sujet et l'objet \fg.
 
-Je garde maintenant l'appellation de motivation interactionnelle en la classant parmi les forme de motivation interne, au sens défini en Section \ref{sec:motivation}.
-Elle peut tout autant générer des comportements qui exhibent une motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions, ou une motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets spécifiques.
-Signalons aussi qu'elle n'est pas incompatibles avec d'autres principes motivationnels comme nous allons le voir dans la suite.
+Je garde maintenant l'appellation de motivation interactionnelle en la classant dans la catégorie des motivations internes, au sens défini en Section \ref{sec:motivation}.
+%car elle ne vise pas à atteindre un état particulier de l'environnement (Sec.~\ref{sec:motivation})
+La motivation interactionnelle peut se décliner en motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions, ou en motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets spécifiques.
+Elle est également compatible avec autres principes motivationnels tels que les émotions, comme nous le verrons au Chapitre~\ref{chap:perspective}.
 
 
 %Comme la fonction de valence ne prend pas en compte l'état du monde extérieur parmi ses arguments, nous l'avons d'abord rapprochée d'un critère de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}).  Ce principe motivationnel peut en effet être entièrement encodée dans un robot sans nécessiter un signal de récompense issu de l'environnement.
 %Nous pouvons cependant rétorquer que, bien qu'associée à des objets extérieurs, cette forme de motivation peut être définie sans présupposer une ontologie préalable du monde. Par exemple, le caractère repoussants ou attirant d'un objet n'est pas une propriété ontologique de cet objet: un même objet peut afforder certaines interactions pour certains agents mais pas pour d'autres.
 
 %Les arguments contre le terme \emph{motivation intrinsèque} semblant tout aussi recevable que ceux contre le terme \emph{motivation extrinsèque}, il m'a semblé approprié de proposer la nouvelle notion de \emph{motivation interactionnelle} (\an{Interactional motivation in artificial systems: between extrinsic and intrinsic motivation}, \cite{georgeon_interactional_2012}).
+
 
 
 \section{Mécanisme de schéma enactif}
@@ -286,12 +288,9 @@ L'ensemble $I = I_p \cup I_c$ désigne maintenant l'ensemble de toutes les inter
 De même, l'ensemble $D = D_p \cup D_c$ désigne l'ensemble de toutes les décisions à la disposition de l'agent, les décisions primitives définies par le chercheur et les décisions composites apprises par l'agent.  
 
 
-\subsection{Interaction primitives}
+%\subsection{Interaction primitives}
 
-\noindent
-L'agent est initialisé avec l'ensemble $D$ des décisions à sa disposition, et l'ensemble $I$ des interactions qu'il peut détecter.
-Le fait que les interactions représentent des schèmes sensorimoteurs se traduit par le fait qu'il existe une relation surjective de l'ensemble des interactions vers l'ensemble des décisions $\mathcal{D}: I \to D$ qui, pour chaque interaction $i \in I$ donne la décision $\mathcal{D}(i) \in D$ qui l'a précédée.
-La relation inverse $\mathcal{D}^{-1}$ permet à l'agent de connaitre, pour chaque décision $d$ l'ensemble $I_d \in I$ des interactions qui peuvent en résulter. 
+%L'agent est initialisé avec l'ensemble $D$ des décisions à sa disposition, et l'ensemble $I$ des interactions qu'il peut détecter.Le fait que les interactions représentent des schèmes sensorimoteurs se traduit par le fait qu'il existe une relation surjective de l'ensemble des interactions vers l'ensemble des décisions $\mathcal{D}: I \to D$ qui, pour chaque interaction $i \in I$ donne la décision $\mathcal{D}(i) \in D$ qui l'a précédée. La relation inverse $\mathcal{D}^{-1}$ permet à l'agent de connaitre, pour chaque décision $d$ l'ensemble $I_d \in I$ des interactions qui peuvent en résulter. 
 
 
 
@@ -432,31 +431,48 @@ Bien que le calcul de proclivité favorise les interactions qui ont les valences
 Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences consistant à énacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
 Nous allons maintenant analyser les comportements obtenus dans des exemples.  
 
+
 \subsection{Niveaux de couplage structurel}
 
-L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environnement à différents niveau d'échelle de temps.  
+\noindent
+Le modèle EDP s'inscrit dans le cycle de décision discret (DDS) présenté en Section \ref{sec:dds} à travers un niveau intermédiaire appelé \emph{contrôleur primitif}.
 
-La reiteration de \an{stream of behaviors} permet de parler d'auto programmation moto-sensorielle.
-\cite{georgeon_cash_2019}
+La Figure \ref{fig:couplage} illustre les différents niveaux de couplage.
+Le \an{software} qui contrôle l'agent interagit avec le monde à travers les registres de sortie (\an{output}) et d'entrée (\an{input}) du DDS.
+Les registres de sortie commandent les effecteurs et les registres d'entrée reçoivent l'état des capteurs.
+La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui énacte les interactions primitives.
+Le contrôleur primitif est programmé par le chercheur et se charge de mettre en \oe uvre les décisions primitives et de générer les interactions primitives énactées en contrôlant les effecteurs et surveillant l'état des capteurs. 
+Dans le cas d'un environnement simulé, un cycle du couplage primitif correspond à un cycle du DDS. 
+Dans le cas d'un robot, chaque cycle du couplage primitif peut correspondre à la mise en \oe uvre d'une boucle sensorimotrice impliquant des cycles du DDS rapides. 
+
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_couplage.pdf}
-	\caption{Différents niveaux de couplage, adapté de \cite{georgeon_cash_2019} Fig. 1.
-		Le cadre gris délimite le \an{software} couplé au \emph{monde} à travers les registres de sortie (\an{output values}) et d'entrée (\an{input values}). 
-		%Les \emph{valeurs de sortie} commandent des actionneurs et \emph{valeurs d'entrée} sont déterminées par des capteurs.
-		La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui enacte les schémas primitifs.
-		%L'interface contrôle l'enaction des schémas primitifs en commandant les actionneurs par l'intermédiaire des valeurs de sortie et en traitant les \an{outcomes} reçus des capteurs à travers les \emph{valeurs d'entrée}.   
-		Le \emph{couplage cognitif} sépare le système de décisions (au dessus) du système de contrôle des schémas composites (en dessous). 
-		Ce couplage évolue avec l'apprentissage de schémas de plus en plus haut niveau.
+	\caption{Différents niveaux de couplage, adapté de \cite[Fig.~1]{georgeon_cash_2019}:
+		Couplage \an{software}--monde défini par les registres de sortie (\an{output}) et d'entrée (\an{input}) du DDS, 
+		\emph{Couplage primitif} défini par les décisions et les interactions primitives de l'EDP,
+		\emph{Couplage cognitif} défini par les décisions et les interactions composites contrôlées par le mécanisme de décision.
 	}
 	\label{fig:couplage}
 \end{figure}
+
+Le \emph{couplage cognitif} sépare le système de décisions (en haut de la Fig.~\ref{fig:couplage}) du système de contrôle des interactions composites (en dessous). 
+Un cycle du couplage cognitif correspond à autant de cycles du couplage primitif qu'il y a d'interactions primitives énactées pour effectuer la décision composite.
+Au fur et à mesure que l'agent apprend des décisions et des interactions composites de plus haut niveau, il base ses décisions sur un contexte plus long et prend des décisions qui l'engagent à plus long terme. 
+Cela signifie que le couplage cognitif s'élève progressivement, ce qui constitue une réponse à la question de l'évolution du couplage structurel formulé par la théorie de l'énaction (Section~\ref{sec:enaction}) et illustrée en Figure \ref{fig:enaction}.
 
 
 
 
 \section{Experimentations avec des couplages séquentielles hiérarchiques}
+
+\noindent
+Cette section présentent des trois expérimentations significatives réalisées avec le mécanisme de schéma. 
+Elles fonctionnent toutes les trois avec le même mécanisme de schéma, la seule différence de software étant au niveau du contrôleur primitif qui implémentent des boucles sensorimotrices différentes. 
+Du fait que le mécanisme de schéma est agnistique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
+Il fonctionne également directement pour controler des robots dans le monde physique comme je l'explique à la fin de cette section. 
 
 \subsection{Expérimentation du \emph{Small Loop Challenge}}
 
@@ -477,19 +493,12 @@ C'est une version minimaliste suffisante pour démontrer la capacités d'apprent
 	\label{fig:small_loop}
 \end{figure}
 
-Ces environnements ont été choisis parce qu'ils offrent des régularités d'interaction séquentielles hiérarchiques à l'agent, sur la base d'un jeu d'interactions primitives définies à partir des six décisions possibles suivantes: 
+Ces environnements ont été choisis parce qu'ils offrent plusieurs niveaux de régularités d'interaction qui permettent de mettre en évidence les capacités d'apprentissage hiérarchique du mécanisme de schéma.
 
-\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item \texttt{move forward}: tenter d'avancer d'une cellule
-	\item \texttt{turn left} : tourner 90° à gauche
-	\item \texttt{turn right} : tourner 90° à droite
-	\item \texttt{feel left} : sentir la cellule à gauche
-	\item \texttt{feel front} : sentir la cellule devant
-	\item \texttt{feel right} : sentir la cellule à droite
-\end{itemize}
+L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite, \texttt{feel left} : sentir la cellule à gauche, \texttt{feel front} : sentir la cellule devant, \texttt{feel right} : sentir la cellule à droite.
 
-L'agent reçoit un \an{outcome} de 1 bit qui indique si l'agent a interagit avec une cellule vide ou un mur.
-Les actions \texttt{turn} produisent toujours la même valeur d'\an{outcome}.
+L'agent reçoit un \an{input} de 1 bit qui indique si l'agent a interagit avec une cellule vide ou un mur.
+Les actions \texttt{turn} produisent toujours la même valeur d'\an{input}.
 Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_loop}
 
 \begin{table}[h!]
@@ -512,69 +521,74 @@ Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_l
 	\label{tab:small_loop}
 \end{table}
 
-L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives.
-Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme. 
-Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
 
 
 
 
-La Figure \ref{fig:trace} montre une analyse des comportements
+La Figure \ref{fig:trace} montre une analyse des comportements.
+Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{sentir devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
+Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
+Mais ces schémas de haut niveau sont pris en défaut quand il arrive dans le coin supérieur droit de la boucle. 
+A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à trourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
+Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autour de l'environnement sans collision avec les murs. 
+
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_trace.pdf}
-	\caption{Trace d'activité obtenue dans le \an{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5.}
+	\caption{Trace d'activité obtenue dans le \an{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5.
+	Bande 1: intéractions énactées. 
+	Bande 2: valences représentées par un \an{bar-graph}.
+	Bande 3: niveau hiérarchique de l'interaction énactée, gris si entièrement énactée avec succès, noire si interrompue.}
 	\label{fig:trace}
 \end{figure}
 
 
+Ce qui est important dans cette expérimentation, c'est que l'agent parivienne à utiliser des interacitons à faible cout (toucher) de façon à acquérir une information qui lui évite des informations fortement négatives (collision), et prendre une décision (tourner dans le bonne direction) pour satisfaire sa motivation innée (avancer).
+Tout se passe comme si l'agent avais compris la signification de ces interactions. 
+C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
 
 
 
-\subsection{Couplage sensoriel distal}
+\subsection{Couplage sensorimoteur distal}
 \label{sec:horseshoe}
-
+9
 \noindent
-La \an{Horseshoe Crab experiment} illustre l'implémentation de comportements instinctifs.
-Cette expérimentation illustre comment le \an{schema mechanism} peut être utilisé avec un signal sensoriel distant tel que la vision ou l'olfaction. 
-% Pour cela, nous avons associé l'\an{outcome} aux variations du signal sensoriel. 
-
-Nous nous somme inspirés du système visuel et des comportements de la limule (\an{horseshoe crab}), une espère d'arthropodes marins qu'on rencontre sur les cotes est de l'Amérique. 
+Cette expérimentation utilise des capacités sensorielles distales, par opposition aux capacités proximale de touché dans l'expérimentation précédente. 
+Nous nous sommes initialement inspirés du système visuel de la limule (\an{horseshoe crab}), une espère d'arthropodes marins des cotes est de l'Amérique.
 Nous en avons retenu deux principes:
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item La sensibilité au mouvement: le signal envoyé au cerveau ne de représente pas des formes statiques mais plutot des changements dans le champ visuel: L'\oe il de la limule est `` \an{highly sensitive to images of crab-size objects moving within the animal’s visual 	range at about the speed of a horseshoe crab (15 cm/s)}'' \cite[p.~172]{barlow_limulus_2001}. 
-	\item Les tendances comportementales visuo-spatiales: Les limules mâles se dirigent vers les femelles quand ils les voient avec leurs yeux à facettes, alors que les femelles s'éloignent des autres femelles quand elles les voient. 
+	\item La sensibilité au mouvement: le signal envoyé au cerveau ne représente pas des formes statiques mais plutot des changements dans le champ visuel: l'\oe il de la limule est \og  \an{highly sensitive to images of crab-size objects moving within the animal’s visual range at about the speed of a horseshoe crab (15 cm/s)} \fg\ \cite[p.~172]{barlow_limulus_2001}. 
+	\item Les tendances comportementales visuo-spatiales: les limules mâles se dirigent vers les femelles quand ils les voient avec leurs yeux à facettes, alors que les femelles s'éloignent des autres femelles quand elles les voient. 
 \end{itemize}
 
 Les yeux des limules sont fixes sur leur corps, mais lorsqu'elle bouge, elles engendrent un signal visuel de mouvement du fait de leur propre mouvement même si la femelle observée est immobile.
 
-Sur cette inspiration, nous avons modélisé le signal visuel de telle sorte que l'\an{outcome} reflète des changements dans le champ visuel. 
+A partir de cette inspiration, nous avons modélisé les interactions sur la base de trois décisions et 7 résultats possibles. 
+Les trois décisions sont: \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite.
+Les 7 résultats sont: 
+\texttt{stable}: la cible reste à distance constante, 
+\texttt{bump} : collision avec un mur,
+\texttt{increase left} : la cible apparait au se rapproche à gauche,
+\texttt{increase front} : la cible apparait ou se rapproche devant,
+\texttt{increase right} : la cible apparait ou se rapproche à droite,
+\texttt{decrease} : la cible s'éloigne ou disparait,
+\texttt{eat} : l'agent atteint la cible et la mange.
 
 La Figure \ref{fig:horseshoe} montre le système de perception distal que nous avons implémenté.  
 Chaque \oe il couvre un champ de 90°. 
 Les deux champs visuels se recouvrent sur la ligne située devant l'agent. 
 
-En combinant les deux yeux avec un capteur de colision devant l'agent nous obtenons les outcome suivants: 
-
-\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item \texttt{stable}: la cible reste à distance constante
-	\item \texttt{bump} : collision avec un mur
-	\item \texttt{increase left} : la cible apparait au se rapproche à gauche
-	\item \texttt{increase front} : la cible apparait ou se rapproche devant
-	\item \texttt{increase right} : la cible apparait ou se rapproche à droite
-	\item \texttt{decrease} : la cible s'éloigne ou disparait 
-	\item \texttt{eat} : l'agent atteint la cible et la mange
-\end{itemize}
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\textwidth]{Figures/4_horseshoe_crab.pdf}
+	\includegraphics[width=0.9\textwidth]{Figures/4_horseshoe_crab.pdf}
 	\caption{La \an{Horseshoe crab experiment} (\cite{georgeon_model_2011}, Fig. 1). 
 		Gauche: le système visuel de l'agent.
-		Droite-haut: la stratégie diagonale.
-		Droite-bas: la stratégie tangentielle}
+		Droite-haut: le comportement diagonal.
+		Droite-bas: le comportement tangentielle}
 	\label{fig:horseshoe}
 \end{figure}
 
@@ -588,9 +602,10 @@ En fonction de l'expérience individuelle de chaque agent, nous avons pu observe
 \end{itemize}
 Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
 
+Ce qui est intéressant dans cette expérimentation c'est la mise en évidence d'un effet de prise d'habitude sensorimotrice qui dépend de l'expérience individuelle de chaque agent. 
+Deux agent initialement identiques finissent par acquérir une individuation qui fait qu'ils ne vont plus se comporter de la même façon.
 
-
-\subsection{La Sniff Experiment}
+\subsection{The Sniff Experiment}
 
 
 Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
@@ -642,10 +657,11 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=0.2\textwidth]{Figures/3_epuck.jpg}%
+	\includegraphics[height=0.25\textwidth]{Figures/3_epuck.jpg}%
 	\quad
-	\includegraphics[height=0.2\textwidth]{Figures/3_Eddie1.png}
-	\caption{}. 
+	\includegraphics[height=0.25\textwidth]{Figures/3_Eddie1.png}
+	\caption{Gauche: robot e-puck répliquant l'expérimentation du \an{Small Loop Challenge}.
+	Droite: Robot Eddie répliquant l'expérimentation du \an{horseshoe-crab}}. 
 	\label{fig:robot_serie}
 \end{figure}
 
@@ -778,3 +794,14 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 
 
 \section{Conclusion (en construction)}
+
+
+L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environnement à différents niveau d'échelle de temps.  
+
+La reiteration de séquences sensorimotrices permet de parler d'auto programmation moto-sensorielle.
+\cite{georgeon_cash_2019}
+
+L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives.
+Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme. 
+Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
+

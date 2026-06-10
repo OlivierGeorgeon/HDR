@@ -466,20 +466,24 @@ Cela signifie que le couplage cognitif s'élève progressivement, ce qui constit
 
 
 
-\section{Experimentations avec des couplages séquentielles hiérarchiques}
+\section{Démonstrations du mécanisme de schéma}
 
 \noindent
-Cette section présentent des trois expérimentations significatives réalisées avec le mécanisme de schéma. 
-Elles fonctionnent toutes les trois avec le même mécanisme de schéma, la seule différence de software étant au niveau du contrôleur primitif qui implémentent des boucles sensorimotrices différentes. 
-Du fait que le mécanisme de schéma est agnistique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
-Il fonctionne également directement pour controler des robots dans le monde physique comme je l'explique à la fin de cette section. 
+Cette section présentent trois expérimentations significatives réalisées avec le mécanisme de schéma. 
+La seule différence au niveau du \an{software} de l'agent se situe au niveau de leurs contrôleurs primitifs qui implémentent des boucles sensorimotrices différentes. 
+Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
+
+Dans le cas des expérimentations en environnement simulé, les interactions primitives correspondent à des couples \schema{décision, \an{input}}, dans lequel l'\an{input} est un signal sensoriel non représentationnel transmis de l'environnement à l'agent.
+Dans le cas des robots, les interactions primitives sont générées à partir de boucles \an{output}--\an{input} qui seront détaillées en Section \ref{sec:sequentiel-robotique}.
+%Il fonctionne également directement pour contrôler des robots dans le monde physique comme je l'explique à la fin de cette section. 
 
 \subsection{Expérimentation du \emph{Small Loop Challenge}}
+\label{sec:small-loop}
 
 \noindent
 Nos premières expérimentations ont été réalisées dans les environnements du types de ceux présentés en Figure \ref{fig:small_loop}.
 Avec James Marshall, nous avons nommé celui de droite le \an{Small Loop Challenge} et nous l'ai proposé comme un challenge pour démontrer l'émergence du sense-making \cite{georgeon_small_2013}. 
-C'est une version minimaliste suffisante pour démontrer la capacités d'apprentissage du \an{Schema Machanism 2.0}.   
+C'est une version minimaliste suffisante pour démontrer la capacités d'apprentissage hiérarchiques du mécanisme de schéma.   
 
 \begin{figure}[ht]
 	\centering
@@ -495,11 +499,13 @@ C'est une version minimaliste suffisante pour démontrer la capacités d'apprent
 
 Ces environnements ont été choisis parce qu'ils offrent plusieurs niveaux de régularités d'interaction qui permettent de mettre en évidence les capacités d'apprentissage hiérarchique du mécanisme de schéma.
 
-L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite, \texttt{feel left} : sentir la cellule à gauche, \texttt{feel front} : sentir la cellule devant, \texttt{feel right} : sentir la cellule à droite.
+L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite, \texttt{feel left} : toucher la cellule à gauche, \texttt{feel front} : toucher la cellule devant, \texttt{feel right} : toucher la cellule à droite.
 
-L'agent reçoit un \an{input} de 1 bit qui indique si l'agent a interagit avec une cellule vide ou un mur.
-Les actions \texttt{turn} produisent toujours la même valeur d'\an{input}.
-Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_loop}
+Le Tableau \ref{tab:small_loop} indique les 10 interactions possibles et leurs valences. 
+Les décisions \texttt{turn left} et \texttt{turn right} correspondent chacune à une interaction.
+Les autres décisions peuvent donner lieu à deux interactions différentes selon que l'agent interagit avec une cellule vide ou un mur, différentiés par un \an{input} de 1 bit.
+Cet \an{input} constitue un signal sensoriel non représentationnel dans la mesure ou ce n'est pas nécessairement la même valeur du bit qui indique un mure ou une cellule vide d'une interaction à l'autre.
+
 
 \begin{table}[h!]
 	\centering
@@ -526,10 +532,10 @@ Il y a donc dix interactions possibles listées dans le Tableau \ref{tab:small_l
 
 
 La Figure \ref{fig:trace} montre une analyse des comportements.
-Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{sentir devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
+Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
 Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
 Mais ces schémas de haut niveau sont pris en défaut quand il arrive dans le coin supérieur droit de la boucle. 
-A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à trourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
+A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à tourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
 Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autour de l'environnement sans collision avec les murs. 
 
 
@@ -537,82 +543,112 @@ Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autou
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_trace.pdf}
-	\caption{Trace d'activité obtenue dans le \an{Small Loop Challenge} \cite{georgeon_demonstrating_2013} Fig.~5.
+	\caption{Trace d'activité obtenue avec le \an{Small Loop Challenge} \cite[Fig.~5]{georgeon_demonstrating_2013}.
 	Bande 1: intéractions énactées. 
 	Bande 2: valences représentées par un \an{bar-graph}.
-	Bande 3: niveau hiérarchique de l'interaction énactée, gris si entièrement énactée avec succès, noire si interrompue.}
+	Bande 3: niveau hiérarchique de l'interaction énactée, gris si énactée avec succès, noire si interrompue.}
 	\label{fig:trace}
 \end{figure}
 
 
-Ce qui est important dans cette expérimentation, c'est que l'agent parivienne à utiliser des interacitons à faible cout (toucher) de façon à acquérir une information qui lui évite des informations fortement négatives (collision), et prendre une décision (tourner dans le bonne direction) pour satisfaire sa motivation innée (avancer).
+Cette expérimentation met en évidence l'acquisition d'interaction épistémiques: l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négatives (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
 Tout se passe comme si l'agent avais compris la signification de ces interactions. 
-C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
+%C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
 
 
 
-\subsection{Couplage sensorimoteur distal}
+\subsection{Expérimentation de la limule}
 \label{sec:horseshoe}
-9
+
 \noindent
-Cette expérimentation utilise des capacités sensorielles distales, par opposition aux capacités proximale de touché dans l'expérimentation précédente. 
-Nous nous sommes initialement inspirés du système visuel de la limule (\an{horseshoe crab}), une espère d'arthropodes marins des cotes est de l'Amérique.
-Nous en avons retenu deux principes:
+Cette expérimentation utilise des capacités sensorielles distales, par opposition aux capacités proximales de touché de l'expérimentation précédente. 
+Nous nous sommes inspirés du système visuel de la limule (\an{horseshoe crab}), une espère d'arthropodes marins.
+La limule possède plusieurs paires d'yeux dont une paire à facettes qui sont fixes mais qui produisent un signal de mouvement relatif quand elle se déplace par rapport à un objet immobile isolé sur le sable.
+Nous avons retenu deux principes :
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item La sensibilité au mouvement: le signal envoyé au cerveau ne représente pas des formes statiques mais plutot des changements dans le champ visuel: l'\oe il de la limule est \og  \an{highly sensitive to images of crab-size objects moving within the animal’s visual range at about the speed of a horseshoe crab (15 cm/s)} \fg\ \cite[p.~172]{barlow_limulus_2001}. 
-	\item Les tendances comportementales visuo-spatiales: les limules mâles se dirigent vers les femelles quand ils les voient avec leurs yeux à facettes, alors que les femelles s'éloignent des autres femelles quand elles les voient. 
+	\item La sensibilité au mouvement: le signal envoyé au cerveau ne représente pas des formes statiques mais des changements dans le champ visuel: l'\oe il à facettes de la limule est \og  \an{highly sensitive to images of crab-size objects moving within the animal’s visual range at about the speed of a horseshoe crab (15 cm/s)} \fg\ \cite[p.~172]{barlow_limulus_2001}. 
+	\item Les tendances comportementales : quand elle voit une limule femelle avec ses yeux à facettes, la limule mâle s'en approchent alors que la limule femelle s'en éloigne.
 \end{itemize}
 
-Les yeux des limules sont fixes sur leur corps, mais lorsqu'elle bouge, elles engendrent un signal visuel de mouvement du fait de leur propre mouvement même si la femelle observée est immobile.
-
-A partir de cette inspiration, nous avons modélisé les interactions sur la base de trois décisions et 7 résultats possibles. 
-Les trois décisions sont: \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite.
-Les 7 résultats sont: 
-\texttt{stable}: la cible reste à distance constante, 
-\texttt{bump} : collision avec un mur,
-\texttt{increase left} : la cible apparait au se rapproche à gauche,
-\texttt{increase front} : la cible apparait ou se rapproche devant,
-\texttt{increase right} : la cible apparait ou se rapproche à droite,
+A partir de cette inspiration, nous avons modélisé les interactions sur la base de trois décisions et sept \an{inputs} possibles. 
+Les trois décisions sont: \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner de 90° à gauche ou à droite.
+Les sept \an{inputs} sont: 
+\texttt{stable}: la cible reste de taille apparente constante, 
+\texttt{increase left}, 
+\texttt{increase front}, 
+\texttt{increase right} : la cible apparait ou grossit respectivement à droite à gauche, en face, ou à droite,
 \texttt{decrease} : la cible s'éloigne ou disparait,
-\texttt{eat} : l'agent atteint la cible et la mange.
+\texttt{eat} : l'agent atteint la cible et la mange,
+\texttt{bump} : collision avec un mur.
 
-La Figure \ref{fig:horseshoe} montre le système de perception distal que nous avons implémenté.  
+La Figure \ref{fig:horseshoe} illustre le système de perception distal de l'agent.  
 Chaque \oe il couvre un champ de 90°. 
-Les deux champs visuels se recouvrent sur la ligne située devant l'agent. 
+Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible devant l'agent.
+%Une mesure de distance permet de détecter si la cible grandit ou rétrécit dans le champ visuel pour générer les signaux \texttt{increase} et \texttt{decrease}. 
 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/4_horseshoe_crab.pdf}
-	\caption{La \an{Horseshoe crab experiment} (\cite{georgeon_model_2011}, Fig. 1). 
-		Gauche: le système visuel de l'agent.
-		Droite-haut: le comportement diagonal.
-		Droite-bas: le comportement tangentielle}
+	\caption{Expérimentation de la limule \cite[Fig. 1]{georgeon_model_2011}. 
+		Gauche: le système visuel permettant de détecter la cible à droite, devant, ou à gauche.
+		Droite-haut: comportement diagonal.
+		Droite-bas: comportement tangentiel.}
 	\label{fig:horseshoe}
 \end{figure}
 
-Si on attribue des valences positives aux interactions de mouvement qui génèrent un \an{outcome} ``\an{increase}'' alors on obtient un agent qui se dirige vers la cible comme une limule mâle. 
+Lorsque nous attribuons des valences positives aux interactions contenant \texttt{increase}, nous obtenons un agent qui se dirige vers la cible comme une limule mâle. 
 Inversement, avec des valences négatives, l'agent s'éloigne de la cible comme une limule femelle.
-Mais ces comportements nécessitent un certain apprentissage car l'agent initialement ignore la signification de ses actions et des \an{outcomes}. 
-En fonction de l'expérience individuelle de chaque agent, nous avons pu observer l'apprentissage de différents comportements qui mènent à atteindre la cible, illustrés en Figure \ref{fig:horseshoe}: 
+Mais ces comportements nécessitent un certain apprentissage car l'agent ignore initialement les relations entre ses décisions et les interactions produites. 
+En fonction de l'expérience individuelle de chaque agent, nous avons observé l'apprentissage de différents comportements illustrés en Figure \ref{fig:horseshoe}: 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-	\item Le comportement en diagonale consiste à alterner les interactions \interaction{forward, increase left},\interaction{turn left, stable}, \interaction{forward, increase right}, \interaction{turn right, stable} jusqu'à être aligné avec la cible puis répéter \interaction{forward, incease front} jusqu'à atteindre la cible.
-	\item Le comportement tangentiel consiste à répéter l'interaction \interaction{forward, increase left} jusuq'à obtenir \interaction{forward, decrease} quand la cible est dépassée, puis \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}. En effet, l'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
+	\item Le comportement \emph{diagonal} consiste à alterner les interactions {\small \interaction{forward, increase left}, \interaction{turn left, stable}, \interaction{forward, increase right}, \interaction{turn right, stable}} jusqu'à être aligné avec la cible puis répéter {\small \interaction{forward, incease front}} jusqu'à atteindre la cible.
+	\item Le comportement \emph{tangentiel} consiste à répéter l'interaction {\small \interaction{forward, increase left}} jusqu'à obtenir {\small \interaction{forward, decrease}} quand la cible est dépassée, puis {\small \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}}. L'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
 \end{itemize}
-Une fois ces comportements acquis sur une ou deux premières cibles, l’agent continue à appliquer le même lorsqu'on introduit de nouvelles cibles.
+Une fois l'un de ces comportements acquis avec une ou deux cibles, l’agent continue à l'appliquer pour atteindre de nouvelles cibles.
 
-Ce qui est intéressant dans cette expérimentation c'est la mise en évidence d'un effet de prise d'habitude sensorimotrice qui dépend de l'expérience individuelle de chaque agent. 
-Deux agent initialement identiques finissent par acquérir une individuation qui fait qu'ils ne vont plus se comporter de la même façon.
+Cette expérimentation met particulièrement bien en évidence l'effet de prise d'habitudes sensorimotrices qui dépend de l'expérience individuelle de chaque agent. 
+Bien qu'ils soient initialement identiques, deux agents peuvent développer des comportements différents ce qui conduit à une forme d'individuation.
 
 \subsection{The Sniff Experiment}
 
+\noindent
+Cette expérimentation s'inspire du comportement instinctif des mammifères nouveaux nés qui apprennent à se diriger vers le lait maternel parce qu'ils sont attirés par l'odeur. 
+Elle associe les possibilités de perception active du \an{Small Loop Challenge} avec la perception distale de l'expérimentation de la limule.
+Elle a été implémentée dans l'environnement AIRIS \cite{cook_airis_2023} représenté en Figure~\ref{fig:airis}.
+Le cible, représentée par une batterie, émet un gradient d'odeur qui ne traverse pas les murs, représenté par un dégradé de vert. 
 
-Un travail en cours effectué avec Pierrer-Emmanuel Marrel, étudiant de Master 2 à l'UCBL, utilise un transformer pour modéliser les séquences d'interactions apprises par l'agent introduites en Section \ref{sec:dsl}. 
+L'agent dispose maintenant de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner de 90° à gauche ou à droite, \texttt{sniff left}, \texttt{sniff front} et \texttt{sniff right} : renifler la cellule de gauche, de devant ou de droite.
 
-Chaque interaction est associée à un token utilisé dans le transformer. 
 
-La Figure \ref{fig:embedding} montre des projections de l'embedding des interactions qui met en évidence que les interactions sont regroupées dans l'espace lattent en fonction de leur sémantique inférée par l'agent. 
+Il y a cinq \an{inputs} possibles: \texttt{stable}, \texttt{decrease}, \texttt{increase}, \texttt{bump}, \texttt{eat}.
+Les \an{inputs} \texttt{stable}, \texttt{decrease} et \texttt{increase} indiquent une variation d'odeur entre la cellule reniflée et la cellule où se situe l'agent dans le cas des décisions \texttt{sniff}, ou liée au déplacement de l'agent dans le cas où il avance ou tourne.
+Renifler un mur produit toujours \texttt{decrease}.
+A la différence de la limule, les \an{inputs} n'indiquent pas si la cible est à droite ou à gauche; l'agent doit donc utiliser les interactions de reniflage pour le savoir. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/3_AIRIS.png}
+	\caption{Gauche: environnement contenant l'agent (robot) et la cible (batterie).
+	Droite: interface de visualisation des interactions, mettant en évidence le gradient d'odeur de la cible.}
+	\label{fig:airis}
+\end{figure}
+
+Nous avons attribué la valence légèrement négative de $-1$ aux interactions de reniflage afin que l'agent puisse les utiliser à moindre coût pour sonder l'environnement.
+Nous avons attribué des valences positives pour les interactions consistant à avancer ou se tourner vers la cible pour obtenir le comportement instinctif de se diriger vers elle. 
+La valence de l'interaction \interaction{move forward, eat} est fixée à $0$. 
+Ce n'est pas le fait de manger la cible qui motive l'agent mais le fait de s'en rapprocher.
+
+L'expérimentation montre l'apprentissage de comportements analogues à ceux de l'expérimentation du \an{Small Loop} et de la limule.
+L'agent apprend à utiliser les interactions de reniflage pour éviter les collisions avec les murs et tourner en direction de la cible.
+Une fois ces comportements de base appris, il remonte progressivement le gradient d'odeur jusqu'à la cible.
+La Figure \ref{fig:sniff_trace} présente un exemple d'exécution.
+L'agent ne fait plus de collision après le cycle 260, et mange la première cible au pas 380, puis de nouvelles cibles aux pas 605 et 685.
+La courbe bleue montre qu'il réénacte une interaction composite de 10 pas au cycle 450. 
+La courbe orange montre que la croissance du nombre de schémas reste contenue et ralentit avec le temps. 
+
 
 %\begin{figure}[ht]
 %	\centering
@@ -625,34 +661,70 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 
 
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/3_AIRIS.png}
-	\caption{}
-	\label{fig:airis}
-\end{figure}
-
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/3_sniff_trace.pdf}
-	\caption{}
+	\caption{Exemple de trace.
+	Carrés rouges: collisions.
+	Carrés verts: cible mangée.
+	Histogramme rouge et vert:valences des interactions énactées.
+	Courbe bleue: longueur des interactions composites réénactées.
+	Courbe orange: nombre d'interactions composites apprises.}
 	\label{fig:sniff_trace}
 \end{figure}
+
+
+Avec Pierre-Emmanuel Marrel, étudiant de Master, et Berick Cook, concepteur de AIRIS, nous avons
+utilisé un \an{transformer} pour analyser les séquences apprises par le mécanisme de schéma \cite[\an{Emergence of comportment-grounded semantics}]{georgeon_emergence_2026}.
+Nous avons utilisé une architecture \an{encoder-decoder} avec un \an{token embedding} à 16 dimensions, 4 têtes d'attention, et 2 couches de neurones dans l'encodeur et le décodeur.
+Nous avons entrainé ce \an{transformer} avec les séquences apprises après 200 pas de temps, en attribuant un \an{token} par interaction primitive. 
+
+La Figure \ref{fig:attention}  montre une analyse des structures apprises par le \an{transformer}.
+La partie gauche montre une projection en trois dimensions de l'espace d'\an{embedding}. 
+Nous avons examiné s'il existait des regroupements de \an{tokens} qui pourraient refléter des proximités sémantique mais ce n'est pas le cas. 
+L'analyse des matrices d'attention s'est révélée plus concluante. 
+La partie droite de la Figure \ref{fig:attention} montre un exemple obtenu avec la séquence 
+\small{\interaction{sniff-front, decrease} $\rightarrow$ \interaction{sniff-left, increase} $\rightarrow$ \interaction{sniff-right, decrease} $\rightarrow$ \interaction{turn-left} $\rightarrow$ \interaction{sniff-left-increase} $\rightarrow$ \interaction{move-forward, increase}}.
+La quatrième ligne (Query = \interaction{Turn Left} (TL)) montre que cette interaction dépend fortement de l'interaction \interaction{sniff-left, increase} qui la précède. 
+La ligne du bas (Query = \interaction{move forward, increase} (MFI)) montre que cette interaction dépend fortement de la première occurrence de \interaction{sniff-left, increase} (SLI) et de \interaction{turn-left} (TL) mais pas de la seconde occurrence de \interaction{sniff-left, increase}. 
+Ces dépendances positionnelles correctes indiquent que l'agent a capturé les régularités significatives dans les séquences d'interactions.
+
+
 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=1\textwidth]{Figures/3_attention_head.pdf}
-	\caption{Analyse des structures du Transformer. 
-		Gauche: Projection de l'espace d'\an{embedding}.
+	\caption{Analyse des structures du \an{transformer}. 
+		Gauche: projection de l'espace d'\an{embedding}.
 		Droite: représentation de la matrice de self-attention de la tête d'attention du décodeur.
 		La ligne du bas montre la dépendance de \interaction{move-forward, increase} (MFI) avec \interaction{sniff-left, increase} (SLI) suivi de \interaction{turn-left} (TL).}
 	\label{fig:attention}
 \end{figure}
 
+
+
+Cette association d'un mécanisme de schéma avec un transformer met en lumière leur complémentarité. 
+Le premier pilote le comportement dès les premières interactions et s'enrichit de manière incrémentale au fil de l'expérience, là où le second est inutile avec peu d'exemples et ne supporte pas un apprentissage en ligne. 
+En contrepartie, le \an{transformer} offre une méthode complémentaire à l'analyse comportementale en révélant la sémantique émergente que l'agent attribue à ses interactions en fonction de leur rôle dans son flux d'expérience.
+
+
+
 \subsection{Expérimentations robotiques}
+\label{sec:sequentiel-robotique}
+
+\noindent
+%Les expérimentations du \an{Small Loop} et de la limule ont été répliquées avec les robots de la Figure \ref{fig:robot_serie}. 
+Simon Gay a implémenté les interactions du \an{Small Loop} chez le robot e-puck de la Figure \ref{fig:robot_serie} (gauche) \cite{georgeon_enactive_2013}.
+Le touché était reproduit grâce à trois capteurs infrarouges présents devant, sur la gauche, et sur la droite du robot.
+La décision de toucher allumait la LED infrarouge correspondante. 
+Si le signal réfléchi dépassait un seuil alors une interaction \interaction{feel front, wall} était générée, sinon \interaction{feel front, empty} (et respectivement pour \texttt{left} et \texttt{right}). 
+Ce seuil était fixé pour détecter le présence d'un mur à approximativement 5 cm.
+La décision d'avancer déclenchait l'avancement du robot pendant une durée correspondant à un déplacement d'environ 5 cm tout en maintenant la LED infrarouge frontale allumée.
+Si un mur était détecté, le déplacement était interrompu et une interaction \interaction{move forward, bump} était générée.
+Les décisions de rotation provoquaient un mouvement de rotation pendant une durée correspondante à une rotation d'environ 90 degré. 
 
 
 \begin{figure}[ht]
@@ -661,40 +733,66 @@ La Figure \ref{fig:embedding} montre des projections de l'embedding des interact
 	\quad
 	\includegraphics[height=0.25\textwidth]{Figures/3_Eddie1.png}
 	\caption{Gauche: robot e-puck répliquant l'expérimentation du \an{Small Loop Challenge}.
-	Droite: Robot Eddie répliquant l'expérimentation du \an{horseshoe-crab}}. 
+		Droite: Robot Eddie répliquant l'expérimentation de la limule}. 
 	\label{fig:robot_serie}
 \end{figure}
 
-Expérimentation avec un robot e-puck avec Christian Wolf et Simon Gay \cite{georgeon_enactive_2013}
 
-Martin Kody\v{s} \cite{kodis_approche_2014}.
 
-Nous avons conclu qu'il fallait une plateforme robotique flexible qui nous permette de configurer davantages de boucles sensorimotrices que sur les plateformes standards.
+L'expérimentation montre que le robot apprend les comportements de base similaire à ceux décrits en Section \ref{sec:small-loop}: utilisation du touché, et des rotations pour éviter les collisions et satisfaire la motivation d'avancer.
+Le mécanisme de schéma est capable de résister aux erreurs de détections et aux imprécisions de déplacement tant que des régularités exploitables existent. 
+En revanche il ne peut pas apprendre des séquences d'interaction aussi longues que dans le \an{Small Loop} car elles ne sont pas utilisables en raison de ces imprécisions.
 
-Il faut aussi que le robot est un moyen d'organiser ses comportements dans l'espace, en plus de les organiser dans le temps.
+Martin Kody\v{s} et Christian Wolf ont implémenté les interactions primitives de l'expérience de la limule chez robot Eddie de la Figure~\ref{fig:robot_serie} (droite) \cite{kodis_approche_2014}.   
+Un QR code était utilisé comme cibles. 
+Un capteur \emph{kinect} générait les \an{inputs} \texttt{increase} et \texttt{decrease} par rapport à la cible et \texttt{bump} par rapport aux murs.
+Le robot a acquis le comportement \emph{diagonal}, mais pas le \emph{tangentiel} car celui-ci est trop sensible aux erreurs de détection.
+
+Ces expérimentations illustrent concrètement comment déployer le mécanisme de schéma sur des plateformes robotiques. 
+Une fois les interactions primitives codées, le mécanisme de schéma guide le robot dans la découverte et l'apprentissage des régularités séquentielles exploitables. 
+Elles mettent en lumière le besoin de disposer de plateformes modulaires autorisant l'ajouter de capteurs adaptés à l'apprentissage sensorimoteur.
+La plupart des robots du commerce sont conçus dans une logique classique perception--action, alors que nous avons besoin de permettre une diversité des boucles sensorimotrices pour enrichir les comportements.
+Enfin, si l'organisation temporelle des comportements constitue un premier niveau d'intelligence, elle ne suffit pas : le robot doit aussi être capable de structurer ses comportements dans l'espace, ce que nous allons étudier maintenant.
+%Nous observons également que l'organisation des comportements dans le temps ne suffit pas suffisant, il faut aussi que le robot puisse organiser ses comportements dans l'espace, ce que nous allons étudier maintenant.
 
 
 \section{Architecture spatiale}
 
 \noindent
-Pour permettre l'organisation intelligente des comportements d'un agent interagissant avec un environnement spatial, tel qu'un robot dans le monde physique, les comportements ne doivent pas seulement s'organiser dans le temps mais aussi dans l'espace. 
-
-\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques spatio-séquentiels sur la base de préférences interactionnelles initiales. }
 
 
-Ron Sun réutilise la notion de \og \an{representational redescription} \fg\ proposée par Annette Karmiloff-Smith \cite{karmiloff-smith_meta-processes_1986}.
-
-\an{Here I take the more ``eclectic'' proposition that acknowledge representation is important while maintaining that it is mediated by direct comportement} \cite[p.~10]{sun_symbol_2000}
-
-
-
-\subsection{Inférence de la structure spatiale}
-
-L'article ``\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}'' \cite{gay_autonomous_2017} présente comment l'agent peut inférer la structure de l'espace à partir de ses expériences d'interaction.
+Pour rendre compte de la façon dont les organismes effectuent une inférence enactive dans le monde physique, nous proposons le formalisme du \textit{Processus de Décision Enactif Spatial} (PDES).
 
 
 \subsection{Spatial Enactive Decision Process (SEDP)}
 \label{sec:sedp}
+
+
+
+Le PDES est une spécialisation du PDE qui encode l'hypothèse que l'ensemble des états $S$ est un \textit{monde tridimensionnel}.
+Un monde 3D est un espace euclidien tridimensionnel dans lequel les objets sont représentés comme des ensembles de points sur lesquels des transformations affines géométriques peuvent être effectuées.
+Un espace euclidien 3D est un espace vectoriel réel tridimensionnel $\mathcal{E} = \mathbb{R}^3$ associé à la distance euclidienne.
+Nous définissons un PDES en étendant le modèle PDEM sous la forme d'un tuple $\Gamma_S=(S, D, I, \mathcal{E}, \mathcal{I}, p, q)$ où $\mathcal{E}$ est un espace euclidien 3D, et $\mathcal{I}$ est l'ensemble des isométries directes sur $\mathcal{E}$.
+Une isométrie directe, ou \textit{mouvement rigide}, est une transformation affine qui préserve les distances et les angles, c'est-à-dire une translation, une rotation, ou une combinaison des deux.
+Comme pour le cycle PDEM introduit dans la Section \ref{sec:emdp}, le cycle PDES est illustré dans la Figure \ref{fig:semdp} et se déroule comme suit :
+\begin{itemize}
+	\item Le PDES est initialisé avec un état initial $s_0 \in S$.
+	\item À chaque pas $t \geq 0$,
+	l'agent prend une décision $d_t\in D$.
+	L'interaction enactée $i_t \in I$, sa position $\epsilon_t \in \mathcal{E}$, et l'isométrie $\iota_t \in \mathcal{I}$ sont tirées avec la probabilité $q(i_t, \epsilon_t, \iota_t|s_t,d_t)$.
+	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t}, \epsilon_t, \iota_t)$.
+\end{itemize}
+L'agent implémente l'hypothèse qu'il contrôle un robot mobile dans le monde 3D.
+Le point $\epsilon$ et l'isométrie $\iota$ indiquent respectivement la position de l'interaction enactée $i$ et le déplacement du robot durant l'enaction de l'interaction.
+$\epsilon$ et $\iota$ sont tous deux encodés en coordonnées égocentriques relatives au corps du robot.
+Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
+Cette hypothèse de monde 3D trouve son appui dans l'observation que la plupart des animaux peuvent localiser leurs interactions dans leur environnement immédiat et détecter leur propre déplacement (par exemple, via le signal vestibulaire et le flux optique).
+On notera que l'agent n'a pas accès à une quelconque « position absolue » supposée du robot dans l'environnement.
+
+
+
+
+
 
 Le Spatial Enactive Decision Process (SEDP) étend le Enactive Decision Process introduit en section \ref{sec:edp} en ajoutant des propriétés spatiales à l'outcome: une position et un déplacement.
 
@@ -705,10 +803,6 @@ Le Spatial Enactive Decision Process (SEDP) étend le Enactive Decision Process 
 	\label{fig:sedp}
 \end{figure}
 
-
-\subsection{Ontologie basée sur les affordances}
-
-Renvoie à la notion de bundle introduite dans la Section \ref{sec:pragmatisme} sur l'épistémologie pragmatique.
 
 \subsection{Enactive Cognitive Architecture (ECA)}
 
@@ -729,6 +823,10 @@ La Figure \ref{fig:ECA} montre la Enactive Cognitive Architecture décrite dans 
 	\label{fig:ECA}
 \end{figure}
 
+
+\subsection{Ontologie basée sur les affordances}
+
+Renvoie à la notion de bundle introduite dans la Section \ref{sec:pragmatisme} sur l'épistémologie pragmatique.
 
 
 
@@ -795,11 +893,18 @@ La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}.
 
 \section{Conclusion (en construction)}
 
+Implémente une inversion du raisonnement proposée par Dennett, ce n'est pas parce que l'agent aime la cible qu'il se dirige vers elle mais parce qu'il se dirige vers elle qu'on pense qu'il aime la cible.
+
 
 L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environnement à différents niveau d'échelle de temps.  
 
 La reiteration de séquences sensorimotrices permet de parler d'auto programmation moto-sensorielle.
 \cite{georgeon_cash_2019}
+
+\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques spatio-séquentiels sur la base de préférences interactionnelles initiales. }
+Ron Sun réutilise la notion de \og \an{representational redescription} \fg\ proposée par Annette Karmiloff-Smith \cite{karmiloff-smith_meta-processes_1986}.
+\an{Here I take the more ``eclectic'' proposition that acknowledge representation is important while maintaining that it is mediated by direct comportement} \cite[p.~10]{sun_symbol_2000}
+
 
 L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives.
 Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme. 

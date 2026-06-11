@@ -147,6 +147,7 @@ La troisième est que l'agent ne reçoit pas de récompense en provenance de l'e
 \end{itemize}
 \end{De}
 
+L'EDP est initialisé avec un état $s_0 \in S$.
 A chaque cycle $t \geq 0$, l'agent prend une décision $d_t\in D$. 
 L'événement d'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
 L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$ dépendant de l'état précédent et de l'événement d'interaction qui s'est produit.
@@ -733,7 +734,7 @@ Les décisions de rotation provoquaient un mouvement de rotation pendant une dur
 	\quad
 	\includegraphics[height=0.25\textwidth]{Figures/3_Eddie1.png}
 	\caption{Gauche: robot e-puck répliquant l'expérimentation du \an{Small Loop Challenge}.
-		Droite: Robot Eddie répliquant l'expérimentation de la limule}. 
+		Droite: robot Eddie répliquant l'expérimentation de la limule}. 
 	\label{fig:robot_serie}
 \end{figure}
 
@@ -756,45 +757,81 @@ Enfin, si l'organisation temporelle des comportements constitue un premier nivea
 %Nous observons également que l'organisation des comportements dans le temps ne suffit pas suffisant, il faut aussi que le robot puisse organiser ses comportements dans l'espace, ce que nous allons étudier maintenant.
 
 
-\section{Architecture spatiale}
+\section{Modèle d'interaction spatio-séquentiel}
 
 \noindent
+Cette section examine la possibilité de permettre à un agent de développer des comportements plus intelligents lorsqu'on le dote de mécanismes innés lui permettant de traiter certains effets spatiaux liés à ses interactions. 
+Je propose le \emph{Processus de Décision Enactif Spatial} pour modéliser un agent recevant des informations spatiales sur ses interactions énactées. 
+Ce modèle s'appuie sur l'observation que la plupart des animaux peuvent localiser leurs interactions dans leur environnement immédiat et détecter leur propre déplacement (par exemple, via le signal vestibulaire et le flux optique).
+Ces informations spatiales sont centrées sur le corps de l'agent; il  n'a pas accès à une quelconque \emph{position absolue} dans son environnement.
 
 
-Pour rendre compte de la façon dont les organismes effectuent une inférence enactive dans le monde physique, nous proposons le formalisme du \textit{Processus de Décision Enactif Spatial} (PDES).
-
-
-\subsection{Spatial Enactive Decision Process (SEDP)}
+\subsection{Processus de décision spatial enactif }
 \label{sec:sedp}
 
+\noindent
+Le \an{Spatial Enactive Decicision Process} (SEDP) est une spécialisation de l'EDP pour le cas où l'agent dispose d'informations spatiales relatives à l'interaction énactée.  
+Deux informations spatiales sont ajoutées: un point, noté epsilon $\epsilon \in \mathbb{R}^3$, indiquant la position de l'interaction dans le référentiel égocentrique de l'agent, 
+et une \emph{isométrie directe}, notée iota $\iota \in \mathcal{I}$, représentant le déplacement de l'agent pendant l'énaction de l'interaction.
+Une isométrie directe, ou \emph{mouvement rigide}, est une transformation affine qui préserve les distances et les angles, c'est-à-dire une translation, une rotation, ou une combinaison des deux.
+$\mathcal{I}$ désigne l'ensemble des isométries directes définies sur $\mathbb{R}^3$.
 
 
-Le PDES est une spécialisation du PDE qui encode l'hypothèse que l'ensemble des états $S$ est un \textit{monde tridimensionnel}.
-Un monde 3D est un espace euclidien tridimensionnel dans lequel les objets sont représentés comme des ensembles de points sur lesquels des transformations affines géométriques peuvent être effectuées.
-Un espace euclidien 3D est un espace vectoriel réel tridimensionnel $\mathcal{E} = \mathbb{R}^3$ associé à la distance euclidienne.
-Nous définissons un PDES en étendant le modèle PDEM sous la forme d'un tuple $\Gamma_S=(S, D, I, \mathcal{E}, \mathcal{I}, p, q)$ où $\mathcal{E}$ est un espace euclidien 3D, et $\mathcal{I}$ est l'ensemble des isométries directes sur $\mathcal{E}$.
-Une isométrie directe, ou \textit{mouvement rigide}, est une transformation affine qui préserve les distances et les angles, c'est-à-dire une translation, une rotation, ou une combinaison des deux.
-Comme pour le cycle PDEM introduit dans la Section \ref{sec:emdp}, le cycle PDES est illustré dans la Figure \ref{fig:semdp} et se déroule comme suit :
-\begin{itemize}
-	\item Le PDES est initialisé avec un état initial $s_0 \in S$.
-	\item À chaque pas $t \geq 0$,
-	l'agent prend une décision $d_t\in D$.
-	L'interaction enactée $i_t \in I$, sa position $\epsilon_t \in \mathcal{E}$, et l'isométrie $\iota_t \in \mathcal{I}$ sont tirées avec la probabilité $q(i_t, \epsilon_t, \iota_t|s_t,d_t)$.
-	L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t}, \epsilon_t, \iota_t)$.
-\end{itemize}
-L'agent implémente l'hypothèse qu'il contrôle un robot mobile dans le monde 3D.
+La définition \ref{def:sedp} donne la formalisation du SEDP dérivée de la Définition \ref{def:edp} de l'EDP. 
+
+\begin{De}[SEDP]
+	\label{def:sedp}
+	Un \an{Spatial Enactive Decision Process} (SEDP) se définit par un tuple EDP $(S, D, I, p, q)$, complété par l'espace tridimensionnel $\mathbb{R}^3$ et l'ensemble $\mathcal{I}$ des isométries directes définies sur $\mathbb{R}^3$, dans lequel:
+	\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
+		\item $S$ est un ensemble d'états,
+		\item $D$ est un ensemble fini de décisions,
+		\item $I$ est un ensemble fini d'événements d'interaction,
+		\item $q: S\times D \to \Delta(I \times \mathbb{R}^3 \times \mathcal{I})$ est une distribution de probabilité $q(i_t, \epsilon_t, \iota_t|s_t,d_t)$ qui donne la probabilité d'obtenir l'interaction $i_t \in I$, le point $\epsilon_t \in \mathbb{R}^3$ et l'isométrie $\iota_t \in \mathcal{I}$ sachant l'état $s_t \in S$ et la décision $d_t \in D$,
+		\item $p:S\times I \times \mathbb{R}^3 \times \mathcal{I} \to \Delta(S) $ est une distribution de probabilité $p(s_{t+1}|s_{t},i_{t}, \epsilon_t, \iota_t)$ qui donne la probabilité d'obtenir l'état suivant $s_{t+1} \in S$, sachant l'état $s_t \in S$, l'interaction $i_t \in I$, le point $\epsilon_t \in \mathbb{R}^3$ et l'isométrie $\iota_t \in \mathcal{I}$.
+	\end{itemize}
+\end{De}
+
+
+
+Le cycle du SEDP est illustré en Figure \ref{fig:cycle-sedp}.
+Il est initialisé avec un état $s_0 \in S$.
+A chaque cycle $t \ge 0$, l'agent prend un décision $d_t$.
+L'interaction énactée $i_t \in I$, le point $\epsilon_t \in \mathbb{R}^3$, et l'isométrie $\iota_t \in \mathcal{I}$ sont tirées avec la probabilité $q(i_t, \epsilon_t, \iota_t|s_t,d_t)$.
+L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t}, \epsilon_t, \iota_t)$.
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Figures/3_sedp.pdf}
+	\caption{Cycle du Processus de Décision Enactif Spatial.
+	Au temps $t$, l'agent prend une décision $d_t$, puis reçoit une interaction $i_t$, une position $\epsilon_t$ et une isométrie directe $\iota_t$.
+	L'environnement transitionne vers l'état $s_{t+1}$ selon la distribution de probabilité $p(s_{t+1}|s_{t},i_{t}, \epsilon_t, \iota_t)$.}
+	\label{fig:cycle-sedp}
+\end{figure}
+
+
+
+\subsection{Enactive Cognitive Architecture (ECA)}
+
+\noindent
+Nous avons doté l'agent d'une architecture cognitive qui implémente l'hypothèse que l'environnement possède une structure de \emph{monde physique euclidien}.
+Un monde physique eucliden est un espace euclidien contenant des objets, comme par exemple notre monde physique naturel ou des environnement virtuels simulés.
+Cette architecture dispose d'une mémoire spatiale égocentrée dans laquelle elle peut positionner les événements d'interaction. 
+Elle peut mettre à jour cette mémoire spatiale en lui appliquant des isométries directes.  
+
+Les interactions entre l'agent et son environnement sont modélisées par le SEDP. 
+A chaque cycle d'interaction, l'architecture met à jour l'état de sa mémoire spatiale en fonction du \emph{déplacement supposé} de l'agent et ajoute la nouvelle interaction énactée à sa \emph{position supposée}. 
+Le déplacement supposé est informé par l'isométrie $\iota_t$, et la position supposée par le point $\epsilon_t$.
+
+
+Par exemple, il contrôle un robot mobile dans le monde 3D.
 Le point $\epsilon$ et l'isométrie $\iota$ indiquent respectivement la position de l'interaction enactée $i$ et le déplacement du robot durant l'enaction de l'interaction.
 $\epsilon$ et $\iota$ sont tous deux encodés en coordonnées égocentriques relatives au corps du robot.
 Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
-Cette hypothèse de monde 3D trouve son appui dans l'observation que la plupart des animaux peuvent localiser leurs interactions dans leur environnement immédiat et détecter leur propre déplacement (par exemple, via le signal vestibulaire et le flux optique).
-On notera que l'agent n'a pas accès à une quelconque « position absolue » supposée du robot dans l'environnement.
 
 
 
 
-
-
-Le Spatial Enactive Decision Process (SEDP) étend le Enactive Decision Process introduit en section \ref{sec:edp} en ajoutant des propriétés spatiales à l'outcome: une position et un déplacement.
 
 \begin{figure}[ht]
 	\centering
@@ -804,7 +841,6 @@ Le Spatial Enactive Decision Process (SEDP) étend le Enactive Decision Process 
 \end{figure}
 
 
-\subsection{Enactive Cognitive Architecture (ECA)}
 
 \begin{figure}[ht]
 	\centering

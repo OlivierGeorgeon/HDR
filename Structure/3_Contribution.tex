@@ -30,12 +30,12 @@ Introduction en cours de construction
 \subsection{Statut représentationnel des signaux sensoriels}
 
 \noindent
-L'état de l'art présenté au Chapitre \ref{chap:etat} a introduit différents types de signaux sensoriels reçus par l'agent.
-Cette section vise à expliciter ces types en introduisant la distinction entre signal sensoriel \emph{représentationnel} et signal sensoriel \emph{non-représentationnel}. 
+Les différentes approches computationnelles de la cognition présentées en Section \ref{sec:techniques} utilisent des signaux sensoriels construits différemment les unes des autres.
+Cette section vise à classer ces différences en introduisant la distinction fondamentale entre signal sensoriel \emph{représentationnel} et signal sensoriel \emph{non-représentationnel}. 
 
 L'idée centrale est de qualifier un signal sensoriel de \emph{représentationnel} lorsqu'il reflète une propriété d'un objet ou d'une entité de l'environnement. 
 Il constitue alors une représentation d'un aspect du monde extérieur attribué à cet objet, par exemple sa couleur, sa forme, ou son goût.
-A l'inverse, un signal sera qualifié de non-représentationnel s'il ne renseigne pas directement sur la propriété d'un objet, par exemple, un signal qui indique une collision avec un obstacle, un changement de luminosité, ou l'augmentation d'une odeur. 
+A l'inverse, un signal sera qualifié de non-représentationnel s'il ne renseigne pas directement sur la propriété d'un objet, par exemple, un signal qui indique une collision avec un obstacle, un changement de luminosité, ou la diffusion d'une odeur. 
 D'une manière générale, les signaux représentationnels reflètent des propriétés ontologiques de l'environnement, alors que les signaux non-représentationnels signalent des événements.  
 
 Une première formalisation de cette distinction peut être effectuée dans le cadre simplifié d'un environnement fermé dont l'ensemble des états est connu, et pour lequel la fonction d'observation est déterministe.
@@ -107,7 +107,9 @@ Lorsque des chercheurs implémentent dans un robot en monde ouvert un algorithme
 Ces algorithmes ne permettent pas au robot de construire sa propre perception du monde.
 Or, la perception humaine ne repose précisément pas sur de tels états prédéfinis. 
 C'est ce que la phénoménologie nous enseigne, comme nous l'avons vu en section \ref{sec:phenomenologie}, notamment à travers l'affirmation husserlienne qu'il n'existe pas de perception objective. 
-Les algorithmes qui évitent l'hypothèse de représentationnalité du signal sensoriel et de la valeur de récompense me paraissent donc mieux adaptés à l'étude des mécanismes de perception et d'apprentissage a partir d'expérience. 
+Pour ces raisons, il me semble important d'éviter l'hypothèse de représentationnalité du signal sensoriel et de la valeur de récompense en apprentissage développemental.
+
+% me paraissent donc mieux adaptés à l'étude des mécanismes de perception et d'apprentissage a partir d'expérience. 
 
 
 
@@ -180,7 +182,7 @@ L'historique des interactions $i_t$ constitue la couverture de Markov de l'agent
 		L'état $S_t$ dépend de $I_{t-1}$ et de $S_{t-1}$ selon la distribution de probabilité $p(s_{t}|s_{t-1},i_{t-1})$.
 		L'interaction $I_t$ dépend de $D_{t}$ et de $S_{t}$ selon la distribution de probabilité $q(i_{t}|s_{t},d_{t})$.
 		Les états $S$ et les probabilités $q$ et $p$ sont cachés à l'agent.
-		Les variables $I$ constituent la couverture de Markov de l'agent.}
+		La série temporelle de la variable $I$ constitue la couverture de Markov de l'agent.}
 	\label{fig:dbn_edp}
 \end{figure}
 
@@ -236,7 +238,7 @@ Pour reprendre les mots de Piaget, la motivation interactionnelle se situe \og �
 Je garde maintenant l'appellation de motivation interactionnelle en la classant dans la catégorie des motivations internes, au sens défini en Section \ref{sec:motivation}.
 %car elle ne vise pas à atteindre un état particulier de l'environnement (Sec.~\ref{sec:motivation})
 La motivation interactionnelle peut se décliner en motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions, ou en motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets spécifiques.
-Elle est également compatible avec autres principes motivationnels tels que les émotions, comme nous le verrons au Chapitre~\ref{chap:perspective}.
+Elle est également compatible avec d'autres principes motivationnels tels que les émotions, comme nous le verrons au Chapitre~\ref{chap:perspective}.
 
 
 %Comme la fonction de valence ne prend pas en compte l'état du monde extérieur parmi ses arguments, nous l'avons d'abord rapprochée d'un critère de motivation intrinsèque (e.g., \an{An intrinsically-motivated schema mechanism to model and simulate emergent cognition}, \cite{georgeon_intrinsically-motivated_2012}).  Ce principe motivationnel peut en effet être entièrement encodée dans un robot sans nécessiter un signal de récompense issu de l'environnement.
@@ -313,7 +315,7 @@ Cette re-énaction consistera à rejouer la décision primitive $d_{t-2}$, puis,
 Si l'agent n'obtient pas $i_{t-2}$ alors la tentative de re-énacter $i_c$ est interrompue et l'agent prendra une nouvelle décision au cycle suivant.
 
 Ce mécanisme d'apprentissage fonctionne de la même manière pour apprendre une interactions composites de plus haut niveau sur la base de deux interactions composites qui viennent d'être énactées consécutivement.
-Ce processus conduit donc à l'édification progressive d'une hiérarchie de décisions composites, illustrée en Figure \ref{fig:agent10}. 
+Ce processus conduit donc à l'édification progressive d'une hiérarchie d'interactions composites, illustrée en Figure \ref{fig:agent10}. 
 
 
 \begin{figure}[ht]
@@ -341,7 +343,7 @@ Etant donné qu'une interaction composite doit être réénactée pour donner li
 \noindent
 A l'instant $t$, le contexte courant est caractérisée par les interactions que l'agent vient juste d'énacter.
 La Figure~\ref{fig:agent10} illustre ces interactions en gris. 
-Ce contexte contient l'interaction $i_{d-1}$ que l'agent a décidé d'énacter lors de sa décision précédente.
+Ce contexte contient l'interaction $i_{d-1}$ que l'agent a décidé de tenter d'énacter lors de sa décision précédente.
 Il contient également des interactions composites de plus haut niveau qui se terminent par $i_{d-1}$.
 Enfin, il contient les post-interacions de plus bas niveau que $i_{d-1}$, qui peuvent soit être primitives comme $i_{t-1}$ sur la figure, ou soit avoir elles-même des post-interactions à inclure dans le contexte. 
 L'ensemble de toutes ces interactions qui constitue le contexte est noté  $C_t \subset I$. %cet ensemble dont les éléments sont en gris sur la Figure \ref{fig:agent10}.
@@ -360,7 +362,7 @@ Il nous reste maintenant a déterminer comment sélectionner une décisions parm
 \subsection{Mécanisme de décision}
 
 \noindent
-Un mécanisme de décision qui serait fondé uniquement sur la motivation interactionnelle tenterait d'enacter les interactions qui ont la plus haute valence.
+Un mécanisme de décision qui serait fondé uniquement sur la motivation interactionnelle tenterait d'enacter les interactions qui ont la valence la plus élevée.
 Pour cela il aurait besoin d'une estimation de la \emph{valence attendue} des différentes décisions possible dans un contexte donné.
 Mais bien-sûr, l'agent n'a pas la possibilité de calculer une estimation fiable de cette valence attendue car il ne dispose que d'une connaissance très incomplète de l'environnement.
 Cette section examine ce que serait un calcul de valence attendue qui s'inspirerait des techniques d'apprentissage par renforcement introduite en Section~\ref{sec:rl}, pour finalement proposer une approche qui couple la valence attendue avec un mécanisme d'apprentissage d'habitude.
@@ -430,7 +432,7 @@ Du point de vue d'un observateur extérieur, l'agent semble acquérir des habitu
 
 Bien que le calcul de proclivité favorise les interactions qui ont les valences les plus élevées, l'agent n'aura pas un comportement purement \an{greedy} qui consisterait à privilégier les récompenses immédiates. 
 Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences consistant à énacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
-Nous allons maintenant analyser les comportements obtenus dans des exemples.  
+Nous allons maintenant examiner comment implémenter ce mécanisme chez un agent artificiel.  
 
 
 \subsection{Niveaux de couplage structurel}
@@ -474,7 +476,7 @@ Cette section présentent trois expérimentations significatives réalisées ave
 La seule différence au niveau du \an{software} de l'agent se situe au niveau de leurs contrôleurs primitifs qui implémentent des boucles sensorimotrices différentes. 
 Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
 
-Dans le cas des expérimentations en environnement simulé, les interactions primitives correspondent à des couples \schema{décision, \an{input}}, dans lequel l'\an{input} est un signal sensoriel non représentationnel transmis de l'environnement à l'agent.
+Dans le cas des expérimentations en environnement simulé, les interactions primitives correspondent à des couples \schema{\emph{décision}, \an{input}}, dans lequel l'\an{input} est un signal sensoriel non représentationnel transmis de l'environnement à l'agent.
 Dans le cas des robots, les interactions primitives sont générées à partir de boucles \an{output}--\an{input} qui seront détaillées en Section \ref{sec:sequentiel-robotique}.
 %Il fonctionne également directement pour contrôler des robots dans le monde physique comme je l'explique à la fin de cette section. 
 
@@ -485,6 +487,8 @@ Dans le cas des robots, les interactions primitives sont générées à partir d
 Nos premières expérimentations ont été réalisées dans les environnements du types de ceux présentés en Figure \ref{fig:small_loop}.
 Avec James Marshall, nous avons nommé celui de droite le \an{Small Loop Challenge} et nous l'ai proposé comme un challenge pour démontrer l'émergence du sense-making \cite{georgeon_small_2013}. 
 C'est une version minimaliste suffisante pour démontrer la capacités d'apprentissage hiérarchiques du mécanisme de schéma.   
+Ces environnements ont été choisis parce qu'ils offrent plusieurs niveaux de régularités d'interaction qui permettent de mettre en évidence les capacités d'apprentissage hiérarchique du mécanisme de schéma.
+
 
 \begin{figure}[ht]
 	\centering
@@ -498,14 +502,12 @@ C'est une version minimaliste suffisante pour démontrer la capacités d'apprent
 	\label{fig:small_loop}
 \end{figure}
 
-Ces environnements ont été choisis parce qu'ils offrent plusieurs niveaux de régularités d'interaction qui permettent de mettre en évidence les capacités d'apprentissage hiérarchique du mécanisme de schéma.
-
-L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} : tourner 90° à gauche, \texttt{turn right} : tourner 90° à droite, \texttt{feel left} : toucher la cellule à gauche, \texttt{feel front} : toucher la cellule devant, \texttt{feel right} : toucher la cellule à droite.
+L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner 90° à gauche et à droite, \texttt{feel left}, \texttt{feel front}, \texttt{feel right} : toucher la cellule à gauche, devant, et à droite.
 
 Le Tableau \ref{tab:small_loop} indique les 10 interactions possibles et leurs valences. 
 Les décisions \texttt{turn left} et \texttt{turn right} correspondent chacune à une interaction.
 Les autres décisions peuvent donner lieu à deux interactions différentes selon que l'agent interagit avec une cellule vide ou un mur, différentiés par un \an{input} de 1 bit.
-Cet \an{input} constitue un signal sensoriel non représentationnel dans la mesure ou ce n'est pas nécessairement la même valeur du bit qui indique un mure ou une cellule vide d'une interaction à l'autre.
+Cet \an{input} constitue un signal sensoriel non représentationnel dans la mesure ou ce n'est pas nécessairement la même valeur du bit qui indique un mur ou une cellule vide d'une interaction à l'autre.
 
 
 \begin{table}[h!]
@@ -535,7 +537,7 @@ Cet \an{input} constitue un signal sensoriel non représentationnel dans la mesu
 La Figure \ref{fig:trace} montre une analyse des comportements.
 Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
 Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
-Mais ces schémas de haut niveau sont pris en défaut quand il arrive dans le coin supérieur droit de la boucle. 
+Ces schémas de haut niveau sont pris en défaut quand il arrive dans le coin supérieur droit de la boucle. 
 A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à tourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
 Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autour de l'environnement sans collision avec les murs. 
 
@@ -552,7 +554,7 @@ Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autou
 \end{figure}
 
 
-Cette expérimentation met en évidence l'acquisition d'interaction épistémiques: l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négatives (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
+Cette expérimentation met en évidence l'acquisition d'interactions épistémiques: l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négatives (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
 Tout se passe comme si l'agent avais compris la signification de ces interactions. 
 %C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
 
@@ -577,14 +579,14 @@ Les sept \an{inputs} sont:
 \texttt{stable}: la cible reste de taille apparente constante, 
 \texttt{increase left}, 
 \texttt{increase front}, 
-\texttt{increase right} : la cible apparait ou grossit respectivement à droite à gauche, en face, ou à droite,
+\texttt{increase right} : la cible apparait ou grossit respectivement à gauche, en face, ou à droite,
 \texttt{decrease} : la cible s'éloigne ou disparait,
 \texttt{eat} : l'agent atteint la cible et la mange,
 \texttt{bump} : collision avec un mur.
 
 La Figure \ref{fig:horseshoe} illustre le système de perception distal de l'agent.  
 Chaque \oe il couvre un champ de 90°. 
-Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible devant l'agent.
+Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible en face de l'agent.
 %Une mesure de distance permet de détecter si la cible grandit ou rétrécit dans le champ visuel pour générer les signaux \texttt{increase} et \texttt{decrease}. 
 
 
@@ -725,7 +727,7 @@ Si le signal réfléchi dépassait un seuil alors une interaction \interaction{f
 Ce seuil était fixé pour détecter le présence d'un mur à approximativement 5 cm.
 La décision d'avancer déclenchait l'avancement du robot pendant une durée correspondant à un déplacement d'environ 5 cm tout en maintenant la LED infrarouge frontale allumée.
 Si un mur était détecté, le déplacement était interrompu et une interaction \interaction{move forward, bump} était générée.
-Les décisions de rotation provoquaient un mouvement de rotation pendant une durée correspondante à une rotation d'environ 90 degré. 
+Les décisions de rotation faisaient tourner le robot sur place pendant une durée correspondante à une rotation d'environ 90 degré. 
 
 
 \begin{figure}[ht]
@@ -744,7 +746,7 @@ L'expérimentation montre que le robot apprend les comportements de base similai
 Le mécanisme de schéma est capable de résister aux erreurs de détections et aux imprécisions de déplacement tant que des régularités exploitables existent. 
 En revanche il ne peut pas apprendre des séquences d'interaction aussi longues que dans le \an{Small Loop} car elles ne sont pas utilisables en raison de ces imprécisions.
 
-Martin Kody\v{s} et Christian Wolf ont implémenté les interactions primitives de l'expérience de la limule chez robot Eddie de la Figure~\ref{fig:robot_serie} (droite) \cite{kodis_approche_2014}.   
+Martin Kody\v{s} et Christian Wolf ont implémenté les interactions primitives de l'expérience de la limule chez le robot Eddie de la Figure~\ref{fig:robot_serie} (droite) \cite{kodis_approche_2014}.   
 Un QR code était utilisé comme cibles. 
 Un capteur \emph{kinect} générait les \an{inputs} \texttt{increase} et \texttt{decrease} par rapport à la cible et \texttt{bump} par rapport aux murs.
 Le robot a acquis le comportement \emph{diagonal}, mais pas le \emph{tangentiel} car celui-ci est trop sensible aux erreurs de détection.
@@ -760,7 +762,7 @@ Enfin, si l'organisation temporelle des comportements constitue un premier nivea
 \section{Modèle d'interaction spatio-séquentiel}
 
 \noindent
-Cette section examine la possibilité de permettre à un agent de développer des comportements plus intelligents lorsqu'on le dote de mécanismes innés lui permettant de traiter certains effets spatiaux liés à ses interactions. 
+Cette section examine comment permettre à un agent de développer des comportements plus intelligents lorsqu'on le dote de mécanismes innés lui permettant de traiter des régularités spatiales interactions. 
 Je propose le \emph{Processus de Décision Enactif Spatial} pour modéliser un agent recevant des informations spatiales sur ses interactions énactées. 
 Ce modèle s'appuie sur l'observation que la plupart des animaux peuvent localiser leurs interactions dans leur environnement immédiat et détecter leur propre déplacement (par exemple, via le signal vestibulaire et le flux optique).
 Ces informations spatiales sont centrées sur le corps de l'agent; il  n'a pas accès à une quelconque \emph{position absolue} dans son environnement.
@@ -781,7 +783,7 @@ La définition \ref{def:sedp} donne la formalisation du SEDP dérivée de la Dé
 
 \begin{De}[SEDP]
 	\label{def:sedp}
-	Un \an{Spatial Enactive Decision Process} (SEDP) se définit par un tuple EDP $(S, D, I, p, q)$, complété par l'espace tridimensionnel $\mathbb{R}^3$ et l'ensemble $\mathcal{I}$ des isométries directes définies sur $\mathbb{R}^3$, dans lequel:
+	Un \an{Spatial Enactive Decision Process} (SEDP) se définit par le tuple EDP $(S, D, I, p, q)$, complété par l'espace tridimensionnel $\mathbb{R}^3$ et l'ensemble $\mathcal{I}$ des isométries directes définies sur $\mathbb{R}^3$, dans lequel:
 	\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 		\item $S$ est un ensemble d'états,
 		\item $D$ est un ensemble fini de décisions,
@@ -814,60 +816,83 @@ L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t},
 \subsection{Enactive Cognitive Architecture (ECA)}
 
 \noindent
-Nous avons doté l'agent d'une architecture cognitive qui implémente l'hypothèse que l'environnement possède une structure de \emph{monde physique euclidien}.
-Un monde physique eucliden est un espace euclidien contenant des objets, comme par exemple notre monde physique naturel ou des environnement virtuels simulés.
-Cette architecture dispose d'une mémoire spatiale égocentrée dans laquelle elle peut positionner les événements d'interaction. 
-Elle peut mettre à jour cette mémoire spatiale en lui appliquant des isométries directes.  
+Nous développons l'Architecture Cognitive Enactive (ECA) pour piloter un agent modélisé par le SEDP.  
+ECA implémente l'hypothèse que l'environnement possède une structure de \emph{monde physique euclidien}.
+Un monde physique eucliden est un espace euclidien contenant des objets, par exemple notre monde physique naturel ou des environnements virtuels simulés.
+%ECA étend le mécanisme de schéma par d'autres mécanismes permettant de manipuler des structures de données représentant les régularités spatiales des événements d'interaction valués. 
 
-Les interactions entre l'agent et son environnement sont modélisées par le SEDP. 
-A chaque cycle d'interaction, l'architecture met à jour l'état de sa mémoire spatiale en fonction du \emph{déplacement supposé} de l'agent et ajoute la nouvelle interaction énactée à sa \emph{position supposée}. 
-Le déplacement supposé est informé par l'isométrie $\iota_t$, et la position supposée par le point $\epsilon_t$.
-
-
-Par exemple, il contrôle un robot mobile dans le monde 3D.
-Le point $\epsilon$ et l'isométrie $\iota$ indiquent respectivement la position de l'interaction enactée $i$ et le déplacement du robot durant l'enaction de l'interaction.
-$\epsilon$ et $\iota$ sont tous deux encodés en coordonnées égocentriques relatives au corps du robot.
-Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
-
-
-
-
+La Figure \ref{fig:sedp} présente le DBN qui met en évidence le réseau d'influences entre le modèle du monde interne $M$ maintenu par ECA et les variables du SEDP. 
+Les variables représentant l'interaction $I$, le point $\mathcal{E}$, et l'isométrie $\mathcal{I}$ constituent la couverture de Markov de l'agent.
+ECA vise à encoder des présupposés qui permette à l'agent de construire un modèle qui rende compte de la structure physique euclidienne du monde. 
+Comme évoqué en Section~\ref{sec:couverture}, nous estimons que ces présupposés sont nécessaire pour inférer les structures de l'environnement cachées par la couverture de Markov.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/5_sedp.pdf}
-	\caption{Spatial Enactive Decision process (\cite{georgeon_artificial_2024}, Fig. 5) }
+	\includegraphics[width=0.5\textwidth]{Figures/3_sedp_DBN.pdf}
+	\caption{Influences réciproques entre le modèle du monde de l'agent $M$ et les variables du SEDP \cite[Fig.~5]{georgeon_artificial_2024}.
+	L'interaction énactée $I_{t-1}$, le point $\mathcal{E}_{t-1}$, et l'isométrie $\mathcal{I}_{t-1}$ influencent le modèle du monde $M_t$ et l'état du monde caché $S_t$.	
+	$M_t$ influence la décision $D_t$, qui, avec $S_{t}$, influencent $I_{t}$, $\mathcal{E}_{t}$, et $\mathcal{I}_{t}$.}
 	\label{fig:sedp}
 \end{figure}
 
+
+La Figure~\ref{fig:ECA} présente une des premières versions d'ECA publiée avec James Marshall et Riccardo Manzotti \cite[\an{An enactivist cognitive architecture based on sensorimotor modeling}]{georgeon_eca_2013}.
+La partie haute représente le mécanisme de schéma séquentiel décrit précédemment. 
+Au centre vient s'ajouter la \emph{mémoire de travail spatiale égocentrée}, et à gauche une \emph{mémoire proto-ontologique} à long terme qui sont toutes deux initialement vides. 
+Le rôle de la mémoire spatiale égocentrée est de maintenir une description du contexte spatial courant en termes des possibilités d'interaction offertes à l'agent. 
+Le rôle de la mémoire proto-ontologique est de mémoriser une description des catégories de \emph{phénomènes} que l'agent rencontre dans son environnement. 
+Le terme phénomène désigne des objets ou entités \og telles que l'agent en fait l'expérience \fg\ à travers ses interactions. 
+Chaque catégorie de phénomène est représenté en mémoire proto-ontologique par un ensemble d'interactions \emph{affordée} à l'agent. 
+Nous désignons ces ensemble par le terme \an{bundle} en référence à la \an{Bundle theory} de David Hume évoquée en Section~\ref{sec:lumieres}.
+ 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_ECA.pdf}
-	\caption{The Enactive Cognitive Architecture (ECA) depuis \cite[Fig.~4]{georgeon_eca_2013}}
+	\caption{L'architecture Cognitive Enactive (ECA) \cite[Fig.~4]{georgeon_eca_2013}.
+	Bas: historique des interactions énactées utilisant la même représentation qu'en Fig.~\ref{fig:trace}.
+	Haut: mécanisme de schéma.
+	Centre: mémoire de travail spatiale égocentrée. 
+	Gauche: mémoire proto-ontologique à long terme.}
 	\label{fig:ECA}
 \end{figure}
 
-La Figure \ref{fig:ECA} montre la Enactive Cognitive Architecture décrite dans \cite{georgeon_reducing_2024}
+La mémoire spatiale est définie comme un ensemble de d'\emph{interactions localisées}.
+Une interaction localisée $\gamma$ est définie comme un couple $\gamma = (i, \lambda)$ avec $i \in I$ et $\lambda \in \mathbb{R}^3$ une position dans l'espace définie par ses coordonnées cartésiennes relatives à l'agent. 
+Lorsque l'agent reçoit un tuple $(i_t, \epsilon_t, \iota_t)$, il commence par construire une isométrie $\tau_t$ à partir de l'inverse de $\iota_t$, qu'il applique à toutes les positions des interactions localisées en mémoire spatiale de façon à mettre à jour leurs positions relatives en coordonnées égocentrées.
+Ensuite, il ajoute une nouvelle interaction localisée $\gamma_t = (i_t, \lambda_t)$ avec $\lambda_t$ initialisé à la position construite à partir du point $\epsilon_t$. 
+En général, le point $\epsilon_t$ et l'isométrie $\iota_t$ peuvent être imprécises et bruitées, rendant la localisation des interactions peu fiable après plusieurs déplacements successifs. 
+Nous avons donc implémenté un mécanisme d'oubli dans la mémoire spatiale.
+L'agent utilise la mémoire spatiale uniquement pour détecter les chevauchements spatiaux d'interactions dans son espace local immédiat et court terme, et non pour construire une carte de l'environnement comme dans les algorithmes de \an{Simultaneaous Localization and Mapping} (SLAM).
 
+La mémoire proto-ontologique maintient un ensemble de \an{bundles} qui représentent des catégories de phénomènes identifiés par l'agent dans l'environnement. 
+Les \an{bundles} sont définis comme des ensembles d'interactions localisée par rapport à un point de référence de la catégorie de phénomène.  
+Lorsque l'agent détecte un nouveau type de chevauchement spatial d'interactions, il suppose qu'elles sont \emph{affordées} par un phénomène présent à cette position, et il crée un nouveau \an{bundle} pour représenter ce phénomène. 
+Les interaction énactées réactivent les \an{bundles} précédemment appris auxquels elles appartiennent ce qui provoque un effet \emph{d'évocation} du phénomène. 
+Un phénomène évoqué peut proposer des décisions consistant à tenter d'énacter d'autres interactions appartenant à ce \an{bundle}, c'est à dire \emph{affordées} par ce phénomène.  
+
+
+La création, la mise à jour, l'évocation, et la suppression de bundle erronés est un processus compliqué que nous avons seulement pu étudier dans des situations particulières que nous allons voir à la section suivante. 
+
+
+
+
+\section{Expérimentations en couplage spatial  (en construction)}
+
+
+\subsection{Spatial Small loop Challenge}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/3_Trace.pdf}
 	\caption{Analyse de comportement \cite[Fig.~8]{georgeon_eca_2013}}
-	\label{fig:ECA}
+	\label{fig:comportement_ECA}
 \end{figure}
 
-
-\subsection{Ontologie basée sur les affordances}
-
-Renvoie à la notion de bundle introduite dans la Section \ref{sec:pragmatisme} sur l'épistémologie pragmatique.
+Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
 
 
-
-
-\section{Expérimentation en couplage spatial}
 
 \subsection{Navigation dans une scène variée}
 

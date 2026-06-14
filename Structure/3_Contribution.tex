@@ -850,7 +850,7 @@ Nous désignons ces ensemble par le terme \an{bundle} en référence à la \an{B
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_ECA.pdf}
-	\caption{L'architecture Cognitive Enactive (ECA) \cite[Fig.~4]{georgeon_eca_2013}.
+	\caption{L'Architecture Cognitive Enactive (ECA) \cite[Fig.~4]{georgeon_eca_2013}.
 	Bas: historique des interactions énactées utilisant la même représentation qu'en Fig.~\ref{fig:trace}.
 	Haut: mécanisme de schéma.
 	Centre: mémoire de travail spatiale égocentrée. 
@@ -873,24 +873,78 @@ Les interaction énactées réactivent les \an{bundles} précédemment appris au
 Un phénomène évoqué peut proposer des décisions consistant à tenter d'énacter d'autres interactions appartenant à ce \an{bundle}, c'est à dire \emph{affordées} par ce phénomène.  
 
 
-La création, la mise à jour, l'évocation, et la suppression de bundle erronés est un processus compliqué que nous avons seulement pu étudier dans des situations particulières que nous allons voir à la section suivante. 
+La création, la mise à jour, l'évocation, et la suppression de bundle erronés est un processus compliqué que nous avons seulement pu étudier dans des situations particulières que nous allons voir dans la section suivante. 
 
 
 
 
-\section{Expérimentations en couplage spatial  (en construction)}
+\section{Expérimentations en couplage spatial}
 
+Introduction en construction
 
+Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
 \subsection{Spatial Small loop Challenge}
+
+\noindent
+Cette expérimentation place un agent contrôlé par ECA dans l'environnement du \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop}.
+Elle vise à mettre en évidence le processus de construction des \an{bundles}.
+
+L'agent possède les mêmes interactions primitives que précédement mais elles sont complétées par leurs positions $\epsilon$ et leurs isométries $\iota$ indiquées dans le Tableau \ref{tab:small_loop_spatial}.
+Les positons $\epsilon$ définissent le \emph{modèle corporel} de l'agent (\an{body model}), et les isométries $\iota$ son \emph{modèle de déplacement} (\an{displacement model}).
+Cette expérimentation n'étudie pas comment ces deux modèles peuvent être construits par l'agent lui-même. 
+Ils sont codés par l'expérimentateur à l'initialisation. 
+
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|c|l|}
+		\hline
+		\textbf{Interaction} & \textbf{Signification} & \textbf{Valence} & $\epsilon$ & \ $\iota$ \\ \hline
+		\texttt{move forward} & avancer & 5  & $(1, 0)$ & Translation (1, 0) \\ \hline
+		\texttt{bump} & percuter avec un mur & -10  & $(1, 0)$ &  \\ \hline
+		\texttt{turn left} & tourner de 90° à gauche & -3 & $(0, 0)$ & Rotation $\pi / 2$ \\ \hline
+		\texttt{turn right} & tourner de 90° à droite & -3 & $(0, 0)$  &  Rotation $-\pi / 2$ \\ \hline
+		\texttt{feel left empty} & sentir une cellule vide à gauche & -1 & $(0, 1)$ &  \\ \hline
+		\texttt{feel left wall} & sentir un mur à gauche & -1 & $(0, 1)$ &  \\ \hline
+		\texttt{feel front empty} & sentir une cellule vide devant & -1 & $(1, 0)$ &  \\ \hline
+		\texttt{feel front wall} & sentir un mur devant & -1 & $(1, 0)$  &  \\ \hline
+		\texttt{feel right empty} & sentir une cellule vide à droite & -1 & $(0, -1)$ &  \\ \hline
+		\texttt{feel right wall} & sentir un mur à droite & -1 & $(0, -1)$ &  \\ \hline
+	\end{tabular}
+	\caption{Interactions primitives dans le \an{Spatial Small Loop Challenge}.
+	Chacune est associée à une position $\epsilon$ et un déplacement $\iota$ définis dans le référentiel égocentré de l'agent.}
+	\label{tab:small_loop_spatial}
+\end{table}
+
+La figure~\ref{fig:comportement_ECA} présente une analyse des comportements obtenus dans une exemple d'exécution.
+La bande 4 montre le contenu de la mémoire spatiale égocentrée contenant les quatre cellules autour de l'agent et celle ou il est situé.
+La bande 5 montre la construction progressive des \an{bundles}.
+Le \an{bundle} représentant la cellule vide est créé au pas 5 quand l'agent observe que l'interaction \interaction{move forward, empty} énactée au pas 5 se chevauche avec \interaction{feel front, empty} énactée au pas 1.
+Ce \an{bundle} est progressivement complété jusqu'à contenir les six interactions primitives affordées par une cellule vide au pas 47.
+Le \an{bundle} représentant un mur est créé au pas 13 lorsque l'agent observe que l'interaction \interaction{move forward, wall} énactée au pas 13 se chevauche avec \interaction{feel front wall} énactée au pas 24.
+Il est complété jusqu'au pas 32 où il content les quatre interactions primitives affordées par un mur. 
+
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/3_Trace.pdf}
-	\caption{Analyse de comportement \cite[Fig.~8]{georgeon_eca_2013}}
+	\caption{Analyse des comportements \cite[Fig.~8]{georgeon_eca_2013}.
+		Bandes 1, 2 et 3 identiques à celles de la figure \ref{fig:trace}.
+		Bande 4: mémoire spatiale égocentrée. 
+		Bande 5: création de deux \an{bundles} représentant les cellules vides et les murs.}
 	\label{fig:comportement_ECA}
 \end{figure}
 
-Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
+L'agent ECA parvient à éviter les collisions et à obtenir des comportements satisfaisants plus rapidement qu'avec le mécanisme de schéma uniquement. 2
+C'était attendu puisqu'il dispose de connaissance préalable sur la structure spatiale de l'environnement et sur son propre modèle corporel et modèle de déplacement. 
+
+Cette expérimentation, bien que rudimentaire, met en évidence le principe de construction d'une proto-ontologie fondée sur les expériences d'interaction. 
+Elle soulève de nombreuses questions sur la gestion des \an{bundles}.  
+Comment réviser un \an{bundle} si une interaction lui a été associée à tort? 
+Comment traiter des \an{bundles} partageant des interactions en commun? 
+Comment des \an{bundles} pourraient-ils représenter des objets de forme complexe ? 
+Enfin, se pose la question de savoir comment l'agent pourrait apprendre de manière autonome son modèle corporel et son modèle de déplacement, en parallèle avec la construction d'une proto-ontologie de l'environnement.
+
 
 
 
@@ -913,7 +967,7 @@ La ruche permet de dépôt de pollen.
 D'autres cibles peuvent simplement servir de \an{landmarks} qui l'abeille peut utiliser pour retrouver son chemin en direction d'un champ de fleurs puis pour retourner à la ruche.   
 
 Lorsque l'abeille arrive sur une fleur, elle découvre que cette fleur peut être butinée et associe cette information à la représentation iconique de cette fleur apprise par le système perceptif statique. 
-De même, l'abeille associe l'interection de \og dépot de pollen \fg à la ruche. 
+De même, l'abeille associe l'interaction de \og dépot de pollen \fg\ à la ruche. 
 
 Le nouveau système motivationnel associe une valence motivationnelle à chaque cible en fonction des interactions qu'elles permettent et de l'état courant de l'abeille. 
 Au début, l'abeille apprend à se diriger vers les cibles de la même façon que dans l'expérimentation précédente. 

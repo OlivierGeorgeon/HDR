@@ -882,7 +882,8 @@ La création, la mise à jour, l'évocation, et la suppression de bundle erroné
 
 Introduction en construction
 
-Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
+P%ar exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
+
 \subsection{Spatial Small loop Challenge}
 
 \noindent
@@ -948,62 +949,60 @@ Enfin, se pose la question de savoir comment l'agent pourrait apprendre de mani�
 
 
 
-\subsection{Navigation dans une scène variée}
+
+\subsection{Expérimentation des requins}
 
 \noindent
-En nous appuyant sur les comportements décris au paragraphe précédent, nous avons étudié comment concevoir un agent capable de naviguer entre des cibles variées. 
-Pour cela nous avons étendu les mécanismes perceptifs et motivationnels, et ajouté un \emph{mécanisme attentionnel}.
+Cette expérimentation examine comment générer des comportements plus sophistiqués dans un environnement dynamique et continu contenant différents types d'objets.
+Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA, et ajouté un \emph{mécanisme attentionnel}.
 
-Le mécanisme attentionnel sélectionne une cible particulière parmi les cibles présentes dans le champ perceptif en fonction d'une valence motivationnelle associée à chaque cible.
-Les comportements d'approche de la cible sur laquelle l'agent focalise son attention sont identiques à ceux décrits en Section \ref{sec:horseshoe}.
+La Figure~\ref{fig:requins} présente les conditions expérimentales.
+Les deux requins gris sont des agents contrôlés par ECA.
+Les cellules pleines sont des murs qui peuvent contenir des parties colorées identifiables par les agents.
+Le poissons bleus sont des cibles mobiles qui se déplacent en ligne droite et changent de direction quand ils rencontrent un mur.
+Les \og trèfles \fg\ sont des algues identifiables visuellement que les requins peuvent traverser.  
 
-Le mécanisme perceptif visuel a été étendu par l'ajout d'un second canal appelé \emph{canal perceptif statique}, en parallèle au canal précédent que nous désignons maintenant par le terme de \emph{canal perceptif dynamique}.
-Le canal perceptif statique mémorise une représentation iconique de chaque cible qui permet de la reconnaitre, ainsi qu'une indication du temps écoulée depuis la dernière visite de cette cible. 
+Les agents disposent de trois actions qui simulent des battements de nageoires : \texttt{impulse forward}, \texttt{impulse leftward}, \texttt{impulse rightward}. 
+La position et la direction de l'agent sont régis par une loi de frottement fluide qui fait qu'il ralentit progressivement après chaque battement de nageoire sans pour autant s'arrêter avant le coup de nageoire suivant.
+Les impulsions vers l'avant le déplacent d'environ une unité et chaque impulsion de rotation le fait tourner d'environ $\pi / 4$.
+L'agent reçoit des \an{inputs} identiques à ceux de la limules \texttt{increase}, \texttt{decrease}, \texttt{stable}, \texttt{bump}, \texttt{eat}, auxquels viennent s'ajouter un signal de couleur de l'objet sur lequel l'agent porte son attention.
 
-L'article \an{Early-stage vision of composite scenes for spatial learning and navigation} \cite{georgeon_early-stage_2011} rapporte un exemple de comportements que nous avons pu générer avec ce mécanisme.
-Cette expérimentation, illustrée en Figure \ref{fig:bee}, s'inspire des comportements de butinage des abeilles. 
-Certaines cibles représentent des fleurs qui peuvent être butinées. 
-La ruche permet de dépôt de pollen.
-D'autres cibles peuvent simplement servir de \an{landmarks} qui l'abeille peut utiliser pour retrouver son chemin en direction d'un champ de fleurs puis pour retourner à la ruche.   
+L'attention de l'agent est attirée par les objets saillants présents dans son champ visuel: poisson, autre agent, mur coloré ou algue.
+Au début, son attention se porte sur l'objet le plus proche et l'agent apprend un comportement d'approche comme dans l'expérimentation de la limule. 
+Quand l'objet est atteint, un \an{bundle} est crée qui associe le signal de couleur de cet objet avec d'autres interactions qu'il afforde: \interaction{impulse forward, bump} pour les murs, \interaction{impuse forward, eat} pour les poissons, \interaction{impulse forward, empty} pour les algues. 
+Nous avons également ajouté une interaction \interaction{impulse forwar, cuddle} de valence positive quand l'agent se frotte contre un autre agent.
 
-Lorsque l'abeille arrive sur une fleur, elle découvre que cette fleur peut être butinée et associe cette information à la représentation iconique de cette fleur apprise par le système perceptif statique. 
-De même, l'abeille associe l'interaction de \og dépot de pollen \fg\ à la ruche. 
-
-Le nouveau système motivationnel associe une valence motivationnelle à chaque cible en fonction des interactions qu'elles permettent et de l'état courant de l'abeille. 
-Au début, l'abeille apprend à se diriger vers les cibles de la même façon que dans l'expérimentation précédente. 
-Lorsqu'elle arrive sur une cible, elle associe l'interaction permise par cette cible à la représentation iconique de cette cible: le fait que les fleurs peuvent être butinées et que la ruche permet le dépôt de pollen. 
-Ces valences motivationnelles sont propagées sur les autres cibles en fonction de leur temps de trajet estimé par rapport aux fleurs ou à la ruche. 
-Lorsque l'abeille est en phase de recherche de pollen, la cible qui est la plus proche du champ de fleur reçoit sont attention, et l'abeille navigue ainsi de cibles en cibles jusqu'a retrouver le champ de fleurs. 
-Le même mécanisme est utilisé pour retrouver la ruche quand l'abeille porte du pollen. 
-La vidéo présente un exemple de comportement obtenu \cite{georgeon_bee_2011}. 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/4_bee.pdf}
-	\caption{
-		% Système visuel implémenté dans la \an{Bee experiment} (\cite{georgeon_early-stage_2011}, Fig. 3). 
-		Expérimentation de navigation dans une scène variée. 
-		Cellule violette (e5): la ruche. Cellules bleues: fleurs. 
-		Cellules vert-foncé: murs que l'abeille ne peut pas traverser et qui masquent le champ visuel. 
-		Autres cellules colorées: \an{landmarks} que l'abeille peut utiliser pour naviguer.   
-		}
-	\label{fig:bee}
-\end{figure}
+Une fois les \an{bundles} créés, l'agent porte préférentiellement son attention sur les objets qui affordent des interactions qui ont une valence positive. 
+Ainsi, l'agent apprend à chasser les poissons quand il les voit et à interagir avec l'autre agent comme s'il voulait jouer avec lui.
 
 
-\subsection{Comportements naturels dans une scène dynamique continue}
 
-\cite{guillermin_artificial_2022}
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/4_sharks.png}
-	\caption{Environnement continu dynamique. Les agents sont représentés par des requins gris en bas à gauche.
-	Les poissons bleus sont les cibles. Ils se déplacent en ligne droite et font demi tour quand ils atteignent un mur.
-	Les requins et le poissons se déplacent de manière continue dans toutes les directions et non de cellule en cellule.}
-	\label{fig:sharks}
+	\caption{Environnement continu dynamique. 
+		Requins en bas à gauche: agents ECA.
+		Poissons bleus: cibles.
+		Cellules vert-foncées: murs.
+		Cellules colorées: éléments de murs identifiable.
+		Trèfles: algues identifiables pouvant être traversées.}
+	\label{fig:requins}
 \end{figure}
+
+Cette expérimentation a été rapportée avec plus de détails dans un article de Simon Gay avec Jong Kim \cite{gay_implementing_2012}. 
+Nous avons utilisé une approche similaire dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark}. 
+L'agent disposait d'un mécanisme motivationnel plus sophistiqué qui lui faisait porter son attention sur des objets servant de point de repère successifs pour retrouver son chemin \cite[\an{Early-Stage Vision of Composite Scenes for
+	Spatial Learning and Navigation}]{georgeon_early-stage_2011}. 
+Avec Mathieu Guillermin, nous l'avons utilisée comme exemple dans un article récent \cite{guillermin_artificial_2022}.
+
+Cette expérimentation introduit des signaux sensoriels représentationnels, les signaux de couleur, qui viennent s'ajouter aux événements d'interaction non représentationnels. 
+Elle illustre que les modèles EDP et SEDP ne sont pas incompatibles avec des signaux sensoriels représentationnels. 
+L'usage de ces signaux est étroitement lié au mécanisme attentionnel qui est impliqué dans la reconnaissance d'objets et la sélection des comportements.
+Le mécanisme d'attention, associé aux valences motivationnelles joue un rôle crucial dans l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme les théories de présentées en Section~\ref{sec:attention} le suggèrent.
+
+
 
 
 \section{Conclusion (en construction)}

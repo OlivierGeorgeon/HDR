@@ -432,7 +432,7 @@ Du point de vue d'un observateur extérieur, l'agent semble acquérir des habitu
 
 Bien que le calcul de proclivité favorise les interactions qui ont les valences les plus élevées, l'agent n'aura pas un comportement purement \an{greedy} qui consisterait à privilégier les récompenses immédiates. 
 Du fait qu'il apprend des séquences de plus en plus longues, il pourra choisir des séquences consistant à énacter des interactions à valence négatives au début pour obtenir des valences positives en fin de séquence. 
-Nous allons maintenant examiner comment implémenter ce mécanisme chez un agent artificiel.  
+Nous allons maintenant examiner comment ce mécanisme s'implémente chez un agent artificiel.  
 
 
 \subsection{Niveaux de couplage structurel}
@@ -443,12 +443,7 @@ Le modèle EDP s'inscrit dans le cycle de décision discret (DDS) présenté en 
 La Figure \ref{fig:couplage} illustre les différents niveaux de couplage.
 Le \an{software} qui contrôle l'agent interagit avec le monde à travers les registres de sortie (\an{output}) et d'entrée (\an{input}) du DDS.
 Les registres de sortie commandent les effecteurs et les registres d'entrée reçoivent l'état des capteurs.
-La fine ligne grise représente le \emph{couplage primitif} entre le système cognitif (au dessus) et le \emph{contrôleur primitif} (en dessous) qui énacte les interactions primitives.
-Le contrôleur primitif est programmé par le chercheur et se charge de mettre en \oe uvre les décisions primitives et de générer les interactions primitives énactées en contrôlant les effecteurs et surveillant l'état des capteurs. 
-Dans le cas d'un environnement simulé, un cycle du couplage primitif correspond à un cycle du DDS. 
-Dans le cas d'un robot, chaque cycle du couplage primitif peut correspondre à la mise en \oe uvre d'une boucle sensorimotrice impliquant des cycles du DDS rapides. 
-
-
+La fine ligne grise représente le \emph{couplage primitif} entre le \emph{système cognitif} (au dessus) et le \emph{contrôleur primitif} (en dessous). % qui énacte les interactions primitives.
 
 \begin{figure}[ht]
 	\centering
@@ -461,10 +456,18 @@ Dans le cas d'un robot, chaque cycle du couplage primitif peut correspondre à l
 	\label{fig:couplage}
 \end{figure}
 
+
 Le \emph{couplage cognitif} sépare le système de décisions (en haut de la Fig.~\ref{fig:couplage}) du système de contrôle des interactions composites (en dessous). 
 Un cycle du couplage cognitif correspond à autant de cycles du couplage primitif qu'il y a d'interactions primitives énactées pour effectuer la décision composite.
 Au fur et à mesure que l'agent apprend des décisions et des interactions composites de plus haut niveau, il base ses décisions sur un contexte plus long et prend des décisions qui l'engagent à plus long terme. 
 Cela signifie que le couplage cognitif s'élève progressivement, ce qui constitue une réponse à la question de l'évolution du couplage structurel formulé par la théorie de l'énaction (Section~\ref{sec:enaction}) et illustrée en Figure \ref{fig:enaction}.
+
+
+Le contrôleur primitif est pré-programmé pour mettre en \oe uvre la décision primitive, piloter une boucle de contrôle qui active les effecteurs en surveillant les capteurs, et finalement générer l'interaction primitives énactées. 
+Lorsque l'agent pilote un robot, chaque cycle du couplage primitif peut ainsi correspondre à une boucle sensorimotrice impliquant de nombreux cycles \an{output} -- \an{input} du DDS très rapides. 
+Le signal en provenance des capteurs intervient alors comme une perturbation de cette boucle de contrôle, qui rejoint un des principes de la théorie de l'inférence active évoquée en Section \ref{sec:active_inference}.
+Lorsque l'agent interagit avec un environnement simulé, ce principe est simplifié par le fait que l'environnement peut lui-même interpréter la décision de l'agent.  
+Dans ce cas, un cycle du couplage primitif correspond à un cycle \an{output} -- \an{input} du DDS, comme nous allons le voir dans des exemples. 
 
 
 
@@ -476,9 +479,13 @@ Cette section présentent trois expérimentations significatives réalisées ave
 La seule différence au niveau du \an{software} de l'agent se situe au niveau de leurs contrôleurs primitifs qui implémentent des boucles sensorimotrices différentes. 
 Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
 
-Dans le cas des expérimentations en environnement simulé, les interactions primitives correspondent à des couples \schema{\emph{décision}, \an{input}}, dans lequel l'\an{input} est un signal sensoriel non représentationnel transmis de l'environnement à l'agent.
-Dans le cas des robots, les interactions primitives sont générées à partir de boucles \an{output}--\an{input} qui seront détaillées en Section \ref{sec:sequentiel-robotique}.
-%Il fonctionne également directement pour contrôler des robots dans le monde physique comme je l'explique à la fin de cette section. 
+Dans le cas des expérimentations en environnement simulé, chaque interaction primitive correspond à un couples \schema{\an{decision}, \an{outcome}}. 
+La décision de l'agent est transmise à l'environnement via l'\an{output} du DDS.
+L'environnement simule les effets de cette décision puis il génère un résultat appelé \an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
+Cet \an{outcome} est une rétroaction non représentatinnelle résultant de la décision. 
+Il ne reste plus au contrôleur primitif qu'a associer la décision avec le résultat pour produire l'interaction primitive énactée $i=$ \schema{\an{decision}, \an{outcome}}.
+
+%Dans le cas des robots, les interactions primitives sont générées à partir de boucles \an{output}--\an{input} qui seront détaillées en Section \ref{sec:sequentiel-robotique}.
 
 \subsection{Expérimentation du \emph{Small Loop Challenge}}
 \label{sec:small-loop}
@@ -506,8 +513,8 @@ L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'av
 
 Le Tableau \ref{tab:small_loop} indique les 10 interactions possibles et leurs valences. 
 Les décisions \texttt{turn left} et \texttt{turn right} correspondent chacune à une interaction.
-Les autres décisions peuvent donner lieu à deux interactions différentes selon que l'agent interagit avec une cellule vide ou un mur, différentiés par un \an{input} de 1 bit.
-Cet \an{input} constitue un signal sensoriel non représentationnel dans la mesure ou ce n'est pas nécessairement la même valeur du bit qui indique un mur ou une cellule vide d'une interaction à l'autre.
+Les autres décisions peuvent donner lieu à deux interactions différentes selon que l'agent interagit avec une cellule vide ou un mur, différentiés par un \an{outcome} de 1 bit.
+Cet \an{outcome} constitue un signal sensoriel non représentationnel dans la mesure ou ce n'est pas nécessairement la même valeur du bit qui indique un mur ou une cellule vide d'une interaction à l'autre.
 
 
 \begin{table}[h!]
@@ -573,9 +580,9 @@ Nous avons retenu deux principes :
 	\item Les tendances comportementales : quand elle voit une limule femelle avec ses yeux à facettes, la limule mâle s'en approchent alors que la limule femelle s'en éloigne.
 \end{itemize}
 
-A partir de cette inspiration, nous avons modélisé les interactions sur la base de trois décisions et sept \an{inputs} possibles. 
+A partir de cette inspiration, nous avons modélisé les interactions sur la base de trois décisions et sept \an{outcomes} possibles. 
 Les trois décisions sont: \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner de 90° à gauche ou à droite.
-Les sept \an{inputs} sont: 
+Les sept \an{outcomes} sont: 
 \texttt{stable}: la cible reste de taille apparente constante, 
 \texttt{increase left}, 
 \texttt{increase front}, 
@@ -626,7 +633,7 @@ L'agent dispose maintenant de six décisions possibles : \texttt{move forward}: 
 
 
 Il y a cinq \an{inputs} possibles: \texttt{stable}, \texttt{decrease}, \texttt{increase}, \texttt{bump}, \texttt{eat}.
-Les \an{inputs} \texttt{stable}, \texttt{decrease} et \texttt{increase} indiquent une variation d'odeur entre la cellule reniflée et la cellule où se situe l'agent dans le cas des décisions \texttt{sniff}, ou liée au déplacement de l'agent dans le cas où il avance ou tourne.
+Les \an{outcomes} \texttt{stable}, \texttt{decrease} et \texttt{increase} indiquent une variation d'odeur entre la cellule reniflée et la cellule où se situe l'agent dans le cas des décisions \texttt{sniff}, ou liée au déplacement de l'agent dans le cas où il avance ou tourne.
 Renifler un mur produit toujours \texttt{decrease}.
 A la différence de la limule, les \an{inputs} n'indiquent pas si la cible est à droite ou à gauche; l'agent doit donc utiliser les interactions de reniflage pour le savoir. 
 
@@ -890,7 +897,7 @@ P%ar exemple, si le robot heurte un obstacle lors de l'enaction d'une interactio
 Cette expérimentation place un agent contrôlé par ECA dans l'environnement du \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop}.
 Elle vise à mettre en évidence le processus de construction des \an{bundles}.
 
-L'agent possède les mêmes interactions primitives que précédement mais elles sont complétées par leurs positions $\epsilon$ et leurs isométries $\iota$ indiquées dans le Tableau \ref{tab:small_loop_spatial}.
+L'agent possède les mêmes interactions primitives que précédemment mais elles sont complétées par leurs positions $\epsilon$ et leurs isométries $\iota$ indiquées dans le Tableau \ref{tab:small_loop_spatial}.
 Les positons $\epsilon$ définissent le \emph{modèle corporel} de l'agent (\an{body model}), et les isométries $\iota$ son \emph{modèle de déplacement} (\an{displacement model}).
 Cette expérimentation n'étudie pas comment ces deux modèles peuvent être construits par l'agent lui-même. 
 Ils sont codés par l'expérimentateur à l'initialisation. 
@@ -953,28 +960,36 @@ Enfin, se pose la question de savoir comment l'agent pourrait apprendre de mani�
 \subsection{Expérimentation des requins}
 
 \noindent
-Cette expérimentation examine comment générer des comportements plus sophistiqués dans un environnement dynamique et continu contenant différents types d'objets.
-Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA, et ajouté un \emph{mécanisme attentionnel}.
+Cette expérimentation examine la génération de comportements plus sophistiqués dans un environnement dynamique et continu contenant des objets hétérogènes.
+Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA en y ajoutant une \emph{mécanisme attentionnel}.
 
-La Figure~\ref{fig:requins} présente les conditions expérimentales.
+La Figure~\ref{fig:requins} illustre les conditions expérimentales.
+%L'environnement comprend deux agents ECA (les requins gris), des murs (cellules pleines pouvant arborer des parties colorées identifiables), des cibles mobiles (poissons bleus se 
+déplaçant en ligne droite et changeant de direction au contact d'un mur), ainsi que des algues (les \og trèfles \fg), repères visuels que les agents peuvent traverser.
 Les deux requins gris sont des agents contrôlés par ECA.
 Les cellules pleines sont des murs qui peuvent contenir des parties colorées identifiables par les agents.
 Le poissons bleus sont des cibles mobiles qui se déplacent en ligne droite et changent de direction quand ils rencontrent un mur.
 Les \og trèfles \fg\ sont des algues identifiables visuellement que les requins peuvent traverser.  
 
 Les agents disposent de trois actions qui simulent des battements de nageoires : \texttt{impulse forward}, \texttt{impulse leftward}, \texttt{impulse rightward}. 
-La position et la direction de l'agent sont régis par une loi de frottement fluide qui fait qu'il ralentit progressivement après chaque battement de nageoire sans pour autant s'arrêter avant le coup de nageoire suivant.
-Les impulsions vers l'avant le déplacent d'environ une unité et chaque impulsion de rotation le fait tourner d'environ $\pi / 4$.
-L'agent reçoit des \an{inputs} identiques à ceux de la limules \texttt{increase}, \texttt{decrease}, \texttt{stable}, \texttt{bump}, \texttt{eat}, auxquels viennent s'ajouter un signal de couleur de l'objet sur lequel l'agent porte son attention.
+Leur déplacement est régi par une loi de frottement fluide : après chaque impulsion, l'agent ralentit progressivement sans s'arrêter avant le coup de nageoire suivant. 
+L'impulsion vers l'avant produit un déplacement d'environ une unité, et les impulsions de rotation engendrent une rotation d'environ $\pi/4$.
+%La position et la direction de l'agent sont régis par une loi de frottement fluide qui fait qu'il ralentit progressivement après chaque battement de nageoire sans pour autant s'arrêter avant le coup de nageoire suivant. Les impulsions vers l'avant le déplacent d'environ une unité et chaque impulsion de rotation le fait tourner d'environ $\pi / 4$.
+%L'agent reçoit des \an{inputs} identiques à ceux de la limules \texttt{increase}, \texttt{decrease}, \texttt{stable}, \texttt{bump}, \texttt{eat}, auxquels viennent s'ajouter un signal de couleur de l'objet sur lequel l'agent porte son attention.
 
-L'attention de l'agent est attirée par les objets saillants présents dans son champ visuel: poisson, autre agent, mur coloré ou algue.
-Au début, son attention se porte sur l'objet le plus proche et l'agent apprend un comportement d'approche comme dans l'expérimentation de la limule. 
+Les \an{outcomes} sensoriels reprennent ceux de la limule : \texttt{increase}, \texttt{decrease}, \texttt{stable}, \texttt{bump}, \texttt{eat}.
+Cette expérimentation y ajoute un \emph{signal de couleur} correspondant à l'objet sur lequel l'agent porte son attention.
+
+
+L'attention de l'agent est attirée par les objets saillants de son champ visuel: poisson, autre agent, mur coloré ou algue.
+Au début, l'agent se focalise sur l'objet le plus proche et apprend un comportement d'approche comme dans l'expérimentation de la limule. 
 Quand l'objet est atteint, un \an{bundle} est crée qui associe le signal de couleur de cet objet avec d'autres interactions qu'il afforde: \interaction{impulse forward, bump} pour les murs, \interaction{impuse forward, eat} pour les poissons, \interaction{impulse forward, empty} pour les algues. 
-Nous avons également ajouté une interaction \interaction{impulse forwar, cuddle} de valence positive quand l'agent se frotte contre un autre agent.
+Une interaction \interaction{impulse forward, cuddle}, de valence positive, est également introduite lorsque l'agent se frotte contre un congénère.
+%Nous avons également ajouté une interaction \interaction{impulse forwar, cuddle} de valence positive quand l'agent se frotte contre un autre agent.
 
-Une fois les \an{bundles} créés, l'agent porte préférentiellement son attention sur les objets qui affordent des interactions qui ont une valence positive. 
-Ainsi, l'agent apprend à chasser les poissons quand il les voit et à interagir avec l'autre agent comme s'il voulait jouer avec lui.
-
+Une fois les \an{bundles} constitués, le mécanisme attentionnel attribue l'attention aux objets qui affordent des interactions ayant les valences les plus élevées. 
+L'agent apprend ainsi à éviter les murs sur lesquels ils se cogne et à chasser les poissons qu'il peut manger. 
+Les deux agents tendent aussi à se rapprocher l'un de l'autre ce qui génère une forme de comportement ludique.
 
 
 
@@ -984,23 +999,22 @@ Ainsi, l'agent apprend à chasser les poissons quand il les voit et à interagir
 	\includegraphics[width=0.6\textwidth]{Figures/4_sharks.png}
 	\caption{Environnement continu dynamique. 
 		Requins en bas à gauche: agents ECA.
-		Poissons bleus: cibles.
+		Poissons bleus: cibles mobiles.
 		Cellules vert-foncées: murs.
 		Cellules colorées: éléments de murs identifiable.
-		Trèfles: algues identifiables pouvant être traversées.}
+		Trèfles: algues traversables et identifiables visuellement.}
 	\label{fig:requins}
 \end{figure}
 
-Cette expérimentation a été rapportée avec plus de détails dans un article de Simon Gay avec Jong Kim \cite{gay_implementing_2012}. 
-Nous avons utilisé une approche similaire dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark}. 
-L'agent disposait d'un mécanisme motivationnel plus sophistiqué qui lui faisait porter son attention sur des objets servant de point de repère successifs pour retrouver son chemin \cite[\an{Early-Stage Vision of Composite Scenes for
-	Spatial Learning and Navigation}]{georgeon_early-stage_2011}. 
-Avec Mathieu Guillermin, nous l'avons utilisée comme exemple dans un article récent \cite{guillermin_artificial_2022}.
+Cette expérimentation a été décrite en détail dans un article de Simon Gay avec Jong Kim \cite{gay_implementing_2012}. 
+Une approche similaire a été mise en \oe uvre dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark}. 
+L'agent disposait d'un mécanisme motivationnel plus élaboré qui lui faisait porter son attention sur des objets servant de point de repère successifs pour retrouver son chemin \cite[\an{Early-Stage Vision of Composite Scenes for Spatial Learning and Navigation}]{georgeon_early-stage_2011}. 
+Cet exemple a également été repris dans un article plus général co-écrit avec Mathieu Guillermin \cite{guillermin_artificial_2022}.
 
 Cette expérimentation introduit des signaux sensoriels représentationnels, les signaux de couleur, qui viennent s'ajouter aux événements d'interaction non représentationnels. 
 Elle illustre que les modèles EDP et SEDP ne sont pas incompatibles avec des signaux sensoriels représentationnels. 
-L'usage de ces signaux est étroitement lié au mécanisme attentionnel qui est impliqué dans la reconnaissance d'objets et la sélection des comportements.
-Le mécanisme d'attention, associé aux valences motivationnelles joue un rôle crucial dans l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme les théories de présentées en Section~\ref{sec:attention} le suggèrent.
+L'usage de ces signaux s'avère étroitement lié au mécanisme attentionnel pour lier la reconnaissance d'objets et la sélection des comportements.
+Le couplage entre le mécanisme d'attention et le système motivationnel basé sur les valences permet l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme les théories de présentées en Section~\ref{sec:attention} le suggèrent.
 
 
 

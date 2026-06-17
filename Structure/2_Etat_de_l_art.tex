@@ -1140,6 +1140,8 @@ Plus tard, le mécanisme associe l'item synthétique \an{PalpableObjectAt(1,3)} 
 
 Drescher a fait un travail remarquable en illustrant pour la première fois une des questions fondamentale de l'apprentissage constructiviste: comment un agent peut-il construire une connaissance des objets qui l'entourent à partir de régularités de schèmes d'interaction.
 En particulier il a mis en évidence l'importance de permettre à l'agent de pouvoir recueillir des expériences contrefactuelles, au cours d'un cycle de formation d'hypothèses, de test, et d'une décision d'acceptation ou de rejet. 
+Tout au long de son livre, il insiste sur l'importance du facteur de \an{reliability} des schémas. 
+Il utilise ce facteur pour guider les décisions de son agent d'une façon que nous pouvons interpréter comme une forme de motivation interne implémentée par une \emph{heuristique de recherche de fiabilité}. 
 
 Selon moi, ce mécanisme de schéma souffre d'une limite importante qui tient au fait que ses items primitifs représentent des propriétés prédéfinies de l'état du monde. 
 Il écrit \og \an{each item represents some condition in the world} \fg\ \cite[p.~5]{drescher_made-up_1991}, présupposant ainsi un monde déjà structuré avec des états et des propriétés identifiables.
@@ -1291,14 +1293,19 @@ La notion de réiteration de \an{stream of behavior} introduite par LIDA ouvre l
 \subsection{Réitération de séquences sensorimotrices}
 
 \noindent
-Felix Woolford et Matthew Egbert ont proposé un travail innovant sur la modélisation de la \emph{prise d'habitudes} chez des agents artificiels.
-Ils s'appuient sur la théorie de l'énaction présentée en Section \ref{sec:enaction} pour soutenir que la capacité à développer des habitudes d'interaction avec l'environnement est une capacité fondamentale de la cognition;
-elle mérite d’être étudiée au moyen de simulations informatiques, au même titre que les capacités de résolution de problèmes plus classiquement étudiées.
-La difficulté réside dans le fait qu'une habitude ne peut pas être réduite à une simples séquence d'actions mémorisée puis répétée.
+Certains auteurs se sont appuyés sur la théorie de l'énaction présentée en Section \ref{sec:enaction} pour soutenir que la capacité à développer des habitudes d'interaction avec l'environnement constitue une dimension fondamentale de la cognition, méritant d’être étudiée par la simulation informatique au même titre que les capacités de résolution de problèmes plus classiquement explorées.
+La difficulté tient au fait qu'une habitude ne peut être réduite à une simples séquence d'actions mémorisée puis répétée.
 Elle implique des boucles de contrôle sensorimotrices exploitant les régularités du couplage dynamique entre l’agent et son environnement.
+Parmi ces auteurs, Pierre De Loor, Kristin Manac'h, et Jacques Tisseau ont proposé un agent capable d'apprendre des habitudes conjointes avec un utilisateur humain.
+Selon eux, cette double prise d'habitudes permet une co-évolution du couplage structurel, propriété importante d'une approche de l'intelligence artificielle fondée sur l'énaction. 
+Felix Woolford et Matthew Egbert ont quant à eux proposé le \an{Sensorimotor Sequence Reiterator (SSR)} qui constitue un exemple emblématique d'un mécanisme de prise d'habitude chez en agent artificiel. 
+Cette section en présente une vue d'ensemble.
+
 %Pour répondre à cette difficulté, ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)}.
 % comme mécanisme permettant à un agent artificiel de stabiliser et de réitérer des séquences d’interactions sensorimotrices \cite{woolford_precarious_2020}.
-Ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} pour rendre compte de ce processus.
+%Felix Woolford et Matthew Egbert ont proposé un travail innovant sur la modélisation de la \emph{prise d'habitudes} chez des agents artificiels.
+%Ils ont proposé le \an{Sensorimotor Sequence Reiterator (SSR)} pour rendre compte de ce processus.
+
 
 Le SSR enregistre l’historique des décisions prises par l'agent et des signaux sensoriels reçus en retour.
 A chaque instant, il compare l’historique récent avec l’ensemble de l’historique mémorisé afin d’identifier des séquences similaires déjà rencontrées. 
@@ -1399,7 +1406,29 @@ La revue des systèmes de représentations spatio-temporelles du cerveau de la S
 
 \section{Conclusion (en cours de construction)}
 
+
+Parler de l'importance d'avoir une gamme d'heuristiques motivationnelles, telle que celle de Drescher consistant à répéter les schémas reproductibles pour les tester et les valider ou les rejeter.
+L'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) est au c\oe ur du mécanisme de schema de Drescher. 
+Une heuristique d'ennui peut etre associée à une forme de motivation hétérostatique comme sugéré par Oudeyer.
+
+La théorie de l'enaction a donné lieu à des expérimentations d'ia (e.g., de loor) mais elles restent de bas niveau. 
+Ils citent ”en habitus deposition” (Husserl, 1938) 
+
+Malgré l'existence de recherche sur l'intelligence artificielle développementale, et de tentatives d'application en robotique, on peut dire que cette recherche n'a pas encore completement réglé la question du premier stade identifié par Piaget: la maitrise de l'appareil sensorimoteur. 
+
+La discussion sur l'ancrage de la signification dans l'expérience laisse penser qu'il est important que toute connaissance soit raccordée à des schèmes sensorimoteurs à travers une construction impliquant possiblement des niveaux d'abstractions différents. 
+J'en conclus que \og il n'y a pas de raccourci vers l'intelligence artificielle  \fg\. 
+Cet argument du ``no shortcut to AI'' a été prononcé oralement à la conférence BICA mais ne semble pas avoir été argumenté solidement par écrit. 
+Il existe des études qui s'intéressent à des stades plus élevés du développement cognitif, par exemple l'acquisition du language, mais le langage appris n'est pas véritablement ancré dans l'expérience sensorimotrices. 
+
+\an{Developmental robotics, optimal artificial curiosity, creativity, music, and the fine arts} \cite{schmidhuber_developmental_2006}
+
+\an{Developmental Robotics: From Babies to Robots} \cite{cangelosi_developmental_2015}
+
+
+
 La notion \emph{d'événement d'interaction valué} est centrale. 
+Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
 
 Citer Banafsheh Rafiee et  Richard Sutton \an{Toward enactive artificial intelligence} (2026)

@@ -1,17 +1,15 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Vers une robotique développementale}
+\chapter{Vers une robotique développementale (en construction)}
 \label{chap:perspective}
-
-\an{Developmental robotics, optimal artificial curiosity, creativity, music, and the fine arts} \cite{schmidhuber_developmental_2006}
-
-\an{Developmental Robotics: From Babies to Robots} \cite{cangelosi_developmental_2015}
-
-The study of robot consciousness will thus shift the focus from internal processes and structures to the analysis of the ontogenetic and epigenetic relations that a body develops and maintains with the external world during its life. Methodologies of developmental robotics will be a valuable help in this effort. \cite{manzotti_good_2018}
 
 % Cette section pourrait etre incluse dans la précédente "Apprentissage spatio-séquentiel".
 
+
 Ce chapitre examine comment les mécanismes de schema spatiaux pourraient trouver des applications en robotique. 
+Il nous a conduit à mettre en place des euristiques motivationnelles plus complexes 
+
+
 Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
 Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néammoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
 L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
@@ -19,12 +17,77 @@ L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage
 
 \section{Inférence de structures spatiales}
 
+Introduction en construction
+
+Cette section rapporte des études que nous avons menées sur des agents modélisés dans le cadre de l'EDP, pour examiner comment ils pourraient découvrir la structure spatiale de leur environnement. 
+Le but de ces études est de trouver des principes généraux qui permettraient l'émergence d'une architecture spatiale comme ECA sans quelle soit codée en dur comme nous l'avons fait dans le cadre de SEDP détaillé en Section~\ref{sec:couplage_spatial}. 
+
+comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes plus généde plus bas niveau, et quels seraient ces principes. 
+
+\subsubsection{Construction autonome d'un modèle causal spatial}
+
+\noindent
+Un travail exploratoire a été réalisé par Jianyong Xue \cite[\an{Causality reconstruction by an autonomous agent}]{xue_causality_2019}.
+L'agent était placé dans un environnement pouvant présenter un objet à sa droite et un autre à sa gauche. 
+Il était doté d'une mémoire spatiale rudimentaire contenant deux emplacements, chacun pouvant prendre trois états possibles.  
+Le but de cette expérimentation était de concevoir un agent capable d'utiliser cette mémoire pour contenir une représentation explicite de la présence d'un objet à sa droite ou à sa gauche afin de pouvoir prédire les conséquences de ses décisions.
+
+Inspiré de l'expérimentation du \an{Small Loop Challenge}, l'agent disposait de cinq décisions \texttt{feel right}, et \texttt{feel left} pour toucher à droite et à gauche, \texttt{change right} et \texttt{change left} pour supprimer ou faire apparaitre un objet. 
+La décision \texttt{feel front} permettait de toucher simultanément à droite et à gauche et renvoyait un outcome lié au nombre d'objets touchés:  0, 1 ou 2.
+Comme dans les expérimentations précédentes, l'agent ignorait la signification de ces décisions et \an{outcomes}.
+Les valences de toutes les interactions étaient à zéro.
+
+L'agent a pu apprendre à utilise les deux emplacements de sa mémoire spatiale pour représenter sa connaissance ou non des états possibles de son environnement. 
+Il utilisait un des emplacements pour représenter sa gauche, l'autre sa droite. 
+Un des états pour représenter qu'il ignorait l'état de l'environnement correspondant, un autre état pour représenter la connaissance de la présence d'un mur, et le troisième la connaissance d'un vide. 
+Les différentes combinaisons de ces états forment les n\oe uds dans un graphe de connaissance. 
+Une fois ces n\oe uds appris, l'agent apprend les transitions associées à l'énaction de certaines interaction. 
+La Figure~\ref{fig:causal} représente une partie du graphe qui fonctionne comme un réseau de Petri: l'agent représente sa situation courante par un jeton placé sur un n\oe ud de ce graphe qui lui permet de prédire les résultats de ses décisions.
+Ce graphe est une sorte de graphe d'habitudes au même titre que celui de Wookford en Figure~\ref{fig:ssr}.
+
+ 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{Figures/3_causal.pdf}
+	\caption{Réseau de Petri représentant la structure causale \cite[Fig.~3]{xue_causality_2019}.
+		Rectangles blancs: n\oe uds du réseau.
+		Arcs: transitions d'état associées à des interactions.}
+	\label{fig:causal}
+\end{figure}
+
+Une forme d'heuristique de recherche de fiabilité a été utilisée pour implémenter la motivation de l'agent. 
+Elle a été associée à une heurisitique d'ennui qui poussait l'agent à essayer d'autres décisions quand les conséquences d'une décision devenait trop prédictible.
+L'agent commençait par repérer les interactions qui pouvaient être répétée indéfiniment. 
+Lorsqu'il en trouvait une, il l'associait à un emplacement de sa mémoire spatiale, implémentant ainsi l'hypothèse que cette interaction était affordée par un objet présent dans l'environnement.
+Une fois certains n\oe uds construits, l'agent consruisait les arcs en leur associant les interactions permettant les transitions d'état correspondants. 
+%Ensuite il recherchait des intéreractions composites qui pouvaient être répétées indéfiniment.
+
+Cette expérimentation suggère que même dans une situation rudimentaire, l'apprentissage de l'usage d'une mémoire spatiale nécessite que des présupposés soient implémentés dans l'agent, en particulier des heuristiques comportementales associées à des traitements spécifiques pour interpréter les régularités observées et une structure de la mémoire qui soit adaptée à la complexité des situations que l'agent peut rencontrer. 
+La question de savoir comment extraire des principes généraux permettant de construction d'une mémoire spatiale dans des configurations plus complexes reste ouverte.
+
+
+
+\subsubsection{Construction d'une mémoire spatiale}
+
+Cette expérimentation propose une abstraction du problème d'apprentissage des structures spatiales par un agent dans le cadre du EDP. 
 
 L'article ``\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}'' \cite{gay_autonomous_2017} présente comment l'agent peut inférer la structure de l'espace à partir de ses expériences d'interaction.
 
 
 
+
+
+
+
 \section{Le projet PetitCat}
+
+Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
+
+
+Nous avons besoin de schémas qui ne capturent pas seulement des séquences d'interactions, mais qui capturent plus généralement des organisation spatio-temporelles d'interactions. 
+Pour cela nous conservons la notions de \emph{variable libres} dans les schémas qui peuvent être renseignées au moment de leur tentative d'énaction en fonction de l'état de différents modèles mentaux de l'agent. 
 
 \subsection{Game Engine In The Head}
 
@@ -67,9 +130,8 @@ La Figure \ref{fig:Petitcat} montre le robot Petitcat.
 \end{figure}
 
 
-``\an{Simultaneous Localisation and Phenomenon Inference}'' {pmlr-v192-georgeon22a}.
+ \cite[\an{Simultaneous Localisation and Phenomenon Inference}]{georgeon_simultaneous_2022}.
 
-\cite{georgeon_simultaneous_2022}
 
 \begin{figure}[htbp]
 	\centering
@@ -89,6 +151,8 @@ La Figure \ref{fig:Petitcat} montre le robot Petitcat.
 
 
 \subsection{Apprentissage ludique}
+
+
 
 
 \subsection{Place cells}

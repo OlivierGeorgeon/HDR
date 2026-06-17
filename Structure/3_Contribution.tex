@@ -886,10 +886,11 @@ La création, la mise à jour, l'évocation, et la suppression de bundle erroné
 
 
 \section{Expérimentations en couplage spatial}
+\label{sec:couplage_spatial}
 
 Introduction en construction
 
-P%ar exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
+%Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
 
 \subsection{Spatial Small loop Challenge}
 
@@ -1033,8 +1034,13 @@ La reiteration de séquences sensorimotrices permet de parler d'auto programmati
 Ron Sun réutilise la notion de \og \an{representational redescription} \fg\ proposée par Annette Karmiloff-Smith \cite{karmiloff-smith_meta-processes_1986}.
 \an{Here I take the more ``eclectic'' proposition that acknowledge representation is important while maintaining that it is mediated by direct comportement} \cite[p.~10]{sun_symbol_2000}
 
+Le mécanisme de construction de \an{bundles} d'ECA introduit une forme d'engagement à la causalité. 
+ECA cherche à expliquer la cause des interactions par l'hypothèse qu'un objet est présent à une certaine position de l'environnement.
 
-L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives.
-Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme. 
-Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
+Le fait de complémenter le mécanisme de schéma par une mémoire spatiale pause un problème majeur: on perd  la récursivité d'apprentissage des séquences de plus haut niveau.  
+
+L'interaction avec des environnements plus complexes nécessite de mettre en place un système de motivation qui ne repose pas uniquement sur la valence des interactions mais qui implémente des heuristiques inspirées du vivant. 
+
+
+%L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives. Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme.  Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
 

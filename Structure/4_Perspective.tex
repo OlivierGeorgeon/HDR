@@ -43,7 +43,7 @@ Un des états pour représenter qu'il ignorait l'état de l'environnement corres
 Les différentes combinaisons de ces états forment les n\oe uds dans un graphe de connaissance. 
 Une fois ces n\oe uds appris, l'agent apprend les transitions associées à l'énaction de certaines interaction. 
 La Figure~\ref{fig:causal} représente une partie du graphe qui fonctionne comme un réseau de Petri: l'agent représente sa situation courante par un jeton placé sur un n\oe ud de ce graphe qui lui permet de prédire les résultats de ses décisions.
-Ce graphe est une sorte de graphe d'habitudes au même titre que celui de Wookford en Figure~\ref{fig:ssr}.
+Ce graphe est une sorte de graphe d'habitudes au même titre que celui de Woolford en Figure~\ref{fig:ssr}.
 
  
 
@@ -72,12 +72,35 @@ La question de savoir comment extraire des principes généraux permettant de co
 \subsubsection{Construction d'une mémoire spatiale}
 
 Cette expérimentation propose une abstraction du problème d'apprentissage des structures spatiales par un agent dans le cadre du EDP. 
-
 L'article ``\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}'' \cite{gay_autonomous_2017} présente comment l'agent peut inférer la structure de l'espace à partir de ses expériences d'interaction.
 
+Dans cette experimentation, l'agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
+La décision \texttt{move forward} pouvait générer les \an{outcome} \texttt{empty}, et \texttt{bump}, ou \texttt{eat}, résultant en une interaction de valences 5, -10 et 50. 
+Les décisions \texttt{turn} généraient une interaction de valence -3. 
+
+Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement, telle qu'une image, L'EDP permet à l'agent de recevoir une structure de données complexe représentant de nombreux événements. 
+Dans cet expérimentation, l'agent recevait une structure de donnée complexe représentent des événements de flux optiques générés par des éléments saillants de l'environnement. 
+Chaque événement de flux optique prenait la forme d'un tuple $(c, \theta, v)$ dans lequel c représentait la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ sa position dans le champ visuel, et $v$ une indication de la vitesse angulaire de ce point dans le flux optique au cours de ce cycle d'interaction. 
 
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Figures/3_simon_spatial.pdf}
+	\caption{Représentation de l'espace par des séquences d'interaction  \cite[Fig~7.2]{gay_mecanismes_2014}.}
+	\label{fig:simon_spatial}
+\end{figure}
 
+
+L'agent apprend en parallèle un modèle d'objets et un modèle d'espace. 
+Le modèle d'objet est construit en regroupant toutes les interactions composites qui mènent à l'objet. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/3_robot_simon.jpg}
+	\caption{Robot \cite{gay_autonomous_2014}.}
+	\label{fig:robot_simon}
+\end{figure}
 
 
 

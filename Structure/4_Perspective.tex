@@ -19,68 +19,92 @@ L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage
 
 Introduction en construction
 
-Cette section rapporte des études que nous avons menées sur des agents modélisés dans le cadre de l'EDP, pour examiner comment ils pourraient découvrir la structure spatiale de leur environnement. 
-Le but de ces études est de trouver des principes généraux qui permettraient l'émergence d'une architecture spatiale comme ECA sans quelle soit codée en dur comme nous l'avons fait dans le cadre de SEDP détaillé en Section~\ref{sec:couplage_spatial}. 
 
-comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes plus généde plus bas niveau, et quels seraient ces principes. 
+Cette section rapporte des études que nous avons menées sur des agents modélisés dans le cadre de l'EDP, pour examiner comment ils pourraient découvrir la structure spatiale de leur environnement. 
+Ces études constituent des abstraction du problème d'apprentissage des structures spatiales par un agent dans le cadre du EDP. 
+Leur but est de trouver des principes généraux qui permettraient l'émergence d'une architecture spatiale comme ECA sans quelle soit codée en dur comme nous l'avons fait dans le cadre de SEDP détaillé en Section~\ref{sec:couplage_spatial}. 
+
+comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes de plus bas niveau, et quels seraient ces principes. 
 
 \subsubsection{Construction autonome d'un modèle causal spatial}
 
 \noindent
 Un travail exploratoire a été réalisé par Jianyong Xue \cite[\an{Causality reconstruction by an autonomous agent}]{xue_causality_2019}.
-L'agent était placé dans un environnement pouvant présenter un objet à sa droite et un autre à sa gauche. 
-Il était doté d'une mémoire spatiale rudimentaire contenant deux emplacements, chacun pouvant prendre trois états possibles.  
-Le but de cette expérimentation était de concevoir un agent capable d'utiliser cette mémoire pour contenir une représentation explicite de la présence d'un objet à sa droite ou à sa gauche afin de pouvoir prédire les conséquences de ses décisions.
+L'agent était placé dans un environnement susceptible de présenter un objet à sa droite et un autre à sa gauche. 
+Il était doté d'une mémoire spatiale rudimentaire contenant deux emplacements, chacun pouvant prendre trois valeurs distinctes.  
+Le but de cette expérimentation était d'étudier les mécanismes nécessaires pour permettre à l'agent d'apprendre à exploiter cette mémoire pour construire une représentation explicite de l'état de l'environnement sur la base des régularités observées dans son flux d'interaction. 
 
 Inspiré de l'expérimentation du \an{Small Loop Challenge}, l'agent disposait de cinq décisions \texttt{feel right}, et \texttt{feel left} pour toucher à droite et à gauche, \texttt{change right} et \texttt{change left} pour supprimer ou faire apparaitre un objet. 
 La décision \texttt{feel front} permettait de toucher simultanément à droite et à gauche et renvoyait un outcome lié au nombre d'objets touchés:  0, 1 ou 2.
 Comme dans les expérimentations précédentes, l'agent ignorait la signification de ces décisions et \an{outcomes}.
 Les valences de toutes les interactions étaient à zéro.
 
-L'agent a pu apprendre à utilise les deux emplacements de sa mémoire spatiale pour représenter sa connaissance ou non des états possibles de son environnement. 
-Il utilisait un des emplacements pour représenter sa gauche, l'autre sa droite. 
-Un des états pour représenter qu'il ignorait l'état de l'environnement correspondant, un autre état pour représenter la connaissance de la présence d'un mur, et le troisième la connaissance d'un vide. 
-Les différentes combinaisons de ces états forment les n\oe uds dans un graphe de connaissance. 
-Une fois ces n\oe uds appris, l'agent apprend les transitions associées à l'énaction de certaines interaction. 
-La Figure~\ref{fig:causal} représente une partie du graphe qui fonctionne comme un réseau de Petri: l'agent représente sa situation courante par un jeton placé sur un n\oe ud de ce graphe qui lui permet de prédire les résultats de ses décisions.
-Ce graphe est une sorte de graphe d'habitudes au même titre que celui de Woolford en Figure~\ref{fig:ssr}.
-
- 
+Xue a mis en place une motivation reposant sur une heuristique de recherche de fiabilité rappelant celle implémentée par Drescher (Sec.~\ref{sec:drescher}), couplée à une heuristique d'ennui.
+L'heuristique de recherche de fiabilité poussait l'agent à répéter des décisions qui entrainaient toujours les mêmes interactions primitives, jusqu'à ce que l'heuristique d'ennui le pousse à changer de décision. 
+Lorsqu'il trouvait une interaction répétable, il l'associait à une valeur prise par un emplacement de sa mémoire spatiale, implémentant ainsi l'hypothèse que cette interaction était affordée par un objet présent dans l'environnement, et que cette valeur pouvait représenter cet objet.
+L'agent construisait un graphe de connaissance dont les n\oe uds correspondait à des états uniques de la mémoire spatiale. 
+Il construisait ensuite les arcs de ce graphe en leur associant les interactions permettant les transitions d'état correspondants. 
+Il utilisait ensuite ce graphe comme un réseau de Petri dans lequel la sitaution courante était marquée par un jeton placé sur un n\oe ud.
+L'expérimentation a montré qu'au bout de 350 cycles d'interaction l'agent a pu construire un graphe complet pour représenter la dynamique de son complage avec l'environnement. 
+La Figure Figure~\ref{fig:causal}  en donne une représentation partielle. 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/3_causal.pdf}
-	\caption{Réseau de Petri représentant la structure causale \cite[Fig.~3]{xue_causality_2019}.
-		Rectangles blancs: n\oe uds du réseau.
+	\caption{Réseau de Petri représentant la structure causale construite par l'agent pour expliquer la dynamique de ses interactions \cite[Fig.~3]{xue_causality_2019}.
+		Rectangles blancs: n\oe uds du réseau représentant des états de l'environnement.
 		Arcs: transitions d'état associées à des interactions.}
 	\label{fig:causal}
 \end{figure}
 
-Une forme d'heuristique de recherche de fiabilité a été utilisée pour implémenter la motivation de l'agent. 
-Elle a été associée à une heurisitique d'ennui qui poussait l'agent à essayer d'autres décisions quand les conséquences d'une décision devenait trop prédictible.
-L'agent commençait par repérer les interactions qui pouvaient être répétée indéfiniment. 
-Lorsqu'il en trouvait une, il l'associait à un emplacement de sa mémoire spatiale, implémentant ainsi l'hypothèse que cette interaction était affordée par un objet présent dans l'environnement.
-Une fois certains n\oe uds construits, l'agent consruisait les arcs en leur associant les interactions permettant les transitions d'état correspondants. 
-%Ensuite il recherchait des intéreractions composites qui pouvaient être répétées indéfiniment.
-
-Cette expérimentation suggère que même dans une situation rudimentaire, l'apprentissage de l'usage d'une mémoire spatiale nécessite que des présupposés soient implémentés dans l'agent, en particulier des heuristiques comportementales associées à des traitements spécifiques pour interpréter les régularités observées et une structure de la mémoire qui soit adaptée à la complexité des situations que l'agent peut rencontrer. 
-La question de savoir comment extraire des principes généraux permettant de construction d'une mémoire spatiale dans des configurations plus complexes reste ouverte.
+Ce résultat montre que l'agent a pu apprendre à utiliser les deux emplacements de sa mémoire spatiale pour représenter sa connaissance ou non des états possibles de son environnement. 
+Il utilisait un des emplacements pour représenter sa gauche, l'autre sa droite. 
+Un des états pour représenter qu'il ignorait l'état de l'environnement correspondant, un autre état pour représenter la connaissance de la présence d'un mur, et le troisième la connaissance d'un vide. 
+Le graphe obtenue est une sorte de graphe d'habitudes au même titre que celui de Woolford en Figure~\ref{fig:ssr}.
 
 
+Cette expérimentation suggère que même dans une configuration rudimentaire, l'apprentissage de l'usage d'une mémoire spatiale requiert l'implémentation de présupposés substantiels dans l'agent: des heuristiques comportementales, des traitements spécifiques pour implémenter une hypothèse de causalité, et une structure mémorielle dont la capacité soit adaptée à la complexité des situations rencontrées.
+La question de la généralisation de ces principes à des environnements plus riches et à des architectures de mémoire plus complexes demeure ouverte. 
 
-\subsubsection{Construction d'une mémoire spatiale}
 
-Cette expérimentation propose une abstraction du problème d'apprentissage des structures spatiales par un agent dans le cadre du EDP. 
-L'article ``\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}'' \cite{gay_autonomous_2017} présente comment l'agent peut inférer la structure de l'espace à partir de ses expériences d'interaction.
 
-Dans cette experimentation, l'agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
+\subsubsection{Construction d'une mémoire spatiale à partir d'événements de flux optique}
+\label{sec:simon}
+
+\noindent
+Simon Gay a proposé un mécanisme de construction d'une mémoire spatiale en exploitant capteur de flux optique \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
+
+Cet agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
 La décision \texttt{move forward} pouvait générer les \an{outcome} \texttt{empty}, et \texttt{bump}, ou \texttt{eat}, résultant en une interaction de valences 5, -10 et 50. 
 Les décisions \texttt{turn} généraient une interaction de valence -3. 
 
 Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement, telle qu'une image, L'EDP permet à l'agent de recevoir une structure de données complexe représentant de nombreux événements. 
 Dans cet expérimentation, l'agent recevait une structure de donnée complexe représentent des événements de flux optiques générés par des éléments saillants de l'environnement. 
 Chaque événement de flux optique prenait la forme d'un tuple $(c, \theta, v)$ dans lequel c représentait la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ sa position dans le champ visuel, et $v$ une indication de la vitesse angulaire de ce point dans le flux optique au cours de ce cycle d'interaction. 
+
+
+La Figure~\ref{fig:robot_simon} montre les conditions expérimentales utilisant un robot Lego dans un environnement similaire à l'expérimentation des requins Section~\ref{sec:requins}.
+Le robot contient un capteur de collision, un capteur de couleur situé sous lui, et une caméra générant alimentant traitement générant des événements de flux optique.
+L'environnement contient des murs verts, des zones rouges traversables, et de zones bleues représentant des cibles qui affordent l'interaction \interaction{move forward, eat}.
+Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit une nouvelle à un autre emplacement.
+
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Figures/3_robot_simon.jpg}
+	\caption{Johnny le robot Lego \cite{gay_autonomous_2014}.
+	Gauche: robot disposant d'une caméra orientée vers un miroir sphérique offrant une vision panoramique de l'environnement. 
+	Centre: traitement d'image générant des flux optiques de points saillants.
+	Droite: robot dans l'environnement répliquant l'expérimentation des requins.}
+	\label{fig:robot_simon}
+\end{figure}
+
+
+L'agent apprend en parallèle un modèle d'objets et un modèle d'espace. 
+Le modèle d'objet est construit en regroupant toutes les interactions composites qui mènent à l'objet. 
+
 
 
 \begin{figure}[ht]
@@ -90,17 +114,6 @@ Chaque événement de flux optique prenait la forme d'un tuple $(c, \theta, v)$ 
 	\label{fig:simon_spatial}
 \end{figure}
 
-
-L'agent apprend en parallèle un modèle d'objets et un modèle d'espace. 
-Le modèle d'objet est construit en regroupant toutes les interactions composites qui mènent à l'objet. 
-
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.9\textwidth]{Figures/3_robot_simon.jpg}
-	\caption{Robot \cite{gay_autonomous_2014}.}
-	\label{fig:robot_simon}
-\end{figure}
 
 
 

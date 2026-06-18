@@ -457,7 +457,7 @@ La fine ligne grise représente le \emph{couplage primitif} entre le \emph{syst�
 \end{figure}
 
 
-Le \emph{couplage cognitif} sépare le système de décisions (en haut de la Fig.~\ref{fig:couplage}) du système de contrôle des interactions composites (en dessous). 
+Un couplage de plus haut niveau, appelé \emph{couplage cognitif} sépare le système de décisions (en haut de la Fig.~\ref{fig:couplage}) du système de contrôle des interactions composites (en dessous). 
 Un cycle du couplage cognitif correspond à autant de cycles du couplage primitif qu'il y a d'interactions primitives énactées pour effectuer la décision composite.
 Au fur et à mesure que l'agent apprend des décisions et des interactions composites de plus haut niveau, il base ses décisions sur un contexte plus long et prend des décisions qui l'engagent à plus long terme. 
 Cela signifie que le couplage cognitif s'élève progressivement, ce qui constitue une réponse à la question de l'évolution du couplage structurel formulé par la théorie de l'énaction (Section~\ref{sec:enaction}) et illustrée en Figure \ref{fig:enaction}.
@@ -466,8 +466,9 @@ Cela signifie que le couplage cognitif s'élève progressivement, ce qui constit
 Le contrôleur primitif est pré-programmé pour mettre en \oe uvre la décision primitive, piloter une boucle de contrôle qui active les effecteurs en surveillant les capteurs, et finalement générer l'interaction primitives énactées. 
 Lorsque l'agent pilote un robot, chaque cycle du couplage primitif peut ainsi correspondre à une boucle sensorimotrice impliquant de nombreux cycles \an{output} -- \an{input} du DDS très rapides. 
 Le signal en provenance des capteurs intervient alors comme une perturbation de cette boucle de contrôle, qui rejoint un des principes de la théorie de l'inférence active évoquée en Section \ref{sec:active_inference}.
-Lorsque l'agent interagit avec un environnement simulé, ce principe est simplifié par le fait que l'environnement peut lui-même interpréter la décision de l'agent.  
-Dans ce cas, un cycle du couplage primitif correspond à un cycle \an{output} -- \an{input} du DDS, comme nous allons le voir dans des exemples. 
+Lorsque l'agent interagit avec un environnement simulé, l'interaction est simplifié par le fait que l'environnement interprète lui-même la décision, %.  
+%Dans ce cas, un cycle du couplage primitif correspond à un cycle \an{output} -- \an{input} du DDS, 
+comme nous allons le voir dans des exemples. 
 
 
 
@@ -475,17 +476,22 @@ Dans ce cas, un cycle du couplage primitif correspond à un cycle \an{output} --
 \section{Démonstrations du mécanisme de schéma}
 
 \noindent
-Cette section présentent trois expérimentations significatives réalisées avec le mécanisme de schéma. 
-La seule différence au niveau du \an{software} de l'agent se situe au niveau de leurs contrôleurs primitifs qui implémentent des boucles sensorimotrices différentes. 
-Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différentes situations. 
-
-Dans le cas des expérimentations en environnement simulé, chaque interaction primitive correspond à un couples \schema{\an{decision}, \an{outcome}}. 
+Cette section présentent trois exemples représentatifs d'expérimentations réalisées avec le mécanisme de schéma. 
+Ces expérimentations utilisent des environnements artificiels qui simulent le déplacement d'un agent dans une grille. 
+Le \an{software} de l'agent est identique bien que la signification des interactions varie d'une expérimentation à l'autre. 
 La décision de l'agent est transmise à l'environnement via l'\an{output} du DDS.
-L'environnement simule les effets de cette décision puis il génère un résultat appelé \an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
-Cet \an{outcome} est une rétroaction non représentatinnelle résultant de la décision. 
-Il ne reste plus au contrôleur primitif qu'a associer la décision avec le résultat pour produire l'interaction primitive énactée $i=$ \schema{\an{decision}, \an{outcome}}.
+L'environnement calcule les effets de cette décision pour se mettre à jour, puis il génère l'\an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
+Cet \an{outcome} est une rétroaction non représentationnelle résultant de la décision. 
+Le contrôleur primitif de l'agent associe la décision avec l'\an{outcome} pour produire l'interaction primitive énactée sous la forme $i=$ \schema{\an{decision}, \an{outcome}}.
+Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différents environnements. 
 
-%Dans le cas des robots, les interactions primitives sont générées à partir de boucles \an{output}--\an{input} qui seront détaillées en Section \ref{sec:sequentiel-robotique}.
+
+La partie \ref{sec:sequentiel-robotique} conclura cette section en montrant comment ces expérimentations peuvent être répliquées chez des robots. 
+Dans ce ca, la seule différence du \an{software} de l'agent se situe au niveau du contrôleur primitif qui implémente la mise en \oe uvre des décisions de l'agent à travers des boucles de contrôle sensorimotrices.
+C'est le contrôleur primitif qui se charge de générer l'\an{outcome} selon la façon dont ces boucles ont pu être mise en \oe uvre. 
+
+%Dans ces expérimentations, les interactions primitives sont constituées de couples \schema{\an{decision}, \an{outcome}}. 
+
 
 \subsection{Expérimentation du \emph{Small Loop Challenge}}
 \label{sec:small-loop}
@@ -959,6 +965,7 @@ Enfin, se pose la question de savoir comment l'agent pourrait apprendre de mani�
 
 
 \subsection{Expérimentation des requins}
+\label{sec:requins}
 
 \noindent
 Cette expérimentation examine la génération de comportements plus sophistiqués dans un environnement dynamique et continu contenant des objets hétérogènes.

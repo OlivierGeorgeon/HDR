@@ -26,7 +26,7 @@ Leur but est de trouver des principes généraux qui permettraient l'émergence 
 
 comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes de plus bas niveau, et quels seraient ces principes. 
 
-\subsubsection{Construction autonome d'un modèle causal spatial}
+\subsection{Construction autonome d'un modèle causal spatial}
 
 \noindent
 Un travail exploratoire a été réalisé par Jianyong Xue \cite[\an{Causality reconstruction by an autonomous agent}]{xue_causality_2019}.
@@ -69,23 +69,25 @@ La question de la généralisation de ces principes à des environnements plus r
 
 
 
-\subsubsection{Construction d'une mémoire spatiale à partir d'événements de flux optique}
+\subsection{Espace comme séquence latente et flux optique}
 \label{sec:simon}
 
 \noindent
-Simon Gay a proposé un mécanisme de construction d'une mémoire spatiale en exploitant capteur de flux optique \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
+Simon Gay a développé un mécanisme a de représentation de l'espace par séquences latentes d'interactions qui exploite le flux optique  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
+L'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}) est apparue plus tard dans les travaux passés en revue en Section~\ref{sec:structure_spatiale}.  
 
-Cet agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
-La décision \texttt{move forward} pouvait générer les \an{outcome} \texttt{empty}, et \texttt{bump}, ou \texttt{eat}, résultant en une interaction de valences 5, -10 et 50. 
-Les décisions \texttt{turn} généraient une interaction de valence -3. 
+Ce travail se base sur un modèle EDP dans lequel l'agent reçoit une ensemble d'événements d'interaction à chaque cycle. 
+Cet ensemble contient une interaction composée d'un tuple \interaction{decision, outcome} similaires à celles des expérimentations précédentes, à laquelle s'ajoutent des événements de flux optique liés aux points saillant du champ visuel.
+Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire. 
+%L'agent ne perçoit pas la distance des points saillants.
 
-Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement, telle qu'une image, L'EDP permet à l'agent de recevoir une structure de données complexe représentant de nombreux événements. 
-Dans cet expérimentation, l'agent recevait une structure de donnée complexe représentent des événements de flux optiques générés par des éléments saillants de l'environnement. 
-Chaque événement de flux optique prenait la forme d'un tuple $(c, \theta, v)$ dans lequel c représentait la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ sa position dans le champ visuel, et $v$ une indication de la vitesse angulaire de ce point dans le flux optique au cours de ce cycle d'interaction. 
+L'agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
+La décision \texttt{move forward} peut générer les \an{outcome} \texttt{empty}, \texttt{bump}, ou \texttt{eat}, résultant en des interactions de valences 5, -10 et 50. 
+Les interactions de rotation ont toutes la valence -3. 
 
 
-La Figure~\ref{fig:robot_simon} montre les conditions expérimentales utilisant un robot Lego dans un environnement similaire à l'expérimentation des requins Section~\ref{sec:requins}.
-Le robot contient un capteur de collision, un capteur de couleur situé sous lui, et une caméra générant alimentant traitement générant des événements de flux optique.
+La Figure~\ref{fig:robot_simon} montre les conditions expérimentales utilisant un robot conçu spécifiquement avec des Lego dans un environnement similaire à l'expérimentation des requins de la Section~\ref{sec:requins}.
+Le robot contient un capteur de collision servant à générer l'\an{outcome} \texttt{bump}, un capteur de couleur situé sous lui servant à générer l'\an{outcome} \texttt{eat}, et une caméra servant à générer les événements de flux optique.
 L'environnement contient des murs verts, des zones rouges traversables, et de zones bleues représentant des cibles qui affordent l'interaction \interaction{move forward, eat}.
 Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit une nouvelle à un autre emplacement.
 
@@ -94,30 +96,78 @@ Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{Figures/3_robot_simon.jpg}
-	\caption{Johnny le robot Lego \cite{gay_autonomous_2014}.
-	Gauche: robot disposant d'une caméra orientée vers un miroir sphérique offrant une vision panoramique de l'environnement. 
-	Centre: traitement d'image générant des flux optiques de points saillants.
-	Droite: robot dans l'environnement répliquant l'expérimentation des requins.}
+	\caption{%Expérimentation du flux optique \cite[Fig.~4, 5, 8]{gay_autonomous_2014}.
+	Gauche: robot disposant d'une caméra orientée vers un miroir sphérique offrant une vision panoramique. 
+	Centre: traitement d'image générant des événements de flux optiques.
+	Droite: arène répliquant l'expérimentation des requins.}
 	\label{fig:robot_simon}
 \end{figure}
 
 
-L'agent apprend en parallèle un modèle d'objets et un modèle d'espace. 
-Le modèle d'objet est construit en regroupant toutes les interactions composites qui mènent à l'objet. 
-
+La figure~\ref{fig:simon_spatial} illustre de manière schématique la façon dont l'agent représente sa situation (gauche) par un ensemble de séquences (centre).
+% issue d'une expérimentation des requins similaire à celle décrite en Section~\ref{sec:requins}. 
+La partie droite montre une reconstitution de l'espace à destination du lecteur qui n'est pas explicitement réalisée par l'agent lui-même.
+Dans cet exemple, les décisions \texttt{turn} peuvent donner lieu à des \an{outcome} \texttt{bump} quand l'agent se tourne vers un mur.
+Les séquences se décomposent en deux parties: une partie \emph{chemin} pour atteindre un objet et une interaction finale avec l'objet. 
+Lorsque l'agent se déplace, sa représentation de l'espace est mise à jour en fonction des séquences construites lors des interactions précédentes et des événements de flux optique.
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{Figures/3_simon_spatial.pdf}
-	\caption{Représentation de l'espace par des séquences d'interaction  \cite[Fig~7.2]{gay_mecanismes_2014}.}
+	\caption{Représentation de l'espace par des séquences latentes d'interactions \cite[Fig~7.2]{gay_mecanismes_2014}.
+	Gauche: agent représenté par un requin entouré de murs et d'un poisson.
+	Centre: ensemble de séquences affordées par la situation. 
+	Droite: reconstitution spatiale à destination du lecteur.
+	}
 	\label{fig:simon_spatial}
 \end{figure}
 
+La correspondance entre les événements de flux optique et les interactions primitives se fait par un mécanisme de \emph{signatures d'interaction}.
+La signature d'une interaction primitive permet de calculer la probabilité de pouvoir l'énacter avec succès dans le contexte d'un ensemble d'événements de flux optiques donné. 
+L'apprentissage des signatures d'interaction se fait en environnement simulé et demande environ 3000 cycles d'interaction. 
+Une fois apprises, elles sont utilisées par le robot pour générer des comportements d'évitement des obstacle et de chasse de cibles. 
 
+Comme ECA, l'architecture de Simon Gay apprend à catégoriser les objets présents dans l'environnement par les \an{bundles} d'interaction qu'ils affordent.
+Elle diffère cependant par le fait qu'elle fonctionne sans recevoir la position des objets ni les déplacements du robot (les $\epsilon$ et $\iota$ du modèle SEDP).
+Elle est capable d'apprendre en parallèle un modèle de l'espace en termes de séquences latentes, et un modèle des objets en termes de \an{bundles}.
+Le modèle spatial permet à l'agent de disposer d'une représentation de sa situation même en dehors de son champ visuel. 
+
+Cette expérimentation illustre comment utiliser la théorie des événements d'interaction valués dans un cadre robotique basé sur le modèle EDP. 
+Elle montre comment l'agent peut recevoir une structure de données complexe représentant de nombreux événements d'interaction.  
+A notre connaissance, c'est la seule expérimentation démontrent l'acquisition d'une structure spatiale basée sur des séquences latentes qui aie été démontré dans un robot. 
+Elle fonctionne par principe en monde ouvert.
+La complexité potentiellement infinie du monde est limitée par le fait maitrisée par le fait que l'agent apprend à organiser ses comportements dans le contexte de son champ visuel par nature fini. 
+Elle présente toutefois la limitation de nécessiter que l'environnement soit statique. 
+
+
+Pour des applications nécessitant un apprentissage plus rapide dans un environnement dynamique, elle nous incite à implémenter une carte spatiale explicite et un système de perception des déplacements de l'agent. 
+
+%Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement.
 
 
 \section{Le projet PetitCat}
+
+
+\noindent
+Nous avons testés plusieurs plateformes robotiques. 
+Outre les robot e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la Section précédente, nous avons aussi testé la plateforme TurtleBot. 
+Le TurtleBot est une plateforme commerciale assez répandue des les laboratoires de recherche.  
+Pour moins de 3000 euros elle embarque un un rasbery Pi hébergeant le logiciel de controle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une plateforme inertielle. 
+Ces capteurs la rendent souvent utilisée pour tester des algorithmes de \an{Simultaneaous Localisation and Mapping}. 
+A l'usage, cependant, la plateforme ROS s'est montrée inutilement compliquée pour mettre en \oe uvre le modèle SEDP. La présence d'un PC embarqué s'est avéré également inutile.
+% car il est plus pratique d'implémenter ECA sur un PC distant. communiquant avec le robot par wifi.
+
+Nous avons finalement opté pour un robot basé sur la plateforme illustrée en Figure \ref{fig:petitcat}. 
+Elle offre un certain nombre d'avantage:
+Le prix très modeste inférieur à 200 euros. 
+La tête mobile lui donne une expressivité par sa capacité à manifester l'objet sur lequel le robot porte son attention. 
+Les roues ominidirectionnelles permettent des déplacements intéressants. 
+Le télémetre à ultrason, bien qu'étant un capteur très grossier, offre l'avantage sur une caméra de donner une indication de distance. 
+La carte Arduinon Mega s'avère plus simple qu'un rasberry pour implémenter le controleur primitif des interactions. Elle permet un cycle d'interaction à la vitesse très fiable de l'ordre de la dizaine de millisecondes. 
+La flexibilité de la plateforme permet d'ajouter d'autres capteurs selon les besoins. 
+A ce jour nous avons ajouté une plateforme inertielle et un capteur de couleur dirigé vers le sol sous le robot. 
+ 
 
 Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
 
@@ -150,10 +200,10 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/6_Petitcat.png}
 	\caption{Le robot Petitcat depuis \cite[Fig.~1]{schneider_grounding_2024}}
-	\label{fig:Petitcat}
+	\label{fig:petitcat}
 \end{figure}
 
-La Figure \ref{fig:Petitcat} montre le robot Petitcat.
+La Figure \ref{fig:petitcat} montre le robot Petitcat.
 
 \subsection{Simultaneous Localisation And Phenomenon Inference}
 
@@ -224,9 +274,9 @@ Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ �
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
-	\caption{Le cycle de l'Interactionisme Radical, adapté de \cite{georgeon_eca_2013}, Fig.~2.
-		A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd} \in C_d$ consistant à tenter d'enacter k interactions primitives $i_{p1} ... i_{pk} \in I$.
-		Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps d \fg à un niveau d'abstraction supérieur.}
+	\caption{Abstraction du cycle EDP, adapté de \cite[Fig.~2]{georgeon_eca_2013}.
+		A chaque temps de décision $t_d$, l'agent sélectionne une décision composite $d_{cd} \in D_d$ le conduisant à prendre une série de $k$ décisions primitives $d_{p1} ... d_{pk} \in D_p$ qui résultent en une série de $k$ interactions primitive énactées.
+		Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps $t_d$ \fg à un niveau d'abstraction supérieur.}
 	\label{fig:ir}
 \end{figure}
 

@@ -205,6 +205,55 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 
 La Figure \ref{fig:petitcat} montre le robot Petitcat.
 
+
+\subsection{Possibilités d'interaction}
+
+Le robot dispose des interactions:
+translate
+swipe 
+turn
+turn-head
+scan
+
+
+
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|}
+		\hline
+		\textbf{Code} & \textbf{Description} & \textbf{Paramètre principal}  \\ \hline
+		\texttt{translate} & translation longitudinale & durée (ms) \\ \hline
+		\texttt{swipe} & translation latérale  & durée (ms) \\ \hline
+		\texttt{turn} & rotation sur place & angle (degrés) \\ \hline
+		\texttt{turn-head} & rotation de la tête & angle (degrés)\\ \hline
+		\texttt{scan} & série de saccades de la tête & angle (degrés) \\ \hline
+	\end{tabular}
+	\caption{Décisions primitives de PetitCat.
+	}
+	\label{tab:decision_petitcat}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|l|l|c|c|}
+		\hline
+		\textbf{Code} & \textbf{statut}  & \textbf{décision}  & \textbf{Description} \\ \hline
+		\texttt{clock} & obligatoire & toutes & numéro du cycle d'interaction \\ \hline
+		\texttt{decision code} & obligatoire  & toutes & code de la décision \\ \hline
+		\texttt{focus-x} & facultatif & \texttt{translate}, \texttt{swipe}, \texttt{turn} & coordonnée x du point d'attention \\ \hline
+		\texttt{focus-y} & facultatif & \texttt{translate}, \texttt{swipe}, \texttt{turn} & coordonnée y du point d'attention \\ \hline
+		\texttt{color} & facultatif & toutes & couleur de la LED\\ \hline
+		\texttt{duration} & facultatif & \texttt{translate}, \texttt{swipe} & durée \\ \hline
+		\texttt{angle} & facultatif & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle \\ \hline
+		\texttt{caution} & facultatif & toutes & catégorie de prudence \\ \hline
+	\end{tabular}
+	\caption{Décisions primitives de PetitCat.
+	}
+	\label{tab:parametres_petitcat}
+\end{table}
+
+
 \subsection{Simultaneous Localisation And Phenomenon Inference}
 
 

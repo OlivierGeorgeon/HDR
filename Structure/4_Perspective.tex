@@ -19,12 +19,15 @@ L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage
 
 Introduction en construction
 
+Cette section rapporte des études que nous avons menées pour examiner comment relâcher les présupposés qui sont incorporés dans le modèle SEDP et codés en dur dans ECA. 
+Ces études illustrent différentes variantes de l'EDP et différentes formes d'application du principe d'engagement à la causalité.
+L'agent est doté de capacités mémorielles qui sous-tendent la construction d'hypothèses d'existence de phénomènes dans l'espace pour expliquer les régularités observées dans le flux d'expérience.
 
-Cette section rapporte des études que nous avons menées sur des agents modélisés dans le cadre de l'EDP, pour examiner comment ils pourraient découvrir la structure spatiale de leur environnement. 
-Ces études constituent des abstraction du problème d'apprentissage des structures spatiales par un agent dans le cadre du EDP. 
-Leur but est de trouver des principes généraux qui permettraient l'émergence d'une architecture spatiale comme ECA sans quelle soit codée en dur comme nous l'avons fait dans le cadre de SEDP détaillé en Section~\ref{sec:couplage_spatial}. 
+%sous forme du point $\epsilon$ et du déplacement $\iota$, ainsi que Les capacités d'ECA à gérer ces informations par sa mémoire spatiale et son mécanismes de construction de \an{bundles} pourraient reposer sur des principes de plus bas niveau.
 
-comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes de plus bas niveau, et quels seraient ces principes. 
+%sur des agents modélisés avec l'EDP, afin d'examiner comment ils pourraient découvrir la structure spatiale de leur environnement.  Il s'agit de mieux comprendre comment les structures spatiales codées en dur dans ECA pourraient émerger de principes de plus bas niveau, et de préciser quels seraient ces principes. Leur objectif est d'identifier des principes généraux susceptibles de rendre compte de l'émergence d'une architecture spatiale telle qu'ECA, sans que celle-ci soit codée en dur comme nous l'avons fait pour SEDP, détaillé en Section~\ref{sec:couplage_spatial}. 
+
+
 
 
 
@@ -152,7 +155,12 @@ La question de la généralisation de ces principes à des environnements plus r
 
 
 \noindent
-Nous avons testés plusieurs plateformes robotiques. 
+Ce projet adopte une approche d'ingénierie pragmatique pour étudier comment la théorie des Evénements d'Interaction Valués s'applique à la conception de robots autonomes. 
+L'objectif est de générer des comportements qu'un observateur humain peut juger naturel et intéressant. 
+Nous examinons comment cet objectif pragmatique de comportements naturels impacte la conception d'une architecture cognitive basée sur la théorie des Evénements d'Interaction Valués. 
+En particulier nous avons été amenés à associer des variables libres aux décisions et aux interactions, rejoignant ainsi des choix de conception pris par d'autres architectures cognitives construcgtivistes examinées en Section~\ref{sec:architectures}.
+
+Plusieurs plateformes robotiques ont été considérées. 
 Outre les robot e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la Section précédente, nous avons aussi testé la plateforme TurtleBot. 
 Le TurtleBot est une plateforme commerciale assez répandue des les laboratoires de recherche.  
 Pour moins de 3000 euros elle embarque un un rasbery Pi hébergeant le logiciel de controle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une plateforme inertielle. 
@@ -178,13 +186,14 @@ Le prix très modeste inférieur à 200 euros.
 La tête mobile lui donne une expressivité par sa capacité à manifester l'objet sur lequel le robot porte son attention. 
 Les roues ominidirectionnelles permettent des déplacements intéressants. 
 Le télémetre à ultrason, bien qu'étant un capteur très grossier, offre l'avantage sur une caméra de donner une indication de distance. 
-La carte Arduinon Mega s'avère plus simple qu'un rasberry pour implémenter le controleur primitif des interactions. Elle permet un cycle d'interaction à la vitesse très fiable de l'ordre de la dizaine de millisecondes. 
+La carte Arduinon Mega s'avère plus simple qu'un rasberry pour implémenter le contrôleur primitif des interactions. Elle permet un cycle d'interaction à la vitesse très fiable de l'ordre de la dizaine de millisecondes. 
 La flexibilité de la plateforme permet d'ajouter d'autres capteurs selon les besoins. 
 A ce jour nous avons ajouté une plateforme inertielle et un capteur de couleur dirigé vers le sol sous le robot. 
 
 
 La carte carte Arduino controle l'exécution de la décision reçue par wifi et renvoie les événements d'interaction . 
 
+La centrale inertielle contient un accéléromètre linéaire, un gyromètre et une boussole. 
 
 
 \begin{figure}[ht]
@@ -215,12 +224,11 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 
 \subsection{Possibilités d'interaction}
 
-Le robot dispose des interactions:
-translate
-swipe 
-turn
-turn-head
-scan
+Petitcat peut exécuter les sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres du Tableau~\ref{tab:parametres_petitcat}.
+
+A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 
+Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui controleraient le même robot tout en apprenant à se synchroniser entre eux. 
+Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant à une seule décision par cycle d'interaction, qui peut entrainer plusieurs commandes d'effecteurs contrôlées par les variables libre de la décision.
 
 
 
@@ -230,8 +238,10 @@ scan
 	\begin{tabular}{|l|l|c|}
 		\hline
 		\textbf{Code} & \textbf{Description} & \textbf{Paramètre principal}  \\ \hline
-		\texttt{translate} & translation longitudinale & durée (ms) \\ \hline
-		\texttt{swipe} & translation latérale  & durée (ms) \\ \hline
+		\texttt{move forward} & translation longitudinale vers l'avant & durée (ms) \\ \hline
+		\texttt{move backward} & translation longitudinale vers l'arrière& durée (ms) \\ \hline
+		\texttt{swipe left} & translation latérale vers la gauche & durée (ms) \\ \hline
+		\texttt{swipe right} & translation latérale vers la droite & durée (ms) \\ \hline
 		\texttt{turn} & rotation sur place & angle (degrés) \\ \hline
 		\texttt{turn-head} & rotation de la tête & angle (degrés)\\ \hline
 		\texttt{scan} & série de saccades de la tête & angle (degrés) \\ \hline
@@ -241,17 +251,33 @@ scan
 	\label{tab:decision_petitcat}
 \end{table}
 
+Petitcat ne disposant pas d'odomètre, la spécification de la distance parcourues pendant les décisons \texttt{move} et \texttt{swipe} se fait par la variable \texttt{duration}.
+La vitesse approximative est de $300 mm/s$. 
+L'accéléromètre linéaire de la centrale inertielle n'offre pas la précision suffisante pour dériver la vitesse linéaire et encre moins la distance parcourue. 
+
+L'angle de rotation associé à la décision \texttt{turn} est contrôle par le gyromètre de la centrale inertielle. 
+
+Les décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} provoque le déplacement du robot pendant la durée ou l'angle paramétré, mais ces déplacements sont interrompus si une collision est détectée par la centrale inertielle ou si un changement de luminosité est détecté sur le sol.
+
+L'interruption du mouvement en cas de changement de luminosité du sol évite au robot de tomber d'une table ou l'empèche de franchir une ligne noir sur le sol, ce qui permet de le contenir dans une \emph{arène} d'expérimentation. 
+La durée écoulée avant cette interuption est renvoyée comme variable de l'interaction énactée. 
+Elle permet de calculer une estimation de la distance parcourue. 
+
+
+ 
+
+
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|l|l|c|c|}
 		\hline
 		\textbf{Code} & \textbf{statut}  & \textbf{décision}  & \textbf{Description} \\ \hline
-		\texttt{clock} & obligatoire & toutes & numéro du cycle d'interaction \\ \hline
+		\texttt{step} & obligatoire & toutes & numéro du cycle d'interaction \\ \hline
 		\texttt{decision code} & obligatoire  & toutes & code de la décision \\ \hline
-		\texttt{focus-x} & optionnel & \texttt{translate}, \texttt{swipe}, \texttt{turn} & coordonnée x du point d'attention \\ \hline
-		\texttt{focus-y} & optionnel & \texttt{translate}, \texttt{swipe}, \texttt{turn} & coordonnée y du point d'attention \\ \hline
+		\texttt{focus-x} & optionnel & \texttt{move}, \texttt{swipe}, \texttt{turn} & coordonnée x du point d'attention \\ \hline
+		\texttt{focus-y} & optionnel & \texttt{swipe}, \texttt{swipe}, \texttt{turn} & coordonnée y du point d'attention \\ \hline
 		\texttt{color} & optionnel & toutes & couleur de la LED\\ \hline
-		\texttt{duration} & optionnel & \texttt{translate}, \texttt{swipe} & durée \\ \hline
+		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée \\ \hline
 		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle \\ \hline
 		\texttt{caution} & optionnel & toutes & catégorie de prudence \\ \hline
 	\end{tabular}
@@ -267,7 +293,7 @@ scan
 	\begin{tabular}{|l|l|}
 		\hline
 		\textbf{Code} & \textbf{description}   \\ \hline
-		\texttt{clock} & numéro du cycle d'interaction renvoyé pour vérification \\ \hline
+		\texttt{step} & numéro du cycle d'interaction renvoyé pour vérification \\ \hline
 		\texttt{decision code} & décision renvoyée pour vérification  \\ \hline
 		\texttt{yaw} & rotation dans le plan horizontal (degrés) \\ \hline
 		\texttt{duration} & durée avant interruption (ms) \\ \hline
@@ -280,7 +306,7 @@ scan
 		\texttt{impact} & code d'impact mesuré par la plateforme inertielle  \\ \hline
 		\texttt{echoes} & tableau des distances mesurées pendant l'interaction \texttt{scan}  \\ \hline
 	\end{tabular}
-	\caption{Variables associées aux événements d'interaction.
+	\caption{Variables définissant les événements d'interaction.
 	}
 	\label{tab:interactions_petitcat}
 \end{table}

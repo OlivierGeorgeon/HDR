@@ -156,44 +156,45 @@ La question de la généralisation de ces principes à des environnements plus r
 
 \noindent
 Ce projet adopte une approche d'ingénierie pragmatique pour étudier comment la théorie des Evénements d'Interaction Valués s'applique à la conception de robots autonomes. 
-L'objectif est de générer des comportements qu'un observateur humain peut juger naturel et intéressant. 
-Nous examinons comment cet objectif pragmatique de comportements naturels impacte la conception d'une architecture cognitive basée sur la théorie des Evénements d'Interaction Valués. 
-En particulier nous avons été amenés à associer des variables libres aux décisions et aux interactions, rejoignant ainsi des choix de conception pris par d'autres architectures cognitives construcgtivistes examinées en Section~\ref{sec:architectures}.
+L'objectif est de générer des comportements jugés naturels et intéressants par un observateur humain. 
+Cette approche pragmatique apporte une source d'inspiration pour faire évoluer l'architecture cognitive ECA, dans une logique de rétro-engineering de la cognition.
+Par exemple, elle nous a amenés à associer des variables libres aux décisions et aux interactions, rejoignant ainsi des choix de conception pris par d'autres architectures cognitives constructivistes examinées en Section~\ref{sec:architectures}.
+
+
+L'objectif de génération de comportements en milieu ouvert et dynamique nous conduit à présupposer l'existence d'informations de position des événements d'interaction et de déplacement du robot comme nous l'avons formalisé dans le modèle SEDP. 
+Nous avons donc recherché un robot offrant une bonne mobilité, des capteurs capables de renvoyer des informations de position, et dotés d'une unité de mesure inertielle pour fournir certaines informations de déplacement.
 
 Plusieurs plateformes robotiques ont été considérées. 
-Outre les robot e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la Section précédente, nous avons aussi testé la plateforme TurtleBot. 
-Le TurtleBot est une plateforme commerciale assez répandue des les laboratoires de recherche.  
-Pour moins de 3000 euros elle embarque un un rasbery Pi hébergeant le logiciel de controle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une plateforme inertielle. 
+Outre les robots e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la section précédente, nous avons aussi testé la plateforme TurtleBot. 
+Le TurtleBot est une plateforme commerciale assez répandue dans les laboratoires de recherche.  
+Pour moins de 3000 euros elle embarque un Rasbery Pi hébergeant le logiciel de contrôle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une unité de mesure inertielle. 
 Ces capteurs la rendent souvent utilisée pour tester des algorithmes de \an{Simultaneaous Localisation and Mapping}. 
-A l'usage, cependant, la plateforme ROS s'est montrée inutilement compliquée pour mettre en \oe uvre le modèle SEDP. La présence d'un PC embarqué s'est avérée également inutile.
+A l'usage, cependant, la plateforme ROS s'est montrée inutilement compliquée pour mettre en \oe uvre le modèle SEDP. 
+La présence d'un PC embarqué s'est avérée également inutile dans la mesure ou le robot peut être contrôlé à distance via wifi.
 % car il est plus pratique d'implémenter ECA sur un PC distant. communiquant avec le robot par wifi.
 
-Nous avons finalement opté pour un robot basé sur la plateforme illustrée décrite en Section \ref{sec:petitcat_hardware}. 
- 
+Nous avons donc opté pour une plateforme contrôlé par une simple carte Arduino, et offrant une meilleure capacité de mobilité que le TurtleBot, la possibilité de capteurs satisfaisant pour l'approche EIV à un moindre coût. 
 
-Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
-
-
-Nous avons besoin de schémas qui ne capturent pas seulement des séquences d'interactions, mais qui capturent plus généralement des organisation spatio-temporelles d'interactions. 
-Pour cela nous conservons la notions de \emph{variable libres} dans les schémas qui peuvent être renseignées au moment de leur tentative d'énaction en fonction de l'état de différents modèles mentaux de l'agent. 
-
+L'architecture cognitive ECA est implémenté sur un PC distant. Elle transmets la décision via wifi sous la forme d'une trame de caractère UDP. 
+La carte Arduino embarquée se charge d'interpréter la décision et de la mettre en \oe uvre, puis de renvoyer les événements d'interaction au PC via wifi sous la forme d'une trame de caractère UDP. 
 
 \subsection{Configuration matérielle}
 \label{sec:petitcat_hardware}
 
-Elle offre un certain nombre d'avantage:
-Le prix très modeste inférieur à 200 euros. 
-La tête mobile lui donne une expressivité par sa capacité à manifester l'objet sur lequel le robot porte son attention. 
-Les roues ominidirectionnelles permettent des déplacements intéressants. 
-Le télémetre à ultrason, bien qu'étant un capteur très grossier, offre l'avantage sur une caméra de donner une indication de distance. 
-La carte Arduinon Mega s'avère plus simple qu'un rasberry pour implémenter le contrôleur primitif des interactions. Elle permet un cycle d'interaction à la vitesse très fiable de l'ordre de la dizaine de millisecondes. 
-La flexibilité de la plateforme permet d'ajouter d'autres capteurs selon les besoins. 
-A ce jour nous avons ajouté une plateforme inertielle et un capteur de couleur dirigé vers le sol sous le robot. 
+\noindent
+Nous avons conçu le robot Petitcat en nous appuyant sur une plateforme développée dans le cadre du \an{open source hardware} et commercialisée sous différentes variantes par plusieurs sociétés. 
+Cette plateforme offre plusieurs avantages, à commencer par son prix très modeste inférieur à 200 euros. 
+Sa tête mobile lui donne une expressivité par sa capacité à s'orienter vers l'objet sur lequel il porte son attention. 
+Ses roues ominidirectionnelles permettent une certaine agilité de déplacement.
+Son télémètre à ultrason, bien qu'étant un capteur très grossier, offre l'avantage sur une caméra de donner une indication de distance. 
+Il est également équipé d'une barre de cinq capteurs infrarouges à l'avant permettant de détecter des contrastes de luminosité sur le sol. 
 
+La carte Arduinon Mega s'avère plus simple qu'un Rasberry pour implémenter le contrôleur primitif des interactions en C++. 
+Elle permet un excellent contrôle du cycle d'exécution à une vitesse fiable de l'ordre de la millisecondes. 
+Sa flexibilité permet d'ajouter d'autres capteurs selon les besoins. 
+A ce jour nous avons ajouté une unité inertielle, un capteur de couleur dirigé vers le sol sous le robot, ainsi qu'une LED multicolore sur son dos (Figure~\ref{fig:petitcat_hardware}). 
+L'unité de mesure inertielle contient un accéléromètre linéaire, un gyromètre et une boussole. 
 
-La carte carte Arduino controle l'exécution de la décision reçue par wifi et renvoie les événements d'interaction . 
-
-La centrale inertielle contient un accéléromètre linéaire, un gyromètre et une boussole. 
 
 
 \begin{figure}[ht]
@@ -202,7 +203,8 @@ La centrale inertielle contient un accéléromètre linéaire, un gyromètre et 
 	\quad
 	\includegraphics[height=0.35\textwidth]{Figures/4_petitcat_photo.jpg}
 	\caption{Robot Petitcat adapté de \cite[Fig.~7 et 8]{georgeon_artificial_2024}.
-		La carte Arduino contrôle l'énaction des décisions en commandant les effecteurs et capteurs: roues omnidirectionnelles, rotation de la tête, télémètre à ultrason, barre de capteurs de luminosité du sol, capteur de couleur du sol, carte inertielle, LED multicolore, puis renvoie les événements au PC via wifi. 
+		Connectée au PC de contrôle via wifi, la carte Arduino pilote l'énaction des décisions en commandant les effecteurs et capteurs: roues omnidirectionnelles, rotation de la tête, télémètre à ultrason, barre de capteurs de luminosité du sol, capteur de couleur du sol, carte inertielle, LED multicolore.
+		%, puis renvoie les événements au PC via wifi. 
 	} 
 	\label{fig:petitcat_hardware}
 \end{figure}
@@ -211,25 +213,21 @@ La centrale inertielle contient un accéléromètre linéaire, un gyromètre et 
 
 
 
-
-\subsection{Comportements innés}
-
-Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
-Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
-Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
-On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
-
-
-
-
 \subsection{Possibilités d'interaction}
 
-Petitcat peut exécuter les sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres du Tableau~\ref{tab:parametres_petitcat}.
+\noindent
+Petitcat implémente le contrôleur primitif chargé de contrôler l'exécution des décisions et de renvoyer les événements d'interaction énactés (Section~\ref{sec:couplage}).
+A ce jour il reconnait sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres du Tableau~\ref{tab:parametres_petitcat}.
 
-A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 
-Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui controleraient le même robot tout en apprenant à se synchroniser entre eux. 
-Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant à une seule décision par cycle d'interaction, qui peut entrainer plusieurs commandes d'effecteurs contrôlées par les variables libre de la décision.
 
+Petitcat n'a pas la capacité de mesurer directement sa distance parcourue. 
+L'accéléromètre linéaire de la centrale inertielle n'offre pas la précision suffisante pour dériver la vitesse linéaire et encre moins la distance parcourue. 
+Les décisions \texttt{move} et \texttt{swipe} peuvent néanmoins être modulées par variable libre spécifiant leur durée: \texttt{duration}. 
+ECA peut estimer la distance correspodnante connaissant la vitesse approximative de   $300 mm/s$.
+
+L'angle de rotation associé à la décision \texttt{turn} est spécifié par la variable \texttt{angle} et contrôlé par le gyromètre de la centrale inertielle. 
+
+L'angle de rotation de la tête associé à la décision \texttt{turn-head} est spécifié par la variable \texttt{angle} et exécuté par un servomoteur. 
 
 
 
@@ -246,17 +244,12 @@ Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant
 		\texttt{turn-head} & rotation de la tête & angle (degrés)\\ \hline
 		\texttt{scan} & série de saccades de la tête & angle (degrés) \\ \hline
 	\end{tabular}
-	\caption{Décisions primitives de PetitCat.
+	\caption{Décisions primitives reconnues par PetitCat.
 	}
 	\label{tab:decision_petitcat}
 \end{table}
 
-Petitcat ne disposant pas d'odomètre, la spécification de la distance parcourues pendant les décisons \texttt{move} et \texttt{swipe} se fait par la variable \texttt{duration}.
-La vitesse approximative est de $300 mm/s$. 
-L'accéléromètre linéaire de la centrale inertielle n'offre pas la précision suffisante pour dériver la vitesse linéaire et encre moins la distance parcourue. 
-
-L'angle de rotation associé à la décision \texttt{turn} est contrôle par le gyromètre de la centrale inertielle. 
-
+P
 Les décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} provoque le déplacement du robot pendant la durée ou l'angle paramétré, mais ces déplacements sont interrompus si une collision est détectée par la centrale inertielle ou si un changement de luminosité est détecté sur le sol.
 
 L'interruption du mouvement en cas de changement de luminosité du sol évite au robot de tomber d'une table ou l'empèche de franchir une ligne noir sur le sol, ce qui permet de le contenir dans une \emph{arène} d'expérimentation. 
@@ -277,8 +270,8 @@ Elle permet de calculer une estimation de la distance parcourue.
 		\texttt{focus-x} & optionnel & \texttt{move}, \texttt{swipe}, \texttt{turn} & coordonnée x du point d'attention \\ \hline
 		\texttt{focus-y} & optionnel & \texttt{swipe}, \texttt{swipe}, \texttt{turn} & coordonnée y du point d'attention \\ \hline
 		\texttt{color} & optionnel & toutes & couleur de la LED\\ \hline
-		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée \\ \hline
-		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle \\ \hline
+		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée (ms) \\ \hline
+		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle (degrés) \\ \hline
 		\texttt{caution} & optionnel & toutes & catégorie de prudence \\ \hline
 	\end{tabular}
 	\caption{Variables associées aux décisions.
@@ -313,6 +306,12 @@ Elle permet de calculer une estimation de la distance parcourue.
 
 
 \subsection{Place cells}
+
+Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
+Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
+On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
+
 
 
 \begin{figure}[ht]
@@ -353,9 +352,25 @@ Elle permet de calculer une estimation de la distance parcourue.
 
 
 
-\subsection{Apprentissage ludique}
+\subsection{Enseignements}
 
 
+A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 
+Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui controleraient le même robot tout en apprenant à se synchroniser entre eux. 
+Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant à une seule décision par cycle d'interaction, qui peut entrainer plusieurs commandes d'effecteurs contrôlées par les variables libre de la décision.
+
+
+Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
+
+
+Par exemple, Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
+Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
+
+nous avons été amenés à associer des variables libres aux décisions et aux interactions, rejoignant ainsi des choix de conception pris par d'autres architectures cognitives construcgtivistes examinées en Section~\ref{sec:architectures}.
+
+
+Nous avons besoin de schémas qui ne capturent pas seulement des séquences d'interactions, mais qui capturent plus généralement des organisation spatio-temporelles d'interactions. 
+Pour cela nous conservons la notions de \emph{variable libres} dans les schémas qui peuvent être renseignées au moment de leur tentative d'énaction en fonction de l'état de différents modèles mentaux de l'agent. 
 
 
 

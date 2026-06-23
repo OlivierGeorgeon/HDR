@@ -216,18 +216,8 @@ L'unité de mesure inertielle contient un accéléromètre linéaire, un gyromè
 \subsection{Possibilités d'interaction}
 
 \noindent
-Petitcat implémente le contrôleur primitif chargé de contrôler l'exécution des décisions et de renvoyer les événements d'interaction énactés (Section~\ref{sec:couplage}).
-A ce jour il reconnait sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres du Tableau~\ref{tab:parametres_petitcat}.
-
-
-Petitcat n'a pas la capacité de mesurer directement sa distance parcourue. 
-L'accéléromètre linéaire de la centrale inertielle n'offre pas la précision suffisante pour dériver la vitesse linéaire et encre moins la distance parcourue. 
-Les décisions \texttt{move} et \texttt{swipe} peuvent néanmoins être modulées par variable libre spécifiant leur durée: \texttt{duration}. 
-ECA peut estimer la distance correspodnante connaissant la vitesse approximative de   $300 mm/s$.
-
-L'angle de rotation associé à la décision \texttt{turn} est spécifié par la variable \texttt{angle} et contrôlé par le gyromètre de la centrale inertielle. 
-
-L'angle de rotation de la tête associé à la décision \texttt{turn-head} est spécifié par la variable \texttt{angle} et exécuté par un servomoteur. 
+Le contrôleur primitif défini en Section~\ref{sec:couplage} est implémenté en C++ sur la carte Arduino. 
+A ce jour ce contrôleur primitif  reconnait les sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres listées dans le  Tableau~\ref{tab:parametres_petitcat}.
 
 
 
@@ -249,15 +239,35 @@ L'angle de rotation de la tête associé à la décision \texttt{turn-head} est 
 	\label{tab:decision_petitcat}
 \end{table}
 
-P
-Les décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} provoque le déplacement du robot pendant la durée ou l'angle paramétré, mais ces déplacements sont interrompus si une collision est détectée par la centrale inertielle ou si un changement de luminosité est détecté sur le sol.
+Petitcat ne dispose pas de capteur de mesure directe de la distance parcourue. 
+Son accéléromètre linéaire n'offre pas la précision suffisante pour dériver la vitesse linéaire et encre moins la distance parcourue. 
+Les décisions \texttt{move} et \texttt{swipe} provoque un déplacement du robot pendant une durée spécifiée par  la variable libre \texttt{duration}. 
+ECA décider d'une distance de translation et la convertit en durée sur la base de la vitesse estimée de à $300~mm/s$ pour renseigner la variable \texttt{duration}.
 
-L'interruption du mouvement en cas de changement de luminosité du sol évite au robot de tomber d'une table ou l'empèche de franchir une ligne noir sur le sol, ce qui permet de le contenir dans une \emph{arène} d'expérimentation. 
-La durée écoulée avant cette interuption est renvoyée comme variable de l'interaction énactée. 
-Elle permet de calculer une estimation de la distance parcourue. 
+L'angle de rotation associé à la décision \texttt{turn} est spécifié par la variable \texttt{angle} et mesuré par le gyromètre de la centrale inertielle qui provoque l'arrêt quand l'angle spécifié est atteint.
+Les angles négatifs spécifient une rotation vers la gauche (anti-trigonométrique). 
 
+L'angle de rotation de la tête associé à la décision \texttt{turn-head} est spécifié par la variable \texttt{angle} et exécuté par le servomoteur. 
 
- 
+Les déplacements liés aux décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} sont interrompues lorsqu'un changement de luminosité est détecté sur le sol.
+Cet arrêt forcé est suivi d'un mouvement automatique de léger recul simulant un \emph{réflexe}.
+Ce comportement est utilisé pour éviter au robot de tomber d'une table ou pour l'empêche de franchir une ligne noire qui définit le contour d'une \emph{arène} d'expérimentation (Figure~\ref{fig:place}). 
+
+La variable \texttt{caution} définit un niveau de prudence associé à la décision \texttt{move forward}. 
+La valeur $2$ spécifie que le robot effectue des mesures périodique avec le télémètre et interrompu le déplacement si un obstacle est détecté. 
+La valeur $1$ spécifie que le déplacement est interrompu si un choc est détecté par l'accéléromètre linéaire. 
+Le valeur $0$ spécifie que le déplacement n'est pas interrompu en cas de choc ou de détection d'obstacle et permet à Petitcat de pousser des objets.
+
+Les variables \texttt{focus-x} et \texttt{focus-y} permettent de définir les coordonnées d'un point dans le référentiel égocentrique de Petitcat. 
+Quand elles sont spécifiées, Petitcat maintient sa tête orientée vers ce point pendant tout la durée de la décision, ce qui lui permet de suivre la position d'un objet fixe, et suggère à un observateur extérieur que Petitcat maintient son attention sur cet objet. 
+
+La variable \texttt{color} spécifie la couleur de la LED multicolore. 
+Elle est utilisée pour exprimer l'état émotionnel de Petitcat à l'intention d'un observateur. 
+
+Enfin, la décision \texttt{scan} déclenche une série de saccades de la tête avec mesure de distance.
+La variable \texttt{angle} spécifie l'angle entre chaque position.
+En particulier, la valeur $40$ spécifie 5 mesures pour les positions de tête $-80, -40, 0, 40, 80$ suffisantes pour détecter la présence d'un objet dans le demi plan frontal, compte tenu du fait que le cône de détection du télémètre possède une ouverture d'environ 70 degrés. 
+La valeur de $10°$ spécifie 19 mesures couvrant les direction allant de $-90°$ à $+90°$.
 
 
 \begin{table}[h]
@@ -272,13 +282,18 @@ Elle permet de calculer une estimation de la distance parcourue.
 		\texttt{color} & optionnel & toutes & couleur de la LED\\ \hline
 		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée (ms) \\ \hline
 		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle (degrés) \\ \hline
-		\texttt{caution} & optionnel & toutes & catégorie de prudence \\ \hline
+		\texttt{caution} & optionnel & \texttt{move forward} & niveau de prudence \\ \hline
 	\end{tabular}
 	\caption{Variables associées aux décisions.
 	}
 	\label{tab:parametres_petitcat}
 \end{table}
 
+
+Le tableau \ref{tab:interactions_petitcat} liste les variables renvoyées par Petitcat à ECA après l'enaction de la décision. 
+
+La durée écoulée avant cette interuption est renvoyée comme variable de l'interaction énactée. 
+Elle permet de calculer une estimation de la distance parcourue. 
 
 
 \begin{table}[h]
@@ -291,12 +306,12 @@ Elle permet de calculer une estimation de la distance parcourue.
 		\texttt{yaw} & rotation dans le plan horizontal (degrés) \\ \hline
 		\texttt{duration} & durée avant interruption (ms) \\ \hline
 		\texttt{total duration} & durée totale (ms) \\ \hline
-		\texttt{head angle} & direction de la tête \\ \hline
+		\texttt{head angle} & direction de la tête (degrés) \\ \hline
 		\texttt{echo distance} & distance mesurée par le télémètre (mm) \\ \hline
 		\texttt{floor} & code capteur de luminosité du sol \\ \hline
 		\texttt{color} & code capteur de couleur du sol \\ \hline
-		\texttt{azimuth} & direction de la boussole  \\ \hline
-		\texttt{impact} & code d'impact mesuré par la plateforme inertielle  \\ \hline
+		\texttt{azimuth} & direction par rapport au nord, mesurée de la boussole (degrés) \\ \hline
+		\texttt{impact} & code d'impact mesuré par l'unité de mesure inertielle  \\ \hline
 		\texttt{echoes} & tableau des distances mesurées pendant l'interaction \texttt{scan}  \\ \hline
 	\end{tabular}
 	\caption{Variables définissant les événements d'interaction.

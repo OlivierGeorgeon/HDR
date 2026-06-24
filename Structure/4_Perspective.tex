@@ -258,8 +258,8 @@ La valeur $2$ spécifie que le robot effectue des mesures périodique avec le t�
 La valeur $1$ spécifie que le déplacement est interrompu si un choc est détecté par l'accéléromètre linéaire. 
 Le valeur $0$ spécifie que le déplacement n'est pas interrompu en cas de choc ou de détection d'obstacle et permet à Petitcat de pousser des objets.
 
-Les variables \texttt{focus-x} et \texttt{focus-y} permettent de définir les coordonnées d'un point dans le référentiel égocentrique de Petitcat. 
-Quand elles sont spécifiées, Petitcat maintient sa tête orientée vers ce point pendant tout la durée de la décision, ce qui lui permet de suivre la position d'un objet fixe, et suggère à un observateur extérieur que Petitcat maintient son attention sur cet objet. 
+La variables \texttt{focus} contient les coordonnées d'un point dans le référentiel égocentrique de Petitcat. 
+Quand cette variable est spécifiées, Petitcat maintient sa tête orientée vers ce point pendant tout la durée de la décision, ce qui lui permet de suivre la position d'un objet fixe, et suggère à un observateur extérieur que Petitcat maintient son attention sur cet objet. 
 
 La variable \texttt{color} spécifie la couleur de la LED multicolore. 
 Elle est utilisée pour exprimer l'état émotionnel de Petitcat à l'intention d'un observateur. 
@@ -277,56 +277,90 @@ La valeur de $10°$ spécifie 19 mesures couvrant les direction allant de $-90°
 		\textbf{Code} & \textbf{statut}  & \textbf{décision}  & \textbf{Description} \\ \hline
 		\texttt{step} & obligatoire & toutes & numéro du cycle d'interaction \\ \hline
 		\texttt{decision code} & obligatoire  & toutes & code de la décision \\ \hline
-		\texttt{focus-x} & optionnel & \texttt{move}, \texttt{swipe}, \texttt{turn} & coordonnée x du point d'attention \\ \hline
-		\texttt{focus-y} & optionnel & \texttt{swipe}, \texttt{swipe}, \texttt{turn} & coordonnée y du point d'attention \\ \hline
+		\texttt{focus} & optionnel & \texttt{move}, \texttt{swipe}, \texttt{turn} & coordonnées du point d'attention \\ \hline
 		\texttt{color} & optionnel & toutes & couleur de la LED\\ \hline
 		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée (ms) \\ \hline
 		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle (degrés) \\ \hline
 		\texttt{caution} & optionnel & \texttt{move forward} & niveau de prudence \\ \hline
 	\end{tabular}
-	\caption{Variables associées aux décisions.
+	\caption{Trame transmise du PC ECA vers Petitcat définissant les décisions.
 	}
 	\label{tab:parametres_petitcat}
 \end{table}
 
 
-Le tableau \ref{tab:interactions_petitcat} liste les variables renvoyées par Petitcat à ECA après l'enaction de la décision. 
-
-La durée écoulée avant cette interuption est renvoyée comme variable de l'interaction énactée. 
-Elle permet de calculer une estimation de la distance parcourue. 
-
+Après l'énaction de la décision, Petitcat transmets l'isométrie $\iota$ et une liste d'événements d'interaction à ECA. 
+L'isométrie est calculée à partir de la durée de déplacement effective avant une possible interruption, et de l'angle de rotation calculé à partir des données du gyromètre et de la boussole. 
+Le gyromètre offre une meilleure précision que la boussole mais celle-ci permet de corriger les erreurs cumulées.
+%Même des décisions de translation non interrompues peuvetn générer des légères rotations. 
+Chaque événements d'interaction est associé à une position dans le référentiel égocentrique du robot comme indiqué dans le tableau \ref{tab:interactions_petitcat}. 
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|l|l|}
+	\begin{tabular}{|l|l|p{4cm}|}
 		\hline
-		\textbf{Code} & \textbf{description}   \\ \hline
-		\texttt{step} & numéro du cycle d'interaction renvoyé pour vérification \\ \hline
-		\texttt{decision code} & décision renvoyée pour vérification  \\ \hline
-		\texttt{yaw} & rotation dans le plan horizontal (degrés) \\ \hline
-		\texttt{duration} & durée avant interruption (ms) \\ \hline
-		\texttt{total duration} & durée totale (ms) \\ \hline
-		\texttt{head angle} & direction de la tête (degrés) \\ \hline
-		\texttt{echo distance} & distance mesurée par le télémètre (mm) \\ \hline
-		\texttt{floor} & code capteur de luminosité du sol \\ \hline
-		\texttt{color} & code capteur de couleur du sol \\ \hline
-		\texttt{azimuth} & direction par rapport au nord, mesurée de la boussole (degrés) \\ \hline
-		\texttt{impact} & code d'impact mesuré par l'unité de mesure inertielle  \\ \hline
-		\texttt{echoes} & tableau des distances mesurées pendant l'interaction \texttt{scan}  \\ \hline
+		\textbf{Code} & \textbf{position} & \textbf{variables}  \\ \hline
+		\texttt{pose} & position du capteur de couleur & direction corps et tête,  couleur du sol \\ \hline
+		\texttt{floor contrast} & position barre de capteur + distance recul &  code capteurs  \\ \hline
+		\texttt{impact} & position du pare-choc du robot & code direction d'impact \\ \hline
+		%\texttt{floor color} & position du capteur de couleur & code de couleur \\ \hline
+		\texttt{echo} & position de la source de l'écho &  \\ \hline
+		\texttt{echo contrast} & position de la source de l'écho &  \\ \hline
 	\end{tabular}
-	\caption{Variables définissant les événements d'interaction.
+	\caption{Evénements d'interaction primitifs générés par Petitcat.
 	}
-	\label{tab:interactions_petitcat}
+	\label{tab:événements_petitcat}
 \end{table}
 
 
-\subsection{Place cells}
+L'événement \texttt{pose} indique la position courante du robot. 
+Il est localisé à l'emplacement du capteur de couleur du sol, proche de l'origine du référentiel égocentré du robot.
+La direction du robot (azimuth), l'angle de la tête, et la couleur du sol sont associées à cet événement.
+%L'événement \texttt{floor color} est positionné à l'emplacement du capteur de couleur sous le robot et contient une variable indiquant la couleur détectée.
 
-Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
-Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
-Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
-On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
+L'événement \texttt{floor contrast} contient un code indiquant quels capteurs de luminosité du sol ont détecté une ligne noire pendant le déplacement. 
+Sa position est placée à la position central de la barre de capteurs de luminosité à laquelle s'ajoute la distance de recule réflex provoqué par la détection d'un contraste de luminosité sur le sol. 
 
+L'événement \texttt{impact} est généré par une forte décélération mesurée par l'unité de mesure inertielle. 
+Il est localisé sur le bord du robot dans la direction du mouvement effectué. 
+Un code de rotation lui est associé si une rotation est détectée par le gèromètre permettant de différentier un impact frontal d'un impact survenu sur le bord du robot.
+
+ 
+Les événements \texttt{echo} sont générés par des mesures de télémètre à ultrason. 
+Ils sont localisés le long de la direction de la tête à la distance mesurée par le télémètre. 
+A la fin de chaque décision, des légers mouvements de tête sont effectuées pour l'aligner en direction de l'objet le plus proche, et un événement écho est généré.
+La distance est obtenue avec une bonne précision de l'ordre de $\pm 2~mm$.
+En revanche la direction de la source de l'écho peut être n'importe ou dans un cône de $70^\circ$ d'ouverture. 
+
+Lorsque Petitcat énacte la décision \texttt{scan} avec un angle de saccade de $10^\circ$, il obtient un profile d'écho comme illustré à en Figure. 
+Des événements de contraste de distance sont générés sur les points de discontinuité de ce profile d'écho. 
+
+La Figure \ref{fig:evenements} illustre les événements dans la mémoire égocentrée du robot. 
+La partie gauche montre les événements énactés au cours des dix derniers cycles d'interaction alors que le robot longeait une ligne noire sur le sol par des mouvements successifs de \texttt{swipe right}. 
+Les événements \texttt{pose} sont représentés par des trianges glis quand le sol est blanc, ou de la couleur du sol détectée par le capteur de couleur. 
+La partie droite représente le profile d'écho-localisation obtenu après une décision \texttt{scan} avec un angle de saccade de $10^\circ$.
+Les événements \texttt{echo contrast} sont générés sur les points de discontinuité de ce profile. 
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/4_evenements.pdf}
+	\caption{Evénements d'interaction en mémoire égocentrique.
+	Gauche: mise en évidence d'une ligne noire sur le sol détectés au cours de mouvements \texttt{swipe right} successifs. 
+	Droite: événements \texttt{echo contrast} calculés après une décision \texttt{scan} mettant en évidence un objet devant le robot et un autre à sa gauche.}
+	\label{fig:evenements}
+\end{figure}
+
+
+\subsection{Expérimentation des \an{Place cells}}
+
+\noindent
+Nous avons doté ECA de la capacité de construire un réseau de \emph{places} en mémoire allocentrique. 
+Cette capacité s'inspire des \emph{cellules de place} (\an{place cells}) dans le cerveau.
+L'hypothèse est qu'un animal est capable d'adapter ses comportements à une configuration particulière de l'environnement observé à une certaine position.
+Il peut ensuite mémoriser des possibilités de déplacement entre ces différentes positions, et reconnaitre une position qui a déjà visitée. 
+
+Nous avons implémenté un comportement qui 
 
 
 \begin{figure}[ht]
@@ -368,6 +402,12 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 
 
 \subsection{Enseignements}
+
+Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
+Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
+On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
+
 
 
 A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 

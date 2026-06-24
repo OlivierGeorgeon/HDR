@@ -16,6 +16,7 @@ L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage
 
 
 \section{Inférence de structures spatiales}
+\label{sec:spatial_inference}
 
 Introduction en construction
 
@@ -151,7 +152,7 @@ La question de la généralisation de ces principes à des environnements plus r
 
 
 
-\section{Le projet Petitcat}
+\section{Projet Petitcat}
 
 
 \noindent
@@ -352,16 +353,30 @@ Les événements \texttt{echo contrast} sont générés sur les points de discon
 \end{figure}
 
 
-\subsection{Expérimentation des \an{Place cells}}
+\subsection{Expérimentation des cellules de place}
 
 \noindent
-Nous avons doté ECA de la capacité de construire un réseau de \emph{places} en mémoire allocentrique. 
-Cette capacité s'inspire des \emph{cellules de place} (\an{place cells}) dans le cerveau.
-L'hypothèse est qu'un animal est capable d'adapter ses comportements à une configuration particulière de l'environnement observé à une certaine position.
-Il peut ensuite mémoriser des possibilités de déplacement entre ces différentes positions, et reconnaitre une position qui a déjà visitée. 
+Cette expérimentation constitue une étude du passage d'une représentation séquentielle à une représentation spatiale complémentaire à celles décrite en Section~\ref{sec:spatial_inference}.
+Elle s'inspire du rôle des \emph{cellules de place} (\an{place cells}) dans le cerveau (Section~\ref{sec:espace}).
+En particulier, les animaux sont capables d'adapter leurs comportements à une configuration particulière de l'environnement observé à une certaines places.
+Ils peuvent reconnaitre les places par rapport à des indices sensoriels et en fonction des chemins parcourus pour y accéder. 
+ils mémorisent les possibilités de déplacement entre différentes places.
 
-Nous avons implémenté un comportement qui 
+Nous avons ajouté une mémoire allocentrique dans ECA, qui fonctionne en tendem avec sa mémoire spatiale égocentrée décrite en Section~\ref{sec:ECA}.
+Cette mémoire allocentrée est capable de créer et maintenir un graphe dont les n\oe uds représentent des places visitées par le robot et les arcs des passages d'une place à l'autre. 
 
+Nous avons implémenté des comportements innés basés sur deux états émotionnels distincts: L'état \texttt{interest} pousse l'agent à énacter des \emph{comportements d'attention} lui permettant de reconnaitre une place, et l'état \texttt{enjoyment} pousse l'agent à énacter une interaction de déplacement. 
+Les comportements d'attention poussent l'agent à énacter une décision \texttt{scan}, suivie d'une \texttt{turn} de 180 suivi d'un autre \texttt{scan}.
+Cela permet de recueillir un profile de télémétrie contenant un ensembel d'événements \texttt{echo contrast}.
+Ce profile est mémorisé en association avec la place en coordonnées polaires allocentriques, c'est à dire centré sur un point considéré comme le point de référence de la place, avec et orienté de manière absolue par rapport au nord. 
+
+Lorsque la place courante est connue, l'agent passe en état émotionnel \texttt{enjoyment} qui le conduisent à choisir des décision \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
+
+Lorsqu'il revient dans le voisinage d'une place connue, l'agent effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de cette place. 
+Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux évenements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique de la place. 
+L'arc représentant le dernier déplacement est rattaché au n\oe ud représentant la place précédement visitée, ce qui transforme un schéma purement séquentiel en un graphe spatial de places en mémoire allocentrique. 
+
+La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de graphe construit en mémoire allocentrique. 
 
 \begin{figure}[ht]
 	\centering
@@ -369,9 +384,21 @@ Nous avons implémenté un comportement qui
 	\quad
 	\includegraphics[height=0.3\textwidth]{Figures/4_place_path.pdf}
 	\caption{Expérimentation des places \cite[Fig.~1 et 3]{georgeon_spatio-temporal_2026}.
+		Gauche: conditions expérimentale est résultat d'une décision \texttt{scan} permettant de recueillir un profile télémétrique partiel de la place 1 mettant en évidence la tirelire et le pot de fleur.
+		Droite: graphe de places construits après 30 cycles d'interaction. 
+		Le robot est revenu proche du centre de la Place 6. 
 	} 
 	\label{fig:place}
 \end{figure}
+
+
+Cette étude est décrite dans l'article \an{A Spatio-temporal schema mechanism for developmental robotics} \cite{georgeon_spatio-temporal_2026}.
+Elle nous a conduit à implémenter une mémoire allocentrique dans ECA capable de construire un graphe de places. L'objectif n'est pas de construire une carte de l'environnement car les capteurs de Petitcat sont trop imprécis pour cela. 
+De plus, si des objets bouges dans l'environnement, les places ne peuvent plus être reconnues. 
+Dans ce cas Petitcat recommence un nouveau graphe de place à partir de sa position courante. 
+Le but est simplement de permettre une organisation des comportements dans des niches relativement stables de l'environnement. 
+Dans le cas d'un environnement contenant des objets mobiles, il faudrait faudrait permettre au robot de reconnaitre des places sur la base de décor relativement invariants, et d'identifier des objets mobiles. 
+Cela correspond à des stratégies mises en place chez des animaux (Section~\ref{sec:core}).
 
 
 %Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
@@ -388,7 +415,7 @@ Nous avons implémenté un comportement qui
 	\centering
 	\includegraphics[width=0.49\textwidth]{Figures/6_moneybox.png}
 	\hfill
-	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/6_phenomenon.png}
+	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/4_phenomenon.png}
 	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~13]{georgeon_schema_2025}.
 		Gauche: le robot observant l'objet. 
 		Droite: le phénomène identifié par le robot. 
@@ -400,6 +427,8 @@ Nous avons implémenté un comportement qui
 \end{figure}
 
 
+Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol
+\cite{georgeon_reducing_2024}.
 
 \subsection{Enseignements}
 
@@ -433,8 +462,8 @@ Pour cela nous conservons la notions de \emph{variable libres} dans les schémas
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/4_GEITH.pdf}
-	\caption{Architecture cognitive incluant le Game Engine In The Head \cite{georgeon_reducing_2024}}
+	\includegraphics[width=0.6\textwidth]{Figures/4_eca.pdf}
+	\caption{Architecture cognitive ECA incluant un Interactional Game Engine }
 	\label{fig:GEITH}
 \end{figure}
 

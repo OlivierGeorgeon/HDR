@@ -34,7 +34,7 @@ Les différentes approches computationnelles de la cognition présentées en Sec
 Cette section vise à classer ces différences en introduisant la distinction fondamentale entre signal sensoriel \emph{représentationnel} et signal sensoriel \emph{non-représentationnel}. 
 
 L'idée centrale est de qualifier un signal sensoriel de \emph{représentationnel} lorsqu'il reflète une propriété d'un objet ou d'une entité de l'environnement. 
-Il constitue alors une représentation d'un aspect du monde extérieur attribué à cet objet, par exemple sa couleur, sa forme, ou son goût.
+Il constitue alors une représentation d'un aspect du monde lié à cet objet, par exemple sa couleur, sa forme, ou son goût.
 A l'inverse, un signal sera qualifié de non-représentationnel s'il ne renseigne pas directement sur la propriété d'un objet, par exemple, un signal qui indique une collision avec un obstacle, un changement de luminosité, ou la diffusion d'une odeur. 
 D'une manière générale, les signaux représentationnels reflètent des propriétés ontologiques de l'environnement, alors que les signaux non-représentationnels signalent des événements.  
 
@@ -66,8 +66,7 @@ Autrement dit, c'est l'invariabilité au cours du temps de la correspondance ent
 
 Cette définition peut s'étendre au cas où la fonction d'observation est stochastique.
 Une fonction d'observation stochastique peut être qualifiée de \emph{représentationnelle} lorsque sa distribution de probabilité dépend uniquement de l'état de l'environnement et demeure invariante au cours du temps.
-Dans ce cas, l'incertitude introduite par la stochasticité ne remet pas en cause le caractère représentationnel du signal. 
-Elle traduit simplement la présence d'un bruit aléatoire affectant le processus perceptif.
+Dans ce cas, l'incertitude introduite par la stochasticité ne remet pas en cause le caractère représentationnel du signal; elle traduit simplement la présence d'un bruit aléatoire affectant le processus perceptif.
 Une fonction d'observation stochastique représentationnelle est donc une fonction $\mathcal{O} : S \to \Delta(O) $ 
 qui donne la probabilité  $ \mathcal{O}(o_t| s_t)$ d'obtenir le signal $o_t$ dans l'état $s_t$.
 
@@ -75,7 +74,7 @@ qui donne la probabilité  $ \mathcal{O}(o_t| s_t)$ d'obtenir le signal $o_t$ da
 A l'inverse, une fonction d'observation stochastique est \emph{non représentationnelle} lorsque la distribution des signaux sensoriels ne dépend pas uniquement de l'état courant de l'environnement. 
 Dans ce cas, l'apparition d'un signal sensoriel peut également être influencée par d'autres facteurs, notamment l'action précédemment effectuée par l'agent.
 Un exemple est fourni par la fonction d'observation utilisée dans la formulation générale des POMDPs présentée en Section \ref{sec:pomdp} : $q:D\times S\rightarrow\Delta(O)$ qui donne la distribution de probabilité $q(o_{t}|d_{t-1}, s_t)$ du signal $o_{t}$ conditionnellement à l'état $s_t$ et à la décision précédente $d_{t-1}$.
-Dans ce cas, le signal sensoriel ne reflète plus uniquement une propriété de l'état courant, mais également la dynamique de l'interaction entre l'agent et son environnement, ce qui lui retire son caractère strictement représentationnel.
+Dans ce cas, le signal sensoriel ne reflète plus uniquement une propriété de l'état courant, mais également la dynamique de l'interaction entre l'agent et son environnement, ce qui lui retire son caractère représentationnel.
 
 
 
@@ -87,11 +86,11 @@ Par définition, un signal markovien est nécessairement représentationnel puis
 La réciproque n'est cependant pas vraie:
 un signal peut être représentationnel sans être markovien lorsqu'il ne représente que des propriétés de certaines entités de l'environnement.
 %C'est le cas des signaux générés par une distribution de la forme $q(o_{t}| s_t)$ dans certains POMDPs.
-Un signal non-représentationnel est, quant à lui, nécessairement non-markovien puisqu'il ne représente pas l'état de l'environnement.
+A l'inverse, un signal non-représentationnel est nécessairement non-markovien puisqu'il ne représente pas l'état de l'environnement.
 %C'est le cas des signaux générés par une distribution de la forme $q(o_{t}|d_{t-1}, s_t)$ où le signal dépend de la décision précédente et est parfois désigné sous le terme de \an{feedback}. 
 
 La notion de statut représentationnel peut également s'appliquer à la valeur de récompense. 
-Une valeur de récompense sera qualifiée de \an{représentationnelle} si elle est liée aux états de l'environnement d'une manière invariante.
+Une valeur de récompense est \an{représentationnelle} si elle est liée aux états de l'environnement d'une manière invariante.
 C'est le cas de la valeur de récompense des MDPs.
 Par définition, une valeur de récompense représentationnelle spécifie une motivation externe pour l'agent comme nous l'avons défini en Section \ref{sec:motivation}.   
 
@@ -100,10 +99,11 @@ Par définition, une valeur de récompense représentationnelle spécifie une mo
 %Ils sont non-représentationnels dans tous les autres cas, notamment quand ils constituent un \an{feedback} résultant de l'action.
 
 J'appelle \emph{hypothèse de représentationnalité}, l'hypothèse faite par le concepteur d'un algorithme d'apprentissage selon laquelle le signal sensoriel de l'agent est représentationnel.
-Parmi les exemples qui exploitent cette hypothèse figurent le mécanisme de schéma de Drescher (Sec.~\ref{sec:drescher}), certaines architectures cognitives, et certains algorithmes de POMDPs. 
-Parmi ceux qui n'exploitent pas cette hypothèse figurent le mécanisme de schéma CALM de Perotto (Sec.~\ref{sec:perotto}) et le \an{Sensorimotor Sequence Reiterator} de Woolford (Sec.~\ref{sec:ssr}). 
+Parmi les exemples qui exploitent cette hypothèse figurent le mécanisme de schéma de Drescher, comme je l'ai discuté en Section~\ref{sec:drescher}, certaines architectures cognitives, et certains algorithmes de POMDPs. 
+Parmi ceux qui n'exploitent pas cette hypothèse figurent le mécanisme de schéma CALM de Perotto et le \an{Sensorimotor Sequence Reiterator} de Woolford. 
+Ces mécanismes utilisent des signaux sensoriels qui sont des résultats d'actions comme discuté dans les  Section~\ref{sec:perotto} et \ref{sec:ssr}. 
 
-Lorsque des chercheurs implémentent dans un robot en monde ouvert un algorithme qui exploite l'hypothèse de représentationnalité, ils imposent une modélisation du monde sous la forme d'un ensemble d'états identifiés par eux.
+Chez un robot en monde ouvert, lorsqu'un chercheur implémentent un algorithme qui exploite l'hypothèse de représentationnalité, il imposent une modélisation du monde sous la forme d'un ensemble d'états préalablement identifiés.
 Ces algorithmes ne permettent pas au robot de construire sa propre perception du monde.
 Or, la perception humaine ne repose précisément pas sur de tels états prédéfinis. 
 C'est ce que la phénoménologie nous enseigne, comme nous l'avons vu en section \ref{sec:phenomenologie}, notamment à travers l'affirmation husserlienne qu'il n'existe pas de perception objective. 
@@ -118,7 +118,7 @@ Pour ces raisons, il me semble important d'éviter l'hypothèse de représentati
 
 \noindent
 Je propose le modèle \an{Enactive Decision Process} (EDP) pour formaliser les interactions d'un agent dont les signaux d'entrée sont non-représentationnels et qui ne reçoit pas de récompense externe.
-L'EDP est représenté en Figure~\ref{fig:edp} et formalisé dans la Définition \ref{def:edp}. 
+Le modèle EDP est représenté en Figure~\ref{fig:edp} et formalisé dans la Définition \ref{def:edp}. 
 Il s'inspire du modèle POMDP représenté en Figure \ref{fig:pomdp} et formalisé en Définition \ref{def:pomdp} mais présente trois  différences majeures.
 La première est que le cycle commence par la décision de l'agent plutôt que par l'observation. 
 Ce début de cycle est matérialisé par la puce noire sur la figure.
@@ -128,7 +128,7 @@ La troisième est que l'agent ne reçoit pas de récompense en provenance de l'e
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/3_edp.pdf}
-	\caption{Enactive Decision Process.
+	\caption{\an{Enactive Decision Process} (EDP).
 		Au temps $t$, l'agent prend une décision $d_t$, puis reçoit un événement d'interaction $i_t$ selon la distribution de probabilité $q(i_t|s_t,d_t)$.
 		L'environnement tansitionne vers l'état $s_{t+1}$ selon la distribution de probabilité $p(s_{t+1}|s_t,i_t)$.
 	}
@@ -155,11 +155,11 @@ L'événement d'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t
 L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$ dépendant de l'état précédent et de l'événement d'interaction qui s'est produit.
 
 Un événement d'interaction $i \in I$ représente un schème piagétien élémentaire. 
-L'EDP implémente ainsi l'idée piagétienne que les schèmes sensorimoteurs sont les briques élémentaires de l'apprentissage.
+L'EDP implémente ainsi l'idée piagétienne que les schèmes sensorimoteurs sont les briques élémentaires de la cognition.
 Un tel événement associe une information sur la décision de l'agent et sur le résultat induit sur les capteurs.
-L'équivalent dans un POMDP serait un couple \schema{$d, o$}.
+L'équivalent dans un POMDP est le couple \schema{$d, o$}.
 Dans un robot, il correspond à une boucle sensorimotrice élémentaire, par exemple une boucle de contrôle de déplacement surveillant un capteur de collision.
-Des collisions quand le robot avance ou recule pourront ainsi être signalées par des événements différents même si elles sont détectées par le même capteur.
+Quand le robot avance ou recule, des éventuelles collisions pourront ainsi être signalées par des événements différents même si elles sont détectées par le même capteur.
 L'historique $h_t$ des interactions au temps $t$ est donc simplifié. 
 Il est constitué de la série des événements d'interaction $h_t = \langle i_0, ..., i_{t} \rangle$, au lieu des deux variables $d_t$ et $o_t$ dans le cas des POMDPs.
 
@@ -168,10 +168,10 @@ Il est constitué de la série des événements d'interaction $h_t = \langle i_0
 
 Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde sont immuables. 
 L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
-Les variables stochastiques $S_t, D_t, I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
+Les variables stochastiques $S_t, D_t$ et $I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
 Les flèches représentent les dépendances entre ces variables données par $q$ et $p$. 
-La variables $S$ est représentée en grisé pour indiquer qu'elle est cachée à l'agent. 
-L'historique des interactions $i_t$ constitue la couverture de Markov de l'agent.
+La variables $S$ est représentée en gris pour indiquer qu'elle est cachée à l'agent. 
+La série temporelle variables $I$ constitue la couverture de Markov de l'agent.
 
 
 \begin{figure}[ht]
@@ -190,7 +190,7 @@ L'historique des interactions $i_t$ constitue la couverture de Markov de l'agent
 
 % Par rapport au POMDP, le modèle EDP présente l'avantage de rendre clairement visible le fait que le signal sensoriel peut dépendre de la décision de l'agent. Cela rappelle au chercheur de ne pas implémenter l'hypothèse de représentationnalité. Cette dépendance n'interdit cependant pas que certains signaux sensoriels puissent être représentationnels.  Le fait que la décision et le signal sensoriel qui en résulte soient rattachés au même cycle $t$ évite certaines lourdeurs du POMDP évoquées en Section~\ref{sec:pomdp}.
 
-Nous avons présenté une version préliminaire de ce modèle sous le nom de \an{Enactive Markov Decision Process} avec James Marshall et Riccardo Manzotti \cite{georgeon_eca_2013}. 
+Nous avons présenté une version préliminaire du modèle EDP sous le nom de \an{Enactive Markov Decision Process} avec James Marshall et Riccardo Manzotti \cite{georgeon_eca_2013}. 
 La référence à Markov provenait de l'inspiration des POMDP mais je l'ai maintenant retirée pour exprimer le fait que ce modèle n'a plus rien de markovien.
 Amélie Cordier et moi avons publié une théorisation de l'inversion du cycle d'interaction dans l'article \an{Inverting the interaction cycle to model embodied agents} \cite{georgeon_inverting_2014}.
 La formalisation sous forme de DBN a été réalisée avec les étudiants en mathématique Marouane Toumi, Pierre Martin et David Lurie \cite{georgeon_artificial_2024}.
@@ -214,10 +214,12 @@ Cette valence peut donc servir de signal de motivation interne pour l'agent, qui
 La valence se rapproche de la récompense utilisée en apprentissage par renforcement (Sections~\ref{sec:rl} et \ref{sec:pomdp}) mais en diffère par le fait qu'elle n'inclut pas l'état de l'environnement parmi ses arguments.
 Ce n'est donc pas une motivation externe au sens évoqué en Section~\ref{sec:motivation}.
 
-Elle se rapproche de la notion de \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et de \an{prior preference distribution} dans la théorie de l'inférence active (Sec.~\ref{sec:active_inference}). 
-Cependant, elle en diffère par le fait que dans ces approches, les signaux sensoriels proviennent directement des capteurs, alors que dans l'EDP les événements d'interaction incluent la décision de l'agent. 
-Par exemple, là ou LIDA et l'inférence active spécifieront la même valeur à une collision vers l'avant ou vers l'arrière, l'EDP permet de spécifier des valeurs différentes.
-Le fait de pouvoir associer des préférences aux événements d'interaction plutôt qu'aux états des capteurs est important pour valuer l'expérience d'interaction dans un apprentissage empiriste et constructiviste.
+Elle se rapproche des valeurs motivationnelles appelées \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et \an{prior preference distribution} dans la théorie de l'inférence active (Sec.~\ref{sec:active_inference}). 
+Cependant, elle en diffère par le fait que ces valeurs motivationnelles sont liées aux signaux sensoriels, alors que la valence de l'EDP est liée à des événements d'interaction qui incluent la décision de l'agent. 
+Associer une valeur motivationnelle à un signal sensoriel est suffisant dans le cas où ce signal est représentationnel, par exemple un signal indiquant un objet comestible. 
+%Par exemple, là ou LIDA et l'inférence active spécifieront la même valeur à une collision vers l'avant ou vers l'arrière, l'EDP permet de spécifier des valeurs différentes.
+Dans une logique d'apprentissage basé sur l'expérience d'interaction, en revanche, il s'avère important d'associer la valence aux événements d'interaction.
+%Le fait de pouvoir associer des préférences aux événements d'interaction plutôt qu'aux états des capteurs s'avère importante pour valuer l'expérience d'interaction dans un apprentissage empiriste et constructiviste.
 
 
  
@@ -237,7 +239,7 @@ Pour reprendre les mots de Piaget, la motivation interactionnelle se situe \og �
 
 Je garde maintenant l'appellation de motivation interactionnelle en la classant dans la catégorie des motivations internes, au sens défini en Section \ref{sec:motivation}.
 %car elle ne vise pas à atteindre un état particulier de l'environnement (Sec.~\ref{sec:motivation})
-La motivation interactionnelle peut se décliner en motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions, ou en motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets spécifiques.
+La motivation interactionnelle peut se décliner en motivation intrinsèque, quand l'agent semble effectuer une activité pour le plaisir d'énacter certaines interactions de valence positive non spécifiquement associées à des objets, ou en motivation extrinsèque, quand l'agent semble chercher à interagir avec des objets qui affordent des interactions à valence positive.
 Elle est également compatible avec d'autres principes motivationnels tels que les émotions, comme nous le verrons au Chapitre~\ref{chap:perspective}.
 
 
@@ -259,7 +261,7 @@ L'agent est initialisé avec des schémas primitifs de bas niveau représentés 
 Au fil du temps, l'agent apprend des schémas de plus haut niveau représentés par des flèches plus longues. 
 Cet apprentissage se fait depuis le bas (\an{bottom-up}): un nouveau schéma est créé par concaténation d'une séquence de schémas de niveau inférieur.
 On obtient ainsi une hiérarchie de schémas dont la base est constituée des schémas primitifs.
-Cette hiérarchie de schéma finit par refléter certains aspects de la hiérarchie des régularités présentes dans le couplage structurel entre l'agent et son environnement, qui sont pertinents au regard de la motivation de l'agent.
+Cette hiérarchie de schéma finit par refléter certains aspects de la hiérarchie des régularités présentes dans le couplage structurel entre l'agent et son environnement qui sont pertinents au regard de la motivation de l'agent.
 
 
 \begin{figure}[ht]
@@ -275,14 +277,14 @@ Cette hiérarchie de schéma finit par refléter certains aspects de la hiérarc
 La situation courante de l'agent est représentée par les schémas qui viennent d'être énactés. 
 Ces schémas réactivent les schémas de plus haut niveau dont ils font partie. 
 Le mécanisme tente de compléter l'énaction des schémas de haut niveau réactivés en sélectionnant leurs parties non encore enactées.
-Il en résulte que l'agent apprend petit à petit des habitudes d'interaction qui sont adaptées aux régularités offertes par son couplage structurel. 
+Il en résulte que l'agent apprend petit à petit à répéter des habitudes d'interaction qui sont adaptées aux régularités offertes par son couplage structurel. 
 %Avec le temps, l'agent s'engage dans des comportements de plus en plus sophistiquées en exploitant des schémas qu'il a appris au cours de son développement.
 
 Le choix des futurs schémas à énacter parmi ceux affordés par la situation courante se fait sur la base de leur espérance de valence estimée. 
 Ce principe motivationnel associe donc une tendance à répéter des séquences déjà apprises avec une préférence pour les interactions ayant la plus grande valence. 
 Il regroupe ainsi des idées d'apprentissage d'habitudes d'interaction présentes dans le \an{Sensorimotor Sequence Reiterator} de Woolford (Sec.~\ref{sec:ssr}), et d'apprentissage hiérarchique influencé par des préférences innées présente dans CALM de Perotto (Sec.~\ref{sec:perotto}).
 
-Ce mécanisme adopte la terminologie du EDP et utilise le terme \emph{interaction} pour désigner les schémas.
+Ce mécanisme adopte la terminologie de l'EDP introduite en Section~\ref{sec:edp}, et utilise le terme \emph{interaction} pour désigner les schémas.
 Le terme \emph{interaction primitive} désigne des schémas prédéfinis par le chercheur sur la base des possibilités motrices et sensorielles de l'agent.
 L'ensemble des interactions primitives est noté $I_p$.
 Le terme \emph{interaction composite} désigne les schémas appris par l'agent. 
@@ -334,7 +336,7 @@ Une interaction composite $i_c$ est donc une séquence de deux sous-interactions
 La première est appelée la \emph{pré-intéraction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
 Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
 
-Etant donné qu'une interaction composite doit être réénactée pour donner lieu à une apprentissage d'une interaction composite de plus haut niveau, le nombre d'interactions composite ne croit pas trop rapidement comme nous le verrons plus loin.
+Etant donné qu'une interaction composite doit être réénactée pour donner lieu à une apprentissage d'une interaction composite de plus haut niveau, le nombre d'interactions composite ne croit pas trop rapidement comme nous le verrons en Section~\ref{sec:sniff}.
 %Nous avons montré que le nombre d'interactions composites croissait linéairement avec le temps \cite{georgeon_schema_2025-1}. C'est  d'autant plus acceptable qu'il est possible de supprimer les interactions composites non utilisées sans affecter le comportement de l'agent.
 
 
@@ -344,8 +346,7 @@ Etant donné qu'une interaction composite doit être réénactée pour donner li
 A l'instant $t$, le contexte courant est caractérisée par les interactions que l'agent vient juste d'énacter.
 La Figure~\ref{fig:agent10} illustre ces interactions en gris. 
 Ce contexte contient l'interaction $i_{d-1}$ que l'agent a décidé de tenter d'énacter lors de sa décision précédente.
-Il contient également des interactions composites de plus haut niveau qui se terminent par $i_{d-1}$.
-Enfin, il contient les post-interacions de plus bas niveau que $i_{d-1}$, qui peuvent soit être primitives comme $i_{t-1}$ sur la figure, ou soit avoir elles-même des post-interactions à inclure dans le contexte. 
+Il contient également des interactions composites de plus haut niveau qui se terminent par $i_{d-1}$ , ainsi que les post-interacions de plus bas niveau que $i_{d-1}$, qui peuvent soit être primitives comme $i_{t-1}$ sur la figure, ou soit avoir elles-même des post-interactions à inclure dans le contexte. 
 L'ensemble de toutes ces interactions qui constitue le contexte est noté  $C_t \subset I$. %cet ensemble dont les éléments sont en gris sur la Figure \ref{fig:agent10}.
 
 Soit $A_t \subset I$ l'ensemble des interactions composites dont la pre-interaction appartient à $C_t$: $A_t = \{i \in I \mid pre(i) \in C_t\}$.
@@ -357,7 +358,7 @@ Les interactions dans $F_t$ sont les interactions \emph{affordées} par le conte
 Les interactions affordées au temps $t$ sont donc celles que l'agent a appris qu'il pourrait probablement réenacter dans le contexte courant. 
 Cette connaissance repose sur des séquences préalablement apprises et réactivées. 
 En dotant l'agent d'un mécanisme de décision visant à tenter de réenacter l'une des interactions affordée, on obtient un agent capable d'apprendre et réitère des habitudes d'interaction. 
-Il nous reste maintenant a déterminer comment sélectionner une décisions parmi l'ensemble $F_t$ de celles qui sont affordées par le contexte courant.
+Il nous reste maintenant a déterminer comment choisir une décisions parmi celles qui consistent à tenter de réénacter une interaction appartenant à $F_t$, c'est à dire affordée par le contexte courant.
 
 \subsection{Mécanisme de décision}
 
@@ -396,8 +397,8 @@ $\mathbb{E}_t(V_i)$ est la valence attendue d'une interaction $i$ calculée par 
 $p_t(i)$ est la probabilité que la décision $d$ prise au temps $t$ entraine l'enaction de l'interaction $i$. 
 
 Malheureusement, l'agent ne dispose généralement pas d'une estimation fiable des probabilités $p_t(i)$ de l'Equation \eqref{eq:ed} ni de  $p_{t+k}(i_k)$ de l'Equation \eqref{eq:ev}.
-De plus, les interactions affordées n'ont pas toutes la même longueur, ce qui peut fausser la comparaison. 
-Si on compare simplement la valence attendue d'une interaction $i_1$ longue de deux cycles d'interaction avec celle d'une interaction $i_2$ longue de quatre cycles, on ne prend pas en compte les valences qui pourraient être obtenues dans les deux cycles qui suivraient l'enaction de $i_1$ correspondant au temps d'enaction de $i_2$.
+De plus, les interactions affordées n'ont pas toutes la même longueur, ce qui peut fausser la comparaison: 
+si nous comparons simplement la valence attendue d'une interaction $i_1$ longue de deux cycles d'interaction avec celle d'une interaction $i_2$ longue de quatre cycles, on ne prend pas en compte les valences qui pourraient être obtenues dans les deux cycles qui suivraient l'énaction de $i_1$ correspondant au temps d'énaction de $i_2$.
 
 Pour ces raisons, nous ne pouvons pas mettre en place un mécanisme de décision basé sur la motivation interactionnelle pure. 
 Nous ajoutons le principe de \emph{réiteration d'habitudes} qui biaise la sélection des décisions en faveur des décisions qui répètent les séquences d'interactions les plus renforcées. 
@@ -452,7 +453,7 @@ La fine ligne grise représente le \emph{couplage primitif} entre le \emph{syst�
 	\caption{Différents niveaux de couplage, adapté de \cite[Fig.~1]{georgeon_cash_2019}:
 		Couplage \an{software}--monde défini par les registres de sortie (\an{output}) et d'entrée (\an{input}) du DDS, 
 		\emph{Couplage primitif} défini par les décisions et les interactions primitives de l'EDP,
-		\emph{Couplage cognitif} défini par les décisions et les interactions composites contrôlées par le mécanisme de décision.
+		\emph{Couplage cognitif} défini par les décisions et les interactions composites choisies par le mécanisme de décision.
 	}
 	\label{fig:couplage}
 \end{figure}
@@ -460,8 +461,9 @@ La fine ligne grise représente le \emph{couplage primitif} entre le \emph{syst�
 
 Un couplage de plus haut niveau, appelé \emph{couplage cognitif} sépare le système de décisions (en haut de la Fig.~\ref{fig:couplage}) du système de contrôle des interactions composites (en dessous). 
 Un cycle du couplage cognitif correspond à autant de cycles du couplage primitif qu'il y a d'interactions primitives énactées pour effectuer la décision composite.
-Au fur et à mesure que l'agent apprend des décisions et des interactions composites de plus haut niveau, il base ses décisions sur un contexte plus long et prend des décisions qui l'engagent à plus long terme. 
-Cela signifie que le couplage cognitif s'élève progressivement, ce qui constitue une réponse à la question de l'évolution du couplage structurel formulé par la théorie de l'énaction (Section~\ref{sec:enaction}) et illustrée en Figure \ref{fig:enaction}.
+Au fur et à mesure que l'agent apprend des interactions composites de plus haut niveau, il base ses décisions sur un contexte de plus en plus long et prend des décisions qui l'engagent à plus long terme. 
+Cela signifie que le couplage cognitif s'élève progressivement.
+Cette élévation du couplage cognitif apporte une réponse à la question de l'évolution du couplage structurel formulé par la théorie de l'énaction (Section~\ref{sec:enaction}) et illustrée en Figure \ref{fig:enaction}.
 
 
 Le contrôleur primitif est pré-programmé pour mettre en \oe uvre la décision primitive, piloter une boucle de contrôle qui active les effecteurs en surveillant les capteurs, et finalement générer l'interaction primitives énactées. 
@@ -469,7 +471,7 @@ Lorsque l'agent pilote un robot, chaque cycle du couplage primitif peut ainsi co
 Le signal en provenance des capteurs intervient alors comme une perturbation de cette boucle de contrôle, qui rejoint un des principes de la théorie de l'inférence active évoquée en Section \ref{sec:active_inference}.
 Lorsque l'agent interagit avec un environnement simulé, l'interaction est simplifié par le fait que l'environnement interprète lui-même la décision, %.  
 %Dans ce cas, un cycle du couplage primitif correspond à un cycle \an{output} -- \an{input} du DDS, 
-comme nous allons le voir dans des exemples. 
+comme nous allons le voir dans les exemples de la section suivante. 
 
 
 
@@ -481,14 +483,14 @@ Cette section présentent trois exemples représentatifs d'expérimentations ré
 Ces expérimentations utilisent des environnements artificiels qui simulent le déplacement d'un agent dans une grille. 
 Le \an{software} de l'agent est identique bien que la signification des interactions varie d'une expérimentation à l'autre. 
 La décision de l'agent est transmise à l'environnement via l'\an{output} du DDS.
-L'environnement calcule les effets de cette décision pour se mettre à jour, puis il génère l'\an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
+L'environnement calcule les effets de cette décision pour se mettre à jour, puis il génère un \an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
 Cet \an{outcome} est une rétroaction non représentationnelle résultant de la décision. 
 Le contrôleur primitif de l'agent associe la décision avec l'\an{outcome} pour produire l'interaction primitive énactée sous la forme $i=$ \schema{\an{decision}, \an{outcome}}.
 Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différents environnements. 
 
 
 La partie \ref{sec:sequentiel-robotique} conclura cette section en montrant comment ces expérimentations peuvent être répliquées chez des robots. 
-Dans ce ca, la seule différence du \an{software} de l'agent se situe au niveau du contrôleur primitif qui implémente la mise en \oe uvre des décisions de l'agent à travers des boucles de contrôle sensorimotrices.
+Dans ce cas, la seule différence du \an{software} de l'agent se situe au niveau du contrôleur primitif qui implémente la mise en \oe uvre des décisions de l'agent à travers des boucles de contrôle sensorimotrices.
 C'est le contrôleur primitif qui se charge de générer l'\an{outcome} selon la façon dont ces boucles ont pu être mise en \oe uvre. 
 
 %Dans ces expérimentations, les interactions primitives sont constituées de couples \schema{\an{decision}, \an{outcome}}. 
@@ -516,7 +518,7 @@ Ces environnements ont été choisis parce qu'ils offrent plusieurs niveaux de r
 	\label{fig:small_loop}
 \end{figure}
 
-L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner 90° à gauche et à droite, \texttt{feel left}, \texttt{feel front}, \texttt{feel right} : toucher la cellule à gauche, devant, et à droite.
+L'agent dispose de six décisions possibles : \texttt{move forward}: tenter d'avancer d'une cellule,  \texttt{turn left} et \texttt{turn right} : tourner de $90^\circ$ à gauche et à droite, \texttt{feel left}, \texttt{feel front}, \texttt{feel right} : toucher la cellule à gauche, devant, et à droite.
 
 Le Tableau \ref{tab:small_loop} indique les 10 interactions possibles et leurs valences. 
 Les décisions \texttt{turn left} et \texttt{turn right} correspondent chacune à une interaction.
@@ -551,7 +553,7 @@ Cet \an{outcome} constitue un signal sensoriel non représentationnel dans la me
 La Figure \ref{fig:trace} montre une analyse des comportements.
 Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
 Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
-Ces schémas de haut niveau sont pris en défaut quand il arrive dans le coin supérieur droit de la boucle. 
+Ces schémas de haut niveau sont pris en défaut quand l'agent arrive dans le coin supérieur droit de la boucle. 
 A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à tourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
 Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autour de l'environnement sans collision avec les murs. 
 
@@ -569,7 +571,7 @@ Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autou
 
 
 Cette expérimentation met en évidence l'acquisition d'interactions épistémiques: l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négatives (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
-Tout se passe comme si l'agent avais compris la signification de ces interactions. 
+Tout se passe comme si l'agent avais compris la signification de ces interactions alors que cette signification n'était pas inscrite dans son code. 
 %C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
 
 
@@ -598,7 +600,7 @@ Les sept \an{outcomes} sont:
 \texttt{eat} : l'agent atteint la cible et la mange,
 \texttt{bump} : collision avec un mur.
 
-La Figure \ref{fig:horseshoe} illustre le système de perception distal de l'agent.  
+La Figure \ref{fig:horseshoe} illustre ce système de perception distal.  
 Chaque \oe il couvre un champ de 90°. 
 Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible en face de l'agent.
 %Une mesure de distance permet de détecter si la cible grandit ou rétrécit dans le champ visuel pour générer les signaux \texttt{increase} et \texttt{decrease}. 
@@ -617,7 +619,7 @@ Les deux champs visuels se recouvrent et permettent de détecter la présence de
 
 Lorsque nous attribuons des valences positives aux interactions contenant \texttt{increase}, nous obtenons un agent qui se dirige vers la cible comme une limule mâle. 
 Inversement, avec des valences négatives, l'agent s'éloigne de la cible comme une limule femelle.
-Mais ces comportements nécessitent un certain apprentissage car l'agent ignore initialement les relations entre ses décisions et les interactions produites. 
+Ces comportements nécessitent toutefois un certain apprentissage car l'agent ignore initialement les relations entre ses décisions et les interactions produites. 
 En fonction de l'expérience individuelle de chaque agent, nous avons observé l'apprentissage de différents comportements illustrés en Figure \ref{fig:horseshoe}: 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Le comportement \emph{diagonal} consiste à alterner les interactions {\small \interaction{forward, increase left}, \interaction{turn left, stable}, \interaction{forward, increase right}, \interaction{turn right, stable}} jusqu'à être aligné avec la cible puis répéter {\small \interaction{forward, incease front}} jusqu'à atteindre la cible.
@@ -629,6 +631,7 @@ Cette expérimentation met particulièrement bien en évidence l'effet de prise 
 Bien qu'ils soient initialement identiques, deux agents peuvent développer des comportements différents ce qui conduit à une forme d'individuation.
 
 \subsection{The Sniff Experiment}
+\label{sec:sniff}
 
 \noindent
 Cette expérimentation s'inspire du comportement instinctif des mammifères nouveaux nés qui apprennent à se diriger vers le lait maternel parce qu'ils sont attirés par l'odeur. 
@@ -662,9 +665,9 @@ L'expérimentation montre l'apprentissage de comportements analogues à ceux de 
 L'agent apprend à utiliser les interactions de reniflage pour éviter les collisions avec les murs et tourner en direction de la cible.
 Une fois ces comportements de base appris, il remonte progressivement le gradient d'odeur jusqu'à la cible.
 La Figure \ref{fig:sniff_trace} présente un exemple d'exécution.
-L'agent ne fait plus de collision après le cycle 260, et mange la première cible au pas 380, puis de nouvelles cibles aux pas 605 et 685.
+L'agent ne fait plus de collision après le pas 260, et mange la première cible au pas 380, puis d'autres cibles nouvellement introduites aux pas 605 et 685.
 La courbe bleue montre qu'il réénacte une interaction composite de 10 pas au cycle 450. 
-La courbe orange montre que la croissance du nombre de schémas reste contenue et ralentit avec le temps. 
+La courbe orange montre que le nombre d'interactions composites augmente linéairement au début tend à plafonner. 
 
 
 %\begin{figure}[ht]
@@ -697,11 +700,12 @@ utilisé un \an{transformer} pour analyser les séquences apprises par le mécan
 Nous avons utilisé une architecture \an{encoder-decoder} avec un \an{token embedding} à 16 dimensions, 4 têtes d'attention, et 2 couches de neurones dans l'encodeur et le décodeur.
 Nous avons entrainé ce \an{transformer} avec les séquences apprises après 200 pas de temps, en attribuant un \an{token} par interaction primitive. 
 
-La Figure \ref{fig:attention}  montre une analyse des structures apprises par le \an{transformer}.
-La partie gauche montre une projection en trois dimensions de l'espace d'\an{embedding}. 
-Nous avons examiné s'il existait des regroupements de \an{tokens} qui pourraient refléter des proximités sémantique mais ce n'est pas le cas. 
-L'analyse des matrices d'attention s'est révélée plus concluante. 
-La partie droite de la Figure \ref{fig:attention} montre un exemple obtenu avec la séquence 
+La Figure \ref{fig:attention}  montre une analyse des structures apprises par le \an{transformer} à la recherche d'indicateurs d'une organisation sémantique apprise.
+Nous avons observé que la structure d'embedding ne reflétait pas de proximités sémantiques significatives.
+Avec un aussi petit nombre de tokens, il est toujours possible de trouver une projection de l'embedding montrant des proximités recherchées comme illustré dans la partie droite de la figure, mais ces regroupements s'avèrent non significatifs.
+
+L'analyse des matrices d'attention s'est au contraire avérée concluante. 
+La partie droite de la Figure \ref{fig:attention} montre un exemple obtenu en sondant la matrice d'attention avec la séquence 
 \small{\interaction{sniff-front, decrease} $\rightarrow$ \interaction{sniff-left, increase} $\rightarrow$ \interaction{sniff-right, decrease} $\rightarrow$ \interaction{turn-left} $\rightarrow$ \interaction{sniff-left-increase} $\rightarrow$ \interaction{move-forward, increase}}.
 La quatrième ligne (Query = \interaction{Turn Left} (TL)) montre que cette interaction dépend fortement de l'interaction \interaction{sniff-left, increase} qui la précède. 
 La ligne du bas (Query = \interaction{move forward, increase} (MFI)) montre que cette interaction dépend fortement de la première occurrence de \interaction{sniff-left, increase} (SLI) et de \interaction{turn-left} (TL) mais pas de la seconde occurrence de \interaction{sniff-left, increase}. 
@@ -739,9 +743,10 @@ Le touché était reproduit grâce à trois capteurs infrarouges présents devan
 La décision de toucher allumait la LED infrarouge correspondante. 
 Si le signal réfléchi dépassait un seuil alors une interaction \interaction{feel front, wall} était générée, sinon \interaction{feel front, empty} (et respectivement pour \texttt{left} et \texttt{right}). 
 Ce seuil était fixé pour détecter le présence d'un mur à approximativement 5 cm.
-La décision d'avancer déclenchait l'avancement du robot pendant une durée correspondant à un déplacement d'environ 5 cm tout en maintenant la LED infrarouge frontale allumée.
+La décision d'avancer déclenchait l'avance du robot pendant une durée correspondant à un déplacement d'environ 5 cm tout en maintenant la LED infrarouge frontale allumée.
 Si un mur était détecté, le déplacement était interrompu et une interaction \interaction{move forward, bump} était générée.
 Les décisions de rotation faisaient tourner le robot sur place pendant une durée correspondante à une rotation d'environ 90 degré. 
+
 
 
 \begin{figure}[ht]
@@ -759,15 +764,18 @@ Les décisions de rotation faisaient tourner le robot sur place pendant une dur�
 L'expérimentation montre que le robot apprend les comportements de base similaire à ceux décrits en Section \ref{sec:small-loop}: utilisation du touché, et des rotations pour éviter les collisions et satisfaire la motivation d'avancer.
 Le mécanisme de schéma est capable de résister aux erreurs de détections et aux imprécisions de déplacement tant que des régularités exploitables existent. 
 En revanche il ne peut pas apprendre des séquences d'interaction aussi longues que dans le \an{Small Loop} car elles ne sont pas utilisables en raison de ces imprécisions.
+Si la distance de perception ne correspond pas à la distance d'avance (5 cm) alors les interactions de toucher sont inutiles et le robot n'apprend pas à les utiliser. 
+Dans ce cas, il tend à développer un comportement consistant à alter les décisions d'avancer et tourner au centre du terrain. 
+
 
 Martin Kody\v{s} et Christian Wolf ont implémenté les interactions primitives de l'expérience de la limule chez le robot Eddie de la Figure~\ref{fig:robot_serie} (droite) \cite{kodis_approche_2014}.   
-Un QR code était utilisé comme cibles. 
+Un QR code était utilisé comme cible. 
 Un capteur \emph{kinect} générait les \an{inputs} \texttt{increase} et \texttt{decrease} par rapport à la cible et \texttt{bump} par rapport aux murs.
 Le robot a acquis le comportement \emph{diagonal}, mais pas le \emph{tangentiel} car celui-ci est trop sensible aux erreurs de détection.
 
 Ces expérimentations illustrent concrètement comment déployer le mécanisme de schéma sur des plateformes robotiques. 
 Une fois les interactions primitives codées, le mécanisme de schéma guide le robot dans la découverte et l'apprentissage des régularités séquentielles exploitables. 
-Elles mettent en lumière le besoin de disposer de plateformes modulaires autorisant l'ajouter de capteurs adaptés à l'apprentissage sensorimoteur.
+Elles mettent en lumière le besoin de disposer de plateformes modulaires autorisant l'ajout de capteurs adaptés à l'apprentissage sensorimoteur.
 La plupart des robots du commerce sont conçus dans une logique classique perception--action, alors que nous avons besoin de permettre une diversité des boucles sensorimotrices pour enrichir les comportements.
 Enfin, si l'organisation temporelle des comportements constitue un premier niveau d'intelligence, elle ne suffit pas : le robot doit aussi être capable de structurer ses comportements dans l'espace, ce que nous allons étudier maintenant.
 %Nous observons également que l'organisation des comportements dans le temps ne suffit pas suffisant, il faut aussi que le robot puisse organiser ses comportements dans l'espace, ce que nous allons étudier maintenant.
@@ -777,10 +785,12 @@ Enfin, si l'organisation temporelle des comportements constitue un premier nivea
 \label{sec:ECA}
 
 \noindent
-Cette section examine comment permettre à un agent de développer des comportements plus intelligents lorsqu'on le dote de mécanismes innés lui permettant de traiter des régularités spatiales interactions. 
-Je propose le \emph{Processus de Décision Enactif Spatial} pour modéliser un agent recevant des informations spatiales sur ses interactions énactées. 
+Cette section examine comment permettre à un agent de développer des comportements plus intelligents grâce à des mécanismes qui associes l'acquisition de régularités séquentielles et spatiales.
+Nous proposons le \emph{Processus de Décision Enactif Spatial} pour modéliser un agent recevant des informations spatiales associées aux événements d'interaction énactés. 
 Ce modèle s'appuie sur l'observation que la plupart des animaux peuvent localiser leurs interactions dans leur environnement immédiat et détecter leur propre déplacement (par exemple, via le signal vestibulaire et le flux optique).
-Ces informations spatiales sont centrées sur le corps de l'agent; il  n'a pas accès à une quelconque \emph{position absolue} dans son environnement.
+La position spatiale des événements d'interaction est définie relativement au corps de l'agent, elle ne fournit pas d'information sur la position absolue de l'agent.
+Les informations de déplacement reflètent également des déplacements relatifs.
+Chez un robot, elles peuvent être obtenus grâce à une unité de mesure inertielle qui joue un rôle comparable au système vestibulaire des animaux.
 
 
 \subsection{Processus de décision spatial enactif }
@@ -837,9 +847,10 @@ Un monde physique eucliden est un espace euclidien contenant des objets, par exe
 %ECA étend le mécanisme de schéma par d'autres mécanismes permettant de manipuler des structures de données représentant les régularités spatiales des événements d'interaction valués. 
 
 La Figure \ref{fig:sedp} présente le DBN qui met en évidence le réseau d'influences entre le modèle du monde interne $M$ maintenu par ECA et les variables du SEDP. 
-Les variables représentant l'interaction $I$, le point $\mathcal{E}$, et l'isométrie $\mathcal{I}$ constituent la couverture de Markov de l'agent.
-ECA vise à encoder des présupposés qui permette à l'agent de construire un modèle qui rende compte de la structure physique euclidienne du monde. 
-Comme évoqué en Section~\ref{sec:couverture}, nous estimons que ces présupposés sont nécessaire pour inférer les structures de l'environnement cachées par la couverture de Markov.
+Les variables aléatoires représentant l'interaction $I$, le point $\mathcal{E}$, et l'isométrie $\mathcal{I}$ constituent la couverture de Markov de l'agent.
+Comme évoqué en Section~\ref{sec:couverture}, nous estimons que l'agent ne pourrait pas inférer les structures de l'environnement cachées par la couverture de Markov si nous n'imposions pas de présupposés sur ces structures.
+ECA formalise donc notre hypothèse sur les présupposés nécessaires pour permettre à un agent de construire un modèle interne qui capture la structure physique euclidienne du monde. 
+Cette hypothèse est en cours d'élaboration et destinée à évoluer dans une démarche de rétro-engineering de la cognition.
 
 \begin{figure}[ht]
 	\centering
@@ -853,7 +864,8 @@ Comme évoqué en Section~\ref{sec:couverture}, nous estimons que ces présuppos
 
 La Figure~\ref{fig:ECA} présente une des premières versions d'ECA publiée avec James Marshall et Riccardo Manzotti \cite[\an{An enactivist cognitive architecture based on sensorimotor modeling}]{georgeon_eca_2013}.
 La partie haute représente le mécanisme de schéma séquentiel décrit précédemment. 
-Au centre vient s'ajouter la \emph{mémoire de travail spatiale égocentrée}, et à gauche une \emph{mémoire proto-ontologique} à long terme qui sont toutes deux initialement vides. 
+Au centre vient s'ajouter la \emph{mémoire de travail spatiale égocentrée}, et à gauche une \emph{mémoire proto-ontologique} à long terme.
+Ces deux mémoires sont initialement vides. 
 Le rôle de la mémoire spatiale égocentrée est de maintenir une description du contexte spatial courant en termes des possibilités d'interaction offertes à l'agent. 
 Le rôle de la mémoire proto-ontologique est de mémoriser une description des catégories de \emph{phénomènes} que l'agent rencontre dans son environnement. 
 Le terme phénomène désigne des objets ou entités \og telles que l'agent en fait l'expérience \fg\ à travers ses interactions. 
@@ -873,8 +885,8 @@ Nous désignons ces ensemble par le terme \an{bundle} en référence à la \an{B
 	\label{fig:ECA}
 \end{figure}
 
-La mémoire spatiale est définie comme un ensemble de d'\emph{interactions localisées}.
-Une interaction localisée $\gamma$ est définie comme un couple $\gamma = (i, \lambda)$ avec $i \in I$ et $\lambda \in \mathbb{R}^3$ une position dans l'espace définie par ses coordonnées cartésiennes relatives à l'agent. 
+La mémoire spatiale est définie comme un ensemble d'\emph{interactions localisées}.
+Une interaction localisée $\gamma$ est définie comme un couple $\gamma = (i, \lambda)$ avec $i \in I$, et $\lambda \in \mathbb{R}^3$ une position dans l'espace définie par ses coordonnées cartésiennes relatives à l'agent. 
 Lorsque l'agent reçoit un tuple $(i_t, \epsilon_t, \iota_t)$, il commence par construire une isométrie $\tau_t$ à partir de l'inverse de $\iota_t$, qu'il applique à toutes les positions des interactions localisées en mémoire spatiale de façon à mettre à jour leurs positions relatives en coordonnées égocentrées.
 Ensuite, il ajoute une nouvelle interaction localisée $\gamma_t = (i_t, \lambda_t)$ avec $\lambda_t$ initialisé à la position construite à partir du point $\epsilon_t$. 
 En général, le point $\epsilon_t$ et l'isométrie $\iota_t$ peuvent être imprécises et bruitées, rendant la localisation des interactions peu fiable après plusieurs déplacements successifs. 
@@ -884,7 +896,7 @@ L'agent utilise la mémoire spatiale uniquement pour détecter les chevauchement
 La mémoire proto-ontologique maintient un ensemble de \an{bundles} qui représentent des catégories de phénomènes identifiés par l'agent dans l'environnement. 
 Les \an{bundles} sont définis comme des ensembles d'interactions localisée par rapport à un point de référence de la catégorie de phénomène.  
 Lorsque l'agent détecte un nouveau type de chevauchement spatial d'interactions, il suppose qu'elles sont \emph{affordées} par un phénomène présent à cette position, et il crée un nouveau \an{bundle} pour représenter ce phénomène. 
-Les interaction énactées réactivent les \an{bundles} précédemment appris auxquels elles appartiennent ce qui provoque un effet \emph{d'évocation} du phénomène. 
+Les interactions énactées réactivent les \an{bundles} précédemment appris auxquels elles appartiennent ce qui provoque un effet \emph{d'évocation} du phénomène. 
 Un phénomène évoqué peut proposer des décisions consistant à tenter d'énacter d'autres interactions appartenant à ce \an{bundle}, c'est à dire \emph{affordées} par ce phénomène.  
 
 
@@ -903,11 +915,11 @@ Introduction en construction
 \subsection{Spatial Small loop Challenge}
 
 \noindent
-Cette expérimentation place un agent contrôlé par ECA dans l'environnement du \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop}.
-Elle vise à mettre en évidence le processus de construction des \an{bundles}.
+Cette expérimentation utilise une version modifiée de l'environnement \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop} capable de générer les informatoins $\epsilon$ et $\iota$ du SEDP.
+Elle vise à démontrer comment ECA construit des \an{bundles} pour représenter les deux types de phénomènes présents dans cet environnement: les murs et les cellules vides.
 
 L'agent possède les mêmes interactions primitives que précédemment mais elles sont complétées par leurs positions $\epsilon$ et leurs isométries $\iota$ indiquées dans le Tableau \ref{tab:small_loop_spatial}.
-Les positons $\epsilon$ définissent le \emph{modèle corporel} de l'agent (\an{body model}), et les isométries $\iota$ son \emph{modèle de déplacement} (\an{displacement model}).
+Les positons $\epsilon$ définissent toutes ensemble le \emph{modèle corporel} de l'agent (\an{body model}), et les isométries $\iota$ son \emph{modèle de déplacement} (\an{displacement model}).
 Cette expérimentation n'étudie pas comment ces deux modèles peuvent être construits par l'agent lui-même. 
 Ils sont codés par l'expérimentateur à l'initialisation. 
 
@@ -933,30 +945,30 @@ Ils sont codés par l'expérimentateur à l'initialisation.
 	\label{tab:small_loop_spatial}
 \end{table}
 
-La figure~\ref{fig:comportement_ECA} présente une analyse des comportements obtenus dans une exemple d'exécution.
+La figure~\ref{fig:comportement_ECA} présente une analyse des comportements obtenus dans un exemple d'exécution.
 La bande 4 montre le contenu de la mémoire spatiale égocentrée contenant les quatre cellules autour de l'agent et celle ou il est situé.
 La bande 5 montre la construction progressive des \an{bundles}.
-Le \an{bundle} représentant la cellule vide est créé au pas 5 quand l'agent observe que l'interaction \interaction{move forward, empty} énactée au pas 5 se chevauche avec \interaction{feel front, empty} énactée au pas 1.
+Le \an{bundle} représentant la cellule vide est créé au pas 5 quand l'agent constate que l'interaction \interaction{move forward, empty} qu'il vient d'énacter se chevauche avec \interaction{feel front, empty} énactée au pas 1.
 Ce \an{bundle} est progressivement complété jusqu'à contenir les six interactions primitives affordées par une cellule vide au pas 47.
-Le \an{bundle} représentant un mur est créé au pas 13 lorsque l'agent observe que l'interaction \interaction{move forward, wall} énactée au pas 13 se chevauche avec \interaction{feel front wall} énactée au pas 24.
-Il est complété jusqu'au pas 32 où il content les quatre interactions primitives affordées par un mur. 
+Le \an{bundle} représentant un mur est créé au pas 13 lorsque l'agent observe que l'interaction \interaction{move forward, wall} qu'il vient d'énacter se chevauche avec \interaction{feel front, wall} énactée au pas 24.
+Il est progressivement complété jusqu'au pas 32 où il content les quatre interactions primitives affordées par un mur. 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/3_Trace.pdf}
-	\caption{Analyse des comportements \cite[Fig.~8]{georgeon_eca_2013}.
+	\caption{Analyse des comportements dans le \an{Spatial Small Loop} \cite[Fig.~8]{georgeon_eca_2013}.
 		Bandes 1, 2 et 3 identiques à celles de la figure \ref{fig:trace}.
 		Bande 4: mémoire spatiale égocentrée. 
 		Bande 5: création de deux \an{bundles} représentant les cellules vides et les murs.}
 	\label{fig:comportement_ECA}
 \end{figure}
 
-L'agent ECA parvient à éviter les collisions et à obtenir des comportements satisfaisants plus rapidement qu'avec le mécanisme de schéma uniquement. 2
+L'agent ECA parvient à éviter les collisions et à obtenir des comportements satisfaisants plus rapidement qu'avec le mécanisme de schéma uniquement. 
 C'était attendu puisqu'il dispose de connaissance préalable sur la structure spatiale de l'environnement et sur son propre modèle corporel et modèle de déplacement. 
 
 Cette expérimentation, bien que rudimentaire, met en évidence le principe de construction d'une proto-ontologie fondée sur les expériences d'interaction. 
-Elle soulève de nombreuses questions sur la gestion des \an{bundles}.  
+Elle soulève de nombreuses questions sur la gestion des \an{bundles} qui apparaitraient des dans environnements plus complexes ou bruités.  
 Comment réviser un \an{bundle} si une interaction lui a été associée à tort? 
 Comment traiter des \an{bundles} partageant des interactions en commun? 
 Comment des \an{bundles} pourraient-ils représenter des objets de forme complexe ? 
@@ -971,15 +983,14 @@ Enfin, se pose la question de savoir comment l'agent pourrait apprendre de mani�
 
 \noindent
 Cette expérimentation examine la génération de comportements plus sophistiqués dans un environnement dynamique et continu contenant des objets hétérogènes.
-Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA en y ajoutant une \emph{mécanisme attentionnel}.
+Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA en y ajoutant un \emph{mécanisme attentionnel}.
 
 La Figure~\ref{fig:requins} illustre les conditions expérimentales.
-%L'environnement comprend deux agents ECA (les requins gris), des murs (cellules pleines pouvant arborer des parties colorées identifiables), des cibles mobiles (poissons bleus se 
-déplaçant en ligne droite et changeant de direction au contact d'un mur), ainsi que des algues (les \og trèfles \fg), repères visuels que les agents peuvent traverser.
+%L'environnement comprend deux agents ECA (les requins gris), des murs (cellules pleines pouvant arborer des parties colorées identifiables), des cibles mobiles (poissons bleus se déplaçant en ligne droite et changeant de direction au contact d'un mur), ainsi que des algues (les \og trèfles \fg), repères visuels que les agents peuvent traverser.
 Les deux requins gris sont des agents contrôlés par ECA.
 Les cellules pleines sont des murs qui peuvent contenir des parties colorées identifiables par les agents.
-Le poissons bleus sont des cibles mobiles qui se déplacent en ligne droite et changent de direction quand ils rencontrent un mur.
-Les \og trèfles \fg\ sont des algues identifiables visuellement que les requins peuvent traverser.  
+Le poissons bleus sont des cibles qui se déplacent en ligne droite et changent de direction quand ils rencontrent un mur.
+Les \og trèfles \fg\ sont des algues que les requins peuvent identifier visuellement et traverser sans générer de collision.  
 
 Les agents disposent de trois actions qui simulent des battements de nageoires : \texttt{impulse forward}, \texttt{impulse leftward}, \texttt{impulse rightward}. 
 Leur déplacement est régi par une loi de frottement fluide : après chaque impulsion, l'agent ralentit progressivement sans s'arrêter avant le coup de nageoire suivant. 
@@ -991,7 +1002,7 @@ Les \an{outcomes} sensoriels reprennent ceux de la limule : \texttt{increase}, \
 Cette expérimentation y ajoute un \emph{signal de couleur} correspondant à l'objet sur lequel l'agent porte son attention.
 
 
-L'attention de l'agent est attirée par les objets saillants de son champ visuel: poisson, autre agent, mur coloré ou algue.
+L'attention de l'agent est attirée par les objets saillants de son champ visuel: poissons, murs colorés, algues ou l'autre requin.
 Au début, l'agent se focalise sur l'objet le plus proche et apprend un comportement d'approche comme dans l'expérimentation de la limule. 
 Quand l'objet est atteint, un \an{bundle} est crée qui associe le signal de couleur de cet objet avec d'autres interactions qu'il afforde: \interaction{impulse forward, bump} pour les murs, \interaction{impuse forward, eat} pour les poissons, \interaction{impulse forward, empty} pour les algues. 
 Une interaction \interaction{impulse forward, cuddle}, de valence positive, est également introduite lorsque l'agent se frotte contre un congénère.
@@ -999,7 +1010,7 @@ Une interaction \interaction{impulse forward, cuddle}, de valence positive, est 
 
 Une fois les \an{bundles} constitués, le mécanisme attentionnel attribue l'attention aux objets qui affordent des interactions ayant les valences les plus élevées. 
 L'agent apprend ainsi à éviter les murs sur lesquels ils se cogne et à chasser les poissons qu'il peut manger. 
-Les deux agents tendent aussi à se rapprocher l'un de l'autre ce qui génère une forme de comportement ludique.
+Les deux agents tendent aussi à se rapprocher l'un de l'autre ce qui donne l'impression qu'ils jouent ensemble.
 
 
 
@@ -1016,7 +1027,7 @@ Les deux agents tendent aussi à se rapprocher l'un de l'autre ce qui génère u
 	\label{fig:requins}
 \end{figure}
 
-Cette expérimentation a été décrite en détail dans un article de Simon Gay avec Jong Kim \cite{gay_implementing_2012}. 
+Cette expérimentation a été décrite en détail dans un article co-écrit avec Simon Gay avec Jong Kim \cite{gay_implementing_2012}. 
 Une approche similaire a été mise en \oe uvre dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark}. 
 L'agent disposait d'un mécanisme motivationnel plus élaboré qui lui faisait porter son attention sur des objets servant de point de repère successifs pour retrouver son chemin \cite[\an{Early-Stage Vision of Composite Scenes for Spatial Learning and Navigation}]{georgeon_early-stage_2011}. 
 Cet exemple a également été repris dans un article plus général co-écrit avec Mathieu Guillermin \cite{guillermin_artificial_2022}.
@@ -1024,7 +1035,7 @@ Cet exemple a également été repris dans un article plus général co-écrit a
 Cette expérimentation introduit des signaux sensoriels représentationnels, les signaux de couleur, qui viennent s'ajouter aux événements d'interaction non représentationnels. 
 Elle illustre que les modèles EDP et SEDP ne sont pas incompatibles avec des signaux sensoriels représentationnels. 
 L'usage de ces signaux s'avère étroitement lié au mécanisme attentionnel pour lier la reconnaissance d'objets et la sélection des comportements.
-Le couplage entre le mécanisme d'attention et le système motivationnel basé sur les valences permet l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme les théories de présentées en Section~\ref{sec:attention} le suggèrent.
+Le couplage entre le mécanisme d'attention et le système motivationnel basé sur les valences permet l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme la \an{Feature Intgraty Theory} de l'attention présentées en Section~\ref{sec:attention} le suggère.
 
 
 

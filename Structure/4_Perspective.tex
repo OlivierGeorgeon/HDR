@@ -1,9 +1,11 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Vers une robotique développementale (en construction)}
+\chapter{Vers une robotique développementale}
 \label{chap:perspective}
 
 % Cette section pourrait etre incluse dans la précédente "Apprentissage spatio-séquentiel".
+
+Introduction ne construction
 
 
 Ce chapitre examine comment les mécanismes de schema spatiaux pourraient trouver des applications en robotique. 
@@ -319,8 +321,9 @@ Il est localisé à l'emplacement du capteur de couleur du sol, proche de l'orig
 La direction du robot (azimuth), l'angle de la tête, et la couleur du sol sont associées à cet événement.
 %L'événement \texttt{floor color} est positionné à l'emplacement du capteur de couleur sous le robot et contient une variable indiquant la couleur détectée.
 
-L'événement \texttt{floor contrast} contient un code indiquant quels capteurs de luminosité du sol ont détecté une ligne noire pendant le déplacement. 
-Sa position est placée à la position central de la barre de capteurs de luminosité à laquelle s'ajoute la distance de recule réflex provoqué par la détection d'un contraste de luminosité sur le sol. 
+L'événement \texttt{floor contrast} contient un code indiquant de quel coté une ligne noire a été détectée pendant le déplacement. 
+Ce code peut prendre les valeurs \texttt{none}, \texttt{left}, \texttt{front} et \texttt{right}.
+Cet événement est placée à la position central de la barre de capteurs de luminosité à laquelle s'ajoute la distance de recule réflex provoqué par la détection d'un contraste de luminosité sur le sol. 
 
 L'événement \texttt{impact} est généré par une forte décélération mesurée par l'unité de mesure inertielle. 
 Il est localisé sur le bord du robot dans la direction du mouvement effectué. 
@@ -404,12 +407,22 @@ Cela correspond à des stratégies mises en place chez des animaux (Section~\ref
 %Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
 %Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
 
-\subsection{Simultaneous Localisation And Phenomenon Inference}
+\subsection{Simultaneous Localisation and Active Phenomenon Inference}
+\label{slapi}
 
+\noindent
+Avec Béatrice De Montéra et Paul Robertson, nous avons défini le problème de la \emph{Localisation et Inférence Active simultanée de Phénomène}  \cite[\an{Simultaneous Localisation and Active Phenomenon Inference}]{georgeon_simultaneous_2022} (SLAPI).
+Ce problème se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) mais il en diffère par le fait qu'il se limite à permettre au robot de se localiser dans le voisinage d'un objet tout en construisant un modèle mental de cet objet.
+Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
 
+Dans son principe, SLAPI associe les heuristiques de recherche de fiabilité et d'exploration pour générer les comportements du robot, et la capacité de mémoire allocentrique pour construire des schémas d'interaction spatiaux localisés par rapport à un point de référence lié à l'objet. 
+L'agent représente ainsi l'objet par le \an{bundle} des interactions qu'il afford organisées spatialement. 
+Nous utilisons le terme \emph{phénomène} pour désigner la structure de donnée constituée du \an{bundle} d'interaction spatialement organisées qui représente l'objet pour l'agent. 
 
- \cite[\an{Simultaneous Localisation and Phenomenon Inference}]{georgeon_simultaneous_2022}.
-
+La figure \ref{fig:slapi} illustre le phénomène construit par l'agent au cours de ses expérience d'interactions avec une tirelire cylindrique. 
+Le phénomène est constitué de l'ensemble des \emph{manifestations} de l'objet cylindrique à travers les mesures d'écho-localisation réalisées quand le robot tourne autour de lui. 
+Les triangles bleus représentent les cônes du signal ultrasonique émis depuis différentes positions. 
+La ligne noire est la forme du phénomène reconstituée à parti des échos.
 
 \begin{figure}[htbp]
 	\centering
@@ -418,19 +431,16 @@ Cela correspond à des stratégies mises en place chez des animaux (Section~\ref
 	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/4_phenomenon.png}
 	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~13]{georgeon_schema_2025}.
 		Gauche: le robot observant l'objet. 
-		Droite: le phénomène identifié par le robot. 
-		Le phénomène est constitué de l'ensemble des \og manifestations \fg de l'objet cylindrique à travers les meures d'écho-localisation réalisées quand le robot tourne autour de lui. 
-		Les triangles bleus représentent les cônes du signal ultrasonique émis depuis différentes positions. 
-		La ligne noire est la forme du phénomène reconstituée à parti des échos.
+		Droite: le phénomène caractérisé par les échos reçus depuis différentes positions autour de l'objet. 
 	}
-	\label{fig:robot}
+	\label{fig:slapi}
 \end{figure}
 
 
 Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol
 \cite{georgeon_reducing_2024}.
 
-\subsection{Enseignements}
+\subsection{Enseignements (en construction)}
 
 Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
 Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
@@ -458,7 +468,7 @@ Pour cela nous conservons la notions de \emph{variable libres} dans les schémas
 
 
 
-\section{Architecture cognitive}
+\section{Architecture cognitive (en construction)}
 
 \begin{figure}[ht]
 	\centering
@@ -471,10 +481,9 @@ Pour cela nous conservons la notions de \emph{variable libres} dans les schémas
 Permet une simulation interne.
 Implémente l'idée d'un Game Engine In the HEAD. 
 
-La Figure \ref{fig:petitcat} montre le robot Petitcat.
 
 
-\section{Conclusion}
+\section{Conclusion (en construction)}
 
 
 La connaissance pourrait etre ancrée dans des schémas acquis par un autre robot. 

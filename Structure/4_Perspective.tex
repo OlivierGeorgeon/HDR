@@ -217,6 +217,7 @@ L'unité de mesure inertielle contient un accéléromètre linéaire, un gyromè
 
 
 \subsection{Possibilités d'interaction}
+\label{sec:interactions}
 
 \noindent
 Le contrôleur primitif défini en Section~\ref{sec:couplage} est implémenté en C++ sur la carte Arduino. 
@@ -411,13 +412,24 @@ Cela correspond à des stratégies mises en place chez des animaux (Section~\ref
 \label{slapi}
 
 \noindent
-Avec Béatrice De Montéra et Paul Robertson, nous avons défini le problème de la \emph{Localisation et Inférence Active simultanée de Phénomène}  \cite[\an{Simultaneous Localisation and Active Phenomenon Inference}]{georgeon_simultaneous_2022} (SLAPI).
-Ce problème se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) mais il en diffère par le fait qu'il se limite à permettre au robot de se localiser dans le voisinage d'un objet tout en construisant un modèle mental de cet objet.
-Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
+Nous avons utilisé Petitcat pour reproduire des exéprimentations de construction de \an{bundle} pour représenter des phénomènes comme dans l'expérimentation des requins (Section~\ref{sec:requins}).
+Cela nous a conduit à nommer ce problème \an{Simultaneous Localisation and Active Phenomenon Inference} (SLAPI) dans un article co écrit avec Juan Vidal et Paul Robertson  \cite[]{georgeon_simultaneous_2022}.
 
-Dans son principe, SLAPI associe les heuristiques de recherche de fiabilité et d'exploration pour générer les comportements du robot, et la capacité de mémoire allocentrique pour construire des schémas d'interaction spatiaux localisés par rapport à un point de référence lié à l'objet. 
-L'agent représente ainsi l'objet par le \an{bundle} des interactions qu'il afford organisées spatialement. 
-Nous utilisons le terme \emph{phénomène} pour désigner la structure de donnée constituée du \an{bundle} d'interaction spatialement organisées qui représente l'objet pour l'agent. 
+Le problème SLAPI se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) qui consiste construire une carte d'un environnement tout en localisant la position du robot au sein de cette carte. 
+Les algorithmes de SLAM classiques fusionnent des relevés télémétriques, provenant par exemple d'un lidar, avec un calcul d'intégration de chemin parcouru (\an{path integration}), mesuré par exemple avec un odomètre.  
+Le problème SLAPI est une version moins ambitieuse du SLAM limitée à la construction d'une carte locale des interactions affordées par un objet.  
+La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiales une interactions affordée par l'objet peut être énactées. 
+Nous utilisons le terme \emph{phénomène} pour désigner cette structure de donnée; en conformité avec l'usage courant de ce terme qui désigne la façon dont une entité se présente à l'agent par les possibilités d'exéprience qu'elle lui offre. 
+
+Tout comme un algorithme de SLAM, un algorithme de SLAPI fusionne des informations permettant de localiser l'objet avec un calcul d'intégration des déplacements du robot. 
+Le SLAPI diffère cependant du SLAM par le fait qu'il ne vise pas à construire une carte étendue.
+Il ne  nécessite donc pas des capteurs précis et peut se contenter de ceux disponible chez Petitcat.
+
+Nous avons implémenté un mécanisme motivationel inné qui se déclenche quand Petitcat rencontre un nouvel objet. 
+Ce mécanisme pousse Petitcat à interagir avec lui sous différents angles jusqu'à en avoir fait le tour complet. 
+Il correspond à un était émotionnel \texttt{interest - excitement} qui focalise l'attention de Petitcat sur l'objet. 
+
+%Dans son principe, SLAPI associe les heuristiques de recherche de fiabilité et d'exploration pour générer les comportements du robot, et la capacité de mémoire allocentrique pour construire des schémas d'interaction spatiaux localisés par rapport à un point de référence lié à l'objet. 
 
 La figure \ref{fig:slapi} illustre le phénomène construit par l'agent au cours de ses expérience d'interactions avec une tirelire cylindrique. 
 Le phénomène est constitué de l'ensemble des \emph{manifestations} de l'objet cylindrique à travers les mesures d'écho-localisation réalisées quand le robot tourne autour de lui. 
@@ -437,10 +449,17 @@ La ligne noire est la forme du phénomène reconstituée à parti des échos.
 \end{figure}
 
 
-Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol
-\cite{georgeon_reducing_2024}.
+Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol.
+Les interactions définies en Section~\ref{sec:interactions} font que les décisions \texttt{move forward} sont interrompues quand le point est détecté par les capteurs de luminosité du sol, générant l'interaction \interaction{move forward, bump}. 
+Petitcat se met alors à répéter ce mouvement depuis différentes directions comme pour confirmer que cette interaction est toujours affordée. 
+Avant de prendre une décision, ECA effectue une simulation interne de cette décision qui lui permet d'estimer les événements d'interaction énactés. 
+La comparaison entre les événements estimés et les événements effectivement énactées permet de générer un signal d'erreur de prédiction. 
+L'artcile \an{Reducing intuitive physics prediction error through playing} \cite{georgeon_reducing_2024}, co-écrit avec Béatrice de Montéra et Paul Robertson rapport comment ce signal d'erreur de prédiction permet à Patitcat de calibrer automatiquement certains des paramètres prédéfinis dans ECA.
 
 \subsection{Enseignements (en construction)}
+
+
+Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
 
 Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
 Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 

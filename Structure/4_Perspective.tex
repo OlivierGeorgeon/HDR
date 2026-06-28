@@ -234,6 +234,7 @@ A ce jour ce contrôleur primitif  reconnait les sept décisions listées dans l
 		\texttt{move backward} & translation longitudinale vers l'arrière& durée (ms) \\ \hline
 		\texttt{swipe left} & translation latérale vers la gauche & durée (ms) \\ \hline
 		\texttt{swipe right} & translation latérale vers la droite & durée (ms) \\ \hline
+		\texttt{watch} & rester immobile & durée (ms) \\ \hline
 		\texttt{turn} & rotation sur place & angle (degrés) \\ \hline
 		\texttt{turn-head} & rotation de la tête & angle (degrés)\\ \hline
 		\texttt{scan} & série de saccades de la tête & angle (degrés) \\ \hline
@@ -256,6 +257,9 @@ L'angle de rotation de la tête associé à la décision \texttt{turn-head} est 
 Les déplacements liés aux décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} sont interrompues lorsqu'un changement de luminosité est détecté sur le sol.
 Cet arrêt forcé est suivi d'un mouvement automatique de léger recul simulant un \emph{réflexe}.
 Ce comportement est utilisé pour éviter au robot de tomber d'une table ou pour l'empêche de franchir une ligne noire qui définit le contour d'une \emph{arène} d'expérimentation (Figure~\ref{fig:place}). 
+
+La décision \texttt{watch} consiste à rester immobile et effectuer périodiquement des mesures télémétriques pendant la durée définie dans la variable \texttt{duration}. 
+Elle est interrompue si une variation important de distance télémétrique est détectée. 
 
 La variable \texttt{caution} définit un niveau de prudence associé à la décision \texttt{move forward}. 
 La valeur $2$ spécifie que le robot effectue des mesures périodique avec le télémètre et interrompu le déplacement si un obstacle est détecté. 
@@ -309,11 +313,11 @@ Chaque événements d'interaction est associé à une position dans le référen
 		\texttt{impact} & position du pare-choc du robot & code direction d'impact \\ \hline
 		%\texttt{floor color} & position du capteur de couleur & code de couleur \\ \hline
 		\texttt{echo} & position de la source de l'écho &  \\ \hline
-		\texttt{echo contrast} & position de la source de l'écho &  \\ \hline
+		\texttt{echo contrast} & position de variation d'écho dans un scan &  \\ \hline
 	\end{tabular}
 	\caption{Evénements d'interaction primitifs générés par Petitcat.
 	}
-	\label{tab:événements_petitcat}
+	\label{tab:interactions_petitcat}
 \end{table}
 
 
@@ -357,28 +361,28 @@ Les événements \texttt{echo contrast} sont générés sur les points de discon
 \end{figure}
 
 
-\subsection{Expérimentation des cellules de place}
+\subsection{Expérimentation des cellules de lieu}
 
 \noindent
 Cette expérimentation constitue une étude du passage d'une représentation séquentielle à une représentation spatiale complémentaire à celles décrite en Section~\ref{sec:spatial_inference}.
-Elle s'inspire du rôle des \emph{cellules de place} (\an{place cells}) dans le cerveau (Section~\ref{sec:espace}).
-En particulier, les animaux sont capables d'adapter leurs comportements à une configuration particulière de l'environnement observé à une certaines places.
-Ils peuvent reconnaitre les places par rapport à des indices sensoriels et en fonction des chemins parcourus pour y accéder. 
-ils mémorisent les possibilités de déplacement entre différentes places.
+Elle s'inspire du rôle des \emph{cellules de lieu} (\an{place cells}) dans le cerveau (Section~\ref{sec:espace}).
+En particulier, les animaux sont capables d'adapter leurs comportements à une configuration particulière de l'environnement observé dans certains lieux.
+Ils peuvent reconnaitre ces lieux par rapport à des indices sensoriels et en fonction des chemins parcourus pour y accéder. 
+Ils mémorisent les possibilités de déplacement entre différentes lieux.
 
 Nous avons ajouté une mémoire allocentrique dans ECA, qui fonctionne en tendem avec sa mémoire spatiale égocentrée décrite en Section~\ref{sec:ECA}.
-Cette mémoire allocentrée est capable de créer et maintenir un graphe dont les n\oe uds représentent des places visitées par le robot et les arcs des passages d'une place à l'autre. 
+Cette mémoire allocentrée est capable de créer et maintenir un graphe dont les n\oe uds représentent les lieux visités et les arcs des passages d'un lieu à l'autre. 
 
-Nous avons implémenté des comportements innés basés sur deux états émotionnels distincts: L'état \texttt{interest} pousse l'agent à énacter des \emph{comportements d'attention} lui permettant de reconnaitre une place, et l'état \texttt{enjoyment} pousse l'agent à énacter une interaction de déplacement. 
+Nous avons implémenté des comportements innés basés sur deux états émotionnels distincts: L'état \texttt{interest} pousse l'agent à énacter des \emph{comportements d'attention} lui permettant de reconnaitre un lieu, et l'état \texttt{enjoyment} pousse l'agent à énacter une interaction de déplacement. 
 Les comportements d'attention poussent l'agent à énacter une décision \texttt{scan}, suivie d'une \texttt{turn} de 180 suivi d'un autre \texttt{scan}.
-Cela permet de recueillir un profile de télémétrie contenant un ensembel d'événements \texttt{echo contrast}.
-Ce profile est mémorisé en association avec la place en coordonnées polaires allocentriques, c'est à dire centré sur un point considéré comme le point de référence de la place, avec et orienté de manière absolue par rapport au nord. 
+Cela permet de recueillir un profile de télémétrie contenant un ensemble d'événements \texttt{echo contrast}.
+Ce profile est mémorisé en association avec le lieu en coordonnées polaires allocentriques, c'est à dire centré sur un point considéré comme le point de référence du lieu, et orienté de manière absolue par rapport au nord. 
 
-Lorsque la place courante est connue, l'agent passe en état émotionnel \texttt{enjoyment} qui le conduisent à choisir des décision \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
+Lorsque le lieu courant est connue, l'agent passe en état émotionnel \texttt{enjoyment} qui le conduisent à choisir des décision \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
 
-Lorsqu'il revient dans le voisinage d'une place connue, l'agent effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de cette place. 
-Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux évenements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique de la place. 
-L'arc représentant le dernier déplacement est rattaché au n\oe ud représentant la place précédement visitée, ce qui transforme un schéma purement séquentiel en un graphe spatial de places en mémoire allocentrique. 
+Lorsqu'il revient dans le voisinage d'un lieu connu, le robot effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de ce lieu. 
+Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux évenements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique du lieu. 
+L'arc représentant le dernier déplacement est rattaché au n\oe ud représentant la place précédemment visitée, ce qui transforme un schéma purement séquentiel en un graphe spatial de lieux en mémoire allocentrique. 
 
 La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de graphe construit en mémoire allocentrique. 
 
@@ -397,19 +401,21 @@ La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de
 
 
 Cette étude est décrite dans l'article \an{A Spatio-temporal schema mechanism for developmental robotics} \cite{georgeon_spatio-temporal_2026}.
-Elle nous a conduit à implémenter une mémoire allocentrique dans ECA capable de construire un graphe de places. L'objectif n'est pas de construire une carte de l'environnement car les capteurs de Petitcat sont trop imprécis pour cela. 
-De plus, si des objets bouges dans l'environnement, les places ne peuvent plus être reconnues. 
-Dans ce cas Petitcat recommence un nouveau graphe de place à partir de sa position courante. 
+Elle nous a conduit à implémenter une mémoire allocentrique dans ECA capable de construire un graphe de lieux. L'objectif n'est pas de construire une carte de l'environnement car les capteurs de Petitcat sont trop imprécis pour cela. 
+De plus, si des objets bouges dans l'environnement, les lieux ne peuvent plus être reconnues. 
+Dans ce cas, Petitcat recommence un nouveau graphe de lieux à partir de sa position courante. 
 Le but est simplement de permettre une organisation des comportements dans des niches relativement stables de l'environnement. 
-Dans le cas d'un environnement contenant des objets mobiles, il faudrait faudrait permettre au robot de reconnaitre des places sur la base de décor relativement invariants, et d'identifier des objets mobiles. 
-Cela correspond à des stratégies mises en place chez des animaux (Section~\ref{sec:core}).
+La construction de ce graphe exploite la connaissance de la direction absolue de déplacement qui provient de la boussole. 
+En l'absence de boussole, d'autres moyens d'établir une direction de référence seraient nécessaires, par exemple la capacité de repérer un point fixe lointain tel qu'une source de lumière naturelle.
+Dans le cas d'un environnement contenant des objets mobiles, il faudrait permettre au robot de reconnaitre des lieux sur la base de décor relativement invariants, et de ne pas tenir compte des objets qui pourraient bouger. 
+Cela correspond aux stratégies mises en place chez des animaux (Section~\ref{sec:core}).
 
 
 %Le nouveau système perceptif possède une architecture duale qui intègre un \emph{canal perceptif dynamique} et un \emph{canal perceptif statique}.
 %Le canal perceptif dynamique est similaire à celui présenté en Section \ref{sec:horseshoe}: il renvoie les \an{outcomes} dynamiques définis en Section \ref{sec:horseshoe} par rapport à la cible sélectionnée par le système motivationnel: apparition, rapprochement, éloignement.  
 
 \subsection{Simultaneous Localisation and Active Phenomenon Inference}
-\label{slapi}
+\label{sec:slapi}
 
 \noindent
 Nous avons utilisé Petitcat pour reproduire des exéprimentations de construction de \an{bundle} pour représenter des phénomènes comme dans l'expérimentation des requins (Section~\ref{sec:requins}).
@@ -438,12 +444,15 @@ La ligne noire est la forme du phénomène reconstituée à parti des échos.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.49\textwidth]{Figures/6_moneybox.png}
+	\includegraphics[width=0.3\textwidth]{Figures/6_moneybox.png}
 	\hfill
-	\includegraphics[width=0.49\textwidth, trim = 0 20 0 0, clip]{Figures/4_phenomenon.png}
-	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~13]{georgeon_schema_2025}.
+	\includegraphics[width=0.3\textwidth, trim = 0 20 0 0, clip]{Figures/4_phenomenon.png}
+	\hfill
+	\includegraphics[width=0.3\textwidth, trim = 0 20 0 0, clip]{Figures/4_phenomenon_2.png}
+	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~3]{georgeon_simultaneous_2022}.
 		Gauche: le robot observant l'objet. 
-		Droite: le phénomène caractérisé par les échos reçus depuis différentes positions autour de l'objet. 
+		Centre: le phénomène caractérisé par les échos reçus depuis différentes positions autour de l'objet.
+		Droite: phénomène obtenue avec deux objets cylindriques cote à cote. 
 	}
 	\label{fig:slapi}
 \end{figure}
@@ -487,22 +496,72 @@ Pour cela nous conservons la notions de \emph{variable libres} dans les schémas
 
 
 
-\section{Architecture cognitive (en construction)}
+\section{Architecture cognitive}
+\label{sec:geith}
+
+\noindent
+La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
+Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
+Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (GEITH) évoqué en Section~\ref{sec:core}.
+Nous implémentons donc une version interactionaliste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
+Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/4_eca.pdf}
-	\caption{Architecture cognitive ECA incluant un Interactional Game Engine }
+	\caption{Représentation synthétique d'ECA pour Petitcat. 
+		Bas: historique des événements d'interaction,
+		centre: \emph{moteur de jeu interactionnel},
+		haut: mémoire à long terme des schémas, paramètres, système émotionnel.
+	}
 	\label{fig:GEITH}
 \end{figure}
 
 
-Permet une simulation interne.
-Implémente l'idée d'un Game Engine In the HEAD. 
+Dans sa version courante, notre moteur de jeu interactionnel est capable de manipuler les événements d'interaction dans trois référentiels différents. 
+Le référentiel égocentrique est le plus proche du système sensorimoteur de l'agent. 
+Le référentiel allocentrique est une première abstraction basée sur le choix de points de référence et un calcul d'intégration de chemin parcouru à partir de ce point.
+Le référentiel objet-centrique se base sur un point de référence liés à un objet pour construire un graphe spatio-séquentiel des interactions affordées par cet objet. 
+Avec un robot plus sophistiqué, il est probable que d'autres référentiels soient nécessaires tels que des référentiels centrée sur des parties spécifiques du corps du robot telles qu'un bras articulé. 
+
+L'architecture dispose de la capacité de référencer deux points de l'espace: un point d'attention et un point d'objectif. 
+Le point d'attention constitue un point de référence pour renseigner les variables libres des décisions. 
+Par exemple, la valeur \texttt{angle} d'une décision \texttt{turn} est produite pour faire tourner le robot en direction de son point d'attention.
+le point d'objectif est utilisé pour désigner un point de l'environnement comme un objectif à atteindre. 
+Par exemple l'algorithe SLAPI génère des objectifs à atteindre pour placer le robot dans différents position autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
+
+La mémoire à long terme des schémas contient deux types de schémas: les schémas hiérarchiques séquentiels appris par le mécanisme de schéma, et les schémas spatiaux appris par le mécanisme de construction de graphes de cellules de lieu, et de phénomènes. 
+Pour l'instant ces deux mécanismes sont séparés et interagissent à travers fonction ad-hoc. Ils produisent des schémas stockés séparément.
+La question de leur unification semble une question cruciale qui reste à résoudre pour progresser vers des comportements plus intelligents. 
+ 
+L'architecture contient de nombreux paramètres prédéfinis par le concepteur. 
+Beaucoup de ces paramètres sont liés au modèle corporel du robot et à son modèle de déplacement, par exemple la vitesse de locomotion, la distance de retrait en cas de détection d'une ligne noire, la position des capteurs, la vitesse du son utilisée par le télémètre, etc . 
+Nous avons mis en place des méthodes pour permettre au robot de calibrer ces paramètres sur la base de comportements autonomes (Section \ref{sec:slapi}) mais elles nécessite une initialisation de leur valeur approximative. 
+
+Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
+Pour l'instant nous n'avons exploités que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
+L'état émotionnel est utilisé comme un critère pour sélectionner une décisions parmi celles activées par la situation courante du moteur de jeu. 
+L'état \texttt{interest} promeut les tentatives d'enaction d'interactions répétables. 
+Ces décisions implémentent une heuristique de recherche de fiabilité qui tend à informer l'agent sur sa situation dans l'environnement. 
+Cet état émotionnel simule un comportement d'attention porté à l'environnement. 
+L'état \texttt{enjoyment} favorise des décisions qui maximisent la motivation interactionnelle en cherchant à énacter des interactions ayant une valence positive et éviter des interactions ayant une valence négative.
+Cet état émotionnel simule un comportement hédoniste.  
+L'état \texttt{contempt} tend a promouvoir la décisions \texttt{watch} qui maintient le robot immobile. 
+Cet état émotionnel simule un comportement de passivité et de repos. 
+
+
 
 
 
 \section{Conclusion (en construction)}
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Figures/4_perspective.pdf}
+	\caption{Perspective de trajectoire développementale.}
+	\label{fig:perspective}
+\end{figure}
 
 
 La connaissance pourrait etre ancrée dans des schémas acquis par un autre robot. 
@@ -525,8 +584,8 @@ Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ �
 	\centering
 	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
 	\caption{Abstraction du cycle EDP, adapté de \cite[Fig.~2]{georgeon_eca_2013}.
-		A chaque temps de décision $t_d$, l'agent sélectionne une décision composite $d_{cd} \in D_d$ le conduisant à prendre une série de $k$ décisions primitives $d_{p1} ... d_{pk} \in D_p$ qui résultent en une série de $k$ interactions primitive énactées.
-		Du point de vue du système décisionnel de l'agent, tout se passe comme s'il interagissait avec un \og environnement connu au temps $t_d$ \fg à un niveau d'abstraction supérieur.}
+		A chaque temps de décision $t_d$, l'agent sélectionne une décision composite $d_{cd} \in D_d$ le conduisant à prendre une série de $k$ décisions primitives $d_{p1}, ..., d_{pk} \in D_p$ qui résultent en une série de $k$ interactions primitive énactées.
+		Le système décisionnel de l'agent interagit avec un \og monde connu au temps $t_d$ \fg\ dont le niveau d'abstraction s'élève au cours du développement de l'agent.}
 	\label{fig:ir}
 \end{figure}
 

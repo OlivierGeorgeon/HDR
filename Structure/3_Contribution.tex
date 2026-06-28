@@ -325,7 +325,7 @@ Ce processus conduit donc à l'édification progressive d'une hiérarchie d'inte
 	\includegraphics[width=0.6\textwidth]{Figures/4_agent10.pdf}
 	\caption{ 
 		Les interactions composites sont des séquences de deux interactions composite de niveau inférieur. 
-		La flèche \an{Decision Time} représente les instants ou l'agent prend des décisions composites. 
+		La flèche \an{Decision Time} représente les instants où l'agent prend des décisions composites. 
 		Une décision composite peut engager l'agent pendant plusieurs cycles d'interacition primitifs (\an{Primitive Time}).
 		Le contexte $C_t$ est l'ensemble des interactions qui ont été enactées juste avant le temps $t$ (en gris).
 	}
@@ -358,7 +358,7 @@ Les interactions dans $F_t$ sont les interactions \emph{affordées} par le conte
 Les interactions affordées au temps $t$ sont donc celles que l'agent a appris qu'il pourrait probablement réenacter dans le contexte courant. 
 Cette connaissance repose sur des séquences préalablement apprises et réactivées. 
 En dotant l'agent d'un mécanisme de décision visant à tenter de réenacter l'une des interactions affordée, on obtient un agent capable d'apprendre et réitère des habitudes d'interaction. 
-Il nous reste maintenant a déterminer comment choisir une décisions parmi celles qui consistent à tenter de réénacter une interaction appartenant à $F_t$, c'est à dire affordée par le contexte courant.
+Il nous reste maintenant a déterminer comment choisir une décision parmi celles qui consistent à tenter de réénacter une interaction appartenant à $F_t$, c'est à dire affordée par le contexte courant.
 
 \subsection{Mécanisme de décision}
 
@@ -479,7 +479,7 @@ comme nous allons le voir dans les exemples de la section suivante.
 \section{Démonstrations du mécanisme de schéma}
 
 \noindent
-Cette section présentent trois exemples représentatifs d'expérimentations réalisées avec le mécanisme de schéma. 
+Cette section présente trois exemples représentatifs d'expérimentations réalisées avec le mécanisme de schéma. 
 Ces expérimentations utilisent des environnements artificiels qui simulent le déplacement d'un agent dans une grille. 
 Le \an{software} de l'agent est identique bien que la signification des interactions varie d'une expérimentation à l'autre. 
 La décision de l'agent est transmise à l'environnement via l'\an{output} du DDS.
@@ -841,9 +841,9 @@ L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t},
 \subsection{Enactive Cognitive Architecture (ECA)}
 
 \noindent
-Nous développons l'Architecture Cognitive Enactive (ECA) pour piloter un agent modélisé par le SEDP.  
+Nous développons l'Architecture Cognitive Enactive (\an{Enactive Cognitive Architecture}, ECA) pour piloter un agent modélisé par le SEDP.  
 ECA implémente l'hypothèse que l'environnement possède une structure de \emph{monde physique euclidien}.
-Un monde physique eucliden est un espace euclidien contenant des objets, par exemple notre monde physique naturel ou des environnements virtuels simulés.
+Un monde physique euclidien est un espace euclidien contenant des objets, par exemple notre monde physique naturel ou des environnements virtuels simulés.
 %ECA étend le mécanisme de schéma par d'autres mécanismes permettant de manipuler des structures de données représentant les régularités spatiales des événements d'interaction valués. 
 
 La Figure \ref{fig:sedp} présente le DBN qui met en évidence le réseau d'influences entre le modèle du monde interne $M$ maintenu par ECA et les variables du SEDP. 
@@ -951,7 +951,7 @@ La bande 5 montre la construction progressive des \an{bundles}.
 Le \an{bundle} représentant la cellule vide est créé au pas 5 quand l'agent constate que l'interaction \interaction{move forward, empty} qu'il vient d'énacter se chevauche avec \interaction{feel front, empty} énactée au pas 1.
 Ce \an{bundle} est progressivement complété jusqu'à contenir les six interactions primitives affordées par une cellule vide au pas 47.
 Le \an{bundle} représentant un mur est créé au pas 13 lorsque l'agent observe que l'interaction \interaction{move forward, wall} qu'il vient d'énacter se chevauche avec \interaction{feel front, wall} énactée au pas 24.
-Il est progressivement complété jusqu'au pas 32 où il content les quatre interactions primitives affordées par un mur. 
+Il est progressivement complété jusqu'au pas 32 où il contient les quatre interactions primitives affordées par un mur. 
 
 
 \begin{figure}[ht]
@@ -1035,7 +1035,7 @@ Cet exemple a également été repris dans un article plus général co-écrit a
 Cette expérimentation introduit des signaux sensoriels représentationnels, les signaux de couleur, qui viennent s'ajouter aux événements d'interaction non représentationnels. 
 Elle illustre que les modèles EDP et SEDP ne sont pas incompatibles avec des signaux sensoriels représentationnels. 
 L'usage de ces signaux s'avère étroitement lié au mécanisme attentionnel pour lier la reconnaissance d'objets et la sélection des comportements.
-Le couplage entre le mécanisme d'attention et le système motivationnel basé sur les valences permet l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme la \an{Feature Intgraty Theory} de l'attention présentées en Section~\ref{sec:attention} le suggère.
+Le couplage entre le mécanisme d'attention et le système motivationnel basé sur les valences permet l'apprentissage de l'existence des objets et l'organisation des comportements autour de ces objets, comme la \an{Feature Intgration Theory} de l'attention présentées en Section~\ref{sec:attention} le suggère.
 
 
 

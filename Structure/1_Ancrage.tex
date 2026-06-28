@@ -3,26 +3,40 @@
 \chapter{Ancrage théorique}
 
 \noindent 
-Dans leur article \og \an{Universal Intelligence: A Definition of Machine Intelligence} \fg, Shane Legg et Marcus Hutter notent que \og \an{A fundamental problem in artificial intelligence is that nobody really knows what intelligence is} \fg\ \cite[p.~1]{legg_universal_2007}.
 
-Si nous ne savons pas vraiment ce qu'est l'intelligence, nous ne partons quand même pas de zéro. 
-Cette question a occupé des nombreux penseurs depuis de nombreux siècles et je crois qu'il est important de savoir nous y référer. 
-Ce chapitre vise à définir l'intelligence artificielle précoce telle qu'elle est mise en \oe uvre par les êtres vivants, sur la base de l'épistémologie, la psychologie, des sciences cognitives et des neurosciences. 
+\begin{flushright}
+\og \an{A fundamental problem in artificial intelligence \\
+	is that nobody really knows what intelligence is} \fg\ \\ 
+	Shane Legg \& Marcus Hutter \cite[p.~1]{legg_universal_2007}
+\end{flushright}
 
-La finalité est de fonder un projet d'implémentation informatique qui transcrive cette vision.
+\noindent
+Si, comme Legg et Hutter l'affirment, personne ne sait vraiment ce qu'est l'intelligence, il reste que chacun en possède une et s'en fait une certaine opinion. 
+Cette conception naïve repose sur l'arrière plan de culture philosophique et scientifique dans lequel nous nous trouvons immergés. 
+
+Ce chapitre passe en revue les grandes lignes de cet arrière-plan du point de vue de la recherche en intelligence artificielle développementale. 
+Il vise un double rôles. 
+Le premier est d'établir un langage de référence largement admis dans la communauté scientifique pour parler des différents aspects de la cognition: expérience, apprentissage, connaissance, développement, attention, émotions, motivation, individuation. 
+Le second est de présenter, en les organisant de manière regroupée et progressive, les sources d'inspiration et éléments de réflexion qui m'ont conduit à des propositions plus originales introduites à partir du chapitre 3.  
+
+Ce chapitre ne répond donc pas à la question de savoir ce qu'est l'intelligence, mais il tente de résumer un large consensus philosophique et neuroscientifique sur lequel vient s'appuyer une proposition plus personnelle dans le domaine de l'intelligence artificielle développementale. 
+
 
 \section{Philosophie de l'esprit}
 \label{sec:philosophie}
 
-La justification de ce chapitre sur la philosophie de l'esprit est que de nombreux travaux d'intelligence artificielle font référence à des concepts épistémologique. En particulier l'intelligence artificielle fait référence aux épistémologies génétique et constructiviste. 
-Il est important de comprendre dans quelle mesure ces travaux reflètent fidèlement ou non ces concepts. 
+
+\noindent
+On peut facilement dire en anglais que le projet de l'intelligence artificielle est de créer un \an{artificial mind} mais on utiliser rarement en français l'expression \emph{esprit artificiel} qui renverrait à d'autres connotations. 
+Cette section vise à poser les bases de ce qu'on appelle \an{the mind}, comment il peut apprendre à partir de l'\emph{expérience}, comment il peut etre compris dans une logique évolutionniste dans lequel s'inscrit \an{the animal's mind}, comment il peut éventuellement tendre vers une connaissance objective, et comment on peut concevoir sa liberté.   
+Cette section nous conduit à définir l'épistémologie génétique et constructiviste qui fondent les théories de l'apprentissage développemental. 
 
 
 \subsection{Révolution des Lumières}
 \label{sec:lumieres}
 
 \noindent
-La révolution épistémologique des Lumières du XVIII\ieme{}~siècle a profondément renouvelé la manière de penser le savoir, la raison et l’expérience.
+La manière moderne de penser le savoir, la raison, et l'expérience doit beaucoup à la révolution épistémologique des Lumières du XVIII\ieme{}~siècle.
 Dès la fin du XVII\ieme{}~siècle, le philosophe britannique John Locke en fut l'un des précurseurs en fondant \emph{l'empirisme}. 
 En rupture avec le rationalisme qui le précédait, Locke élabore une critique décisive de l'innéisme et introduit la célèbre métaphore de la \emph{tabula rasa} pour désigner l’absence de connaissances à la naissance.
 L'empirisme remet en cause la notion de vérité indubitable, innée ou issue d'une volonté divine comme dans le cas de Descartes. 
@@ -825,137 +839,6 @@ Elle peut passer par une valence affective associée aux schèmes sensorimoteurs
 
 
 
-
-
-
-\section{Mesurer l'intelligence}
-
-\noindent
-Pour clore cette vue d'ensemble de la notion d'intelligence je dois aborder les méthodes permettant de l'évaluer et de la quantifier.
-Legg et Hutter \cite{legg_universal_2007} proposent une synthèse des principales techniques de mesure de l'intelligence naturelle afin d'en dégager des pistes pour établir des \an{benchmark} d'évaluation de l'intelligence artificielle. 
-
-Ils introduisent d'abord une distinction entre les \emph{tests statiques} et les \emph{tests dynamiques}. 
-Les tests statiques évaluent la capacité à résoudre un problème présenté en une seule fois. 
-Ils mettent l'accent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour produire une réponse correcte à une question posée. 
-%Ils ne mesurent pas directement la capacité à apprendre et à s'adapter au cours du temps. 
-A l'inverse, les tests dynamique se déroulent pendant une certaine période de temps au cour de laquelle l'agent interagit avec l'environnement de test. 
-Ils visent à mesurer la capacité de l'agent à mettre en \oe uvre une stratégie qui peut donner lieu à un apprentissage au cours du déroulé du test. 
-
-Legg et Hutter introduisent ensuite une second distinction, cette fois entre les tests fondés sur une \emph{mesure objective} et ceux fondés sur un \emph{jugement humain}.
-Les premiers mesurent la capacité de l'agent à produire des réponses attendues ou à atteindre des objectifs préalablement définis.
-Dans ce cadre, les auteurs esquissent l'idée d'une \og mesure universelle de l'intelligence \fg\ définie comme la somme infinie des score normalisés obtenus dans l'ensemble des environnement possibles, pondérée par la complexité de chacun d'eux. 
-Ils reconnaissent qu'une telle mesure n'est pas calculable en pratique mais la proposent comme un modèle conceptuel utile de ce qu'ils appellent une \an{mesure of universal intelligence}. 
-% la somme infinie sur tous les environnements possibles dans lequel la reward est computable avec une somme bornée, de la mesure de la capacité à atteindre l'ojectif normalisée dans l'interval [0, 1] pondérée par de manière inversement proportionnelle à la complexité de l'environnement. 
-
-Certains auteurs défendent la nécessité d'un jugement humain. 
-Parmi eux, Alexei Samsonovich soutient que si la mesure de l'intelligence est formalisée à l'avance alors il est toujours possible de \og hacker \fg\ le test par un algorithme qui n'adresse pas les questions fondamentales de l'intelligence. 
-Il cite John von Neumann qui avait déjà formulé cette difficulté:  \og \an{If you will tell me precisely what it is that a machine cannot do, then I can always make a machine that will do just that} \fg\  \cite[p.~105]{samsonovich_roadmap_2012}.
-Dans \og \an{Beyond reward and punishment} \fg, David Deutsch argumente qu'un système varitablement intelligent doit être capable de faire quelque chose pour lequel il n'a pas été spécifiquement programmé, voire désobéir aux instructions de ses concepteurs \cite{deutsch_beyond_2019}.
-Le célèbre test de Turing s’inscrit précisément dans cette idée d'un jugement humain, puisqu'il demande à des observateurs humains de juger la capacité d’une intelligence artificielle à imiter une intelligence naturelle.
-
-La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les deux distinctions proposées par Legg et Hutter. 
- 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figures/1_mesures.pdf}
-	\caption{Classification des modes d'évaluation de l'intelligence, inspirée par \cite{legg_universal_2007}.
-	Horizontalement : réponses immédiates ou période d'interaction.
-	Verticalement : mesures formalisées ou actes de jugement humain.}
-	\label{fig:mesures}
-\end{figure}
-
-\subsection{Tests statiques}
-
-\noindent
-Les tests statiques ne sont pas pertinents pour évaluer les IA développementales car ils ne permettent pas de saisir les dynamiques d'apprentissage et d'adaptation au cours du temps. 
-Ils s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
-Je les passe en revue brièvement ici pour éclairer la classification de Legg et Hutter et parce que certains d'entre eux figurent parmi plus connus dans le paysage de l'IA actuelle.
-
-Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
-Il rassemble des questions couvrant un large champ académiques pour mesurer la solidité générale du raisonnement et la capacité à transférer les connaissances d'un domaines à l'autre.
-Il présente l'inconvénient de nécessiter un jeu de questions-réponses fourni par des experts et inconnu du modèle, ce qui implique de le renouveler constamment.
-Un autre inconvénient est qu'il ne distingue pas clairement ce qui relève de l'intelligence \og pure \fg\ et ce qui dépend de connaissances préalables, notamment en mathématiques ou en physique.
-
-Le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019} constitue un deuxième exemple de ce quadrant.
-Il présente l'avantage de spécifier clairement les connaissances qu'il présuppose chez l'agent. 
-Ce sont les \an{core knowledge} que j'ai listés en Section \ref{sec:core}: géométrie élémentaire, objets et persistance, nombre et comptage, agentivité.
-%Pour éviter d'impliquer des savoirs scolaires et éducatifs, François Chollet propose le \an{Abstract Reasoning Challenge} (ARC) \cite{chollet_measure_2019}, un benchmark qui n'utiliser que les \an{core knowledge} listés en Section \ref{sec:core}.
-%L'ARC Challenge constitue un second exemple intéressant du quadrant \emph{statique} / \emph{objectif}. 
-Ce test s’inspire de la structure des tests psychotechniques et propose des problèmes de raisonnement abstrait fondés sur la détection de motifs et de transformations logiques. 
-Il évalue ainsi la capacité d’un système à généraliser à partir d’exemples et à inférer des règles.
-%La Fig. \ref{fig:ARC} montre un exemple mettant en jeu le \an{core knowledge} d'agentivité. Dans cet exemple, la règle à inférer pour passer de l'image de gauche à celle de droite est qu'un agent se déplace d'un point à un autre en tournant quand il arrive face à un carré vert. 
-
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.6\textwidth]{Figures/1_ARC.png}
-%	\caption{Exemple de problème du ARC Challenge impliquant le socle de connaissance d'agentivité. }
-%	\label{fig:ARC}
-%\end{figure}
-
-
-
-Un exemple représentatif du quadrant \emph{statique} / \emph{jugement} est \an{Chatbot Arena} \cite{chiang_chatbot_2024}.
-Ce \an{benchmark} évalue les LLMs en organisant des confrontations en aveugle opposant les modèles deux à deux.
-Il produit un classement de type Elo sur la base d'un jugement humain \og crowdsourcé \fg, les utilisateurs proposant leurs propres prompts et sélectionnant la meilleure réponse sans connaitre les modèles en compétition. 
-
-\subsection{Tests dynamiques}
-
-\noindent
-Les tests dynamiques concernent principalement les systèmes d'apprentissage non supervisés ainsi que les agents et robots autonomes. 
-Le quadrant \emph{dynamique} / \emph{objectif} s'applique tout particulièrement à l'apprentissage par renforcement puisque celui-ci vise précisément à maximiser une valeur numérique (voir Section \ref{sec:rl}). 
-Les jeux de plateau offrent des \an{benchmarks} emblématiques de ce quadrant. 
-Un exemple marquant d'apprentissage par renforcement dans ce contexte est AlphaZero présenté dans \og \an{A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play} \fg\ \cite{silver_general_2018}.
-
-Le quandrant \emph{dynamique} / \emph{jugement} regroupe les évaluations de l'intelligence \an{open-ended} en milieu ouvert pour lesquels les objectifs finaux de l'agent ne sont pas explicitement fixés. 
-Aucun test ne fait réellement figure de référence de ce quadrant auprès du grand public ou de la communauté scientifique.
-L'idée du test de Turing illustre l’esprit de ce quadrant, mais n'a pas été mise en \oe uvre de manière convaincante. 
-Des tentatives ont été menées, par exemple le \an{Loebner Prize}, lancé en 1990 et critiqué jusqu'à sa disparition en 2020, sans doute parce que l’objectif du test de Turing demeure hors de portée de l'IA actuelle \cite{powers_total_1998}.
-En pratique, chaque équipe de recherche définit ses propres critères de jugement centrés sur les aspects de l'intelligence qu'elle souhaite explorer. 
-
-En robotique, l'acte de jugement peut s'appuyer sur une analyse fine des comportements du robot. 
-Alexander Maye et Andreas Engel démontrent par cette méthode que leur robot acquiert une maitrise des \og contingences sensorimotrice \fg\ (voir Section \ref{sec:SMC}).
-Leur article \og \an{A discrete computational model of sensorimotor contingencies for  object perception and control of behavior} \fg\ \cite{maye_discrete_2011} présente un modèle de reconnaissance d'objets dans lequel les actions sont au c\oe ur du processus perceptif.
-Leur analyse comportementale illustrée en Figure \ref{fig:maye} met en évidence les contingences sensorimotrices propres à un couplage robot-objet particulier, représentées sous la forme d’une séquence d’actions et de signaux sensoriels.
-
-
-%on peut aussi citer \cite{sanchez-fibla_acquisition_2011}
-
-\begin{figure}[th]
-	\centering
-		\includegraphics[width=0.4\linewidth]{Figures/1_maye_robot.png}%
-	\quad
-		\includegraphics[width=0.18\linewidth]{Figures/1_maye_path.pdf}
-	\caption{Expérimentation robotique adaptée de Engel et al. \cite[Fig.~I]{engel_wheres_2013}.
-		Gauche: robot interagissant avec un objet à travers un capteur d'écho-localisation et des bras articulés.
-		Droite: séquence d'expériences sensorimotrices permettant au robot de reconnaitre l'objet. 
-	}
-	\label{fig:maye}
-\end{figure}
-
-Certaines études considèrent la construction d'un modèle mental du monde comme un objectif en soit pour l'agent.
-Je classe les \an{benchmarks} évaluant cette capacités dans la catégorie \emph{jugement} car ils ne mesurent pas directement l'aptitude d'un agent à accomplir une tâche appliquée: c'est l'expérimentateur qui juge la qualité du \an{world model} appris.
-Ce jugement se fait souvent en présupposant le format de représentation utilisé par l'agent, ce qui complique la comparaison entre agents utilisant des formats de représentation différents.
-
-Pour comparer la construction de \an{world model} par des agents utilisant des formalismes différents, certains auteurs adoptent une approche hybride. 
-Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmarking_2025}, Archana Warrier et al. proposent \emph{WorldTest}, un \an{benchmark} destiné à évaluer l'apprentissage non supervisé d'un modèle du monde en soumettant l'agent à des tâches avec un but objectif.
-WorldTest différencie un \og environnement de base \fg\ durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg\ durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
-Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formalisme de représentation utilisé.
-
-%identifient quatre catégories de \an{benchmarks} pour évaluer l'apprentissage d'un modèle du monde:
-
-%\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-%	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Cette catégorie rejoint la catégorie \emph{statique} mais brouille la frontière entre \emph{objectif} et \emph{jugement} en testant la qualité du modèle du monde dans des jeux de questions objectives.
-%	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
-%	L'évaluation repose sur des mesures propres à chaque format de représentation. 
-%	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 
-%	Elles présentent l'inconvénient d'empêcher la comparaison entre différents formats de représentation.  
-%	Elles se situent dans la catégorie \emph{jugement} car c'est l'évaluateur qui juge de ce qui est important dans le modèle du monde. 
-%	\item les \an{benchmarks} avec récompense objective utilisés en apprentissage par renforcement tels qu'\an{Open Gymnasium} de OpenAI. Ils se situent dans la catégorie \emph{dynamique} / \emph{objectif} car le modèle du monde est évalué par son utilité à atteindre des obejctifs prédéfinis. 
-%	\item les \an{unsupervised RL benchmarks} reposent sur une méthode en deux phases: une phase d'interaction et une phase de test. 
-%	Dans la première, l'agent interagit sans objectif explicite; dans la seconde, il est évalué sur sa capacité à accomplir une tâche spécifique.
-%	Ces benchmarks floutent la frontière entre \emph{objectif} et \emph{jugement} car le choix de la tâche de test est un acte de jugement de l'examinateur, mais la performance dans cette tâche est mesurée objectivement. 
-%\end{itemize} 
 
 
 

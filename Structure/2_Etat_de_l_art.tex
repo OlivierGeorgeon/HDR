@@ -1539,6 +1539,14 @@ Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'env
 \section{Conclusion (en cours de construction)}
 
 
+Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
+
+
+Ce projet se situe dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+
+
+
+
 Parler de l'importance d'avoir une gamme d'heuristiques motivationnelles, telle que celle de Drescher consistant à répéter les schémas reproductibles pour les tester et les valider ou les rejeter.
 L'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) est au c\oe ur du mécanisme de schema de Drescher. 
 Une heuristique d'ennui peut etre associée à une forme de motivation hétérostatique comme sugéré par Oudeyer.
@@ -1629,3 +1637,28 @@ Il soutient une position sur comment les choses sont et comment il doit agir, et
 Ce n'est pas seulement une propriété désirable, ou que les systèmes qui l'ont seraient plus performants, ou un choix possible parmi d'autres, mais c'est une condition nécessaire pour un système cognitif.
 Il faut un engagement par adjudication et non pas seulement un engagement par accrétion. 
 (crawford et Hammer AGI2026) 
+
+
+% Revue de "Regimes of error and the epistemology of learning: from cybernetics to large language models
+La revue des méthodes de mesure de l'intelligence souligne l'importance du concept \emph{d'erreur} dans les approches d'apprentissage artificiel. 
+Il y a un régime 1 selon lequel l'erreur est une distance qui doit être réduite, et un régime 2 selon lequel l'erreur est un indicateur d'un défaut d'organisation interne. 
+En régime 1, ce qui compte comme erreur n'est pas découvert mais est spécifié par le concepteur. L'erreur est ce qui est défini par la loss function, l'apprentissage est ce qui la réduit.
+En régime 2, l'erreur est traitée comme une indication de comment le système est organisé. 
+La question du diagnostique n'est pas simplement "quelle est la distance entre le signal de sortie et la consigne", mais "quelles sont les règles, hypothèses, et décompositions qui rendent cette erreur inévitable?".
+Le choix du régime n'est pas neutre d'un point de vue épistémologique.
+Il arrive souvent que les deux régimes soint hybridés: on entraine un système sous le régime 1 et leurs échecs sont interprétés comme des indices pour réviser l'orgnisation interne. 
+Le processus d'apprentissage set redéscriptif et reconstructif.
+
+Piaget insiste que les structures cognitives ne sont pas réductibles à des mécanismes de controle parce qu'elles impliquent des opérations réversibles et des réorganisations qui changent ce qui compte comme équilibre (Piaget 1953)
+En cybernétique la régulation par l'erreur présuppose une référence stable. En termes de développement la référence elle même peut etre transformée à travers la construcction de nouvelles coordinations. 
+... les erreurs systématiques devient informatives parce qu'elles structurent ldes traces d'organisation localement incohérente. La transformation de cette organisation nécessite davantage que de corriger un signal de sortie mais aussi de changer les coordinations qui les produisent. 
+
+%Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
+%\begin{quote}
+%	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
+	%, even immoral, just as in the education of humans. 
+	%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
+	%	}
+%	\cite[p.~119]{deutsch_beyond_2019}.
+%\end{quote}
+

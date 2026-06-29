@@ -139,7 +139,7 @@ La troisième est que l'agent ne reçoit pas de récompense en provenance de l'e
 
 \begin{De}[EDP]
 	\label{def:edp}
-	Un \an{Enactive Decision Process} se définit par un tuple $(S, D, I, p, q)$ dans lequel:
+	Un \an{Enactive Decision Process} se définit par un tuple $(S, D, I, q, p)$ dans lequel:
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item $S$ est un ensemble d'états,
 	\item $D$ est un ensemble fini de décisions,
@@ -154,7 +154,7 @@ A chaque cycle $t \geq 0$, l'agent prend une décision $d_t\in D$.
 L'événement d'interaction $i_t$ est tirée avec la probabilité $q(i_t|s_t,d_t)$. 
 L'état suivant $s_{t+1}$ est tiré avec la probabilité $p(s_{t+1}|s_{t},i_{t})$ dépendant de l'état précédent et de l'événement d'interaction qui s'est produit.
 
-Un événement d'interaction $i \in I$ représente un schème piagétien élémentaire. 
+Un événement d'interaction $i \in I$ représente un schème piagétien élémentaire (Section~\ref{sec:epistemologie_genetique}). 
 L'EDP implémente ainsi l'idée piagétienne que les schèmes sensorimoteurs sont les briques élémentaires de la cognition.
 Un tel événement associe une information sur la décision de l'agent et sur le résultat induit sur les capteurs.
 L'équivalent dans un POMDP est le couple \schema{$d, o$}.
@@ -167,11 +167,12 @@ Il est constitué de la série des événements d'interaction $h_t = \langle i_0
 
 
 Comme un POMDP, un EDP repose sur l'hypothèse que les transitions d'état obéissent toujours aux mêmes distributions de probabilité, ce qui exprime le fait que les lois du monde sont immuables. 
-L'EDP peut donc être représenté par un \an{2-step DBN} (Figure \ref{fig:dbn_edp}).
-Les variables stochastiques $S_t, D_t$ et $I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
+L'EDP peut donc être représenté par un réseau dynamique bayésien à deux étapes (\an{2-step DBN}, Figure \ref{fig:dbn_edp}).
+Dans cette représentation, les lettres majuscules représentent des séries temporelles de variables aléatoires: l'état $S_t$, la décision $D_t$, et l'interaction $I_t$ au temps $t$.  
+%Les variables stochastiques $S_t, D_t$ et $I_t$ représentent les distributions de probabilité des états, des décision, et des interaction au temps $t$.
 Les flèches représentent les dépendances entre ces variables données par $q$ et $p$. 
-La variables $S$ est représentée en gris pour indiquer qu'elle est cachée à l'agent. 
-La série temporelle variables $I$ constitue la couverture de Markov de l'agent.
+La variable $S$ est représentée en gris pour indiquer qu'elle est cachée à l'agent. 
+La série temporelle des variables $I$ constitue la couverture de Markov de l'agent.
 
 
 \begin{figure}[ht]
@@ -208,7 +209,7 @@ La formalisation sous forme de DBN a été réalisée avec les étudiants en mat
 %Comme indiqué plus haut, le modèle EDP ne comporte pas de fonction de récompense directement associée à l'état $s_t$.
 Le modèle EDP permet d'attribuer une \emph{valence} à chaque type d'événement d'interaction  $v: I \to \mathbb{R}$. 
 % qui leur attribue une valeur scalaire:   $i \in I \mapsto v(i) \in \mathbb{R}$.
-L'algorithme de l'agent peut interpréter cette valence comme une préférence $v(i) \in \mathbb{R}$ associée à chaque type interactions : désirable si positive ou indésirable si négative. 
+L'algorithme de l'agent peut interpréter cette valence comme une préférence $v(i) \in \mathbb{R}$ : interaction désirable si positive ou indésirable si négative. 
 Cette valence peut donc servir de signal de motivation interne pour l'agent, qui fait que toutes les interactions ne lui sont pas égales. 
 
 La valence se rapproche de la récompense utilisée en apprentissage par renforcement (Sections~\ref{sec:rl} et \ref{sec:pomdp}) mais en diffère par le fait qu'elle n'inclut pas l'état de l'environnement parmi ses arguments.
@@ -290,7 +291,7 @@ L'ensemble des interactions primitives est noté $I_p$.
 Le terme \emph{interaction composite} désigne les schémas appris par l'agent. 
 Leur ensemble est noté $I_c$.
 L'ensemble $I = I_p \cup I_c$ désigne maintenant l'ensemble de toutes les interactions, primitives et composites.
-De même, l'ensemble $D = D_p \cup D_c$ désigne l'ensemble de toutes les décisions à la disposition de l'agent, les décisions primitives définies par le chercheur et les décisions composites apprises par l'agent.  
+De même, l'ensemble $D = D_p \cup D_c$ regroupe l'ensemble $D_p$ des décisions primitives définies par le chercheur et l'ensemble $D_c$ des décisions composites apprises par l'agent.  
 
 
 %\subsection{Interaction primitives}
@@ -326,14 +327,14 @@ Ce processus conduit donc à l'édification progressive d'une hiérarchie d'inte
 	\caption{ 
 		Les interactions composites sont des séquences de deux interactions composite de niveau inférieur. 
 		La flèche \an{Decision Time} représente les instants où l'agent prend des décisions composites. 
-		Une décision composite peut engager l'agent pendant plusieurs cycles d'interacition primitifs (\an{Primitive Time}).
-		Le contexte $C_t$ est l'ensemble des interactions qui ont été enactées juste avant le temps $t$ (en gris).
+		Une décision composite peut engager l'agent pendant plusieurs cycles d'interaction primitifs (\an{Primitive Time}).
+		Les interactions grisées sont celles qui définissent le contexte $C_t$.
 	}
 	\label{fig:agent10}
 \end{figure}
 
 Une interaction composite $i_c$ est donc une séquence de deux sous-interactions qui peuvent être soit composites soit primitives. 
-La première est appelée la \emph{pré-intéraction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
+La première est appelée la \emph{pré-interaction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
 Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
 
 Etant donné qu'une interaction composite doit être réénactée pour donner lieu à une apprentissage d'une interaction composite de plus haut niveau, le nombre d'interactions composite ne croit pas trop rapidement comme nous le verrons en Section~\ref{sec:sniff}.
@@ -379,10 +380,10 @@ Cela est exprimé par l'Equation \eqref{eq:ev}:
 
 \begin{equation}\label{eq:ev}
 	%\displaystyle 
-	\mathbb{E}_t(V_i) = \sum_{j=0}^{|i|-1} ( v(i_j) \cdot \prod_{k=0}^{j} p_{t+k}(i_k) )
+	\mathbb{E}_t(V_i) = \sum_{j=0}^{|I|-1} ( v(i_j) \cdot \prod_{k=0}^{j} p_{t+k}(i_k) )
 \end{equation}
 
-$|i|$ est le nombre d'interactions primitives qui composent $i$. 
+$|I|$ est le nombre d'interactions primitives qui composent $i$. 
 $i_j$ est la $j^{ème}$ interaction primitive de $i$ (comptée à partir de 0).
 $p_{t+k}(i_k)$ est la probabilité que l'enaction de la $k^{ème}$ interaction de $i$ soit un succès quand l'agent tente de l'enacter au temps $t+k$.
 Sachant que l'enaction de la $j^{ème}$ interaction nécessite que toutes celles qui l'ont précédées aient été enactées avec succès, la probabilité d'enacter la $j^{eme}$ interaction est le produit des probabilités d'enacter les interactions 0 à $j$.
@@ -489,7 +490,7 @@ Le contrôleur primitif de l'agent associe la décision avec l'\an{outcome} pour
 Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différents environnements. 
 
 
-La partie \ref{sec:sequentiel-robotique} conclura cette section en montrant comment ces expérimentations peuvent être répliquées chez des robots. 
+La dernière partie de cette section montrera comment ces expérimentations peuvent être répliquées chez des robots. 
 Dans ce cas, la seule différence du \an{software} de l'agent se situe au niveau du contrôleur primitif qui implémente la mise en \oe uvre des décisions de l'agent à travers des boucles de contrôle sensorimotrices.
 C'est le contrôleur primitif qui se charge de générer l'\an{outcome} selon la façon dont ces boucles ont pu être mise en \oe uvre. 
 
@@ -705,7 +706,7 @@ Nous avons observé que la structure d'embedding ne reflétait pas de proximité
 Avec un aussi petit nombre de tokens, il est toujours possible de trouver une projection de l'embedding montrant des proximités recherchées comme illustré dans la partie droite de la figure, mais ces regroupements s'avèrent non significatifs.
 
 L'analyse des matrices d'attention s'est au contraire avérée concluante. 
-La partie droite de la Figure \ref{fig:attention} montre un exemple obtenu en sondant la matrice d'attention avec la séquence 
+La partie droite de la Figure \ref{fig:attention} montre un exemple obtenu en sondant la matrice d'auto-attention du décodeur avec la séquence 
 \small{\interaction{sniff-front, decrease} $\rightarrow$ \interaction{sniff-left, increase} $\rightarrow$ \interaction{sniff-right, decrease} $\rightarrow$ \interaction{turn-left} $\rightarrow$ \interaction{sniff-left-increase} $\rightarrow$ \interaction{move-forward, increase}}.
 La quatrième ligne (Query = \interaction{Turn Left} (TL)) montre que cette interaction dépend fortement de l'interaction \interaction{sniff-left, increase} qui la précède. 
 La ligne du bas (Query = \interaction{move forward, increase} (MFI)) montre que cette interaction dépend fortement de la première occurrence de \interaction{sniff-left, increase} (SLI) et de \interaction{turn-left} (TL) mais pas de la seconde occurrence de \interaction{sniff-left, increase}. 
@@ -808,7 +809,7 @@ La définition \ref{def:sedp} donne la formalisation du SEDP dérivée de la Dé
 
 \begin{De}[SEDP]
 	\label{def:sedp}
-	Un \an{Spatial Enactive Decision Process} (SEDP) se définit par le tuple EDP $(S, D, I, p, q)$, complété par l'espace tridimensionnel $\mathbb{R}^3$ et l'ensemble $\mathcal{I}$ des isométries directes définies sur $\mathbb{R}^3$, dans lequel:
+	Un \an{Spatial Enactive Decision Process} (SEDP) se définit par le tuple EDP $(S, D, I, q, p)$, complété par l'espace tridimensionnel $\mathbb{R}^3$ et l'ensemble $\mathcal{I}$ des isométries directes définies sur $\mathbb{R}^3$, dans lequel:
 	\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 		\item $S$ est un ensemble d'états,
 		\item $D$ est un ensemble fini de décisions,

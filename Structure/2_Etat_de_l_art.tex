@@ -28,7 +28,7 @@ La troisième partie présente les méthodes employées pour l'évaluation de ce
 
 \noindent
 Cette section introduit les théories et concepts impliqués dans la conception d'un \an{software} contrôlant un agent autonome capable de développement cognitif. 
-J'utilise le terme \an{software} comme un terme général englobant les notions de programme, de logiciel, ou d'algorithme au sens large: il recouvre à la fois le code et toutes formes de structures de données.  
+J'utilise le terme \an{software} comme un terme général englobant les notions de programme, de logiciel, ou d'algorithme au sens large: il recouvre à la fois le code et toutes sortes de données stockées en mémoire.  
 Par rapport aux termes \emph{programme} et \emph{algorithme}, \an{software} présente l'avantage de ne pas évoquer un processus figé, mais d'ouvrir la possibilité d'une évolution de sa propre structure.
 
 
@@ -726,11 +726,16 @@ Le chercheur doit également fournir les éléments qui permettent de comprendre
 \section{Techniques d'apprentissage interactif artificiel}
 \label{sec:techniques}
 
-\textbf{Introduction en cours de construction}
 
-Cette section aborde de façon plus technique différent algorithmes, formalisme mathématiques, et cadre conceptuels utilisées actuellement pour concevoir des agents capable d'apprendre par interaction. 
-Je n'utilise pas directement les algorithmes existant mais je reprends certains formalismes et concepts. 
-Cette présentation permettra de comparer mon approche et de comprendre en quoi elle diffère et quelles questions nouvelle elle adresse. 
+\noindent
+Cette section détaille les techniques qui ont influencé et inspiré notre approche d'apprentissage développemental.
+Elle vise à situer notre proposition dans le paysage des travaux existants. 
+Elle se concentre sur l'apprentissage par interaction, en couvrant notamment l'apprentissage de structures abstraites, l'apprentissage par renforcement, l'apprentissage constructiviste et l'apprentissage d'habitudes sensorimotrice. 
+L'apprentissage développemental étant fondamentalement non supervisé, nous laissons de côté les techniques d'apprentissage supervisé, telles que le \an{deep learning} et la technologie des \an{transformers}, auxquelles nous reviendrons ponctuellement à des fins de comparaison (Section~\ref{sec:sniff}).
+
+
+
+%Cette section aborde de façon plus technique différent algorithmes, formalisme mathématiques, et cadre conceptuels utilisées actuellement pour concevoir des agents capable d'apprendre par interaction. Je n'utilise pas directement les algorithmes existant mais je reprends certains formalismes et concepts. Cette présentation permettra de comparer mon approche et de comprendre en quoi elle diffère et quelles questions nouvelle elle adresse. 
 
 
 \subsection{Apprentissage à partir d'expérience dirigé par un humain}
@@ -1429,10 +1434,13 @@ La revue des systèmes de représentations spatio-temporelles du cerveau de la S
 \section{Mesurer l'intelligence}
 
 \noindent
-Pour clore cette vue d'ensemble de la notion d'intelligence je dois aborder les méthodes permettant de l'évaluer et de la quantifier.
-Legg et Hutter \cite{legg_universal_2007} proposent une synthèse des principales techniques de mesure de l'intelligence naturelle afin d'en dégager des pistes pour établir des \an{benchmark} d'évaluation de l'intelligence artificielle. 
+Cette section termine l'état de l'art par une présentation des méthodes utilisées pour évaluer l'intelligence,  
+en s'appuyant sur une classification proposées par Legg et Hutter \cite{legg_universal_2007}.
 
-Ils introduisent d'abord une distinction entre les \emph{tests statiques} et les \emph{tests dynamiques}. 
+%des méthodes d'évaluation de l'intelligence 
+%Pour clore cet état de l'art te vue d'ensemble de la notion d'intelligence je dois aborder les méthodes permettant de l'évaluer et de la quantifier.
+% proposent une synthèse des principales techniques de mesure de l'intelligence naturelle afin d'en dégager des pistes pour établir des \an{benchmark} d'évaluation de l'intelligence artificielle. 
+Ces auteurs introduisent d'abord une distinction entre les \emph{tests statiques} et les \emph{tests dynamiques}. 
 Les tests statiques évaluent la capacité à résoudre un problème présenté en une seule fois. 
 Ils mettent l'accent sur l'exploitation de connaissance et la mise en \oe uvre d'un raisonnement pour produire une réponse correcte à une question posée. 
 %Ils ne mesurent pas directement la capacité à apprendre et à s'adapter au cours du temps. 
@@ -1467,7 +1475,7 @@ La Figure \ref{fig:mesures} récapitule les quatre quadrants délimités par les
 
 \noindent
 Les tests statiques ne sont pas pertinents pour évaluer les IA développementales car ils ne permettent pas de saisir les dynamiques d'apprentissage et d'adaptation au cours du temps. 
-Ils s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative. 
+Ils s'appliquent principalement aux systèmes d'apprentissage supervisés et aux grands modèles d'IA générative, c'est à dire à des agents \og déjà adulte \fg\ aux connaissances stabilisées. 
 Je les passe en revue brièvement ici pour éclairer la classification de Legg et Hutter et parce que certains d'entre eux figurent parmi plus connus dans le paysage de l'IA actuelle.
 
 Un premier exemple appartenant au quadrant \emph{statique} / \emph{objectif} est le \an{benchmark} \an{Measuring Massive Multitask Language Understanding} (MMLU) \cite{hendrycks_measuring_2021}. 
@@ -1555,13 +1563,18 @@ Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'env
 %	Ces benchmarks floutent la frontière entre \emph{objectif} et \emph{jugement} car le choix de la tâche de test est un acte de jugement de l'examinateur, mais la performance dans cette tâche est mesurée objectivement. 
 %\end{itemize} 
 
+\subsection{Bilan des méthodes de tests}
 
-
-
+\noindent
+Les méthodes de test liés à notre approche si situent dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain.
+L'absence de motivation externe, ainsi que l'attente de fonctionnement en monde ouvert empêchent de définir une mesure de performance. 
+Nous utiliserons des méthodes d'analyse des comportements pour mettre en évidences les apprentissages et l'émergence de comportements cognitifs, et nous partageons les vidéos des expérimentations réalisées pour permettre à des évaluateurs d'exercer leur jugement.
 
 
 \section{Conclusion (en cours de construction)}
 
+Paul: 
+il y a quelque chose de fondamentalement problématique à évaluer un agent enactif avec la notion classique de « performance », puisque le sens émerge de l'interaction plutôt que d'être défini a priori. Ce serait bien de l'expliciter quelque part.
 
 Je résume cette entreprise par le projet de concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
 

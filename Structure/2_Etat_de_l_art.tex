@@ -3,18 +3,41 @@
 \chapter{Etat de l'art}
 \label{chap:etat}
 
-Introduction en cours de construction
+\noindent
+Ce chapitre présente l'état de l'art conceptuel et technique pertinent pour le projet d'intelligence artificielle développementale établi au Chapitre 1: 
+traduire sous forme de simulations et d'expérimentations informatiques la théorie de l'intelligence décrite qui part des événements et conduit à une organisation cognitive progressive. 
 
-Ce chapitre passe en revue l'état de l'art dans le domaine de l'intelligence artififielle, l'apprentissage artificiel, et l'informatique qui est pertinent pour le problème de l'intelligence artificielle développementale. 
-
-La première partie porte sur l'apprentissage autonome artificiel et vise à poser les concepts de base de ce problème. 
-La seconde partie passe en revue certaines approches techniques de façon à présenter le formalisme mathématique utilisé dans la littérature, sur lequel nous pourrons nous appuyer dans les chapitres suivants. 
-
+Pour cela, la première partie repositionne les théories philosophiques et des sciences cognitives dans le cadre de l'informatique, en apportant les concepts de base impliqués dans la conception d'un \an{software} contrôlant un agent artificiel autonome en interaction avec son environnement. 
+La deuxième partie détaille les techniques concernées et introduit le formalisme de référence sur lequel nous nous appuierons dans les chapitres suivants. 
+La troisième partie présente les méthodes employées pour l'évaluation de ces agents autonomes.
 
 
-\section{Apprentissage autonome}
+%La première partie réexamine les questions soulevées précédemment sous l'angle des théories actuelles de l'autonomie artificielle. Les approches conceptuelles sont passées en revue concernant notamment le statut d'un \an{software} pilotant un agent autonome, ses données d'entrée et de sortie, son couplage par rapport à son environnement, le problème de l'induction, ses capacités de modification structurelle, et les principes dirigeant ses comportements.
+
+
+%Ce chapitre passe en revue l'état de l'art dans le domaine de l'intelligence artififielle, l'apprentissage artificiel, et l'informatique qui est pertinent pour le problème de l'intelligence artificielle développementale. 
+
+%La première partie porte sur l'apprentissage autonome artificiel et vise à poser les concepts de base de ce problème. 
+%La seconde partie passe en revue certaines approches techniques de façon à présenter le formalisme mathématique utilisé dans la littérature, sur lequel nous pourrons nous appuyer dans les chapitres suivants. 
+
+
+
+\section{Apprentissage autonome artificiel}
 
 %Définir l'autonomie des agents artificiels n'est pas aussi facile qu'il n'y parait.  David Vernon \cite{vernon_artificial_2014} identifie plusieurs types d'autonomie
+
+\noindent
+Cette section introduit les théories et concepts impliqués dans la conception d'un \an{software} contrôlant un agent autonome capable de développement cognitif. 
+J'utilise le terme \an{software} comme un terme général englobant les notions de programme, de logiciel, ou d'algorithme au sens large: il recouvre à la fois le code et toutes formes de structures de données.  
+Par rapport aux termes \emph{programme} et \emph{algorithme}, \an{software} présente l'avantage de ne pas évoquer un processus figé, mais d'ouvrir la possibilité d'une évolution de sa propre structure.
+
+
+
+%Cette section présente les principales théories et conceptualisations par lesquels la recherche actuelle aborde la question de l'apprentissage développemental autonome.  Cette question est posée du point de vue d'un agent artificiel contrôlé par un \an{software}.  Le terme \an{software} est un terme très général qui englobe les notions de programme, de logiciel, ou d'algorithme au sens large. Il recouvre à la fois le code et toutes formes de structures de données.  
+
+%Les approches conceptuelles sont passées en revue concernant notamment le statut d'un \an{software} pilotant un agent autonome, ses données d'entrée et de sortie, son couplage par rapport à son environnement, le problème de l'induction, ses capacités de modification structurelle, et les principes dirigeant ses comportements.
+
+
 
 
 \subsection{Système de décision discret}
@@ -22,8 +45,9 @@ La seconde partie passe en revue certaines approches techniques de façon à pr�
 
 \noindent
 La façon la plus générale de modéliser un système d'IA repose sur le modèle \an{Discret Decision System} (DDS) illustré en Fig. \ref{fig:dds}.
-Dans ce modèle, on peut désigner le système d'IA par le terme \an{software} qui englobe les notions de programme, de logiciel, ou d'algorithme au sens large. 
-Ce \an{software} échange des informations au cours d'un \textit{cycle d'interaction discret} qui alterne les \emph{entrées} reçues de son environnement et les \emph{sorties} émises vers son environnement. 
+Dans ce modèle, 
+%on peut désigner le système d'IA par le terme \an{software} qui englobe les notions de programme, de logiciel, ou d'algorithme au sens large. 
+le \an{software} échange des informations au cours d'un \textit{cycle d'interaction discret} qui alterne les \emph{entrées} reçues de son environnement et les \emph{sorties} émises vers son environnement. 
 
 \begin{figure}[h]
 	\centering
@@ -699,7 +723,7 @@ Le chercheur doit également fournir les éléments qui permettent de comprendre
 %Pour moi, ce qui est important de souligner c'est que ce n'est pas une propriété absolue du monde en soi mais une propriété relative selon que le monde apparait ouvert par rapport au système qu'on considère. 
 
 
-\section{Techniques d'apprentissage à partir d'expérience}
+\section{Techniques d'apprentissage interactif artificiel}
 \label{sec:techniques}
 
 \textbf{Introduction en cours de construction}
@@ -1537,6 +1561,9 @@ Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'env
 
 
 \section{Conclusion (en cours de construction)}
+
+
+Je résume cette entreprise par le projet de concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
 
 
 Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 

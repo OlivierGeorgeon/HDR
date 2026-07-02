@@ -1548,20 +1548,11 @@ Dans leur article \an{Benchmarking world-model learning} \cite{warrier_benchmark
 WorldTest différencie un \og environnement de base \fg\ durant la phase d'apprentissage ouvert, et un \og environnement dérivé à objectif explicite \fg\ durant la phase de test, qui diffère de l'environnement de base tout en lui restant corrélé. 
 Il permet d'évaluer la capacité de l'agent à généraliser à partir de l'environnement de base, en mesurant ses performance à atteindre l'objectif défini dans l'environnement dérivé, de manière indépendante du formalisme de représentation utilisé.
 
-%identifient quatre catégories de \an{benchmarks} pour évaluer l'apprentissage d'un modèle du monde:
 
-%\begin{itemize}[label=\scalebox{.85}{$\diamond$}]
-%	\item les \an{non-interactive benchmarks} évaluent la capacité de l'agent à inférer des règles sous-jacentes à partir d'exemples et à les généraliser à de nouveaux cas. Cette catégorie rejoint la catégorie \emph{statique} mais brouille la frontière entre \emph{objectif} et \emph{jugement} en testant la qualité du modèle du monde dans des jeux de questions objectives.
-%	\item les \an{representation-based approaches} évaluent les modèles du monde en imposant l'usage de formats de représentation spécifiques, tels que des graphes causaux ou des langages de prédicats. 
-%	L'évaluation repose sur des mesures propres à chaque format de représentation. 
-%	Ces approches sont qualifiées de \og boites blanches \fg car elles nécessitent l'analyse interne des modèles. 
-%	Elles présentent l'inconvénient d'empêcher la comparaison entre différents formats de représentation.  
-%	Elles se situent dans la catégorie \emph{jugement} car c'est l'évaluateur qui juge de ce qui est important dans le modèle du monde. 
-%	\item les \an{benchmarks} avec récompense objective utilisés en apprentissage par renforcement tels qu'\an{Open Gymnasium} de OpenAI. Ils se situent dans la catégorie \emph{dynamique} / \emph{objectif} car le modèle du monde est évalué par son utilité à atteindre des obejctifs prédéfinis. 
-%	\item les \an{unsupervised RL benchmarks} reposent sur une méthode en deux phases: une phase d'interaction et une phase de test. 
-%	Dans la première, l'agent interagit sans objectif explicite; dans la seconde, il est évalué sur sa capacité à accomplir une tâche spécifique.
-%	Ces benchmarks floutent la frontière entre \emph{objectif} et \emph{jugement} car le choix de la tâche de test est un acte de jugement de l'examinateur, mais la performance dans cette tâche est mesurée objectivement. 
-%\end{itemize} 
+
+
+
+
 
 \subsection{Bilan des méthodes de tests}
 
@@ -1570,102 +1561,121 @@ Les méthodes de test liés à notre approche si situent dans le quadrant supér
 L'absence de motivation externe, ainsi que l'attente de fonctionnement en monde ouvert empêchent de définir une mesure de performance. 
 Nous utiliserons des méthodes d'analyse des comportements pour mettre en évidences les apprentissages et l'émergence de comportements cognitifs, et nous partageons les vidéos des expérimentations réalisées pour permettre à des évaluateurs d'exercer leur jugement.
 
+%Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
+%\begin{quote}
+%	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
+	%, even immoral, just as in the education of humans. 
+	%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
+	%	}
+%	\cite[p.~119]{deutsch_beyond_2019}.
+%\end{quote}
+
+
 
 \section{Conclusion (en cours de construction)}
 
-Paul: 
-il y a quelque chose de fondamentalement problématique à évaluer un agent enactif avec la notion classique de « performance », puisque le sens émerge de l'interaction plutôt que d'être défini a priori. Ce serait bien de l'expliciter quelque part.
+\noindent
+Cette revue de l'état de l'art montre que les systèmes artificiels ne parviennent pas encore à dépasser le premier stade de développement identifié par Piaget: la maitrise de l'appareil sensorimoteur. 
+Il existe bien des travaux portant sur des stades ultérieurs. 
+L'ouvrage d'Angelo Cangelosi \an{Developmental robotics, from babies to robots} en dresse un paysage \cite{cangelosi_developmental_2015}.
+Cependant l'étude isolée de ces stades ultérieurs ne suffit pas à expliquer le développement cognitif en tant que processus continu.
+Or, la théorie des contingences sensorimotrice et celle de l'émergence d'une sémantique ancrée dans l'expérience suggèrent que cette continuité est précisément ce qui permet de comprendre l'attribution du sens. 
+Cette exigence de continuité peut se résumer par la formule \og il n'y a pas de raccourci vers l'intelligence artificielle \fg .
 
-Je résume cette entreprise par le projet de concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
+La théorie de l'apprentissage par renforcement computationnel pose les bases de l'apprentissage autonome par interaction, parfois qualifié \og d'apprentissage par essai-erreur \fg{}.
+Elle fournit un formalisme permettant de modéliser les interactions entre l'agent et l'environnement, en particulier dans le cas des situations non-markoviennes qui concernent l'apprentissage développemental.
+Elle introduit \emph{l'hypothèse de la récompense}, selon laquelle l'apprentissage peut être formalisé comme un problème de maximisation d'une récompense reçue.
+Cependant, elle montre que les performance des algorithmes généraux de maximisation de récompense se dégrade avec la complexité de l'environnement. 
+Ces algorithmes n'apprennent aucune abstraction et souffrent du problème d'attribution de la récompense \cite{minsky_steps_1961}. 
+Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite[e.g.]{fujita_alphavit_2025}. 
+%, ce qui suggère que d'autres principes sont nécessaires pour guider l'apprentissage.
 
 
-Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
 
 
-Ce projet se situe dans le quadrant supérieur droit de la Figure \ref{fig:mesures}: les mesures dynamiques faisant appel au jugement humain, soit par interaction directe d'un humain avec l'agent, soit par analyse des comportements basés sur des enregistrements ou des traces. 
+3. L'apprentissage d'habitude et théoride de l'enaction est également important
+
+La théorie de l'enaction a donné lieu à des expérimentations d'ia (e.g., de loor) mais elles restent de bas niveau. 
+
+Le problème de la génération d'hypothèses est abordé par les coté des habitudes
+
+L'apprentissage sur différentes échelles de temps est un problème souvent identifié mais qui reste encore ouvert 
+(voir les références dans l'article ECA)
+
+Une façon de distinguer l'apprentissage développemental de l'apprentissage par renforcement est que le premier donne la place centrale à l'apprentissage d'habitudes, et une place secondaire à l'optimisation de valeur, alors que le second place l'optimisation de valeur en premier et place l'apprentissage d'habitudes en second comme un moyen pouvant aider le premier.
 
 
 
+4. Principes motivationnels 
 
 Parler de l'importance d'avoir une gamme d'heuristiques motivationnelles, telle que celle de Drescher consistant à répéter les schémas reproductibles pour les tester et les valider ou les rejeter.
 L'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) est au c\oe ur du mécanisme de schema de Drescher. 
 Une heuristique d'ennui peut etre associée à une forme de motivation hétérostatique comme sugéré par Oudeyer.
 
-La théorie de l'enaction a donné lieu à des expérimentations d'ia (e.g., de loor) mais elles restent de bas niveau. 
-Ils citent ”en habitus deposition” (Husserl, 1938) 
-
-Malgré l'existence de recherche sur l'intelligence artificielle développementale, et de tentatives d'application en robotique, on peut dire que cette recherche n'a pas encore completement réglé la question du premier stade identifié par Piaget: la maitrise de l'appareil sensorimoteur. 
-
-La discussion sur l'ancrage de la signification dans l'expérience laisse penser qu'il est important que toute connaissance soit raccordée à des schèmes sensorimoteurs à travers une construction impliquant possiblement des niveaux d'abstractions différents. 
-J'en conclus que \og il n'y a pas de raccourci vers l'intelligence artificielle  \fg\. 
-Cet argument du ``no shortcut to AI'' a été prononcé oralement à la conférence BICA mais ne semble pas avoir été argumenté solidement par écrit. 
-Il existe des études qui s'intéressent à des stades plus élevés du développement cognitif, par exemple l'acquisition du language, mais le langage appris n'est pas véritablement ancré dans l'expérience sensorimotrices. 
-
-\an{Developmental robotics, optimal artificial curiosity, creativity, music, and the fine arts} \cite{schmidhuber_developmental_2006}
-
-\an{Developmental Robotics: From Babies to Robots} \cite{cangelosi_developmental_2015}
+Il est important de rajouter une notion de motivation interne au schema méchanism.
 
 
+
+5. et donc
+
+Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
+
+
+Je résume cette entreprise par le projet de concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
 
 La notion \emph{d'événement d'interaction valué} est centrale. 
 Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
-
-Citer Banafsheh Rafiee et  Richard Sutton \an{Toward enactive artificial intelligence} (2026)
-
-
-Le problème de la génération d'hypothèses est abordé par les coté des habitudes
-
 On pourrait proposer une définition de l'intelligence selon laquelle un système intelligent est un système capable de se programmer lui-même, ou au moins capable de modifier ses propres structures internes de traitement de l'information.
-
-Une façon de distinguer l'apprentissage développemental de l'apprentissage par renforcement est que le premier donne la place centrale à l'apprentissage d'habitudes, et une place secondaire à l'optimisation de valeur, alors que le second place l'optimisation de valeur en premier et place l'apprentissage d'habitudes en second comme un moyen pouvant aider le premier.
-
 
 La théorie de l'inférence active suggère que l'agent maintient un modèle du monde interne et l'ajuste en tentant de minimiser les erreurs de prédiction.
 
+
 L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
-
-
-L'apprentissage sur différentes échelles de temps est un problème souvent identifié mais qui reste encore ouvert 
-(voir les références dans l'article ECA)
-
-Le stade de la maitrise de l'appareil sensorioteur, le premier stade identifié par Piaget, n'est pas encore résolu en intelligence artificielle. Pourtant il s'agit bien d'un problème qui relève de l'intelligence au plein sens du terme. Citer Josha Back, fondateur de Californian Institute of Machine Consciousness.
-
-
 
 NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéme ne peuvent pas dire ça.
 Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
 
-%Sutton et Barto \og \an{note that the assumption of Markov state representations is not unique to reinforcement learning but is also present in most if not all other approaches to artificial intelligence} \fg \cite[p.~65]{sutton_reinforcement_2018}. 
-Une théorie de l'IA non markovienne reste à construire. 
-On pourrait dire que c'est précisément l'objet de l'IA développementale précoce. 
-
-Le probleme du \an{credit assignment} \cite{minsky_steps_1961}.
-
-L'apprentissage par renforcement n'apprend aucune abstraction. Il trouve seulement un optimum dans un problème très bien contraint. Si on fait la plus petite modification dans le problème alors il est perdu. 
-Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite[e.g.]{fujita_alphavit_2025}. 
-
-L'apprentissage développemental n'est pas un apprentissage par renforcement. 
-
-Pourtant il est basé sur des expériences emph{essai-erreur}, et il n'est pas supervisé ce qui implique qu'il se base sur un système de préférences incorporé dans l'agent. 
-
-Argument par l'absurde: si l'apprentissage développemental était un apprentissage par renforcement alors il serait \an{intractable}, or les animaux et les humains parviennent à se développer avec des ressources computationnelles limitées, donc l'apprentissage développemental n'est pas un apprentissage par renforcement. 
-Cela n'implique pas qu'il n'y ait pas de mécanisme de renforcement dans l'apprentissage développemental. 
-
-Le formalisme POMDP peut etre utile pour formaliser l'apprentissage développemental mais, mais pas forcément complètement adapté. 
-
-Nous n'avons pas de distribution d'observation des états $p(o|s)$.
-
-
-L'apprentissage développemental est un apprentissage non-markovien mais le formalisme POMDP n'est pas l'idéal car il n'y a pas de distribution d'observation ni de récompense fonction de l'état caché du monde. 
-
-Il est important de rajouter une notion de motivation interne au schema méchanism.
-
-Nous construisons la façon qu'a le monde de nous apparaitre.
-
-
 La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
 Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+
+
+
+--------
+
+
+
+
+
+
+
+
+
+
+
+
+%Sutton et Barto \og \an{note that the assumption of Markov state representations is not unique to reinforcement learning but is also present in most if not all other approaches to artificial intelligence} \fg \cite[p.~65]{sutton_reinforcement_2018}. 
+
+
+%Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite[e.g.]{fujita_alphavit_2025}. 
+
+
+%Argument par l'absurde: si l'apprentissage développemental était un apprentissage par renforcement alors il serait \an{intractable}, or les animaux et les humains parviennent à se développer avec des ressources computationnelles limitées, donc l'apprentissage développemental n'est pas un apprentissage par renforcement.  Cela n'implique pas qu'il n'y ait pas de mécanisme de renforcement dans l'apprentissage développemental. 
+
+%Citer Banafsheh Rafiee et  Richard Sutton \an{Toward enactive artificial intelligence} (2026)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1692,13 +1702,4 @@ Le processus d'apprentissage set redéscriptif et reconstructif.
 Piaget insiste que les structures cognitives ne sont pas réductibles à des mécanismes de controle parce qu'elles impliquent des opérations réversibles et des réorganisations qui changent ce qui compte comme équilibre (Piaget 1953)
 En cybernétique la régulation par l'erreur présuppose une référence stable. En termes de développement la référence elle même peut etre transformée à travers la construcction de nouvelles coordinations. 
 ... les erreurs systématiques devient informatives parce qu'elles structurent ldes traces d'organisation localement incohérente. La transformation de cette organisation nécessite davantage que de corriger un signal de sortie mais aussi de changer les coordinations qui les produisent. 
-
-%Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
-%\begin{quote}
-%	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
-	%, even immoral, just as in the education of humans. 
-	%I share Turing’s supposition that we’ll know an AGI when we see one, but this partial ability to recognize success won’t help in creating the successful program
-	%	}
-%	\cite[p.~119]{deutsch_beyond_2019}.
-%\end{quote}
 

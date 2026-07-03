@@ -694,7 +694,8 @@ En 2024, la conférences NeurIPS accueillait un \an{Workshop on open-world agent
 Les jeux de plateau, tels que les échecs, constituent des exemples emblématiques de mondes \emph{fermés}. 
 Ils sont régis par un ensemble bien défini de règles qui déterminent leurs états et transitions possibles, ainsi que l'objectif à atteindre. 
 Le fait que le jeu contienne un nombre fini d'états et de transitions n'est pas une condition nécessaire pour qualifier un monde de fermé: 
-un jeu de billard disposant d'un espace d'état continu peut aussi être considéré comme fermé.
+par exemple un jeu de billard pourrait également être considéré comme fermé si les mouvements des boules obéissaient à des règles de déplacement bien précises. 
+%un jeu de billard disposant d'un espace d'état continu peut aussi être considéré comme fermé.
 De même, l'existence de causes externes telles que les décisions d'autres joueurs ou la présence de processus aléatoires ne les disqualifie pas comme mondes fermés. 
 %Du point de vue d'un joueur, l'évolution future d'une partie peut quand même dépendre de causes externes telles que les autres joueurs ou des phénomènes aléatoires. 
  
@@ -712,8 +713,9 @@ Une question pratique est de déterminer comment démontrer de manière convainc
 En effet, toute expérimentation, quelle qu'elle soit, apparait nécessairement fermée lorsqu'elle est rapportée par écrit ou sous forme de vidéo. 
 Même si elle est effectuée avec un robot dans le monde physique, il subsiste toujours la possibilité que l'environnement ait été contrôlé, simplifié, ou stabilisé.
 La simple présentation des résultats expérimentaux ne suffit donc pas.
-Il est nécessaire que le chercheur s'engage à ne pas avoir intégré dans l'agent de mécanismes tirant avantage des limitations du protocole expérimental.
-Le chercheur doit également fournir les éléments qui permettent de comprendre comment l'agent pourrait faire face à des situations qui sortent du cadre de l'expérimentation. 
+Il est nécessaire que le chercheur s'engage à ne pas avoir intégré dans l'agent de mécanismes tirant avantage des limitations du protocole expérimental. 
+Un algorithme d'apprentissage en monde ouvert ne doit pas nécessiter une énumération a priori de tous les états et transitions possibles du monde, comme le fait par exemple l'algorithme d'apprentissage par renforcement classique \an{Q-learning}.
+Plus généralement, le chercheur doit fournir les éléments qui permettent de comprendre comment l'agent pourrait faire face à des situations qui sortent du cadre de l'expérimentation. 
 
 
 
@@ -1561,6 +1563,14 @@ Les méthodes de test liés à notre approche si situent dans le quadrant supér
 L'absence de motivation externe, ainsi que l'attente de fonctionnement en monde ouvert empêchent de définir une mesure de performance. 
 Nous utiliserons des méthodes d'analyse des comportements pour mettre en évidences les apprentissages et l'émergence de comportements cognitifs, et nous partageons les vidéos des expérimentations réalisées pour permettre à des évaluateurs d'exercer leur jugement.
 
+%Cela conduit à faire la distinction entre activités "telique" / "atelique". 
+%Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+
+
+
+
+
+
 %Dans son article \og \an{Beyond reward and punishment} \fg, David Deutsch conclut que: 
 %\begin{quote}
 %	\an{So, despite its usefulness in other applications, the programming technique of defining a testable objective and training the program to meet it will have to be dropped. Indeed, I expect that any testing in the process of creating an AGI risks being counterproductive
@@ -1587,57 +1597,43 @@ Elle fournit un formalisme permettant de modéliser les interactions entre l'age
 Elle introduit \emph{l'hypothèse de la récompense}, selon laquelle l'apprentissage peut être formalisé comme un problème de maximisation d'une récompense reçue.
 Cependant, elle montre que les performance des algorithmes généraux de maximisation de récompense se dégrade avec la complexité de l'environnement. 
 Ces algorithmes n'apprennent aucune abstraction et souffrent du problème d'attribution de la récompense \cite{minsky_steps_1961}. 
-Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite[e.g.]{fujita_alphavit_2025}. 
+Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite{fujita_alphavit_2025}. 
 %, ce qui suggère que d'autres principes sont nécessaires pour guider l'apprentissage.
 
 
+La théorie de l'énaction suggère un deuxième principe pour diriger un agent artificiel: le principe de \emph{sédimentation d'habitudes d'interactions sensorimotrices}.
+Elle apporte le concept de \emph{couplage structurel} qui définit des régularités d'interaction sensorimotrices au sein de boucles de contrôle. 
+Ces boucles de contrôle impliquent des rétroactions entre les données d'entrée et de sortie du \an{software} qui contrôle l'agent. 
+Cette théorie appelle à créer des agents capables de faire évoluer leur couplage structurel à différentes échelles de temps, à travers ce processus de sédimentation d'habitudes, afin de permettre l'autonomie constitutive et l'individuation de l'agent. 
+
+Les techniques faisant explicitement référence à l'apprentissage constructiviste et développemental nous apportent les notions des \an{mécanismes de schéma} et des \an{architectures cognitives}.
+Les travaux existants dans ce domaine sont toutefois limités à des mondes fermés à faible complexité et soulèvent la question de leur adaptation à des milieux ouverts. 
+Ils n'explicitent pas toujours ce qui rend un algorithme constructiviste au delà du fait qu'il manipule des schémas, ce qui appelle à clarifier la différence par rapport aux autres formes d'apprentissage qualifiées parfois de \an{réalistes}.
 
 
-3. L'apprentissage d'habitude et théoride de l'enaction est également important
-
-La théorie de l'enaction a donné lieu à des expérimentations d'ia (e.g., de loor) mais elles restent de bas niveau. 
-
-Le problème de la génération d'hypothèses est abordé par les coté des habitudes
-
-L'apprentissage sur différentes échelles de temps est un problème souvent identifié mais qui reste encore ouvert 
-(voir les références dans l'article ECA)
-
-Une façon de distinguer l'apprentissage développemental de l'apprentissage par renforcement est que le premier donne la place centrale à l'apprentissage d'habitudes, et une place secondaire à l'optimisation de valeur, alors que le second place l'optimisation de valeur en premier et place l'apprentissage d'habitudes en second comme un moyen pouvant aider le premier.
-
-
-
-4. Principes motivationnels 
-
-Parler de l'importance d'avoir une gamme d'heuristiques motivationnelles, telle que celle de Drescher consistant à répéter les schémas reproductibles pour les tester et les valider ou les rejeter.
-L'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) est au c\oe ur du mécanisme de schema de Drescher. 
-Une heuristique d'ennui peut etre associée à une forme de motivation hétérostatique comme sugéré par Oudeyer.
-
-Il est important de rajouter une notion de motivation interne au schema méchanism.
+L'examen des principes motivationnels suggèrent deux approches possibles: les approches normatives et les approches heuristiques.
+Les approches normatives doivent être internes, ce qui exclut les fonctions de récompense liées à l'état de l'environnement comme c'est souvent le cas en apprentissage par renforcement, ainsi que les mesures liées à la théorie de l'information qui s'appuient sur des statistiques sur l'ensemble des états possibles de l'environnement. 
+Les approches heuristiques peuvent s'appuyer sur l'observation de comportements innés des animaux, tels que des principes émotionnels, ou des principes épistémologiques. 
+Parmi les principes épistémologique utilisé, figurent l'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) qui est au c\oe ur du mécanisme de schema de Drescher. 
+Elle peut aller de paire avec une heuristique d'\emph{évitement de l'ennui} employée par exemple par Oudeyer.
 
 
 
-5. et donc
 
-Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
-
-
-Je résume cette entreprise par le projet de concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
-
-La notion \emph{d'événement d'interaction valué} est centrale. 
-Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
-
-On pourrait proposer une définition de l'intelligence selon laquelle un système intelligent est un système capable de se programmer lui-même, ou au moins capable de modifier ses propres structures internes de traitement de l'information.
-
-La théorie de l'inférence active suggère que l'agent maintient un modèle du monde interne et l'ajuste en tentant de minimiser les erreurs de prédiction.
+Cet état de l'art me conduit à préciser le projet de manière plus technique qu'au Chapitre 1: 
+concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
 
 
-L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
+Associée aux fondements théoriques énoncés au Chapitre 1, cette état de l'art me conduit à accorder un role central à la notion \emph{d'événement d'interaction valué}, comme nous allons le voir dans le chapitre suivant.
 
-NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéme ne peuvent pas dire ça.
-Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
 
-La distinction "telique" / "atelique" est utile pour distinguer les deux types d'activités. 
-Une activité qui est faite par motivation extrinsèque est dite "télique", une activité qui est faite par motivation extrinsèque est dite "atélique". 
+
+%Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
+
+
+
+
+%L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
 
 
 

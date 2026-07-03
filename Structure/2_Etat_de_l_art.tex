@@ -1585,26 +1585,33 @@ Nous utiliserons des méthodes d'analyse des comportements pour mettre en évide
 \section{Conclusion (en cours de construction)}
 
 \noindent
-Cette revue de l'état de l'art montre que les systèmes artificiels ne parviennent pas encore à dépasser le premier stade de développement identifié par Piaget: la maitrise de l'appareil sensorimoteur. 
-Il existe bien des travaux portant sur des stades ultérieurs. 
-L'ouvrage d'Angelo Cangelosi \an{Developmental robotics, from babies to robots} en dresse un paysage \cite{cangelosi_developmental_2015}.
-Cependant l'étude isolée de ces stades ultérieurs ne suffit pas à expliquer le développement cognitif en tant que processus continu.
-Or, la théorie des contingences sensorimotrice et celle de l'émergence d'une sémantique ancrée dans l'expérience suggèrent que cette continuité est précisément ce qui permet de comprendre l'attribution du sens. 
+Cet état de l'art montre que les mécanismes de développement cognitif artificiels actuels ne sont pas encore capables d'atteindre le premier stade de développement identifié par Piaget: la maitrise autonome de l'appareil sensorimoteur. 
+Il existe bien des travaux portant sur des stades ultérieurs,
+l'ouvrage d'Angelo Cangelosi \an{Developmental robotics, from babies to robots} en dresse un paysage \cite{cangelosi_developmental_2015}.
+Cependant, ces travaux supposent acquis le stade sensorimoteur, et n'expliquent pas le développement cognitif comme un processus unifié et continu.
+Or, la théorie des contingences sensorimotrice et celle de l'émergence d'une sémantique ancrée dans l'expérience suggèrent que cette continuité est précisément ce qui permet à l'agent d'attribuer une signification à ses connaissances de plus haut niveau. 
 Cette exigence de continuité peut se résumer par la formule \og il n'y a pas de raccourci vers l'intelligence artificielle \fg .
+Je me concentre donc sur le stade sensorimoteur, désigné par le terme \emph{développement cognitif précoce} (\an{early-stage cognitive development}).
+Ce stade est similaire, dans ses principes, entre les êtres humains et les autres animaux, ce qui me conduit à utiliser des modèles animaux dans certaines expérimentations. 
+
 
 La théorie de l'apprentissage par renforcement computationnel pose les bases de l'apprentissage autonome par interaction, parfois qualifié \og d'apprentissage par essai-erreur \fg{}.
-Elle fournit un formalisme permettant de modéliser les interactions entre l'agent et l'environnement, en particulier dans le cas des situations non-markoviennes qui concernent l'apprentissage développemental.
-Elle introduit \emph{l'hypothèse de la récompense}, selon laquelle l'apprentissage peut être formalisé comme un problème de maximisation d'une récompense reçue.
-Cependant, elle montre que les performance des algorithmes généraux de maximisation de récompense se dégrade avec la complexité de l'environnement. 
+J'utilise son formalisme de modélisation des interactions non-markoviennes comme source d'inspiration.
+% pour modéliser les interactions entre l'agent et l'environnement, en particulier dans le cas des situations non-markoviennes qui concernent l'apprentissage développemental.
+Cette théorie introduit \emph{l'hypothèse de la récompense} selon laquelle l'apprentissage peut être formalisé comme un problème de maximisation d'une récompense reçue.
+Cependant, elle montre que les performances des algorithmes généraux de maximisation de récompense se dégradent avec la complexité de l'environnement. 
 Ces algorithmes n'apprennent aucune abstraction et souffrent du problème d'attribution de la récompense \cite{minsky_steps_1961}. 
 Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite{fujita_alphavit_2025}. 
 %, ce qui suggère que d'autres principes sont nécessaires pour guider l'apprentissage.
+Ce constat me conduit à considérer des alternatives à l'hypothèse de la récompense.
 
 
-La théorie de l'énaction suggère un deuxième principe pour diriger un agent artificiel: le principe de \emph{sédimentation d'habitudes d'interactions sensorimotrices}.
-Elle apporte le concept de \emph{couplage structurel} qui définit des régularités d'interaction sensorimotrices au sein de boucles de contrôle. 
-Ces boucles de contrôle impliquent des rétroactions entre les données d'entrée et de sortie du \an{software} qui contrôle l'agent. 
-Cette théorie appelle à créer des agents capables de faire évoluer leur couplage structurel à différentes échelles de temps, à travers ce processus de sédimentation d'habitudes, afin de permettre l'autonomie constitutive et l'individuation de l'agent. 
+La théorie de l'énaction suggère que l'acquisition d'habitudes est une capacité clé des systèmes cognitifs. 
+Elle apporte le concept de \emph{couplage structurel} qui lie les données d'entrée et de sortie du \an{software} de l'agent au sein de boucles de contrôle impliquant des rétroactions. 
+%Ces boucles de contrôle impliquent des rétroactions entre les données d'entrée et de sortie du \an{software} de l'agent. 
+Cette théorie appelle à créer des agents capables de faire évoluer leur couplage structurel à différentes échelles de temps à travers un processus de sédimentation d'habitudes pour permettre l'autonomie constitutive et l'individuation de l'agent. 
+Elle me conduit à proposer l'hypothèse de la \emph{sédimentation d'habitudes d'interactions sensorimotrices} comme alternative à l'hypothèse de la récompense. 
+
 
 Les techniques faisant explicitement référence à l'apprentissage constructiviste et développemental nous apportent les notions des \an{mécanismes de schéma} et des \an{architectures cognitives}.
 Les travaux existants dans ce domaine sont toutefois limités à des mondes fermés à faible complexité et soulèvent la question de leur adaptation à des milieux ouverts. 

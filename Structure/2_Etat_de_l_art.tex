@@ -1582,7 +1582,7 @@ Nous utiliserons des méthodes d'analyse des comportements pour mettre en évide
 
 
 
-\section{Conclusion (en cours de construction)}
+\section{Conclusion}
 
 \noindent
 Cet état de l'art montre que les mécanismes de développement cognitif artificiels actuels ne sont pas encore capables d'atteindre le premier stade de développement identifié par Piaget: la maitrise autonome de l'appareil sensorimoteur. 
@@ -1592,59 +1592,55 @@ Cependant, ces travaux supposent acquis le stade sensorimoteur, et n'expliquent 
 Or, la théorie des contingences sensorimotrice et celle de l'émergence d'une sémantique ancrée dans l'expérience suggèrent que cette continuité est précisément ce qui permet à l'agent d'attribuer une signification à ses connaissances de plus haut niveau. 
 Cette exigence de continuité peut se résumer par la formule \og il n'y a pas de raccourci vers l'intelligence artificielle \fg .
 Je me concentre donc sur le stade sensorimoteur, désigné par le terme \emph{développement cognitif précoce} (\an{early-stage cognitive development}).
-Ce stade est similaire, dans ses principes, entre les êtres humains et les autres animaux, ce qui me conduit à utiliser des modèles animaux dans certaines expérimentations. 
-
+Ce stade est similaire, dans ses principes, chez beaucoup d'animaux et chez l'humain, ce qui me conduit à utiliser des modèles animaux dans certaines expérimentations. 
 
 La théorie de l'apprentissage par renforcement computationnel pose les bases de l'apprentissage autonome par interaction, parfois qualifié \og d'apprentissage par essai-erreur \fg{}.
 J'utilise son formalisme de modélisation des interactions non-markoviennes comme source d'inspiration.
-% pour modéliser les interactions entre l'agent et l'environnement, en particulier dans le cas des situations non-markoviennes qui concernent l'apprentissage développemental.
 Cette théorie introduit \emph{l'hypothèse de la récompense} selon laquelle l'apprentissage peut être formalisé comme un problème de maximisation d'une récompense reçue.
 Cependant, elle montre que les performances des algorithmes généraux de maximisation de récompense se dégradent avec la complexité de l'environnement. 
 Ces algorithmes n'apprennent aucune abstraction et souffrent du problème d'attribution de la récompense \cite{minsky_steps_1961}. 
-Par exemple AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite{fujita_alphavit_2025}. 
+Par exemple, AlphaZero entrainé sur un terrain de Go de $19 \times 19$ ne sait pas jouer efficacement sur une autre dimension de terrain \cite{fujita_alphavit_2025}. 
 %, ce qui suggère que d'autres principes sont nécessaires pour guider l'apprentissage.
 Ce constat me conduit à considérer des alternatives à l'hypothèse de la récompense.
 
+La théorie de l'inférence active pose la question fondamentale de l'apprentissage d'un modèle mental d'un monde dont les états sont cachés à l'agent.
+Issue d'une tradition statistique, elle rejoint l'argument explicité par Laming (Sec.~\ref{sec:SMC}) selon lequel la position active de l'agent est indispensable pour lui permettre d'interpréter les statistiques des signaux sensoriels.
+Elle met en garde contre l'usage du terme \emph{action} qui suggère une intentionnalité de l'agent. 
+J'adopte le terme plus psychologiquement neutre de \emph{décision} en insistant sur son rôle premier pour la sélection de boucles d'interaction.  
 
-La théorie de l'énaction suggère que l'acquisition d'habitudes est une capacité clé des systèmes cognitifs. 
-Elle apporte le concept de \emph{couplage structurel} qui lie les données d'entrée et de sortie du \an{software} de l'agent au sein de boucles de contrôle impliquant des rétroactions. 
-%Ces boucles de contrôle impliquent des rétroactions entre les données d'entrée et de sortie du \an{software} de l'agent. 
+La théorie de l'énaction suggère que l'acquisition d'habitudes constitue une capacité clé des systèmes cognitifs. 
+Elle apporte le concept de \emph{couplage structurel} qui définit les liens entre données d'entrée et de sortie au sein de boucles de contrôle impliquant des rétroactions. 
 Cette théorie appelle à créer des agents capables de faire évoluer leur couplage structurel à différentes échelles de temps à travers un processus de sédimentation d'habitudes pour permettre l'autonomie constitutive et l'individuation de l'agent. 
-Elle me conduit à proposer l'hypothèse de la \emph{sédimentation d'habitudes d'interactions sensorimotrices} comme alternative à l'hypothèse de la récompense. 
+Elle me conduit ainsi à proposer l'hypothèse de la \emph{sédimentation d'habitudes d'interactions sensorimotrices} comme principe directeur des comportements de l'agent alternatif à l'hypothèse de la récompense. 
 
-
-Les techniques faisant explicitement référence à l'apprentissage constructiviste et développemental nous apportent les notions des \an{mécanismes de schéma} et des \an{architectures cognitives}.
-Les travaux existants dans ce domaine sont toutefois limités à des mondes fermés à faible complexité et soulèvent la question de leur adaptation à des milieux ouverts. 
-Ils n'explicitent pas toujours ce qui rend un algorithme constructiviste au delà du fait qu'il manipule des schémas, ce qui appelle à clarifier la différence par rapport aux autres formes d'apprentissage qualifiées parfois de \an{réalistes}.
-
-
-L'examen des principes motivationnels suggèrent deux approches possibles: les approches normatives et les approches heuristiques.
-Les approches normatives doivent être internes, ce qui exclut les fonctions de récompense liées à l'état de l'environnement comme c'est souvent le cas en apprentissage par renforcement, ainsi que les mesures liées à la théorie de l'information qui s'appuient sur des statistiques sur l'ensemble des états possibles de l'environnement. 
-Les approches heuristiques peuvent s'appuyer sur l'observation de comportements innés des animaux, tels que des principes émotionnels, ou des principes épistémologiques. 
-Parmi les principes épistémologique utilisé, figurent l'heuristique de recherche de fiabilité (\an{reliability seeking heuristics}) qui est au c\oe ur du mécanisme de schema de Drescher. 
-Elle peut aller de paire avec une heuristique d'\emph{évitement de l'ennui} employée par exemple par Oudeyer.
+Les techniques faisant explicitement référence à l'apprentissage constructiviste et développemental nous apportent la notion de \emph{mécanisme de schéma} et de leur intégration au sein d'une \emph{architecture cognitive}.
+Ces techniques apportent les premières réponses au problème de la capture de régularités d'interaction dynamiques, réutilisables pour orienter les comportements et construire des connaissances abstraites. 
+Les mécanismes de schéma existants restent toutefois limités à des mondes fermés et de faible complexité, ce qui soulève la question de leur adaptation à des milieux ouverts. 
+Je conserve l'idée générale de mécanisme de schéma mais en évitant leur modélisation en triplets \schema{percept, action, percept} qui ne permet pas de donner un rôle premier aux décisions et qui mélange les notions de signal sensoriel et de perception. 
 
 
 
-
-Cet état de l'art me conduit à préciser le projet de manière plus technique qu'au Chapitre 1: 
-concevoir un agent capables de construire et réitérer des comportements spatio-séquentiels hiérarchiques fondé sur des préférences intéractionnelles initiales.
-
-
-Associée aux fondements théoriques énoncés au Chapitre 1, cette état de l'art me conduit à accorder un role central à la notion \emph{d'événement d'interaction valué}, comme nous allons le voir dans le chapitre suivant.
-
-
-
-%Il ne faut pas tricher en passant un token qui représente une propriété présupposée du monde. 
+L'examen des principes motivationnels distingue les approches normatives mesurables des approches heuristiques ad hoc.
+Dans le cadre de l'apprentissage développemental, les approches normatives doivent faire appel à des mesures internes, ce qui exclut les récompenses directement associées à des états prédéfinis  de l'environnement comme c'est souvent le cas en apprentissage par renforcement, ainsi que les mesures liées à la théorie de l'information qui s'appuient sur des statistiques impliquant l'ensemble des états possibles de l'environnement. 
+Je retiens la possibilité d'une motivation normative associée à des valeurs liées aux événements d'interaction.
+Les approches heuristiques, de leur coté,  implémentent directement des comportements considérés importants par le chercheur.
+Je retiens un des principes heuristiques clés implémenté par Drescher:  \emph{l'heuristique de recherche de fiabilité}  (Sec.~\ref{sec:drescher}), qui peut être complémentée par une \emph{heuristique d'évitement de l'ennui} proposée, par exemple, par Oudeyer.
+Je retiens également la possibilité de s'inspirer de comportements innés connus chez les animaux, tels que des préférences comportementales associées aux états émotionnels. 
 
 
+Associée aux fondements théoriques énoncés au Chapitre 1, cette état de l'art me conduit à associer le notion d'événement d'interaction avec la notion de boucle d'interaction sensorimotrice. 
+Un événement d'interaction, dont l'agent fait l'expérience, se traduit par une boucle d'interaction du point de vue de l'observateur extérieur. 
+Cette événement d'interaction peut être associé à une valeur numérique utilisée par un mécanisme motivationnel normatif implémenté dans l'agent.
+Je propose donc une approche qui accorde la place centrale aux \emph{Evénements d'Interaction Valués} qui correspondent à des boucles d'interaction ayant une valence motivationnelle et qui peuvent être interprétés comme les impressions sensibles de l'agent.
+
+%Sur cette base je formule le problème de l'apprentissage développemental précoce 
+%\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques sur la base de préférences interactionnelles initiales.}
 
 
-%L'inversion du cycle d'interaction considère le signal sensoriel comme un feedback de l'action et non comme un percept.
 
 
 
---------
+
 
 
 
@@ -1681,28 +1677,11 @@ Associée aux fondements théoriques énoncés au Chapitre 1, cette état de l'a
 
 
 
+%Parler de \an{epistemic resolve}: un système cognitif qui ne peut pas décider ce qu'il croit n'est pas un système cognitif. Le mind est responsable de ses engements épistémiques au cours du temps.  Il soutient une position sur comment les choses sont et comment il doit agir, et révise sa position quand de nouvelles expériences remettent en cause ce qui était préalablement considéré comme établi.  Ce n'est pas seulement une propriété désirable, ou que les systèmes qui l'ont seraient plus performants, ou un choix possible parmi d'autres, mais c'est une condition nécessaire pour un système cognitif. Il faut un engagement par adjudication et non pas seulement un engagement par accrétion. (crawford et Hammer AGI2026) 
 
 
+% Revue de "Regimes of error and the epistemology of learning: from cybernetics to large language models La revue des méthodes de mesure de l'intelligence souligne l'importance du concept \emph{d'erreur} dans les approches d'apprentissage artificiel. 
+%Il y a un régime 1 selon lequel l'erreur est une distance qui doit être réduite, et un régime 2 selon lequel l'erreur est un indicateur d'un défaut d'organisation interne. En régime 1, ce qui compte comme erreur n'est pas découvert mais est spécifié par le concepteur. L'erreur est ce qui est défini par la loss function, l'apprentissage est ce qui la réduit.En régime 2, l'erreur est traitée comme une indication de comment le système est organisé. La question du diagnostique n'est pas simplement "quelle est la distance entre le signal de sortie et la consigne", mais "quelles sont les règles, hypothèses, et décompositions qui rendent cette erreur inévitable?". Le choix du régime n'est pas neutre d'un point de vue épistémologique. Il arrive souvent que les deux régimes soint hybridés: on entraine un système sous le régime 1 et leurs échecs sont interprétés comme des indices pour réviser l'orgnisation interne.  Le processus d'apprentissage set redéscriptif et reconstructif.
 
-Parler de \an{epistemic resolve}: un système cognitif qui ne peut pas décider ce qu'il croit n'est pas un système cognitif.
-Le mind est responsable de ses engements épistémiques au cours du temps. 
-Il soutient une position sur comment les choses sont et comment il doit agir, et révise sa position quand de nouvelles expériences remettent en cause ce qui était préalablement considéré comme établi. 
-Ce n'est pas seulement une propriété désirable, ou que les systèmes qui l'ont seraient plus performants, ou un choix possible parmi d'autres, mais c'est une condition nécessaire pour un système cognitif.
-Il faut un engagement par adjudication et non pas seulement un engagement par accrétion. 
-(crawford et Hammer AGI2026) 
-
-
-% Revue de "Regimes of error and the epistemology of learning: from cybernetics to large language models
-La revue des méthodes de mesure de l'intelligence souligne l'importance du concept \emph{d'erreur} dans les approches d'apprentissage artificiel. 
-Il y a un régime 1 selon lequel l'erreur est une distance qui doit être réduite, et un régime 2 selon lequel l'erreur est un indicateur d'un défaut d'organisation interne. 
-En régime 1, ce qui compte comme erreur n'est pas découvert mais est spécifié par le concepteur. L'erreur est ce qui est défini par la loss function, l'apprentissage est ce qui la réduit.
-En régime 2, l'erreur est traitée comme une indication de comment le système est organisé. 
-La question du diagnostique n'est pas simplement "quelle est la distance entre le signal de sortie et la consigne", mais "quelles sont les règles, hypothèses, et décompositions qui rendent cette erreur inévitable?".
-Le choix du régime n'est pas neutre d'un point de vue épistémologique.
-Il arrive souvent que les deux régimes soint hybridés: on entraine un système sous le régime 1 et leurs échecs sont interprétés comme des indices pour réviser l'orgnisation interne. 
-Le processus d'apprentissage set redéscriptif et reconstructif.
-
-Piaget insiste que les structures cognitives ne sont pas réductibles à des mécanismes de controle parce qu'elles impliquent des opérations réversibles et des réorganisations qui changent ce qui compte comme équilibre (Piaget 1953)
-En cybernétique la régulation par l'erreur présuppose une référence stable. En termes de développement la référence elle même peut etre transformée à travers la construcction de nouvelles coordinations. 
-... les erreurs systématiques devient informatives parce qu'elles structurent ldes traces d'organisation localement incohérente. La transformation de cette organisation nécessite davantage que de corriger un signal de sortie mais aussi de changer les coordinations qui les produisent. 
+%Piaget insiste que les structures cognitives ne sont pas réductibles à des mécanismes de controle parce qu'elles impliquent des opérations réversibles et des réorganisations qui changent ce qui compte comme équilibre (Piaget 1953) En cybernétique la régulation par l'erreur présuppose une référence stable. En termes de développement la référence elle même peut etre transformée à travers la construcction de nouvelles coordinations. ... les erreurs systématiques devient informatives parce qu'elles structurent ldes traces d'organisation localement incohérente. La transformation de cette organisation nécessite davantage que de corriger un signal de sortie mais aussi de changer les coordinations qui les produisent. 
 

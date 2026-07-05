@@ -1,6 +1,6 @@
 % !TEX root = ../HDR.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Vers une robotique développementale}
+\chapter{Vers une robotique développementale précoce}
 \label{chap:perspective}
 
 % Cette section pourrait etre incluse dans la précédente "Apprentissage spatio-séquentiel".
@@ -8,13 +8,15 @@
 Introduction ne construction
 
 
-Ce chapitre examine comment les mécanismes de schema spatiaux pourraient trouver des applications en robotique. 
-Il nous a conduit à mettre en place des euristiques motivationnelles plus complexes 
+Ce chapitre examine comment les mécanismes de schema spatiaux exploratoires qui pourraient trouver des applications en robotique. 
+Il nous a conduit à mettre en place des heuristiques motivationnelles plus complexes 
 
 
 Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
-Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néammoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
+Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néanmoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
 L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
+
+Le but est d'expliquer comment l'approche des événements d'interaction valués se met en oeuvre sur un robot. Elle peut paraitre contre intuitive. 
 
 
 \section{Inférence de structures spatiales}
@@ -38,10 +40,10 @@ L'agent est doté de capacités mémorielles qui sous-tendent la construction d'
 \label{sec:simon}
 
 \noindent
-Simon Gay a développé un mécanisme a de représentation de l'espace par séquences latentes d'interactions qui exploite le flux optique  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
-L'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}) est apparue plus tard dans les travaux passés en revue en Section~\ref{sec:structure_spatiale}.  
+Dans le cadre de son travail de doctorat, Simon Gay a développé un mécanisme de représentation de l'espace par des séquences d'interactions qui exploite le flux optique  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
+Nous utilisons maintenant l'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}), apparue plus récemment dans les travaux passés en revue en Section~\ref{sec:structure_spatiale} pour désigner cette approche.  
 
-Ce travail se base sur un modèle EDP dans lequel l'agent reçoit une ensemble d'événements d'interaction à chaque cycle. 
+Ce travail se base sur un modèle dérivé de l'EDP dans lequel l'agent reçoit une ensemble d'événements d'interaction à chaque cycle. 
 Cet ensemble contient une interaction composée d'un tuple \interaction{decision, outcome} similaires à celles des expérimentations précédentes, à laquelle s'ajoutent des événements de flux optique liés aux points saillant du champ visuel.
 Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire. 
 %L'agent ne perçoit pas la distance des points saillants.
@@ -51,7 +53,7 @@ La décision \texttt{move forward} peut générer les \an{outcome} \texttt{empty
 Les interactions de rotation ont toutes la valence -3. 
 
 
-La Figure~\ref{fig:robot_simon} montre les conditions expérimentales utilisant un robot conçu spécifiquement avec des Lego dans un environnement similaire à l'expérimentation des requins de la Section~\ref{sec:requins}.
+La Figure~\ref{fig:robot_simon} montre les conditions expérimentales utilisant un robot construit spécifiquement en Lego dans un environnement similaire à l'expérimentation des requins de la Section~\ref{sec:requins}.
 Le robot contient un capteur de collision servant à générer l'\an{outcome} \texttt{bump}, un capteur de couleur situé sous lui servant à générer l'\an{outcome} \texttt{eat}, et une caméra servant à générer les événements de flux optique.
 L'environnement contient des murs verts, des zones rouges traversables, et de zones bleues représentant des cibles qui affordent l'interaction \interaction{move forward, eat}.
 Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit une nouvelle à un autre emplacement.
@@ -64,7 +66,7 @@ Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit
 	\caption{%Expérimentation du flux optique \cite[Fig.~4, 5, 8]{gay_autonomous_2014}.
 	Gauche: robot disposant d'une caméra orientée vers un miroir sphérique offrant une vision panoramique. 
 	Centre: traitement d'image générant des événements de flux optiques.
-	Droite: arène répliquant l'expérimentation des requins.}
+	Droite: arène répliquant une expérimentation similaire à celle des requins décrite en Section \ref{sec:requins}.}
 	\label{fig:robot_simon}
 \end{figure}
 
@@ -72,7 +74,7 @@ Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit
 La figure~\ref{fig:simon_spatial} illustre de manière schématique la façon dont l'agent représente sa situation (gauche) par un ensemble de séquences (centre).
 % issue d'une expérimentation des requins similaire à celle décrite en Section~\ref{sec:requins}. 
 La partie droite montre une reconstitution de l'espace à destination du lecteur qui n'est pas explicitement réalisée par l'agent lui-même.
-Dans cet exemple, les décisions \texttt{turn} peuvent donner lieu à des \an{outcome} \texttt{bump} quand l'agent se tourne vers un mur.
+%Dans cet exemple, les décisions \texttt{turn} peuvent donner lieu à des \an{outcome} \texttt{bump} quand l'agent se tourne vers un mur.
 Les séquences se décomposent en deux parties: une partie \emph{chemin} pour atteindre un objet et une interaction finale avec l'objet. 
 Lorsque l'agent se déplace, sa représentation de l'espace est mise à jour en fonction des séquences construites lors des interactions précédentes et des événements de flux optique.
 
@@ -114,7 +116,7 @@ Pour des applications nécessitant un apprentissage plus rapide dans un environn
 \subsection{Construction autonome d'un modèle causal spatial}
 
 \noindent
-Un travail exploratoire a été réalisé par Jianyong Xue \cite[\an{Causality reconstruction by an autonomous agent}]{xue_causality_2019}.
+Un travail exploratoire a été réalisé dans le cadre du doctorat de Jianyong Xue \cite[\an{Causality reconstruction by an autonomous agent}]{xue_causality_2019}.
 L'agent était placé dans un environnement susceptible de présenter un objet à sa droite et un autre à sa gauche. 
 Il était doté d'une mémoire spatiale rudimentaire contenant deux emplacements, chacun pouvant prendre trois valeurs distinctes.  
 Le but de cette expérimentation était d'étudier les mécanismes nécessaires pour permettre à l'agent d'apprendre à exploiter cette mémoire pour construire une représentation explicite de l'état de l'environnement sur la base des régularités observées dans son flux d'interaction. 
@@ -129,8 +131,8 @@ L'heuristique de recherche de fiabilité poussait l'agent à répéter des déci
 Lorsqu'il trouvait une interaction répétable, il l'associait à une valeur prise par un emplacement de sa mémoire spatiale, implémentant ainsi l'hypothèse que cette interaction était affordée par un objet présent dans l'environnement, et que cette valeur pouvait représenter cet objet.
 L'agent construisait un graphe de connaissance dont les n\oe uds correspondait à des états uniques de la mémoire spatiale. 
 Il construisait ensuite les arcs de ce graphe en leur associant les interactions permettant les transitions d'état correspondants. 
-Il utilisait ensuite ce graphe comme un réseau de Petri dans lequel la sitaution courante était marquée par un jeton placé sur un n\oe ud.
-L'expérimentation a montré qu'au bout de 350 cycles d'interaction l'agent a pu construire un graphe complet pour représenter la dynamique de son complage avec l'environnement. 
+Ce graphe était ensuite utilisé comme un réseau de Petri dans lequel la situation courante était marquée par un jeton placé sur un n\oe ud.
+L'expérimentation a montré qu'au bout de 350 cycles d'interaction l'agent a pu construire un graphe complet pour représenter la dynamique de son couplage avec l'environnement. 
 La Figure Figure~\ref{fig:causal}  en donne une représentation partielle. 
 
 
@@ -143,13 +145,13 @@ La Figure Figure~\ref{fig:causal}  en donne une représentation partielle.
 	\label{fig:causal}
 \end{figure}
 
-Ce résultat montre que l'agent a pu apprendre à utiliser les deux emplacements de sa mémoire spatiale pour représenter sa connaissance ou non des états possibles de son environnement. 
+Ce résultat montre que l'agent a pu apprendre à utiliser les deux emplacements de sa mémoire spatiale pour représenter sa connaissance des états possibles de son environnement. 
 Il utilisait un des emplacements pour représenter sa gauche, l'autre sa droite. 
 Un des états pour représenter qu'il ignorait l'état de l'environnement correspondant, un autre état pour représenter la connaissance de la présence d'un mur, et le troisième la connaissance d'un vide. 
-Le graphe obtenue est une sorte de graphe d'habitudes au même titre que celui de Woolford en Figure~\ref{fig:ssr}.
+Le graphe obtenu est une sorte de graphe d'habitudes au même titre que celui de Woolford en Figure~\ref{fig:ssr}.
 
 
-Cette expérimentation suggère que même dans une configuration rudimentaire, l'apprentissage de l'usage d'une mémoire spatiale requiert l'implémentation de présupposés substantiels dans l'agent: des heuristiques comportementales, des traitements spécifiques pour implémenter une hypothèse de causalité, et une structure mémorielle dont la capacité soit adaptée à la complexité des situations rencontrées.
+Cette expérimentation suggère que même dans une configuration rudimentaire, l'apprentissage de l'usage d'une mémoire spatiale requiert l'implémentation de présupposés substantiels : des heuristiques comportementales, des traitements spécifiques pour implémenter une hypothèse de causalité, et une structure mémorielle dont la capacité soit adaptée à la complexité des situations rencontrées.
 La question de la généralisation de ces principes à des environnements plus riches et à des architectures de mémoire plus complexes demeure ouverte. 
 
 
@@ -165,7 +167,7 @@ Par exemple, elle nous a amenés à associer des variables libres aux décisions
 
 
 L'objectif de génération de comportements en milieu ouvert et dynamique nous conduit à présupposer l'existence d'informations de position des événements d'interaction et de déplacement du robot comme nous l'avons formalisé dans le modèle SEDP. 
-Nous avons donc recherché un robot offrant une bonne mobilité, des capteurs capables de renvoyer des informations de position, et dotés d'une unité de mesure inertielle pour fournir certaines informations de déplacement.
+Nous avons donc recherché un robot offrant une bonne mobilité, des capteurs capables de renvoyer des informations de position, et dotés d'une unité de mesure inertielle pour fournir des informations de déplacement.
 
 Plusieurs plateformes robotiques ont été considérées. 
 Outre les robots e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la section précédente, nous avons aussi testé la plateforme TurtleBot. 
@@ -178,8 +180,9 @@ La présence d'un PC embarqué s'est avérée également inutile dans la mesure 
 
 Nous avons donc opté pour une plateforme contrôlé par une simple carte Arduino, et offrant une meilleure capacité de mobilité que le TurtleBot, la possibilité de capteurs satisfaisant pour l'approche EIV à un moindre coût. 
 
-L'architecture cognitive ECA est implémenté sur un PC distant. Elle transmets la décision via wifi sous la forme d'une trame de caractère UDP. 
-La carte Arduino embarquée se charge d'interpréter la décision et de la mettre en \oe uvre, puis de renvoyer les événements d'interaction au PC via wifi sous la forme d'une trame de caractère UDP. 
+L'architecture cognitive ECA est implémenté sur un PC distant. 
+Elle transmets la décision via wifi.% sous la forme d'une trame de caractère UDP. 
+La carte Arduino embarquée se charge d'interpréter la décision et de la mettre en \oe uvre, puis de renvoyer les événements d'interaction au PC via wifi.% sous la forme d'une trame de caractère UDP. 
 
 \subsection{Configuration matérielle}
 \label{sec:petitcat_hardware}
@@ -193,7 +196,7 @@ Son télémètre à ultrason, bien qu'étant un capteur très grossier, offre l'
 Il est également équipé d'une barre de cinq capteurs infrarouges à l'avant permettant de détecter des contrastes de luminosité sur le sol. 
 
 La carte Arduinon Mega s'avère plus simple qu'un Rasberry pour implémenter le contrôleur primitif des interactions en C++. 
-Elle permet un excellent contrôle du cycle d'exécution à une vitesse fiable de l'ordre de la millisecondes. 
+Elle permet un excellent contrôle du cycle d'exécution à une fréquence fiable de l'ordre du millier de cycles par seconde. 
 Sa flexibilité permet d'ajouter d'autres capteurs selon les besoins. 
 A ce jour nous avons ajouté une unité inertielle, un capteur de couleur dirigé vers le sol sous le robot, ainsi qu'une LED multicolore sur son dos (Figure~\ref{fig:petitcat_hardware}). 
 L'unité de mesure inertielle contient un accéléromètre linéaire, un gyromètre et une boussole. 
@@ -234,7 +237,7 @@ A ce jour ce contrôleur primitif  reconnait les sept décisions listées dans l
 		\texttt{move backward} & translation longitudinale vers l'arrière& durée (ms) \\ \hline
 		\texttt{swipe left} & translation latérale vers la gauche & durée (ms) \\ \hline
 		\texttt{swipe right} & translation latérale vers la droite & durée (ms) \\ \hline
-		\texttt{watch} & rester immobile & durée (ms) \\ \hline
+		\texttt{watch} & surveiller le télémètre en restant immobile & durée (ms) \\ \hline
 		\texttt{turn} & rotation sur place & angle (degrés) \\ \hline
 		\texttt{turn-head} & rotation de la tête & angle (degrés)\\ \hline
 		\texttt{scan} & série de saccades de la tête & angle (degrés) \\ \hline
@@ -249,33 +252,33 @@ Son accéléromètre linéaire n'offre pas la précision suffisante pour dérive
 Les décisions \texttt{move} et \texttt{swipe} provoque un déplacement du robot pendant une durée spécifiée par  la variable libre \texttt{duration}. 
 ECA décider d'une distance de translation et la convertit en durée sur la base de la vitesse estimée de à $300~mm/s$ pour renseigner la variable \texttt{duration}.
 
-L'angle de rotation associé à la décision \texttt{turn} est spécifié par la variable \texttt{angle} et mesuré par le gyromètre de la centrale inertielle qui provoque l'arrêt quand l'angle spécifié est atteint.
+L'angle de rotation associé à la décision \texttt{turn} est spécifié par la variable \texttt{angle} et contrôlé  par le gyromètre. %qui provoque l'arrêt quand l'angle spécifié est atteint.
 Les angles négatifs spécifient une rotation vers la gauche (anti-trigonométrique). 
 
 L'angle de rotation de la tête associé à la décision \texttt{turn-head} est spécifié par la variable \texttt{angle} et exécuté par le servomoteur. 
 
-Les déplacements liés aux décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} sont interrompues lorsqu'un changement de luminosité est détecté sur le sol.
-Cet arrêt forcé est suivi d'un mouvement automatique de léger recul simulant un \emph{réflexe}.
-Ce comportement est utilisé pour éviter au robot de tomber d'une table ou pour l'empêche de franchir une ligne noire qui définit le contour d'une \emph{arène} d'expérimentation (Figure~\ref{fig:place}). 
+Les déplacements liés aux décisions \texttt{move}, \texttt{swipe}, et \texttt{turn} sont interrompues lorsqu'un changement de luminosité est détecté sur le sol, et un court mouvement de recul est effectué.
+%Cet arrêt forcé est suivi d'un mouvement automatique de léger recul simulant un \emph{réflexe}.
+Ce réflexe de recul est utilisé pour éviter au robot de tomber d'une table ou pour le maintenir à l'intérieur d'une ligne noire qui définit le contour d'une \emph{arène} d'expérimentation (Figure~\ref{fig:place}). 
 
-La décision \texttt{watch} consiste à rester immobile et effectuer périodiquement des mesures télémétriques pendant la durée définie dans la variable \texttt{duration}. 
+La décision \texttt{watch} consiste à rester immobile et effectuer périodiquement des mesures télémétriques pendant la durée définie par la variable \texttt{duration}. 
 Elle est interrompue si une variation important de distance télémétrique est détectée. 
 
 La variable \texttt{caution} définit un niveau de prudence associé à la décision \texttt{move forward}. 
-La valeur $2$ spécifie que le robot effectue des mesures périodique avec le télémètre et interrompu le déplacement si un obstacle est détecté. 
+La valeur $2$ spécifie que le robot effectue des mesures périodique avec le télémètre et interrompt le déplacement si un obstacle est détecté. 
 La valeur $1$ spécifie que le déplacement est interrompu si un choc est détecté par l'accéléromètre linéaire. 
 Le valeur $0$ spécifie que le déplacement n'est pas interrompu en cas de choc ou de détection d'obstacle et permet à Petitcat de pousser des objets.
 
 La variables \texttt{focus} contient les coordonnées d'un point dans le référentiel égocentrique de Petitcat. 
-Quand cette variable est spécifiées, Petitcat maintient sa tête orientée vers ce point pendant tout la durée de la décision, ce qui lui permet de suivre la position d'un objet fixe, et suggère à un observateur extérieur que Petitcat maintient son attention sur cet objet. 
+Quand cette variable est spécifiées, Petitcat maintient sa tête orientée vers ce point pendant tout l'énaction de l'interaction, ce qui lui permet de suivre la position d'un objet fixe, et suggère à un observateur que Petitcat maintient son attention sur cet objet. 
 
 La variable \texttt{color} spécifie la couleur de la LED multicolore. 
-Elle est utilisée pour exprimer l'état émotionnel de Petitcat à l'intention d'un observateur. 
+Elle est utilisée pour exprimer l'état émotionnel de Petitcat à l'intention de l'observateur. 
 
 Enfin, la décision \texttt{scan} déclenche une série de saccades de la tête avec mesure de distance.
 La variable \texttt{angle} spécifie l'angle entre chaque position.
-En particulier, la valeur $40$ spécifie 5 mesures pour les positions de tête $-80, -40, 0, 40, 80$ suffisantes pour détecter la présence d'un objet dans le demi plan frontal, compte tenu du fait que le cône de détection du télémètre possède une ouverture d'environ 70 degrés. 
-La valeur de $10°$ spécifie 19 mesures couvrant les direction allant de $-90°$ à $+90°$.
+En particulier, la valeur $40$ spécifie 5 mesures pour les positions de tête -80, -40, 0, 40, 80 degrés suffisantes pour détecter la présence d'un objet dans le demi plan frontal, compte tenu du fait que le cône de détection du télémètre possède une ouverture d'environ $70^\circ$. 
+La valeur de $10^\circ$ spécifie 19 mesures couvrant les direction allant de $-90^\circ$ à $+90^\circ$.
 
 
 \begin{table}[h]
@@ -291,17 +294,17 @@ La valeur de $10°$ spécifie 19 mesures couvrant les direction allant de $-90°
 		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle (degrés) \\ \hline
 		\texttt{caution} & optionnel & \texttt{move forward} & niveau de prudence \\ \hline
 	\end{tabular}
-	\caption{Trame transmise du PC ECA vers Petitcat définissant les décisions.
+	\caption{Variables transmises du PC ECA vers Petitcat définissant les décisions.
 	}
 	\label{tab:parametres_petitcat}
 \end{table}
 
 
 Après l'énaction de la décision, Petitcat transmets l'isométrie $\iota$ et une liste d'événements d'interaction à ECA. 
-L'isométrie est calculée à partir de la durée de déplacement effective avant une possible interruption, et de l'angle de rotation calculé à partir des données du gyromètre et de la boussole. 
+L'isométrie est calculée à partir de la durée de déplacement effective avant une possible interruption, et de l'angle de rotation dans le plan horizontal calculé à partir des données du gyromètre et de la boussole. 
 Le gyromètre offre une meilleure précision que la boussole mais celle-ci permet de corriger les erreurs cumulées.
 %Même des décisions de translation non interrompues peuvetn générer des légères rotations. 
-Chaque événements d'interaction est associé à une position dans le référentiel égocentrique du robot comme indiqué dans le tableau \ref{tab:interactions_petitcat}. 
+Le tableau \ref{tab:interactions_petitcat} donne la liste des événements d'interaction possibles et leur position dans le référentiel égocentrique du robot. 
 
 \begin{table}[h]
 	\centering
@@ -326,27 +329,25 @@ Il est localisé à l'emplacement du capteur de couleur du sol, proche de l'orig
 La direction du robot (azimuth), l'angle de la tête, et la couleur du sol sont associées à cet événement.
 %L'événement \texttt{floor color} est positionné à l'emplacement du capteur de couleur sous le robot et contient une variable indiquant la couleur détectée.
 
-L'événement \texttt{floor contrast} contient un code indiquant de quel coté une ligne noire a été détectée pendant le déplacement. 
-Ce code peut prendre les valeurs \texttt{none}, \texttt{left}, \texttt{front} et \texttt{right}.
-Cet événement est placée à la position central de la barre de capteurs de luminosité à laquelle s'ajoute la distance de recule réflex provoqué par la détection d'un contraste de luminosité sur le sol. 
+L'événement \texttt{floor contrast} contient un code pouvant prendre les valeurs \texttt{left}, \texttt{front} et \texttt{right} qui indique de quel coté la ligne noire a été détectée en premier pendant le déplacement.
+Cet événement est placée à la position estimée de la ligne noire devant le robot après son recul. 
 
 L'événement \texttt{impact} est généré par une forte décélération mesurée par l'unité de mesure inertielle. 
 Il est localisé sur le bord du robot dans la direction du mouvement effectué. 
-Un code de rotation lui est associé si une rotation est détectée par le gèromètre permettant de différentier un impact frontal d'un impact survenu sur le bord du robot.
+Un code de rotation lui est associé si une rotation est détectée par le gyromètre permettant de différentier un impact frontal d'un impact survenu sur le bord du robot.
 
  
-Les événements \texttt{echo} sont générés par des mesures de télémètre à ultrason. 
+Les événements \texttt{echo} sont générés par des mesures de télémètre. 
 Ils sont localisés le long de la direction de la tête à la distance mesurée par le télémètre. 
 A la fin de chaque décision, des légers mouvements de tête sont effectuées pour l'aligner en direction de l'objet le plus proche, et un événement écho est généré.
 La distance est obtenue avec une bonne précision de l'ordre de $\pm 2~mm$.
 En revanche la direction de la source de l'écho peut être n'importe ou dans un cône de $70^\circ$ d'ouverture. 
 
-Lorsque Petitcat énacte la décision \texttt{scan} avec un angle de saccade de $10^\circ$, il obtient un profile d'écho comme illustré à en Figure. 
-Des événements de contraste de distance sont générés sur les points de discontinuité de ce profile d'écho. 
+%Lorsque Petitcat énacte la décision \texttt{scan} avec un angle de saccade de $10^\circ$, il obtient un profile d'écho comme illustré à en Figure. Des événements de contraste de distance sont générés sur les points de discontinuité de ce profile d'écho. 
 
 La Figure \ref{fig:evenements} illustre les événements dans la mémoire égocentrée du robot. 
 La partie gauche montre les événements énactés au cours des dix derniers cycles d'interaction alors que le robot longeait une ligne noire sur le sol par des mouvements successifs de \texttt{swipe right}. 
-Les événements \texttt{pose} sont représentés par des trianges glis quand le sol est blanc, ou de la couleur du sol détectée par le capteur de couleur. 
+Les événements \texttt{pose} sont représentés par des triangles gris quand le sol est blanc, ou de la couleur du sol détectée par le capteur de couleur. 
 La partie droite représente le profile d'écho-localisation obtenu après une décision \texttt{scan} avec un angle de saccade de $10^\circ$.
 Les événements \texttt{echo contrast} sont générés sur les points de discontinuité de ce profile. 
 
@@ -355,8 +356,9 @@ Les événements \texttt{echo contrast} sont générés sur les points de discon
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figures/4_evenements.pdf}
 	\caption{Evénements d'interaction en mémoire égocentrique.
-	Gauche: mise en évidence d'une ligne noire sur le sol détectés au cours de mouvements \texttt{swipe right} successifs. 
-	Droite: événements \texttt{echo contrast} calculés après une décision \texttt{scan} mettant en évidence un objet devant le robot et un autre à sa gauche.}
+	Gauche: les quatre événements \texttt{floor contrast} mettent en évidence une ligne noire sur le sol que le robot a détectée après quatre décisions \texttt{swipe right} successives. 
+	Droite: profile de mesure télémétrique résultant d'une décision \texttt{scan} avec des saccades de $10^\circ$ mettant en évidence un objet devant le robot et un autre à sa gauche. 
+	Les événements \texttt{echo contrast} sont placés sur les points de discontinuité.}
 	\label{fig:evenements}
 \end{figure}
 
@@ -370,15 +372,15 @@ En particulier, les animaux sont capables d'adapter leurs comportements à une c
 Ils peuvent reconnaitre ces lieux par rapport à des indices sensoriels et en fonction des chemins parcourus pour y accéder. 
 Ils mémorisent les possibilités de déplacement entre différentes lieux.
 
-Nous avons ajouté une mémoire allocentrique dans ECA, qui fonctionne en tendem avec sa mémoire spatiale égocentrée décrite en Section~\ref{sec:ECA}.
-Cette mémoire allocentrée est capable de créer et maintenir un graphe dont les n\oe uds représentent les lieux visités et les arcs des passages d'un lieu à l'autre. 
+Nous avons ajouté une mémoire allocentrique dans ECA, qui fonctionne en tandem avec sa mémoire spatiale égocentrique décrite en Section~\ref{sec:ECA}.
+Cette mémoire allocentrique est capable de créer et maintenir un graphe dont les n\oe uds représentent les lieux visités et les arcs des passages d'un lieu à l'autre. 
 
-Nous avons implémenté des comportements innés basés sur deux états émotionnels distincts: L'état \texttt{interest} pousse l'agent à énacter des \emph{comportements d'attention} lui permettant de reconnaitre un lieu, et l'état \texttt{enjoyment} pousse l'agent à énacter une interaction de déplacement. 
+Nous avons implémenté des comportements innés basés sur deux états émotionnels parmi ceux du cube de Lövheim (Sec.~\ref{sec:emotions}): L'état \texttt{interest} pousse l'agent à énacter des \emph{comportements d'attention} lui permettant de reconnaitre un lieu, et l'état \texttt{enjoyment} pousse l'agent à énacter une interaction de déplacement. 
 Les comportements d'attention poussent l'agent à énacter une décision \texttt{scan}, suivie d'une \texttt{turn} de 180 suivi d'un autre \texttt{scan}.
 Cela permet de recueillir un profile de télémétrie contenant un ensemble d'événements \texttt{echo contrast}.
 Ce profile est mémorisé en association avec le lieu en coordonnées polaires allocentriques, c'est à dire centré sur un point considéré comme le point de référence du lieu, et orienté de manière absolue par rapport au nord. 
 
-Lorsque le lieu courant est connue, l'agent passe en état émotionnel \texttt{enjoyment} qui le conduisent à choisir des décision \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
+Lorsque le lieu courant est connu, le robot passe en état émotionnel \texttt{enjoyment} qui le conduit à choisir des décisions \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
 
 Lorsqu'il revient dans le voisinage d'un lieu connu, le robot effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de ce lieu. 
 Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux évenements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique du lieu. 
@@ -391,10 +393,10 @@ La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de
 	\includegraphics[height=0.3\textwidth]{Figures/4_place_experiment.png}%
 	\quad
 	\includegraphics[height=0.3\textwidth]{Figures/4_place_path.pdf}
-	\caption{Expérimentation des places \cite[Fig.~1 et 3]{georgeon_spatio-temporal_2026}.
-		Gauche: conditions expérimentale est résultat d'une décision \texttt{scan} permettant de recueillir un profile télémétrique partiel de la place 1 mettant en évidence la tirelire et le pot de fleur.
+	\caption{Expérimentation des cellules de lieu \cite[Fig.~1 et 3]{georgeon_spatio-temporal_2026}.
+		Gauche: conditions expérimentale. Encart: résultat d'une décision \texttt{scan} permettant de recueillir un profile télémétrique partiel du lieu 1 mettant en évidence la tirelire et le pot de fleur.
 		Droite: graphe de places construits après 30 cycles d'interaction. 
-		Le robot est revenu proche du centre de la Place 6. 
+		Le robot est revenu proche du centre du lieu 6. 
 	} 
 	\label{fig:place}
 \end{figure}
@@ -419,15 +421,15 @@ Cela correspond aux stratégies mises en place chez des animaux (Section~\ref{se
 
 \noindent
 Nous avons utilisé Petitcat pour reproduire des exéprimentations de construction de \an{bundle} pour représenter des phénomènes comme dans l'expérimentation des requins (Section~\ref{sec:requins}).
-Cela nous a conduit à nommer ce problème \an{Simultaneous Localisation and Active Phenomenon Inference} (SLAPI) dans un article co écrit avec Juan Vidal et Paul Robertson  \cite[]{georgeon_simultaneous_2022}.
+Cela nous a conduit à nommer ce problème \an{Simultaneous Localisation and Active Phenomenon Inference} (SLAPI) dans un article co écrit avec Juan Vidal et Paul Robertson  \cite{georgeon_simultaneous_2022}.
 
 Le problème SLAPI se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) qui consiste construire une carte d'un environnement tout en localisant la position du robot au sein de cette carte. 
 Les algorithmes de SLAM classiques fusionnent des relevés télémétriques, provenant par exemple d'un lidar, avec un calcul d'intégration de chemin parcouru (\an{path integration}), mesuré par exemple avec un odomètre.  
 Le problème SLAPI est une version moins ambitieuse du SLAM limitée à la construction d'une carte locale des interactions affordées par un objet.  
-La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiales une interactions affordée par l'objet peut être énactées. 
+La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiales une interaction affordée par l'objet peut être énactées. 
 Nous utilisons le terme \emph{phénomène} pour désigner cette structure de donnée; en conformité avec l'usage courant de ce terme qui désigne la façon dont une entité se présente à l'agent par les possibilités d'exéprience qu'elle lui offre. 
 
-Tout comme un algorithme de SLAM, un algorithme de SLAPI fusionne des informations permettant de localiser l'objet avec un calcul d'intégration des déplacements du robot. 
+Tout comme un algorithme de SLAM, un algorithme de SLAPI fusionne des informations de localisation de l'objet avec un calcul d'intégration des déplacements du robot. 
 Le SLAPI diffère cependant du SLAM par le fait qu'il ne vise pas à construire une carte étendue.
 Il ne  nécessite donc pas des capteurs précis et peut se contenter de ceux disponible chez Petitcat.
 
@@ -463,10 +465,69 @@ Les interactions définies en Section~\ref{sec:interactions} font que les décis
 Petitcat se met alors à répéter ce mouvement depuis différentes directions comme pour confirmer que cette interaction est toujours affordée. 
 Avant de prendre une décision, ECA effectue une simulation interne de cette décision qui lui permet d'estimer les événements d'interaction énactés. 
 La comparaison entre les événements estimés et les événements effectivement énactées permet de générer un signal d'erreur de prédiction. 
-L'artcile \an{Reducing intuitive physics prediction error through playing} \cite{georgeon_reducing_2024}, co-écrit avec Béatrice de Montéra et Paul Robertson rapport comment ce signal d'erreur de prédiction permet à Patitcat de calibrer automatiquement certains des paramètres prédéfinis dans ECA.
+L'artcile \an{Reducing intuitive physics prediction error through playing} \cite{georgeon_reducing_2024}, co-écrit avec Béatrice de Montéra et Paul Robertson rapporte comment ce signal d'erreur de prédiction permet à Patitcat de calibrer automatiquement certains des paramètres prédéfinis dans ECA.
 
-\subsection{Enseignements (en construction)}
 
+\subsection{Architecture cognitive}
+\label{sec:geith}
+
+\noindent
+La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
+Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
+Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (GEITH) évoqué en Section~\ref{sec:core}.
+Nous implémentons donc une version interactionaliste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
+Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figures/4_eca.pdf}
+	\caption{Représentation synthétique d'ECA pour Petitcat. 
+		Bas: historique des événements d'interaction,
+		centre: \emph{moteur de jeu interactionnel},
+		haut: mémoire à long terme des schémas, paramètres, système émotionnel.
+	}
+	\label{fig:GEITH}
+\end{figure}
+
+
+Dans sa version courante, notre moteur de jeu interactionnel est capable de manipuler les événements d'interaction dans trois référentiels différents. 
+Le référentiel égocentrique est le plus proche du système sensorimoteur de l'agent. 
+Le référentiel allocentrique est une première abstraction basée sur le choix de points de référence et un calcul d'intégration de chemin parcouru à partir de ce point.
+Le référentiel objet-centrique se base sur un point de référence liés à un objet pour construire un graphe spatio-séquentiel des interactions affordées par cet objet. 
+Avec un robot plus sophistiqué, il est probable que d'autres référentiels soient nécessaires tels que des référentiels centrée sur des parties spécifiques du corps du robot telles qu'un bras articulé. 
+
+L'architecture dispose de la capacité de référencer deux points de l'espace: un point d'attention et un point d'objectif. 
+Le point d'attention constitue un point de référence pour renseigner les variables libres des décisions. 
+Par exemple, la valeur \texttt{angle} d'une décision \texttt{turn} est produite pour faire tourner le robot en direction de son point d'attention.
+le point d'objectif est utilisé pour désigner un point de l'environnement comme un objectif à atteindre. 
+Par exemple l'algorithme SLAPI génère des objectifs à atteindre pour placer le robot dans différents position autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
+
+La mémoire à long terme des schémas contient deux types de schémas: les schémas hiérarchiques séquentiels appris par le mécanisme de schéma, et les schémas spatiaux appris par le mécanisme de construction de graphes de cellules de lieu, et de phénomènes. 
+Pour l'instant ces deux mécanismes sont séparés et interagissent à travers des fonctions ad-hoc. Ils produisent des schémas stockés séparément.
+La question de leur unification semble une question cruciale qui reste à résoudre pour progresser vers des comportements plus intelligents. 
+ 
+L'architecture contient de nombreux paramètres prédéfinis par le concepteur. 
+Beaucoup de ces paramètres sont liés au modèle corporel du robot et à son modèle de déplacement, par exemple les vitesses des différents mouvements de translation, la distance de retrait en cas de détection d'une ligne noire, la position des capteurs sur le robot, la vitesse du son utilisée par le télémètre pour estimer les distances, l'ouverture de son cône de détection, la distance maximum de détection, etc. 
+L'expérimentation sur les algorithmes SLAPI rapportée en Section \ref{sec:slapi} nous a donné l'occasion de concevoir des mécanismes permettant de générer des comportements oour permettre au robot d'ajuster certains de ces paramètres. 
+Cependant nous n'avons pas de principes généraux qui permettraient d'ajuster tous les paramètres, ou de déterminer la nécessiter de créer d'autres paramètres, et d'estimer leur valeur à partir de valeurs initiales très écartées de leur valeur correcte.
+
+
+Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
+Pour l'instant nous n'avons exploités que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
+L'état émotionnel est utilisé comme un critère pour sélectionner une décisions parmi celles activées par la situation courante du moteur de jeu. 
+L'état \texttt{interest} promeut les tentatives d'enaction d'interactions répétables. 
+Ces décisions implémentent l'heuristique de recherche de fiabilité qui tend à informer l'agent sur sa situation dans l'environnement. 
+Cet état émotionnel simule un comportement d'attention porté à l'environnement. 
+L'état \texttt{enjoyment} favorise des décisions qui maximisent la motivation interactionnelle en cherchant à énacter des interactions ayant une valence positive et éviter des interactions ayant une valence négative.
+Cet état émotionnel simule un comportement hédoniste.  
+L'état \texttt{contempt} tend a promouvoir la décisions \texttt{watch} qui maintient le robot immobile. 
+Cet état émotionnel simule un comportement de passivité et de repos. 
+
+
+
+\section{Conclusion (en construction)}
+
+Nos mécanismes d'apprentissage développemental précoces ne permettent pas encore d'atteindre le premier stade de développement de Piaget: l'acquisition autonome d'une maitrise de l'appareil sensorimoteur, mais il nous permet de proposer une approche pour étudier ce problème. 
 
 Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
 
@@ -496,64 +557,8 @@ Pour cela nous conservons la notions de \emph{variable libres} dans les schémas
 
 
 
-\section{Architecture cognitive}
-\label{sec:geith}
 
-\noindent
-La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
-Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
-Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (GEITH) évoqué en Section~\ref{sec:core}.
-Nous implémentons donc une version interactionaliste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
-Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{Figures/4_eca.pdf}
-	\caption{Représentation synthétique d'ECA pour Petitcat. 
-		Bas: historique des événements d'interaction,
-		centre: \emph{moteur de jeu interactionnel},
-		haut: mémoire à long terme des schémas, paramètres, système émotionnel.
-	}
-	\label{fig:GEITH}
-\end{figure}
-
-
-Dans sa version courante, notre moteur de jeu interactionnel est capable de manipuler les événements d'interaction dans trois référentiels différents. 
-Le référentiel égocentrique est le plus proche du système sensorimoteur de l'agent. 
-Le référentiel allocentrique est une première abstraction basée sur le choix de points de référence et un calcul d'intégration de chemin parcouru à partir de ce point.
-Le référentiel objet-centrique se base sur un point de référence liés à un objet pour construire un graphe spatio-séquentiel des interactions affordées par cet objet. 
-Avec un robot plus sophistiqué, il est probable que d'autres référentiels soient nécessaires tels que des référentiels centrée sur des parties spécifiques du corps du robot telles qu'un bras articulé. 
-
-L'architecture dispose de la capacité de référencer deux points de l'espace: un point d'attention et un point d'objectif. 
-Le point d'attention constitue un point de référence pour renseigner les variables libres des décisions. 
-Par exemple, la valeur \texttt{angle} d'une décision \texttt{turn} est produite pour faire tourner le robot en direction de son point d'attention.
-le point d'objectif est utilisé pour désigner un point de l'environnement comme un objectif à atteindre. 
-Par exemple l'algorithe SLAPI génère des objectifs à atteindre pour placer le robot dans différents position autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
-
-La mémoire à long terme des schémas contient deux types de schémas: les schémas hiérarchiques séquentiels appris par le mécanisme de schéma, et les schémas spatiaux appris par le mécanisme de construction de graphes de cellules de lieu, et de phénomènes. 
-Pour l'instant ces deux mécanismes sont séparés et interagissent à travers fonction ad-hoc. Ils produisent des schémas stockés séparément.
-La question de leur unification semble une question cruciale qui reste à résoudre pour progresser vers des comportements plus intelligents. 
- 
-L'architecture contient de nombreux paramètres prédéfinis par le concepteur. 
-Beaucoup de ces paramètres sont liés au modèle corporel du robot et à son modèle de déplacement, par exemple la vitesse de locomotion, la distance de retrait en cas de détection d'une ligne noire, la position des capteurs, la vitesse du son utilisée par le télémètre, etc . 
-Nous avons mis en place des méthodes pour permettre au robot de calibrer ces paramètres sur la base de comportements autonomes (Section \ref{sec:slapi}) mais elles nécessite une initialisation de leur valeur approximative. 
-
-Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
-Pour l'instant nous n'avons exploités que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
-L'état émotionnel est utilisé comme un critère pour sélectionner une décisions parmi celles activées par la situation courante du moteur de jeu. 
-L'état \texttt{interest} promeut les tentatives d'enaction d'interactions répétables. 
-Ces décisions implémentent une heuristique de recherche de fiabilité qui tend à informer l'agent sur sa situation dans l'environnement. 
-Cet état émotionnel simule un comportement d'attention porté à l'environnement. 
-L'état \texttt{enjoyment} favorise des décisions qui maximisent la motivation interactionnelle en cherchant à énacter des interactions ayant une valence positive et éviter des interactions ayant une valence négative.
-Cet état émotionnel simule un comportement hédoniste.  
-L'état \texttt{contempt} tend a promouvoir la décisions \texttt{watch} qui maintient le robot immobile. 
-Cet état émotionnel simule un comportement de passivité et de repos. 
-
-
-
-
-
-\section{Conclusion (en construction)}
+\chapter*{Perspectives (en construction)}
 
 
 Notre approche permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
@@ -574,7 +579,7 @@ Discuter la distinction entre réplication et simulation de l'intelligence.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.95\textwidth]{Figures/4_perspective.pdf}
-	\caption{Perspective de trajectoire développementale.}
+	\caption{Perspective de trajectoire développementale précoce.}
 	\label{fig:perspective}
 \end{figure}
 

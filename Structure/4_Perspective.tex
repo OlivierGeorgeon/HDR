@@ -8,7 +8,7 @@
 Introduction ne construction
 
 
-Ce chapitre examine comment les mécanismes de schema spatiaux exploratoires qui pourraient trouver des applications en robotique. 
+Ce chapitre examine comment les mécanismes de schéma spatiaux exploratoires qui pourraient trouver des applications en robotique. 
 Il nous a conduit à mettre en place des heuristiques motivationnelles plus complexes 
 
 
@@ -172,7 +172,7 @@ Nous avons donc recherché un robot offrant une bonne mobilité, des capteurs ca
 Plusieurs plateformes robotiques ont été considérées. 
 Outre les robots e-puck et Eddie présentés en Section \ref{sec:sequentiel-robotique}, et la plateforme Lego de la section précédente, nous avons aussi testé la plateforme TurtleBot. 
 Le TurtleBot est une plateforme commerciale assez répandue dans les laboratoires de recherche.  
-Pour moins de 3000 euros elle embarque un Rasbery Pi hébergeant le logiciel de contrôle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une unité de mesure inertielle. 
+Pour moins de 3000 euros elle embarque un Raspberry Pi hébergeant le logiciel de contrôle robotique ROS, ainsi que des capteurs intéressants tels qu'un lidar et une camera, et une unité de mesure inertielle. 
 Ces capteurs la rendent souvent utilisée pour tester des algorithmes de \an{Simultaneaous Localisation and Mapping}. 
 A l'usage, cependant, la plateforme ROS s'est montrée inutilement compliquée pour mettre en \oe uvre le modèle SEDP. 
 La présence d'un PC embarqué s'est avérée également inutile dans la mesure ou le robot peut être contrôlé à distance via wifi.
@@ -191,11 +191,11 @@ La carte Arduino embarquée se charge d'interpréter la décision et de la mettr
 Nous avons conçu le robot Petitcat en nous appuyant sur une plateforme développée dans le cadre du \an{open source hardware} et commercialisée sous différentes variantes par plusieurs sociétés. 
 Cette plateforme offre plusieurs avantages, à commencer par son prix très modeste inférieur à 200 euros. 
 Sa tête mobile lui donne une expressivité par sa capacité à s'orienter vers l'objet sur lequel il porte son attention. 
-Ses roues ominidirectionnelles permettent une certaine agilité de déplacement.
+Ses roues omnidirectionnelles permettent une certaine agilité de déplacement.
 Son télémètre à ultrason, bien qu'étant un capteur très grossier, offre l'avantage sur une caméra de donner une indication de distance. 
 Il est également équipé d'une barre de cinq capteurs infrarouges à l'avant permettant de détecter des contrastes de luminosité sur le sol. 
 
-La carte Arduinon Mega s'avère plus simple qu'un Rasberry pour implémenter le contrôleur primitif des interactions en C++. 
+La carte Arduino Mega s'avère plus simple qu'un Raspberry Pi pour implémenter le contrôleur primitif des interactions en C++. 
 Elle permet un excellent contrôle du cycle d'exécution à une fréquence fiable de l'ordre du millier de cycles par seconde. 
 Sa flexibilité permet d'ajouter d'autres capteurs selon les besoins. 
 A ce jour nous avons ajouté une unité inertielle, un capteur de couleur dirigé vers le sol sous le robot, ainsi qu'une LED multicolore sur son dos (Figure~\ref{fig:petitcat_hardware}). 
@@ -326,7 +326,7 @@ Le tableau \ref{tab:interactions_petitcat} donne la liste des événements d'int
 
 L'événement \texttt{pose} indique la position courante du robot. 
 Il est localisé à l'emplacement du capteur de couleur du sol, proche de l'origine du référentiel égocentré du robot.
-La direction du robot (azimuth), l'angle de la tête, et la couleur du sol sont associées à cet événement.
+La direction du robot (azimut), l'angle de la tête, et la couleur du sol sont associées à cet événement.
 %L'événement \texttt{floor color} est positionné à l'emplacement du capteur de couleur sous le robot et contient une variable indiquant la couleur détectée.
 
 L'événement \texttt{floor contrast} contient un code pouvant prendre les valeurs \texttt{left}, \texttt{front} et \texttt{right} qui indique de quel coté la ligne noire a été détectée en premier pendant le déplacement.
@@ -383,7 +383,7 @@ Ce profile est mémorisé en association avec le lieu en coordonnées polaires a
 Lorsque le lieu courant est connu, le robot passe en état émotionnel \texttt{enjoyment} qui le conduit à choisir des décisions \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
 
 Lorsqu'il revient dans le voisinage d'un lieu connu, le robot effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de ce lieu. 
-Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux évenements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique du lieu. 
+Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux événements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique du lieu. 
 L'arc représentant le dernier déplacement est rattaché au n\oe ud représentant la place précédemment visitée, ce qui transforme un schéma purement séquentiel en un graphe spatial de lieux en mémoire allocentrique. 
 
 La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de graphe construit en mémoire allocentrique. 
@@ -420,20 +420,20 @@ Cela correspond aux stratégies mises en place chez des animaux (Section~\ref{se
 \label{sec:slapi}
 
 \noindent
-Nous avons utilisé Petitcat pour reproduire des exéprimentations de construction de \an{bundle} pour représenter des phénomènes comme dans l'expérimentation des requins (Section~\ref{sec:requins}).
+Nous avons utilisé Petitcat pour reproduire des expérimentations de construction de \an{bundle} pour représenter des phénomènes comme dans l'expérimentation des requins (Section~\ref{sec:requins}).
 Cela nous a conduit à nommer ce problème \an{Simultaneous Localisation and Active Phenomenon Inference} (SLAPI) dans un article co écrit avec Juan Vidal et Paul Robertson  \cite{georgeon_simultaneous_2022}.
 
 Le problème SLAPI se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) qui consiste construire une carte d'un environnement tout en localisant la position du robot au sein de cette carte. 
 Les algorithmes de SLAM classiques fusionnent des relevés télémétriques, provenant par exemple d'un lidar, avec un calcul d'intégration de chemin parcouru (\an{path integration}), mesuré par exemple avec un odomètre.  
 Le problème SLAPI est une version moins ambitieuse du SLAM limitée à la construction d'une carte locale des interactions affordées par un objet.  
 La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiales une interaction affordée par l'objet peut être énactées. 
-Nous utilisons le terme \emph{phénomène} pour désigner cette structure de donnée; en conformité avec l'usage courant de ce terme qui désigne la façon dont une entité se présente à l'agent par les possibilités d'exéprience qu'elle lui offre. 
+Nous utilisons le terme \emph{phénomène} pour désigner cette structure de donnée; en conformité avec l'usage courant de ce terme qui désigne la façon dont une entité se présente à l'agent par les possibilités d'expérience qu'elle lui offre. 
 
 Tout comme un algorithme de SLAM, un algorithme de SLAPI fusionne des informations de localisation de l'objet avec un calcul d'intégration des déplacements du robot. 
 Le SLAPI diffère cependant du SLAM par le fait qu'il ne vise pas à construire une carte étendue.
 Il ne  nécessite donc pas des capteurs précis et peut se contenter de ceux disponible chez Petitcat.
 
-Nous avons implémenté un mécanisme motivationel inné qui se déclenche quand Petitcat rencontre un nouvel objet. 
+Nous avons implémenté un mécanisme motivationnel inné qui se déclenche quand Petitcat rencontre un nouvel objet. 
 Ce mécanisme pousse Petitcat à interagir avec lui sous différents angles jusqu'à en avoir fait le tour complet. 
 Il correspond à un était émotionnel \texttt{interest - excitement} qui focalise l'attention de Petitcat sur l'objet. 
 
@@ -465,7 +465,7 @@ Les interactions définies en Section~\ref{sec:interactions} font que les décis
 Petitcat se met alors à répéter ce mouvement depuis différentes directions comme pour confirmer que cette interaction est toujours affordée. 
 Avant de prendre une décision, ECA effectue une simulation interne de cette décision qui lui permet d'estimer les événements d'interaction énactés. 
 La comparaison entre les événements estimés et les événements effectivement énactées permet de générer un signal d'erreur de prédiction. 
-L'artcile \an{Reducing intuitive physics prediction error through playing} \cite{georgeon_reducing_2024}, co-écrit avec Béatrice de Montéra et Paul Robertson rapporte comment ce signal d'erreur de prédiction permet à Patitcat de calibrer automatiquement certains des paramètres prédéfinis dans ECA.
+L'article \an{Reducing intuitive physics prediction error through playing} \cite{georgeon_reducing_2024}, co-écrit avec Béatrice de Montéra et Paul Robertson rapporte comment ce signal d'erreur de prédiction permet à Petitcat de calibrer automatiquement certains des paramètres prédéfinis dans ECA.
 
 
 \subsection{Architecture cognitive}
@@ -475,7 +475,7 @@ L'artcile \an{Reducing intuitive physics prediction error through playing} \cite
 La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
 Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
 Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (GEITH) évoqué en Section~\ref{sec:core}.
-Nous implémentons donc une version interactionaliste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
+Nous implémentons donc une version interactionniste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
 Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
 
 \begin{figure}[ht]
@@ -503,7 +503,7 @@ le point d'objectif est utilisé pour désigner un point de l'environnement comm
 Par exemple l'algorithme SLAPI génère des objectifs à atteindre pour placer le robot dans différents position autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
 
 La mémoire à long terme des schémas contient deux types de schémas: les schémas hiérarchiques séquentiels appris par le mécanisme de schéma, et les schémas spatiaux appris par le mécanisme de construction de graphes de cellules de lieu, et de phénomènes. 
-Pour l'instant ces deux mécanismes sont séparés et interagissent à travers des fonctions ad-hoc. Ils produisent des schémas stockés séparément.
+Pour l'instant ces deux mécanismes sont séparés et interagissent à travers des fonctions ad hoc. Ils produisent des schémas stockés séparément.
 La question de leur unification semble une question cruciale qui reste à résoudre pour progresser vers des comportements plus intelligents. 
  
 L'architecture contient de nombreux paramètres prédéfinis par le concepteur. 
@@ -515,7 +515,7 @@ Cependant nous n'avons pas de principes généraux qui permettraient d'ajuster t
 Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
 Pour l'instant nous n'avons exploités que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
 L'état émotionnel est utilisé comme un critère pour sélectionner une décisions parmi celles activées par la situation courante du moteur de jeu. 
-L'état \texttt{interest} promeut les tentatives d'enaction d'interactions répétables. 
+L'état \texttt{interest} promeut les tentatives d'énaction d'interactions répétables. 
 Ces décisions implémentent l'heuristique de recherche de fiabilité qui tend à informer l'agent sur sa situation dans l'environnement. 
 Cet état émotionnel simule un comportement d'attention porté à l'environnement. 
 L'état \texttt{enjoyment} favorise des décisions qui maximisent la motivation interactionnelle en cherchant à énacter des interactions ayant une valence positive et éviter des interactions ayant une valence négative.
@@ -527,11 +527,11 @@ Cet état émotionnel simule un comportement de passivité et de repos.
 
 \section{Conclusion (en construction)}
 
-Nos mécanismes d'apprentissage développemental précoces ne permettent pas encore d'atteindre le premier stade de développement de Piaget: l'acquisition autonome d'une maitrise de l'appareil sensorimoteur, mais il nous permet de proposer une approche pour étudier ce problème. 
+Nos mécanismes d'apprentissage développemental précoces ne permettent pas encore d'atteindre le premier stade de développement de Piaget : l'acquisition autonome d'une maitrise de l'appareil sensorimoteur, mais il nous permet de proposer une approche pour étudier ce problème. 
 
 Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
 
-Les \an{schemas mechanisms} offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
+Les mécanismes de schéma offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
 Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
 Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
 On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
@@ -539,7 +539,7 @@ On peut imaginer des robots avec des comportements prédéfinis que s'activent d
 
 
 A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 
-Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui controleraient le même robot tout en apprenant à se synchroniser entre eux. 
+Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui contrôleraient le même robot tout en apprenant à se synchroniser entre eux. 
 Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant à une seule décision par cycle d'interaction, qui peut entrainer plusieurs commandes d'effecteurs contrôlées par les variables libre de la décision.
 
 
@@ -570,7 +570,7 @@ On pourrait proposer une définition de l'intelligence selon laquelle un systèm
 
 Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
 
-NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéme ne peuvent pas dire ça.
+NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéma ne peuvent pas dire ça.
 
 
 Discuter la distinction entre réplication et simulation de l'intelligence.
@@ -587,18 +587,18 @@ Discuter la distinction entre réplication et simulation de l'intelligence.
 La connaissance pourrait etre ancrée dans des schémas acquis par un autre robot. 
 Il serait intéressant de savoir quel serait le niveau plus élevé de de grounding qui pourrait etre utilsé par un autre agent. 
 
-Cette approche a été nommée interactionisme radical \cite{georgeon_radical_2013}
+Cette approche a été nommée interactionnisme radical \cite{georgeon_radical_2013}
 
 Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
-Une interaction peut etre utilisé comme un élément fondamental du modèle qui represente un scheme sensorimoteur piagetien $ i = \langle a, o \rangle $. 
+Une interaction peut etre utilisé comme un élément fondamental du modèle qui représente un schème sensorimoteur piagetien $ i = \langle a, o \rangle $. 
 
 \cite{georgeon_radical_2013}
 
-L'interactionisme radical est illustrée en Figure \ref{fig:ir}.
+L'interactionnisme radical est illustrée en Figure \ref{fig:ir}.
 A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$.
-Enacter $i_{cd}$ consiste à successivement tenter d'enacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
-Si chaque chaque interaction primitive est enactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
-Si l'enaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
+Enacter $i_{cd}$ consiste à successivement tenter d'énacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
+Si chaque chaque interaction primitive est énactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
+Si l'énaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
 
 \begin{figure}[ht]
 	\centering

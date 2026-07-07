@@ -3,28 +3,28 @@
 \chapter{Théorie des Evénements d'Interaction Valués (EIV)}
 
 \noindent
-Ce chapitre présente un mécanisme de schéma et une architecture cognitive pour répondre au problème formulé sur la base de l'état de l'art: 
-concevoir un agent artificiel capable de créer et de réitérer des habitudes d'interaction hiérarchiques sur la base de préférences interactionnelles initiales.
+Ce chapitre présente un mécanisme de schéma et une architecture cognitive pour répondre au problème formulé à l'issue de l'état de l'art: 
+concevoir un agent artificiel capable d'acquérir des habitudes d'interaction hiérarchiques satisfaisant des préférences interactionnelles initiales.
 
-L'approche utilisée s'appuie sur les fondements théoriques énoncés au Chapitre 1 en associant le notion d'\emph{événement d'interaction} avec la notion de \emph{boucle d'interaction sensorimotrice}. 
-Un événement d'interaction, dont l'agent fait l'expérience, se traduit par une boucle d'interaction du point de vue de l'observateur de l'agent dans l'environnement. 
-Cela me conduit à proposer la théorie des \emph{Evénements d'Interaction Valués} (EIV).
-Ceux-ci correspondent à des boucles d'interaction ayant une valence motivationnelle et qui peuvent être interprétés comme les impressions sensibles de l'agent.
+L'approche proposée s'appuie sur les fondements théoriques énoncés au Chapitre 1 en associant le notion d'\emph{événement d'interaction} à celle de \emph{boucle d'interaction sensorimotrice}. 
+Un événement d'interaction, tel que l'agent en fait l'expérience, se traduit, du point de vue de l'observateur de l'agent dans l'environnement, par une boucle d'interaction. 
+Cette association me conduit à proposer la théorie des \emph{Evénements d'Interaction Valués} (EIV).
+Ceux-ci peuvent être interprétés comme les impressions sensibles de l'agent et correspondent à des interaction dotées d'une valence motivationnelle.
 
-Selon la théorie de l'énaction, qui s'appuie sur les théories de philosophie de l'esprit, la capacité d'apprentissage d'habitudes hiérarchique devrait permettre à l'agent d'attribuer une signification pragmatique aux événements d'interaction valués en fonction de leur rôle dans son flux d'expience.  
-
-
+Selon la théorie de l'énaction, et les théories épistémologiques auxquelles elle renvoie, l'acquisition d'habitudes d'interaction hiérarchiques devrait permettre à l'agent d'attribuer une signification pragmatique aux événements d'interaction valués, en fonction du rôle qu'ils occupent dans son flux d'expérience.  
 
 
 
 
-\section{Modèle d'interaction énactive}
+
+
+\section{Formalisation}
 
 \noindent
-Introduction en cours de construction
-%Cette section présente principes fondamentaux 
+Cette section présente le formalisme de base sur lequel s'appuie la théorie des Evénements d'Interaction Valués pour modéliser les interactions entre l'agent et l'environnement.
 
 \subsection{Statut représentationnel des signaux sensoriels}
+\label{sec:representationnel}
 
 \noindent
 Les différentes approches computationnelles de la cognition présentées en Section \ref{sec:techniques} utilisent des signaux sensoriels construits différemment les unes des autres.
@@ -88,7 +88,7 @@ A l'inverse, un signal non-représentationnel est nécessairement non-markovien 
 
 La notion de statut représentationnel peut également s'appliquer à la valeur de récompense. 
 Une valeur de récompense est \an{représentationnelle} si elle est liée aux états de l'environnement d'une manière invariante.
-C'est le cas de la valeur de récompense des MDPs.
+C'est le cas de la valeur de récompense des \an{Markov Decision Processes} (MDPs, Sec.~\ref{sec:rl}).
 Par définition, une valeur de récompense représentationnelle spécifie une motivation externe pour l'agent comme nous l'avons défini en Section \ref{sec:motivation}.   
 
 %Les signaux markoviens sont représentationnels par définition car ils représentent l'état complet de l'environnement.
@@ -249,6 +249,7 @@ Elle est également compatible avec d'autres principes motivationnels tels que l
 
 
 \section{Mécanisme de schéma enactif}
+\label{sec:mse}
 
 \noindent
 Cette section présente le fonctionnement du nouveau mécanisme de schéma que j'ai développé sur la base de l'EDP et du principe de motivation interactionnelle. 
@@ -484,7 +485,8 @@ La décision de l'agent est transmise à l'environnement via l'\an{output} du DD
 L'environnement calcule les effets de cette décision pour se mettre à jour, puis il génère un \an{outcome} qu'il transmets à l'agent via l'\an{input} du DDS. 
 Cet \an{outcome} est une rétroaction non représentationnelle résultant de la décision. 
 Le contrôleur primitif de l'agent associe la décision avec l'\an{outcome} pour produire l'interaction primitive énactée sous la forme $i=$ \schema{\an{decision}, \an{outcome}}.
-Du fait que le mécanisme de schéma est agnostique sur la signification des décisions et des interactions primitives, il s'adapte aux différents environnements. 
+Du fait que le mécanisme de schéma ne repose sur aucune connaissance précodée de la signification des décisions et des interactions primitives, il s'adapte aux différents environnements. 
+
 
 
 La dernière partie de cette section montrera comment ces expérimentations peuvent être répliquées chez des robots. 
@@ -906,14 +908,15 @@ La création, la mise à jour, l'évocation, et la suppression de bundle erroné
 \section{Expérimentations en couplage spatial}
 \label{sec:couplage_spatial}
 
-Introduction en construction
+\noindent
+Cette section rapporte deux expérimentations qui mettent en \oe uvre le SEDP.
+La première illustre la dynamique de construction des \an{bundles} dans un environnement discret et simple.
+La seconde démontre l'utilisation d'ECA dans un environnement continu qui ouvre la voie aux expérimentations robotiques décrites au Chapitre 4. 
 
-%Par exemple, si le robot heurte un obstacle lors de l'enaction d'une interaction, l'interaction \texttt{impact} est localisée à la position du pare-chocs du robot, et l'isométrie représente la translation du robot avant qu'il soit bloqué par l'obstacle.
-
-\subsection{Spatial Small loop Challenge}
+\subsection{Spatial Small Loop Challenge}
 
 \noindent
-Cette expérimentation utilise une version modifiée de l'environnement \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop} capable de générer les informatoins $\epsilon$ et $\iota$ du SEDP.
+Cette expérimentation utilise une version modifiée de l'environnement \an{Small Loop Challenge} introduit en Section~\ref{sec:small-loop} capable de générer les informations $\epsilon$ et $\iota$ du SEDP.
 Elle vise à démontrer comment ECA construit des \an{bundles} pour représenter les deux types de phénomènes présents dans cet environnement: les murs et les cellules vides.
 
 L'agent possède les mêmes interactions primitives que précédemment mais elles sont complétées par leurs positions $\epsilon$ et leurs isométries $\iota$ indiquées dans le Tableau \ref{tab:small_loop_spatial}.
@@ -1040,25 +1043,38 @@ Le couplage entre le mécanisme d'attention et le système motivationnel basé s
 
 \section{Conclusion (en construction)}
 
-Implémente une inversion du raisonnement proposée par Dennett, ce n'est pas parce que l'agent aime la cible qu'il se dirige vers elle mais parce qu'il se dirige vers elle qu'on pense qu'il aime la cible.
+\noindent
+Les résultats obtenus valident l'hypothèse initiale selon laquelle un mécanisme d'acquisition d'habitudes d'interaction hiérarchiques peut permettre à l'agent d'attribuer une signification pragmatique aux événements d'interaction valués.
+Cette attribution de signification pragmatique a été observée dans les comportements de l'agent (Sec.~\ref{sec:small-loop}), et mise en évidence dans une des matrices d'attention d'un \an{transformer} entrainé avec les séquences d'habitudes (Sec.~\ref{sec:sniff}).
 
 
-L'inversion du cycle d'interaction permet une récursivité du cycle d'apprentissage, ainsi qu'une conceptualisation du couplage agent / environnement à différents niveau d'échelle de temps.  
+L'inversion fondamentale du raisonnement évoquée au Chapitre 1 se manifeste par le fait que les comportements précèdent l'identification d'objectifs. 
+Dans les expérimentations où l'agent apprend à se diriger vers une cible, ce n'est pas parce qu'il forme une représentation de cette cible en tant qu'objectif, mais parce qu'il répond à une \emph{tendance à interagir} avec elle.
+Cette primauté donnée aux interactions permet de considérer les signaux sensoriels comme des événements non-représentationnels.
+C'est cette parce que les signaux sensoriels sont non-représentationnels que le mécanisme de schéma peut organiser les séquences d'interactions hiérarchiquement sans créer des représentations abstraites. 
 
-La reiteration de séquences sensorimotrices permet de parler d'auto programmation moto-sensorielle.
-\cite{georgeon_cash_2019}
-
-\emph{Un mécanisme de schéma est un mécanisme capable de créer et réitérer des comportements hiérarchiques spatio-séquentiels sur la base de préférences interactionnelles initiales. }
-Ron Sun réutilise la notion de \og \an{representational redescription} \fg\ proposée par Annette Karmiloff-Smith \cite{karmiloff-smith_meta-processes_1986}.
-\an{Here I take the more ``eclectic'' proposition that acknowledge representation is important while maintaining that it is mediated by direct comportement} \cite[p.~10]{sun_symbol_2000}
-
-Le mécanisme de construction de \an{bundles} d'ECA introduit une forme d'engagement à la causalité. 
-ECA cherche à expliquer la cause des interactions par l'hypothèse qu'un objet est présent à une certaine position de l'environnement.
-
-Le fait de complémenter le mécanisme de schéma par une mémoire spatiale pause un problème majeur: on perd  la récursivité d'apprentissage des séquences de plus haut niveau.  
-
-L'interaction avec des environnements plus complexes nécessite de mettre en place un système de motivation qui ne repose pas uniquement sur la valence des interactions mais qui implémente des heuristiques inspirées du vivant. 
+L'organisation hiérarchique d'habitudes permet la  réiteration pertinente de séquences sensorimotrices de plus en plus longues. 
+Cette réiteration pertinente de séquences d'interactions réalise une forme d'auto-programmation moteur-sensorielle mise en évidence par l'expérimentation de la Limule (Sec.~\ref{sec:horseshoe}).
+Cette auto-programmation constitue une des rares propositions existantes pour adresser le problème de l'autonomie constitutive artificielle.
 
 
-%L'intérêt de cette expérimentation vient du fait que le mécanisme de dispose d'aucune indication sur la signification des décisions et des interactions primitives. Les décisions et les interactions sont nommées ici pour permettre la compréhension par le lecteur, mais sont sont encodées de manière arbitraire pour le mécanisme.  Il ignore qu'il contrôle un agent qui interagit avec une grille à deux dimensions dans laquelle il peut se déplacer et sentir différents types de cellules.
+La capacité d'ECA à représenter les objets de l'environnement par les \an{bundles} d'interactions repose sur une attitude d'\emph{engagement à la causalité} déjà adoptée par les approches constructiviste existantes:
+ECA implémente l'hypothèse que certaines interactions peuvent être causées par la présence d'objets physiques dans l'espace tridimensionnel euclidien.
+Cet \emph{engagement à la causalité physique spatiale} permet à l'agent d'interagir avec des environnements plus complexes que ceux passés en revue dans l'état de l'art, et ouvre la voie à des robots constructivistes en monde ouvert.
+
+Le statut représentationnel des informations spatiales $\epsilon_t$ et $\iota$ du modèle \an{Spatial Enactive Decision Process} (SEDP) est sujet à débat.
+D'un coté ces informations pourraient être considérées comme non-représentationnelles car elles sont liées à des événements d'interaction plutôt qu'à des propriétés ontologiques des objets physiques.  
+D'un autre coté, elles sont liées à une propriété ontologique de l'espace lui-même: la distance euclidienne.
+Cette question renvoie aux débats épistémologique sur le statut de l'espace.
+En pratique, présupposer une certaine représentation de l'espace ne semble pas trop limiter la conception d'agents destinés à exister dans le monde physique.
+Ces variables spatiales posent cependant un problème pour la construction d'interactions et de décisions composites. 
+Ce problème appelle à concevoir un mécanisme de schémas spatio-squétentiel adapté au modèle SEDP qui possède des propriétés d'apprentissage hiérarchique et d'évolution du couplage structurel similaires au mécanisme de schéma séquentiel décrit en Section~\ref{sec:mse}. 
+
+
+A ce stade, ECA implémente des mécanismes spécifiques pour la construction de schémas séquentiels, la construction de \an{bundles}, et l'intégration de ces deux types de connaissance pour la prise de décision. 
+Des mécanismes adaptés à chaque expérimentation ont du être implémentés pour obtenir les résultats des expérimentations rapportées en Section \ref{sec:couplage_spatial}, ce qui n'est pas satisfaisant.
+Il serait souhaitable d'unifier les schémas séquentiels et les \an{bundles} sous la forme de schémas spatio-séquentiels, et de mettre en place des mécanismes plus généraux et de plus bas niveau qui permettent la construction et l'exploitation de ces schémas.
+
+
+
 

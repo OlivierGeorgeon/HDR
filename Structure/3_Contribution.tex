@@ -1041,7 +1041,7 @@ Le couplage entre le mécanisme d'attention et le système motivationnel basé s
 
 
 
-\section{Conclusion (en construction)}
+\section{Conclusion}
 
 \noindent
 Les résultats obtenus valident l'hypothèse initiale selon laquelle un mécanisme d'acquisition d'habitudes d'interaction hiérarchiques peut permettre à l'agent d'attribuer une signification pragmatique aux événements d'interaction valués.
@@ -1050,31 +1050,37 @@ Cette attribution de signification pragmatique a été observée dans les compor
 
 L'inversion fondamentale du raisonnement évoquée au Chapitre 1 se manifeste par le fait que les comportements précèdent l'identification d'objectifs. 
 Dans les expérimentations où l'agent apprend à se diriger vers une cible, ce n'est pas parce qu'il forme une représentation de cette cible en tant qu'objectif, mais parce qu'il répond à une \emph{tendance à interagir} avec elle.
-Cette primauté donnée aux interactions permet de considérer les signaux sensoriels comme des événements non-représentationnels.
-C'est cette parce que les signaux sensoriels sont non-représentationnels que le mécanisme de schéma peut organiser les séquences d'interactions hiérarchiquement sans créer des représentations abstraites. 
-
-L'organisation hiérarchique d'habitudes permet la  réiteration pertinente de séquences sensorimotrices de plus en plus longues. 
-Cette réiteration pertinente de séquences d'interactions réalise une forme d'auto-programmation moteur-sensorielle mise en évidence par l'expérimentation de la Limule (Sec.~\ref{sec:horseshoe}).
-Cette auto-programmation constitue une des rares propositions existantes pour adresser le problème de l'autonomie constitutive artificielle.
+Cette primauté donnée aux interactions permet d'utiliser des signaux sensoriels non-représentationnels.
+C'est parce que les signaux sensoriels sont non-représentationnels que le mécanisme de schéma peut organiser les séquences d'interactions hiérarchiquement.
+Ce mécanisme de schéma n'adresse pas la question de l'invention de concepts: il ne construit pas de \an{synthetic items} comme celui de Drescher (Sec.~\ref{sec:drescher}). 
 
 
-La capacité d'ECA à représenter les objets de l'environnement par les \an{bundles} d'interactions repose sur une attitude d'\emph{engagement à la causalité} déjà adoptée par les approches constructiviste existantes:
+L'organisation hiérarchique des habitudes permet la réitération pertinente de séquences sensorimotrices de plus en plus longues. 
+Cette réitération réalise une forme d'auto-programmation mise en évidence par l'expérimentation de la Limule (Sec.~\ref{sec:horseshoe}).
+Cette auto-programmation constitue l'une des rares propositions existantes pour aborder le problème de l'autonomie constitutive artificielle.
+%Cette question commence à être adressée par ECA. 
+
+
+
+La capacité d'ECA à représenter les objets de l'environnement par des \an{bundles} repose sur une attitude d'\emph{engagement à la causalité} déjà adoptée par les approches constructiviste existantes:
 ECA implémente l'hypothèse que certaines interactions peuvent être causées par la présence d'objets physiques dans l'espace tridimensionnel euclidien.
 Cet \emph{engagement à la causalité physique spatiale} permet à l'agent d'interagir avec des environnements plus complexes que ceux passés en revue dans l'état de l'art, et ouvre la voie à des robots constructivistes en monde ouvert.
 
-Le statut représentationnel des informations spatiales $\epsilon_t$ et $\iota$ du modèle \an{Spatial Enactive Decision Process} (SEDP) est sujet à débat.
-D'un coté ces informations pourraient être considérées comme non-représentationnelles car elles sont liées à des événements d'interaction plutôt qu'à des propriétés ontologiques des objets physiques.  
-D'un autre coté, elles sont liées à une propriété ontologique de l'espace lui-même: la distance euclidienne.
-Cette question renvoie aux débats épistémologique sur le statut de l'espace.
+Le statut représentationnel des informations spatiales $\epsilon$ et $\iota$ du modèle \an{Spatial Enactive Decision Process} (SEDP) est sujet à débat.
+D'un côté ces informations pourraient être considérées comme non-représentationnelles car elles sont liées à des événements d'interaction plutôt qu'à des propriétés ontologiques des objets physiques.  
+D'un autre côté, elles sont liées à une propriété ontologique de l'espace lui-même: la distance euclidienne.
+Cette question renvoie aux débats épistémologiques sur le statut de l'espace.
 En pratique, présupposer une certaine représentation de l'espace ne semble pas trop limiter la conception d'agents destinés à exister dans le monde physique.
 Ces variables spatiales posent cependant un problème pour la construction d'interactions et de décisions composites. 
-Ce problème appelle à concevoir un mécanisme de schémas spatio-squétentiel adapté au modèle SEDP qui possède des propriétés d'apprentissage hiérarchique et d'évolution du couplage structurel similaires au mécanisme de schéma séquentiel décrit en Section~\ref{sec:mse}. 
+Si le déplacement liés à une interaction composite peut être construit par composition des déplacements de ses sous-interactions, sa position, en revanche, ne peut pas toujours se résumer à un seul point.
+Cela pose une difficulté pour concevoir un mécanisme de schémas spatio-séquentiels adapté au modèle SEDP, qui possèderait des propriétés d'apprentissage hiérarchique récursif et d'évolution du couplage structurel similaires à celles du mécanisme de schéma séquentiel décrit en Section~\ref{sec:mse}. 
 
 
-A ce stade, ECA implémente des mécanismes spécifiques pour la construction de schémas séquentiels, la construction de \an{bundles}, et l'intégration de ces deux types de connaissance pour la prise de décision. 
-Des mécanismes adaptés à chaque expérimentation ont du être implémentés pour obtenir les résultats des expérimentations rapportées en Section \ref{sec:couplage_spatial}, ce qui n'est pas satisfaisant.
+A ce stade, ECA implémente des mécanismes spécifiques distincts pour la construction de schémas séquentiels, la construction de \an{bundles}, et l'intégration de ces deux types de connaissance pour la prise de décision.
+D'autres mécanismes sont aussi ajoutés pour traiter certains signaux sensoriels représentationnels tels que la couleur perçue des objets dans l'expérimentation des requins (Sec.\ref{sec:requins}). 
+Ces différents mécanismes ont du être adaptés à chaque expérimentation pour obtenir les résultats rapportés en Section \ref{sec:couplage_spatial}, ce qui n'est pas satisfaisant.
 Il serait souhaitable d'unifier les schémas séquentiels et les \an{bundles} sous la forme de schémas spatio-séquentiels, et de mettre en place des mécanismes plus généraux et de plus bas niveau qui permettent la construction et l'exploitation de ces schémas.
 
-
+Le chapitre suivant illustre la mise en ouvre de la théorie des Evénements d'Interaction Valués en robotique et présente différents axes de recherche visant à dépasser ses limites actuelles.
 
 

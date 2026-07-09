@@ -5,34 +5,32 @@
 
 % Cette section pourrait etre incluse dans la précédente "Apprentissage spatio-séquentiel".
 
-Introduction ne construction
+\noindent
+Cette section présente la mise en \oe uvre de la Théorie des Evénements Valués dans le cadre de la recherche en robotique développementale précoce.  
+D'autres principes motivationnels sont ajoutés à la motivation interactionnelle pour améliorer l'apprentissage de la maitrise des interactions avec l'environnement physique.
 
-Permet de générer des comportements naturels qui pourrait trouver des applications en \emph{robotique ce compagnie}. 
+La Section \ref{sec:spatial_inference} présente des approches de bas niveau basées sur le modèle \an{Enactive Decision Process} (EDP). 
+Elle examine des pistes pour répondre aux limitations de la \an{Enactive Cognitive Architecture} (ECA) identifiées au Chapitre 3, en recherchant des principes généraux qui permettraient d'unifier les schémas séquentiels et spatiaux. 
 
-L'interaction avec des environnements plus complexes nécessite de mettre en place un système de motivation qui ne repose pas uniquement sur la valence des interactions mais qui implémente des heuristiques inspirées du vivant. 
+La Section \ref{sec:petitcat} présente l'implémentation robotique du modèle \an{Spatial Enactive Decision Process} (SEDP). 
+Elle conduit à des propositions d'évolution de l'architecture cognitive, notamment pour prendre en compte des variables libres associées aux schémas.
 
+%Elle peut paraitre contre intuitive par rapport à l'approche classique perception -> action. 
+%L'interaction avec des environnements plus complexes nécessite de mettre en place un système de motivation qui ne repose pas uniquement sur la valence des interactions mais qui implémente des heuristiques inspirées du vivant. 
 
-
-
-Ce chapitre examine comment les mécanismes de schéma spatiaux exploratoires qui pourraient trouver des applications en robotique. 
-Il nous a conduit à mettre en place des heuristiques motivationnelles plus complexes 
-
-
-Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
-Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néanmoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
-L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
-
-Le but est d'expliquer comment l'approche des événements d'interaction valués se met en oeuvre sur un robot. Elle peut paraitre contre intuitive. 
 
 
 \section{Inférence de structures spatiales}
 \label{sec:spatial_inference}
 
-Introduction en construction
+\noindent
+Dans les études rapportées ici, l'agent est doté d'une mémoire qui pourrait être qualifier de \emph{proto-spatiale}, dans le sens ou l'agent peut utiliser cette mémoire pour rechercher des régularités spatiales mais elle n'implémente pas de capacités de traitement géométriques précodées.
 
-Cette section rapporte des études que nous avons menées pour examiner comment relâcher les présupposés qui sont incorporés dans le modèle SEDP et codés en dur dans ECA. 
-Ces études illustrent différentes variantes de l'EDP et différentes formes d'application du principe d'engagement à la causalité.
-L'agent est doté de capacités mémorielles qui sous-tendent la construction d'hypothèses d'existence de phénomènes dans l'espace pour expliquer les régularités observées dans le flux d'expérience.
+
+%Cette section rapporte des études que nous avons menées pour examiner comment relâcher les présupposés qui sont incorporés dans le modèle SEDP et codés en dur dans ECA. 
+%Ces études illustrent différentes formes d'application du principe d'engagement à la causalité.
+
+%mémorielles qui sous-tendent la construction d'hypothèses d'existence de phénomènes dans l'espace pour expliquer les régularités observées dans le flux d'expérience.
 
 %sous forme du point $\epsilon$ et du déplacement $\iota$, ainsi que Les capacités d'ECA à gérer ces informations par sa mémoire spatiale et son mécanismes de construction de \an{bundles} pourraient reposer sur des principes de plus bas niveau.
 
@@ -51,7 +49,7 @@ Nous utilisons maintenant l'expression \emph{espace comme séquence latente} (\a
 
 Ce travail se base sur un modèle dérivé de l'EDP dans lequel l'agent reçoit une ensemble d'événements d'interaction à chaque cycle. 
 Cet ensemble contient une interaction composée d'un tuple \interaction{decision, outcome} similaires à celles des expérimentations précédentes, à laquelle s'ajoutent des événements de flux optique liés aux points saillant du champ visuel.
-Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-\pi/2, \pi/2]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire. 
+Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-90^\circ, ^\circ]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire. 
 %L'agent ne perçoit pas la distance des points saillants.
 
 L'agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
@@ -115,6 +113,7 @@ Elle présente toutefois la limitation de nécessiter que l'environnement soit s
 
 
 Pour des applications nécessitant un apprentissage plus rapide dans un environnement dynamique, elle nous incite à implémenter une carte spatiale explicite et un système de perception des déplacements de l'agent. 
+C'est l'objet du projet Petitcat de la Section \ref{sec:petitcat}.
 
 %Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement.
 
@@ -137,7 +136,7 @@ L'heuristique de recherche de fiabilité poussait l'agent à répéter des déci
 Lorsqu'il trouvait une interaction répétable, il l'associait à une valeur prise par un emplacement de sa mémoire spatiale, implémentant ainsi l'hypothèse que cette interaction était affordée par un objet présent dans l'environnement, et que cette valeur pouvait représenter cet objet.
 L'agent construisait un graphe de connaissance dont les n\oe uds correspondait à des états uniques de la mémoire spatiale. 
 Il construisait ensuite les arcs de ce graphe en leur associant les interactions permettant les transitions d'état correspondants. 
-Ce graphe était ensuite utilisé comme un réseau de Petri dans lequel la situation courante était marquée par un jeton placé sur un n\oe ud.
+Ce graphe était ensuite utilisé comme un réseau de Petri \cite{murata_petri_1989} dans lequel la situation courante était marquée par un jeton placé sur un n\oe ud.
 L'expérimentation a montré qu'au bout de 350 cycles d'interaction l'agent a pu construire un graphe complet pour représenter la dynamique de son couplage avec l'environnement. 
 La Figure Figure~\ref{fig:causal}  en donne une représentation partielle. 
 
@@ -163,7 +162,7 @@ La question de la généralisation de ces principes à des environnements plus r
 
 
 \section{Projet Petitcat}
-
+\label{sec:petitcat}
 
 \noindent
 Ce projet adopte une approche d'ingénierie pragmatique pour étudier comment la théorie des Evénements d'Interaction Valués s'applique à la conception de robots autonomes. 
@@ -187,8 +186,8 @@ La présence d'un PC embarqué s'est avérée également inutile dans la mesure 
 Nous avons donc opté pour une plateforme contrôlé par une simple carte Arduino, et offrant une meilleure capacité de mobilité que le TurtleBot, la possibilité de capteurs satisfaisant pour l'approche EIV à un moindre coût. 
 
 L'architecture cognitive ECA est implémenté sur un PC distant. 
-Elle transmets la décision via wifi.% sous la forme d'une trame de caractère UDP. 
-La carte Arduino embarquée se charge d'interpréter la décision et de la mettre en \oe uvre, puis de renvoyer les événements d'interaction au PC via wifi.% sous la forme d'une trame de caractère UDP. 
+Elle transmets la décision via wifi. % sous la forme d'une trame de caractère UDP. 
+La carte Arduino embarquée se charge d'interpréter la décision et de la mettre en \oe uvre, puis de renvoyer les événements d'interaction au PC via wifi. % sous la forme d'une trame de caractère UDP. 
 
 \subsection{Configuration matérielle}
 \label{sec:petitcat_hardware}
@@ -230,7 +229,7 @@ L'unité de mesure inertielle contient un accéléromètre linéaire, un gyromè
 
 \noindent
 Le contrôleur primitif défini en Section~\ref{sec:couplage} est implémenté en C++ sur la carte Arduino. 
-A ce jour ce contrôleur primitif  reconnait les sept décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres listées dans le  Tableau~\ref{tab:parametres_petitcat}.
+A ce jour ce contrôleur primitif  reconnait les huit décisions listées dans le Tableau~\ref{tab:decision_petitcat}, qui peuvent être paramétrées par les variables libres listées dans le  Tableau~\ref{tab:parametres_petitcat}.
 
 
 
@@ -386,7 +385,7 @@ Les comportements d'attention poussent l'agent à énacter une décision \texttt
 Cela permet de recueillir un profile de télémétrie contenant un ensemble d'événements \texttt{echo contrast}.
 Ce profile est mémorisé en association avec le lieu en coordonnées polaires allocentriques, c'est à dire centré sur un point considéré comme le point de référence du lieu, et orienté de manière absolue par rapport au nord. 
 
-Lorsque le lieu courant est connu, le robot passe en état émotionnel \texttt{enjoyment} qui le conduit à choisir des décisions \texttt{move} dans des directions ou il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
+Lorsque le lieu courant est connu, le robot passe en état émotionnel \texttt{enjoyment} qui le conduit à choisir des décisions \texttt{move} dans des directions où il n'y a pas d'obstacles, ce qui conduit à un comportement d'exploration. 
 
 Lorsqu'il revient dans le voisinage d'un lieu connu, le robot effectue à nouveau un \texttt{scan} qui lui permet de connaitre sa position par rapport au point de référence de ce lieu. 
 Nous avons utilisé un algorithme \an{Iterative Closest Point} (ICP) appliqué aux événements \texttt{echo contrast} pour mesurer la distance entre les nouveaux événements énactés et le profile télémétrique du lieu. 
@@ -432,12 +431,12 @@ Cela nous a conduit à nommer ce problème \an{Simultaneous Localisation and Act
 Le problème SLAPI se réfère au problème bien connu en robotique du \an{Simultaneous localisation and Mapping} (SLAM) qui consiste construire une carte d'un environnement tout en localisant la position du robot au sein de cette carte. 
 Les algorithmes de SLAM classiques fusionnent des relevés télémétriques, provenant par exemple d'un lidar, avec un calcul d'intégration de chemin parcouru (\an{path integration}), mesuré par exemple avec un odomètre.  
 Le problème SLAPI est une version moins ambitieuse du SLAM limitée à la construction d'une carte locale des interactions affordées par un objet.  
-La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiales une interaction affordée par l'objet peut être énactées. 
+La notion de \an{bundle} est étendue à une structure de données qui indique dans quelle configuration spatiale une interaction affordée par l'objet peut être énactée. 
 Nous utilisons le terme \emph{phénomène} pour désigner cette structure de donnée; en conformité avec l'usage courant de ce terme qui désigne la façon dont une entité se présente à l'agent par les possibilités d'expérience qu'elle lui offre. 
 
 Tout comme un algorithme de SLAM, un algorithme de SLAPI fusionne des informations de localisation de l'objet avec un calcul d'intégration des déplacements du robot. 
 Le SLAPI diffère cependant du SLAM par le fait qu'il ne vise pas à construire une carte étendue.
-Il ne  nécessite donc pas des capteurs précis et peut se contenter de ceux disponible chez Petitcat.
+Il ne  nécessite donc pas des capteurs précis et peut se contenter de ceux disponibles chez Petitcat.
 
 Nous avons implémenté un mécanisme motivationnel inné qui se déclenche quand Petitcat rencontre un nouvel objet. 
 Ce mécanisme pousse Petitcat à interagir avec lui sous différents angles jusqu'à en avoir fait le tour complet. 
@@ -460,7 +459,7 @@ La ligne noire est la forme du phénomène reconstituée à parti des échos.
 	\caption{Apprentissage d'un phénomène représentant un objet cylindrique \cite[Fig.~3]{georgeon_simultaneous_2022}.
 		Gauche: le robot observant l'objet. 
 		Centre: le phénomène caractérisé par les échos reçus depuis différentes positions autour de l'objet.
-		Droite: phénomène obtenue avec deux objets cylindriques cote à cote. 
+		Droite: phénomène obtenu avec deux objets cylindriques cote à cote. 
 	}
 	\label{fig:slapi}
 \end{figure}
@@ -480,7 +479,7 @@ L'article \an{Reducing intuitive physics prediction error through playing} \cite
 \noindent
 La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
 Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
-Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (GEITH) évoqué en Section~\ref{sec:core}.
+Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (\an{Game Engine In The Head}, GEITH) évoqué en Section~\ref{sec:core}.
 Nous implémentons donc une version interactionniste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
 Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
 
@@ -499,28 +498,28 @@ Notre but est de pouvoir représenter les déplacements des objets par des sché
 Dans sa version courante, notre moteur de jeu interactionnel est capable de manipuler les événements d'interaction dans trois référentiels différents. 
 Le référentiel égocentrique est le plus proche du système sensorimoteur de l'agent. 
 Le référentiel allocentrique est une première abstraction basée sur le choix de points de référence et un calcul d'intégration de chemin parcouru à partir de ce point.
-Le référentiel objet-centrique se base sur un point de référence liés à un objet pour construire un graphe spatio-séquentiel des interactions affordées par cet objet. 
+Le référentiel phénomène-centrique se base sur un point de référence liés à un objet pour construire un graphe spatio-séquentiel des interactions affordées par cet objet. 
 Avec un robot plus sophistiqué, il est probable que d'autres référentiels soient nécessaires tels que des référentiels centrée sur des parties spécifiques du corps du robot telles qu'un bras articulé. 
 
 L'architecture dispose de la capacité de référencer deux points de l'espace: un point d'attention et un point d'objectif. 
 Le point d'attention constitue un point de référence pour renseigner les variables libres des décisions. 
 Par exemple, la valeur \texttt{angle} d'une décision \texttt{turn} est produite pour faire tourner le robot en direction de son point d'attention.
-le point d'objectif est utilisé pour désigner un point de l'environnement comme un objectif à atteindre. 
-Par exemple l'algorithme SLAPI génère des objectifs à atteindre pour placer le robot dans différents position autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
+Le point d'objectif est utilisé pour désigner un point de l'environnement comme un objectif à atteindre. 
+Par exemple l'algorithme SLAPI génère des objectifs à atteindre pour placer le robot dans différentes positions autour d'un objet pour tester les possibilités d'interaction offertes par cet objet sous différents angles. 
 
 La mémoire à long terme des schémas contient deux types de schémas: les schémas hiérarchiques séquentiels appris par le mécanisme de schéma, et les schémas spatiaux appris par le mécanisme de construction de graphes de cellules de lieu, et de phénomènes. 
 Pour l'instant ces deux mécanismes sont séparés et interagissent à travers des fonctions ad hoc. Ils produisent des schémas stockés séparément.
-La question de leur unification semble une question cruciale qui reste à résoudre pour progresser vers des comportements plus intelligents. 
+Leur unification semble nécessaire pour progresser vers des comportements plus intelligents. 
  
 L'architecture contient de nombreux paramètres prédéfinis par le concepteur. 
 Beaucoup de ces paramètres sont liés au modèle corporel du robot et à son modèle de déplacement, par exemple les vitesses des différents mouvements de translation, la distance de retrait en cas de détection d'une ligne noire, la position des capteurs sur le robot, la vitesse du son utilisée par le télémètre pour estimer les distances, l'ouverture de son cône de détection, la distance maximum de détection, etc. 
-L'expérimentation sur les algorithmes SLAPI rapportée en Section \ref{sec:slapi} nous a donné l'occasion de concevoir des mécanismes permettant de générer des comportements oour permettre au robot d'ajuster certains de ces paramètres. 
+L'expérimentation sur les algorithmes SLAPI rapportée en Section \ref{sec:slapi} nous a donné l'occasion de concevoir des mécanismes permettant de générer des comportements pour permettre au robot d'ajuster certains de ces paramètres. 
 Cependant nous n'avons pas de principes généraux qui permettraient d'ajuster tous les paramètres, ou de déterminer la nécessiter de créer d'autres paramètres, et d'estimer leur valeur à partir de valeurs initiales très écartées de leur valeur correcte.
 
 
 Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
 Pour l'instant nous n'avons exploités que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
-L'état émotionnel est utilisé comme un critère pour sélectionner une décisions parmi celles activées par la situation courante du moteur de jeu. 
+L'état émotionnel est utilisé comme un critère pour sélectionner une décision parmi celles activées par la situation courante du moteur de jeu. 
 L'état \texttt{interest} promeut les tentatives d'énaction d'interactions répétables. 
 Ces décisions implémentent l'heuristique de recherche de fiabilité qui tend à informer l'agent sur sa situation dans l'environnement. 
 Cet état émotionnel simule un comportement d'attention porté à l'environnement. 
@@ -532,6 +531,14 @@ Cet état émotionnel simule un comportement de passivité et de repos.
 
 
 \section{Conclusion (en construction)}
+
+Permet de générer des comportements naturels qui pourrait trouver des applications en \emph{robotique ce compagnie}. 
+
+
+Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
+Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néanmoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
+L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
+
 
 Nos mécanismes d'apprentissage développemental précoces ne permettent pas encore d'atteindre le premier stade de développement de Piaget : l'acquisition autonome d'une maitrise de l'appareil sensorimoteur, mais il nous permet de proposer une approche pour étudier ce problème. 
 

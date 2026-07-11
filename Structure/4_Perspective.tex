@@ -477,8 +477,8 @@ L'article \an{Reducing intuitive physics prediction error through playing} \cite
 \label{sec:geith}
 
 \noindent
-La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement pendant le projet Petitcat.
-Ce projet nous a montré l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
+La Figure~\ref{fig:GEITH} offre une représentation synthétique de l'architecture ECA en cours de développement. % pendant le projet Petitcat.
+Le projet Petitcat nous montre l'importance de simuler les interactions en mémoire spatiale afin d'estimer les erreurs de prédiction sur les variables libres des événements énactés. 
 Il semble important que cette simulation prenne en charge la dynamique des objets, comme un \emph{moteur de jeu dans la tête} (\an{Game Engine In The Head}, GEITH) évoqué en Section~\ref{sec:core}.
 Nous implémentons donc une version interactionniste du GEITH dans lequel les objets sont représentés par les schémas d'interaction qu'ils affordent. 
 Notre but est de pouvoir représenter les déplacements des objets par des schémas analogues à ceux qui représentent les déplacements du robot, mais cette unification des schémas est encore une question ouverte. 
@@ -530,122 +530,126 @@ Cet état émotionnel simule un comportement de passivité et de repos.
 
 
 
-\section{Conclusion (en construction)}
+\section{Conclusion}
 
-Permet de générer des comportements naturels qui pourrait trouver des applications en \emph{robotique ce compagnie}. 
-
-
-Deux pistes sont envisagées: les \an{pet robots} et l'augmentation de l'autonomie des drones. 
-Les \an{pet robots} ne sont pas vraiment utiles au sens ou ils pourrait réaliser des taches pour les humains, mais il pourraient néanmoins trouver des débouchés commerciaux si on en juge par la valeur du marché des animaux de compagnie. 
-L'amélioration de l'autonomie des drones pourrait trouver toutes sortes d'usage mais pose des questions éthiques. 
-
-
-Nos mécanismes d'apprentissage développemental précoces ne permettent pas encore d'atteindre le premier stade de développement de Piaget : l'acquisition autonome d'une maitrise de l'appareil sensorimoteur, mais il nous permet de proposer une approche pour étudier ce problème. 
-
-Cette approche suggère que la représentation de connaissance est nécessaire pour produire des comportements plus intelligents tout en maintenant qu'elle est médiée par les habitudes comportementales. 
+\noindent
+Les expérimentations robotiques réalisées ont permis de générer des comportements naturels évoquant l'exploration et le jeu.
+L'approche centrée sur les événements facilite la mise en place de tels comportements:
+elle permet à l'expérimentateur d'encoder des comportements innés sous forme de séquences sensorimotrices définies dans le même formalisme que les séquences apprises par le mécanisme de schéma. 
+Cette technique d'ensemençage a déjà été identifié par les développeurs d'AERA (Sec.~\ref{sec:architectures}). 
+La sélection des comportements peut être modulée par des variables représentant l'état émotionnel du robot.
+Cela élargir la palette des comportements possibles tout en facilitant leur  interprétabilité  intuitive par un observateur humain.
 
 
+Les différents axes de recherche présentés dans ce chapitre apportent des pistes pour répondre aux limitations d'ECA soulevées au Chapitre 3.
+La section \ref{sec:spatial_inference} a présenté des approches qui évitent d'implémenter de façon figée une mémoire spatiale dotée de capacités de traitement géométriques. 
+Ces travaux suggèrent de recourir à trois modèles proto-spatiaux: un modèle corporel, un modèle de déplacement, et un modèle d'objets.
+En présupposant leur existence sans en présupposer le contenu, ces modèles facilitent à l'apprentissage de régularités spatiales.  
 
-Alors que le produit d'un algorithme de SLAM vise des applications dans des taches de navigation, le produit d'un algorithmes SLAPI vise des robots interactifs tels que des robots animaux domestiques.  
-
-Les mécanismes de schéma offrent la possibilité d'être \og ensemencés \fg avec des comportements prédéfinis. 
-Ceci peut être fait dans un esprit d'analogie avec les animaux qui naissent avec de nombreux comportements hérités de leurs ancêtres. 
-Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles. 
-On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
-
-
-
-A partir du moment ou le robot peut activer plusieurs effecteurs en parallèle se pose la question de savoir s'il doit être doté de la capacité de prendre plusieurs décisions en parallèle. 
-Nous imaginons qu'une telle éventualité impliquerait l'existence de plusieurs agents EDP qui contrôleraient le même robot tout en apprenant à se synchroniser entre eux. 
-Nous n'avons pas encore exploré cette voie et nous nous limitons pour l'instant à une seule décision par cycle d'interaction, qui peut entrainer plusieurs commandes d'effecteurs contrôlées par les variables libre de la décision.
+La section \ref{sec:petitcat} illustre comment la théorie des Evénements d'Interaction Valués s'applique au contrôle d'un robot autonome. 
+Elle montre qu'ECA se prête à l'implémentation de mécanismes inspirés des sciences cognitives : un mécanisme d'attention et un   moteur de jeu interactionnel, permettant de simuler les conséquences de différentes décisions avant d'en sélectionner une. 
+Des signaux d'erreur de prédiction, générés par différence entre les interactions prévues et les interaction énactées, peuvent déclencher des comportements permettant de calibrer certains paramètres de l'architecture. 
 
 
-Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
+Ces expérimentations n'ont toutefois pas permis de reproduire, dans un contexte spatio-séquentiel, une émergence de signification empirique analogue à celle observée dans un contextes purement séquentiels (Sec.~\ref{sec:demo-schema}).
+ECA ne permet pas encore de construire des schémas spatio-séquentiels de plus haut niveau d'une façon qui autoriserait une véritable évolution du couplage structurel spatio-séquentiel.  
 
-
-Par exemple, Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
-Elle nous a conduit à examiner des systèmes motivationnels basé sur des états émotionnels et à renoncer pour le moment à une apprentissage des structures spatiales à partir de zéro dans un milieu ouvert. 
-
-nous avons été amenés à associer des variables libres aux décisions et aux interactions, rejoignant ainsi des choix de conception pris par d'autres architectures cognitives construcgtivistes examinées en Section~\ref{sec:architectures}.
-
-
-Nous avons besoin de schémas qui ne capturent pas seulement des séquences d'interactions, mais qui capturent plus généralement des organisation spatio-temporelles d'interactions. 
-Pour cela nous conservons la notions de \emph{variable libres} dans les schémas qui peuvent être renseignées au moment de leur tentative d'énaction en fonction de l'état de différents modèles mentaux de l'agent. 
+%L'acquisition du premier stade développement cognitif: la maitrise de l'appareil sensorimoteur reste une question de recherche ouverte.
 
 
 
 
-\chapter*{Perspectives (en construction)}
+%Cette approche suggère que la représentation de connaissance est nécessaire pour produire des comportements plus intelligents tout en maintenant qu'elle est médiée par les habitudes comportementales. 
 
 
-Notre approche permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
 
-Nous construisons la façon qu'a le monde de nous apparaitre.
-
-ECA soulève le problème de l'inné et de l'acquis
 
 
-On pourrait proposer une définition de l'intelligence selon laquelle un système intelligent est un système capable de se programmer lui-même, ou au moins capable de modifier ses propres structures internes de traitement de l'information.
+\chapter*{Perspectives}
 
-Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
+\noindent
+La théorie des Evénements d'Interaction Valués permet de comprendre l'un des principes de l'épistémologie constructiviste selon lequel les être cognitifs \og construisent la façon qu'a le monde de leur apparaitre \fg .
 
-NARS est capable de dire "je ne sais pas" alors que les mécanismes de schéma ne peuvent pas dire ça.
 
+Cette évolution du monde apparent résulte de l'évolution du couplage cognitif qui a été discuté en Section~\ref{sec:couplage}.
+La Figure~\ref{fig:ir} l'illustre sous une autre forme. 
+Elle repose sur l'idée centrale que l'agent perçoit le monde non pas à travers des observations de propriétés ontologiques mais à travers des événements d'interactions non représentationnels.  
+Nous avons appelé ce principe l'\emph{interactionisme radical} dans un article co-écrit avec David Aha \cite{georgeon_radical_2013}.
+A un instant donné, l'agent construit un modèle mental de la situation courante en termes des événements d'interaction qui sont affordés par cette situation. 
+Au fur et à mesure de son apprentissage, l'agent apprend des événements d'interaction de plus en plus haut niveau qui sont des compositions d'événements de plus bas niveau. 
+Ainsi le monde apparait d'une manière différente à l'agent et lui offre des possibilités d'interaction de plus en plus complexes. 
+Ces possibilités complexes restent toutefois ancrée dans les interactions primitives ce qui les rattache à une valeur motivationnelle pour l'agent. 
 
-Discuter la distinction entre réplication et simulation de l'intelligence.
 
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.95\textwidth]{Figures/4_perspective.pdf}
+	\includegraphics[width=0.5\textwidth]{Figures/5_ir.pdf}
+	\caption{Evolution du \og monde apparent \fg\ de l'agent, adapté de \cite[Fig.~2]{georgeon_eca_2013}.
+		Au temps $t_d$, l'agent sélectionne une décision composte $d_{cd}$ dans l'ensemble des décisions connues $D_d$.
+		Cette décision entraine l'énaction de plusieurs interactions primitives résultant en une interaction composite énactée $i_{cd}$ permettant de construire la perception de la situation courante. 
+		le système cognitif de l'agent interagit avec un \og monde apparent au temps $t_d$ \fg\ situé à un niveau d'abstraction de plus en plus élevé.}
+	\label{fig:ir}
+\end{figure}
+
+%L'interactionnisme radical est illustrée en Figure \ref{fig:ir}. A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$. Enacter $i_{cd}$ consiste à successivement tenter d'énacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$.  Si chaque interaction primitive est énactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$. Si l'énaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
+
+
+
+
+La théorie des Evénements d'Interaction Valués s'inscrit dans la conception du développement cognitif illustré en Figure~\ref{fig:perspective}. 
+Cette approche vise à combler le fossé entre un nivau purement réactif tel que des approches d'apprentissage par renforcement et un niveau logique comme dans NARS. 
+
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Figures/5_perspective.pdf}
 	\caption{Perspective de trajectoire développementale précoce.}
 	\label{fig:perspective}
 \end{figure}
 
+ 
+L'idée principale est de considérer les événements d'interaction valués comme les briques de base de la cognition. 
+La première étape est l'apprentissage d'habitudes séquentielles values. 
+Le mécanisme de schéma présenté au chapitre 3 constitue un exemple de la façon d'aborder ce problème. 
+Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
 
-La connaissance pourrait etre ancrée dans des schémas acquis par un autre robot. 
-Il serait intéressant de savoir quel serait le niveau plus élevé de de grounding qui pourrait etre utilsé par un autre agent. 
+L'étape suivante porte sur l'apprentissage d'habitudes spatio-séquentielles valuées. 
+Notre étude suggère que cette étape nécessite une architecture cognitive impliquant différentes sortes de mémoire spatiale permettant d'organiser les interactions avec des objets présents dans l'environnement. 
+Nous n'avons pas encore atteint le stade ou nous pourrions demontrer que des habitudes intéressantes spatio-séquentielles ont été acquises permettant une émergence de signification attribuée aux événements.  
+Nos travaux de recherche actuels portent sur ce point. 
+L'étape suivante réalisera un basculement vers un regard objectif sur le monde, avec la construction de représentations d'objets et de lieux. 
+A un niveau rudimentaire l'agent pourra se fixer un objectif physique consistant à atteindre un certain lieu dans l'environnement. 
+Il basculera alors d'une attitude basée sur les habitudes vers une habitude basée sur la résolution de problème pour atteindre cet objectif. 
+Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
-Cette approche a été nommée interactionnisme radical \cite{georgeon_radical_2013}
-
-Le EDP peut etre simplifié en nommant interaction les couples $\langle action, outcome \rangle$.
-Une interaction peut etre utilisé comme un élément fondamental du modèle qui représente un schème sensorimoteur piagetien $ i = \langle a, o \rangle $. 
-
-\cite{georgeon_radical_2013}
-
-L'interactionnisme radical est illustrée en Figure \ref{fig:ir}.
-A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$.
-Enacter $i_{cd}$ consiste à successivement tenter d'énacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$. 
-Si chaque chaque interaction primitive est énactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$.
-Si l'énaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.4\textwidth]{Figures/4_ir.pdf}
-	\caption{Abstraction du cycle EDP, adapté de \cite[Fig.~2]{georgeon_eca_2013}.
-		A chaque temps de décision $t_d$, l'agent sélectionne une décision composite $d_{cd} \in D_d$ le conduisant à prendre une série de $k$ décisions primitives $d_{p1}, ..., d_{pk} \in D_p$ qui résultent en une série de $k$ interactions primitive énactées.
-		Le système décisionnel de l'agent interagit avec un \og monde connu au temps $t_d$ \fg\ dont le niveau d'abstraction s'élève au cours du développement de l'agent.}
-	\label{fig:ir}
-\end{figure}
+Ces mécanismes de représentation des objets physiques et de résolution de problème concret pourraient ensuite sous-tendre la capacité de raisonnement symboliques. 
 
 
 
 
 
-Critique de la discrétisation temporelle
 
-Les mécanismes de schéma sont basées sur des cycles d'interaction qui ne permettre qu'une prise en compte d'une temporalité discrète. 
-On peut ce demander si cette limitation n'est pas trop contraignante pour permettre de générer des comportements naturels. 
-
-Un contre argument est qu'on peut se fixer des schémas primitifs arbitrairement cours. 
-Il faut cependant garder à l'esprit que le mécanisme de schéma permet de monter dans des échelles de temps de plus en plus longues. 
+%Critique du réductionnisme. Est ce que la théorie de Piaget est trop réductionniste et parvient elle à capture les fondements de la conscience ?  C'est, à mon sens, la critique principale de cette approche et je n'ai pas la réponse. 
 
 
 
 
-Critique du réductionnisme
 
-Est ce que la théorie de Piaget est trop réductionniste et parvient elle à capture les fondements de la conscience ? 
+%On pourrait proposer une définition de l'intelligence selon laquelle un système intelligent est un système capable de se programmer lui-même, ou au moins capable de modifier ses propres structures internes de traitement de l'information.
 
-C'est, à mon sens, la critique principale de cette approche et je n'ai pas la réponse. 
+
+
+
+
+
+
+%Dans sa version actuelle ECA prend une seule décision à chaque cycle d'interaction qui inclut le contrôle de plusieurs effecteurs simultanément. L'organisation spatiale des comportement soulèvent néanmoins la question d'apprendre à agréger des décisions pouvant être prises simultanément.  Par exemple, si le robot disposait de décisions lui permettant de faire tourner chaque roue individuellement, pourrait-il apprendre une décision agrégée de faire tourner les quatre roues dans la même direction pour avancer? 
+
+% Il n'est pas forcément nécessaire qu'un robot apprenne de manière autonome des comportements intelligents à partir de zéro pour qu'il exhibe des propriétés comportementale utiles.  On peut imaginer des robots avec des comportements prédéfinis que s'activent dans des situations variées et qui pourraient exhiber des propriétés intéressantes pour un compagnon humain. 
+
+% La connaissance pourrait etre ancrée dans des schémas acquis par un autre robot.  Il serait intéressant de savoir quel serait le niveau plus élevé de de grounding qui pourrait être utilisé par un autre agent. 
+
+% Discuter la distinction entre réplication et simulation de l'intelligence.
+

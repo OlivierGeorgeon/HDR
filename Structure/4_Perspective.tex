@@ -567,69 +567,71 @@ ECA ne permet pas encore de construire des schémas spatio-séquentiels de plus 
 
 
 \chapter*{Perspectives}
+\markboth{Perspectives}{}
 
 \noindent
-La théorie des Evénements d'Interaction Valués permet de comprendre l'un des principes de l'épistémologie constructiviste selon lequel les être cognitifs \og construisent la façon qu'a le monde de leur apparaitre \fg .
+L'épistémologie constructiviste souligne qu'un agent cognitif \og construit la façon qu'a le monde de lui apparaitre \fg .
+La théorie des Evénements d'Interaction Valués permet de comprendre cette \emph{évolution du monde apparent} comme résultant de l'évolution du couplage cognitif, qui a été discuté en Section~\ref{sec:couplage}.
+Cette théorie repose sur l'idée centrale que l'agent perçoit le monde non pas à travers des observations qui reflètent des propriétés ontologiques d'un environnement donné a priori, mais à travers des événements d'interaction non représentationnels.  
 
-
-Cette évolution du monde apparent résulte de l'évolution du couplage cognitif qui a été discuté en Section~\ref{sec:couplage}.
-La Figure~\ref{fig:ir} l'illustre sous une autre forme. 
-Elle repose sur l'idée centrale que l'agent perçoit le monde non pas à travers des observations de propriétés ontologiques mais à travers des événements d'interactions non représentationnels.  
-Nous avons appelé ce principe l'\emph{interactionisme radical} dans un article co-écrit avec David Aha \cite{georgeon_radical_2013}.
-A un instant donné, l'agent construit un modèle mental de la situation courante en termes des événements d'interaction qui sont affordés par cette situation. 
-Au fur et à mesure de son apprentissage, l'agent apprend des événements d'interaction de plus en plus haut niveau qui sont des compositions d'événements de plus bas niveau. 
-Ainsi le monde apparait d'une manière différente à l'agent et lui offre des possibilités d'interaction de plus en plus complexes. 
-Ces possibilités complexes restent toutefois ancrée dans les interactions primitives ce qui les rattache à une valeur motivationnelle pour l'agent. 
+La Figure~\ref{fig:ir} illustre l'évolution du monde apparent. 
+%Nous avons appelé ce principe l'\emph{interactionisme radical} dans un article co-écrit avec David Aha \cite{georgeon_radical_2013}.
+A un instant donné, l'agent construit un modèle mental de sa situation courante sur la base des interactions qui sont affordées par cette situation. 
+Au fur et à mesure de son apprentissage, l'agent apprend des interactions composites de plus en plus haut niveau. 
+La façon qu'a le monde d'apparaitre à l'agent évolue de par le fait que l'agent représente sa situation en termes de possibilités d'interaction de plus en plus complexes. 
+Au fil de ce processus de développement, les interactions composites restent reliées aux interactions primitives qui leur confèrent leur valence motivationnelle. 
 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Figures/5_ir.pdf}
-	\caption{Evolution du \og monde apparent \fg\ de l'agent, adapté de \cite[Fig.~2]{georgeon_eca_2013}.
-		Au temps $t_d$, l'agent sélectionne une décision composte $d_{cd}$ dans l'ensemble des décisions connues $D_d$.
-		Cette décision entraine l'énaction de plusieurs interactions primitives résultant en une interaction composite énactée $i_{cd}$ permettant de construire la perception de la situation courante. 
-		le système cognitif de l'agent interagit avec un \og monde apparent au temps $t_d$ \fg\ situé à un niveau d'abstraction de plus en plus élevé.}
+	\caption{Evolution du \og monde apparent \fg\ , adapté de \cite[Fig.~2]{georgeon_eca_2013}.
+		Au temps $t_d$, l'agent sélectionne une décision composite $d_{cd}$ dans l'ensemble des décisions connues $D_d$.
+		Cette décision entraine l'énaction de plusieurs interactions primitives, aboutissant à une interaction composite énactée $i_{cd}$ contribuant à la perception de la situation courante. 
+		Le système cognitif de l'agent interagit ainsi avec un \og monde apparent au temps $t_d$ \fg\ situé à un niveau d'abstraction de plus en plus élevé.}
 	\label{fig:ir}
 \end{figure}
 
-%L'interactionnisme radical est illustrée en Figure \ref{fig:ir}. A chaque temps de décision $d$, l'agent sélectionne une interaction composite $i_{cd}$ appartenant à l'ensemble $C_d$ des interactions composites connues au temps $d$. Enacter $i_{cd}$ consiste à successivement tenter d'énacter les $j$ interactions primitives $i_{p1}$ à $i_{pk}$.  Si chaque interaction primitive est énactée avec succès ($e_{pj} = i_{pj}, j \in [1...k]$), alors l'agent reçoit l'interaction composite $e_{cd} = i_{cd}$. Si l'énaction d'une interaction $i_{pj}$ échoue alors l'énaction de $i_{cd}$ échoue et $e_{cd}$ est construite à partir de la série $\langle e_{p1}, ..., e_{pj} \rangle$.
+Le mécanisme de schéma présenté en Section \ref{sec:mse} met en \oe uvre cette évolution du monde apparent. 
+Ce mécanisme réalise une acquisition récursive d'habitudes séquentielles hiérarchiques dirigée par des préférences initiales.
+C'est cette récursivité qui rend l'apprentissage ouvert, c'est à dire sans fin prédéfinie: l'agent peut, par principe, apprendre de nouvelles habitudes, s'ils découvre de nouvelles régularités exploitables dans le couplage structurel.  
+Les expérimentations rapportées en Section \ref{sec:demo-schema} montrent que cette acquisition d'habitudes séquentielles valuées permet à l'agent d'attribuer une signification pragmatique à ses expériences d'interaction.
+
+L'étape suivante vise à doter l'agent de la capacité de \og construire la façon qu'a le monde physique euclidien de lui apparaitre \fg . 
+Cela demanderait de rendre récursif le mécanisme de construction d'interactions composites spatio-séquentielles.
+L'architecture cognitive ECA est proposée pour aller dans cette direction, mais n'implémente pas encore cette récursivité d'apprentissage. 
+Le couplage structurel spatio-séquentiel n'évolue pas, et les robots ne font pas apparaitre l'émergence de signification attribuée à leurs expériences spatio-séquentielles. 
 
 
+Plus généralement, cette conception du développement cognitif s'inscrit dans les étapes illustrée en  Figure~\ref{fig:perspective}. 
+Ces étapes visent à combler un fossé qui existe actuellement entre les apprentissage purement adaptatifs, comme en apprentissage par renforcement computationnel, et les mécanismes logiques tels que NARS. 
 
-
-La théorie des Evénements d'Interaction Valués s'inscrit dans la conception du développement cognitif illustré en Figure~\ref{fig:perspective}. 
-Cette approche vise à combler le fossé entre un nivau purement réactif tel que des approches d'apprentissage par renforcement et un niveau logique comme dans NARS. 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.95\textwidth]{Figures/5_perspective.pdf}
-	\caption{Perspective de trajectoire développementale précoce.}
+	\caption{Etapes de développement cognitif pour progresser des systèmes adaptatifs vers les systèmes logiques.}
 	\label{fig:perspective}
 \end{figure}
 
  
-L'idée principale est de considérer les événements d'interaction valués comme les briques de base de la cognition. 
-La première étape est l'apprentissage d'habitudes séquentielles values. 
-Le mécanisme de schéma présenté au chapitre 3 constitue un exemple de la façon d'aborder ce problème. 
-Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
+Les étapes 0, 1, et 2 sont celles abordées dans ce manuscrit: 
+sur la base d'événements d'interaction valués primitifs prédéfinis (étape 0), nous avons illustré l'acquisition d'habitudes séquentielles valuées (étape 1), et proposé des pistes pour étudier l'acquisition d'habitudes spatio-séquentielles valuées (étape 2).
+Nous imaginons que l'étape 3 consistera à concevoir des mécanismes permettant à l'agent de réaliser un basculement vers un regard objectif sur le monde, avec la construction de représentations de lieux et de phénomènes.
+Ce basculement permettrait de passer de comportements déterminés par des habitudes à des comportements déterminés par des objectifs concrets, tels que d'atteindre un lieu que l'agent se serait fixé comme objectif.  
+Ces mécanismes de représentation des objets physiques et de résolution de problème concret pourraient ensuite sous-tendre la capacité de raisonnement symboliques (étape 4). 
 
-L'étape suivante porte sur l'apprentissage d'habitudes spatio-séquentielles valuées. 
-Notre étude suggère que cette étape nécessite une architecture cognitive impliquant différentes sortes de mémoire spatiale permettant d'organiser les interactions avec des objets présents dans l'environnement. 
-Nous n'avons pas encore atteint le stade ou nous pourrions demontrer que des habitudes intéressantes spatio-séquentielles ont été acquises permettant une émergence de signification attribuée aux événements.  
-Nos travaux de recherche actuels portent sur ce point. 
-L'étape suivante réalisera un basculement vers un regard objectif sur le monde, avec la construction de représentations d'objets et de lieux. 
-A un niveau rudimentaire l'agent pourra se fixer un objectif physique consistant à atteindre un certain lieu dans l'environnement. 
-Il basculera alors d'une attitude basée sur les habitudes vers une habitude basée sur la résolution de problème pour atteindre cet objectif. 
-Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
+%Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
-Ces mécanismes de représentation des objets physiques et de résolution de problème concret pourraient ensuite sous-tendre la capacité de raisonnement symboliques. 
+%Les mécanismes de schéma ne prétendent pas faire de raisonnement mais simplement d'apprendre des habitudes d'interaction. 
+
+%Cette approche vise à combler le fossé entre un niveau purement réactif tel que des approches d'apprentissage par renforcement et un niveau logique comme dans NARS. 
 
 
 
-
-
+%L'étape suivante porte sur l'apprentissage d'habitudes spatio-séquentielles valuées.   Notre étude suggère que cette étape nécessite une architecture cognitive impliquant différentes sortes de mémoire spatiale permettant d'organiser les interactions avec des objets présents dans l'environnement.  Nous n'avons pas encore atteint le stade ou nous pourrions demontrer que des habitudes intéressantes spatio-séquentielles ont été acquises permettant une émergence de signification attribuée aux événements.  
 
 %Critique du réductionnisme. Est ce que la théorie de Piaget est trop réductionniste et parvient elle à capture les fondements de la conscience ?  C'est, à mon sens, la critique principale de cette approche et je n'ai pas la réponse. 
 

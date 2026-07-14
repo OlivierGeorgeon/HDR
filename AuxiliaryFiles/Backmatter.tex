@@ -2,12 +2,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
 
-%%%%%%%%%                       (BIBLIOGRAPHY PAGE FORMAT)
-\fancypagestyle{fancyBibliography}{
-	\renewcommand{\headrulewidth}{0.25pt}
-	\renewcommand{\footrulewidth}{0.25pt}
-	\fancyfoot[LE,RO]{}
-	\fancyhead[LO,RE]{\bf\small \BibliographyName}}
 
 %%%%%%%%%%                      (ANALYTIC INDEX PAGE FORMAT)
 \fancypagestyle{fancyIndex}{
@@ -19,32 +13,15 @@
 	\fancyfoot[LE,RO]{}
 	\fancyhead[LO,RE]{\bf\small \AnalyticIndexName}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%    (BIBLIOGRAPHY)
-\pagestyle{fancyBibliography}
-\renewcommand{\bibname}{}
-
-\titleformat{\chapter}[display]{\bfseries\Large}	{\filleft\MakeUppercase{\chaptertitlename} \HUGE\thechapter}{.4ex}{\vspace{1ex}\filleft}[\vspace{3.5ex}]
-\titlespacing*{\chapter}{0pt}{0.1\baselineskip}{0.5\baselineskip}
-
-{
-    \let\cleardoublepage\relax
-    \begin{minipage}[r]{.95\textwidth}\raggedleft
-    \vspace{3cm}
-    \HUGE\bfseries\BibliographyName
-	\vspace{0cm}
-    \end{minipage}
-	\addcontentsline{toc}{part}{\BibliographyName}
-    
-	% \nocite{*}  OG: Cite toutes les entrées du .bib
-	\bibliographystyle{amsalpha} % Format [Geo25]
-	% \bibliographystyle{plainnat} % Format Georgeon [2025]
-	\bibliography{Structure/Bibliography_full}
-}
-
-\cleardoublepage
+%%%%%%%%%                       (BIBLIOGRAPHY PAGE FORMAT)
+\fancypagestyle{fancyBibliography}{
+	\renewcommand{\headrulewidth}{0.25pt}
+	\renewcommand{\footrulewidth}{0.25pt}
+	\fancyfoot[LE,RO]{}
+	\fancyhead[LO,RE]{\bf\small \BibliographyName}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%    (ANALYTIC INDEX)
- \pagestyle{fancyIndex}
+\pagestyle{fancyIndex}
  	\renewcommand{\indexname}{}
 	\let\cleardoublepage\relax
     \titleformat{\chapter}[hang]{}{}{0em}{}[]
@@ -63,6 +40,33 @@
 	\titlespacing*{\chapter}{0pt}{0\baselineskip}{5\baselineskip}
 
     \addcontentsline{toc}{part}{\AnalyticIndexName}	
-	%\vspace{-2cm}
+	\vspace{-2cm}
 	%\printindex  %OG inutile de recompiler les index à chaque fois 
 	
+	\listofvideo
+	
+\cleardoublepage
+
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%    (BIBLIOGRAPHY)
+\pagestyle{fancyBibliography}
+\renewcommand{\bibname}{}
+
+\titleformat{\chapter}[display]{\bfseries\Large}	{\filleft\MakeUppercase{\chaptertitlename} \HUGE\thechapter}{.4ex}{\vspace{1ex}\filleft}[\vspace{3.5ex}]
+\titlespacing*{\chapter}{0pt}{0.1\baselineskip}{0.5\baselineskip}
+
+{
+	\let\cleardoublepage\relax
+	\begin{minipage}[r]{.95\textwidth}\raggedleft
+		\vspace{3cm}
+		\HUGE\bfseries\BibliographyName
+		\vspace{0cm}
+	\end{minipage}
+	\addcontentsline{toc}{part}{\BibliographyName}
+	
+	% \nocite{*}  OG: Cite toutes les entrées du .bib
+	\bibliographystyle{amsalpha} % Format [Geo25]
+	% \bibliographystyle{plainnat} % Format Georgeon [2025]
+	\bibliography{Structure/Bibliography_full}
+}
+

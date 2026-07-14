@@ -549,10 +549,9 @@ Cet \an{outcome} constitue un signal sensoriel non représentationnel dans la me
 
 
 
-
-
-La Figure \ref{fig:trace} montre une analyse des comportements.
-Elle montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
+La vidéo \videoref{vid:slp}{Small Loop Challenge}{https://youtu.be/LVZ0cPpmSu8} montre un exemple d'exécution.
+et la Figure \ref{fig:trace} présente un exemple de trace de comportement recueillie.
+Cette trace montre qu'a partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
 Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
 Ces schémas de haut niveau sont pris en défaut quand l'agent arrive dans le coin supérieur droit de la boucle. 
 A partir du pas 277, il apprend le comportements de toucher à gauche après avoir touché un mur devant, et à tourner à droite s'il a touché un mur devant après avoir avancé seulement une fois. 
@@ -601,7 +600,7 @@ Les sept \an{outcomes} sont:
 \texttt{eat} : l'agent atteint la cible et la mange,
 \texttt{bump} : collision avec un mur.
 
-La Figure \ref{fig:horseshoe} illustre ce système de perception distal.  
+La Figure \ref{fig:horseshoe} illustre ce système de perception distal, aussi illustrée en Vidéo \videoref{vid:limule}{Expérimentation de la limule}{https://youtu.be/91kKzybt8XY}.  
 Chaque \oe il couvre un champ de 90°. 
 Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible en face de l'agent.
 %Une mesure de distance permet de détecter si la cible grandit ou rétrécit dans le champ visuel pour générer les signaux \texttt{increase} et \texttt{decrease}. 
@@ -987,7 +986,8 @@ Enfin, se pose la question de savoir comment l'agent pourrait apprendre de mani�
 Cette expérimentation examine la génération de comportements plus sophistiqués dans un environnement dynamique et continu contenant des objets hétérogènes.
 Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA en y ajoutant un \emph{mécanisme attentionnel}.
 
-La Figure~\ref{fig:requins} illustre les conditions expérimentales.
+La Figure~\ref{fig:requins} illustre les conditions expérimentales 
+(Vidéo \videoref{vid:requins}{Expérimentation des requins}{https://youtu.be/vSUEoh-sjwU}).
 %L'environnement comprend deux agents ECA (les requins gris), des murs (cellules pleines pouvant arborer des parties colorées identifiables), des cibles mobiles (poissons bleus se déplaçant en ligne droite et changeant de direction au contact d'un mur), ainsi que des algues (les \og trèfles \fg), repères visuels que les agents peuvent traverser.
 Les deux requins gris sont des agents contrôlés par ECA.
 Les cellules pleines sont des murs qui peuvent contenir des parties colorées identifiables par les agents.

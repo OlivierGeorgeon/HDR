@@ -36,3 +36,30 @@
 	labelfont=bf,
 	width=.8\textwidth,
 	skip=15pt}
+	
+	
+%%%%%%%%%%  VIDEOS (OG)
+% --- Astuce pour éviter le conflit lofdepth/lotdepth ---
+\makeatletter
+\let\c@lofdepth\relax
+\let\c@lotdepth\relax
+\makeatother
+\usepackage{tocloft}  % Pour créer et personnaliser la liste de vidéos
+
+% --- Configuration de la liste des vidéos ---
+\newcommand{\listvideoname}{Vidéos}
+\newlistof{video}{vid}{\listvideoname}
+
+% --- Commande pour déclarer et référencer une vidéo ---
+% Syntaxe : \videoref{label}{Description/Titre}{URL}
+\newcommand{\videoref}[3]{%
+	% 1. On incrémente le compteur de vidéos
+	\refstepcounter{video}%
+	% 2. On crée le label pour pouvoir faire \ref{#1} n'importe où
+	\label{#1}%
+	% 3. On ajoute la vidéo à la liste finale (.vid) avec son URL
+	\addcontentsline{vid}{video}{\protect\numberline{\thevideo}#2 -- \url{#3}}%
+	% 4. On affiche le numéro dans le texte (optionnel, retirez \thevideo si vous voulez juste créer la réf discrètement)
+	\ref{#1}%
+}
+

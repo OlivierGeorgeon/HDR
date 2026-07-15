@@ -13,6 +13,14 @@
 	\fancyfoot[LE,RO]{}
 	\fancyhead[LO,RE]{\bf\small \AnalyticIndexName}}
 
+%%%%%%%%%%                      (VIDEOS PAGE FORMAT)
+% On crée un style de page dédié aux vidéos identique à la bibliographie
+\fancypagestyle{fancyVideos}{
+	\renewcommand{\headrulewidth}{0.25pt}
+	\renewcommand{\footrulewidth}{0.25pt}
+	\fancyfoot[LE,RO]{}
+	\fancyhead[LO,RE]{\bf\small \listvideoname}}
+
 %%%%%%%%%                       (BIBLIOGRAPHY PAGE FORMAT)
 \fancypagestyle{fancyBibliography}{
 	\renewcommand{\headrulewidth}{0.25pt}
@@ -22,32 +30,53 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%    (ANALYTIC INDEX)
 \pagestyle{fancyIndex}
- 	\renewcommand{\indexname}{}
-	\let\cleardoublepage\relax
-    \titleformat{\chapter}[hang]{}{}{0em}{}[]
- 	
-    \chapter*{}
-	\titleformat{\chapter}
-		[hang]
-		{\Huge}
-		{}
-		{0em}
-		{}
-		[\Large {\begin{tikzpicture} [remember picture, overlay]
+\renewcommand{\indexname}{}
+\let\cleardoublepage\relax
+\titleformat{\chapter}[hang]{}{}{0em}{}[]
+
+\chapter*{}
+\titleformat{\chapter}
+[hang]
+{\Huge}
+{}
+{0em}
+{}
+[\Large {\begin{tikzpicture} [remember picture, overlay]
 		\pgftext[right,x=14.75cm,y=0.2cm]{\HUGE\bfseries 
 			\AnalyticIndexName}
-		\end{tikzpicture}}]
-	\titlespacing*{\chapter}{0pt}{0\baselineskip}{5\baselineskip}
+\end{tikzpicture}}]
+\titlespacing*{\chapter}{0pt}{0\baselineskip}{5\baselineskip}
 
-    \addcontentsline{toc}{part}{\AnalyticIndexName}	
-	\vspace{-2cm}
-	%\printindex  %OG inutile de recompiler les index à chaque fois 
-	
-	\listofvideo
-	
+\addcontentsline{toc}{part}{\AnalyticIndexName}	
+\vspace{-2cm}
+%\printindex  %OG inutile de recompiler les index à chaque fois 
+
 \cleardoublepage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%    (LISTE DES VIDEOS)
+\pagestyle{fancyVideos}
+% 1. On vide le titre par défaut de tocloft pour le générer manuellement à votre format
+%\renewcommand{\listofvideoname}{} 
+
+{
+	\let\cleardoublepage\relax
+	% 2. On reproduit exactement le bloc de titre de la bibliographie
+	\begin{minipage}[r]{.95\textwidth}\raggedleft
+		\vspace{2cm}
+		\HUGE\bfseries\listvideoname
+		\vspace{0cm}
+	\end{minipage}
+	% 3. On l'ajoute à la table des matières au format "part" comme la bibliographie
+	\addcontentsline{toc}{part}{\listvideoname}
+	\vspace{0cm} % Espace avant de commencer la liste
 	
+	\listofvideo
+}
+
+\cleardoublepage
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%    (BIBLIOGRAPHY)
 \pagestyle{fancyBibliography}
 \renewcommand{\bibname}{}
@@ -69,4 +98,3 @@
 	% \bibliographystyle{plainnat} % Format Georgeon [2025]
 	\bibliography{Structure/Bibliography_full}
 }
-

@@ -407,7 +407,8 @@ La Figure \ref{fig:place} montre les conditions expérimentales et un exemple de
 \end{figure}
 
 
-Cette étude est décrite dans l'article \an{A Spatio-temporal schema mechanism for developmental robotics} \cite{georgeon_spatio-temporal_2026}.
+Cette étude est décrite dans l'article \an{A Spatio-temporal schema mechanism for developmental robotics} \cite{georgeon_spatio-temporal_2026} 
+(Vidéo \videoref{vid:lieux}{Petitcat cellules de lieux}{https://youtu.be/IXj3d0yVNMc}).
 Elle nous a conduit à implémenter une mémoire allocentrique dans ECA capable de construire un graphe de lieux. L'objectif n'est pas de construire une carte de l'environnement car les capteurs de Petitcat sont trop imprécis pour cela. 
 De plus, si des objets bougent dans l'environnement, les lieux ne peuvent plus être reconnues. 
 Dans ce cas, Petitcat recommence un nouveau graphe de lieux à partir de sa position courante. 
@@ -444,7 +445,8 @@ Il correspond à un état émotionnel \texttt{interest - excitement} qui focalis
 
 %Dans son principe, SLAPI associe les heuristiques de recherche de fiabilité et d'exploration pour générer les comportements du robot, et la capacité de mémoire allocentrique pour construire des schémas d'interaction spatiaux localisés par rapport à un point de référence lié à l'objet. 
 
-La figure \ref{fig:slapi} illustre le phénomène construit par l'agent au cours de ses expériences d'interaction avec une tirelire cylindrique. 
+La figure \ref{fig:slapi} illustre le phénomène construit par l'agent au cours de ses expériences d'interaction avec une tirelire cylindrique 
+(Vidéo \videoref{vid:slapi}{Petitcat SLAPI Tirelire}{https://youtu.be/snAqzQ2fVCg}). 
 Le phénomène est constitué de l'ensemble des \emph{manifestations} de l'objet cylindrique à travers les mesures d'écho-localisation réalisées quand le robot tourne autour de lui. 
 Les triangles bleus représentent les cônes du signal ultrasonique émis depuis différentes positions. 
 La ligne noire est la forme du phénomène reconstituée à partir des échos.
@@ -465,7 +467,8 @@ La ligne noire est la forme du phénomène reconstituée à partir des échos.
 \end{figure}
 
 
-Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol.
+Une expérimentation similaire a été réalisée avec simplement un point noir sur le sol 
+(Vidéo \videoref{vid:slapi2}{Petitcat SLAPI Point}{https://youtu.be/1NpKXTZcqSo}).
 Les interactions définies en Section~\ref{sec:interactions} font que les décisions \texttt{move forward} sont interrompues quand le point est détecté par les capteurs de luminosité du sol, générant l'interaction \interaction{move forward, bump}. 
 Petitcat se met alors à répéter ce mouvement depuis différentes directions comme pour confirmer que cette interaction est toujours affordée. 
 Avant de prendre une décision, ECA effectue une simulation interne de cette décision qui lui permet d'estimer les événements d'interaction énactés. 
@@ -587,7 +590,7 @@ Au fil de ce processus de développement, les interactions composites restent re
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{Figures/5_ir.pdf}
-	\caption{Evolution du \og monde apparent \fg\ , adapté de \cite[Fig.~2]{georgeon_eca_2013}.
+	\caption{Evolution du \og monde apparent \fg , adapté de \cite[Fig.~2]{georgeon_eca_2013}.
 		Au temps $t_d$, l'agent sélectionne une décision composite $d_{cd}$ dans l'ensemble des décisions connues $D_d$.
 		Cette décision entraine l'énaction de plusieurs interactions primitives, aboutissant à une interaction composite énactée $i_{cd}$ contribuant à la perception de la situation courante. 
 		Le système cognitif de l'agent interagit ainsi avec un \og monde apparent au temps $t_d$ \fg\ situé à un niveau d'abstraction de plus en plus élevé.}

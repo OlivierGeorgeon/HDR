@@ -549,7 +549,7 @@ Cet \an{outcome} constitue un signal sensoriel non représentationnel dans la me
 
 
 
-La vidéo \videoref{vid:slp}{Small Loop Challenge}{https://youtu.be/LVZ0cPpmSu8} montre un exemple d'exécution,
+La vidéo~\videoref{vid:slp}{Small Loop Challenge}{https://youtu.be/LVZ0cPpmSu8} montre un exemple d'exécution,
 et la Figure \ref{fig:trace} présente un exemple de trace de comportement recueillie.
 Cette trace montre qu'à partir du pas 190, l'agent a appris à prendre la décision \emph{toucher devant} avant de tenter d'avancer, et de ne pas avancer s'il sent un mur.
 Sur cette base, il commence à apprendre des interactions de plus haut niveau à partir du pas 241.
@@ -600,7 +600,7 @@ Les sept \an{outcomes} sont:
 \texttt{eat} : l'agent atteint la cible et la mange,
 \texttt{bump} : collision avec un mur.
 
-La Figure \ref{fig:horseshoe} illustre ce système de perception distal, aussi illustrée en Vidéo \videoref{vid:limule}{Expérimentation de la limule}{https://youtu.be/91kKzybt8XY}.  
+La Figure \ref{fig:horseshoe} illustre ce système de perception distal, aussi illustrée en Vidéo~\videoref{vid:limule}{Expérimentation de la limule}{https://youtu.be/91kKzybt8XY}.  
 Chaque \oe il couvre un champ de 90°. 
 Les deux champs visuels se recouvrent et permettent de détecter la présence de la cible en face de l'agent.
 %Une mesure de distance permet de détecter si la cible grandit ou rétrécit dans le champ visuel pour générer les signaux \texttt{increase} et \texttt{decrease}. 
@@ -661,7 +661,8 @@ Nous avons attribué des valences positives pour les interactions consistant à 
 La valence de l'interaction \interaction{move forward, eat} est fixée à $0$. 
 Ce n'est pas le fait de manger la cible qui motive l'agent mais le fait de s'en rapprocher.
 
-L'expérimentation montre l'apprentissage de comportements analogues à ceux de l'expérimentation du \an{Small Loop} et de la limule.
+L'expérimentation montre l'apprentissage de comportements analogues à ceux de l'expérimentation du \an{Small Loop} et de la limule 
+(Vidéo~\videoref{vid:sniff}{Sniff experiment}{https://youtu.be/cDntPUlGvgA}).
 L'agent apprend à utiliser les interactions de reniflage pour éviter les collisions avec les murs et tourner en direction de la cible.
 Une fois ces comportements de base appris, il remonte progressivement le gradient d'odeur jusqu'à la cible.
 La Figure \ref{fig:sniff_trace} présente un exemple d'exécution.
@@ -761,7 +762,8 @@ Les décisions de rotation faisaient tourner le robot sur place pendant une dur�
 
 
 
-L'expérimentation montre que le robot apprend les comportements de base similaire à ceux décrits en Section \ref{sec:small-loop}: utilisation du touché, et des rotations pour éviter les collisions et satisfaire la motivation d'avancer.
+L'expérimentation montre que le robot apprend les comportements de base similaire à ceux décrits en Section \ref{sec:small-loop}: utilisation du touché, et des rotations pour éviter les collisions et satisfaire la motivation d'avancer 
+(Vidéo~\videoref{vid:epuck}{Expérimentation e-puck}{https://youtu.be/t1RO5S4mBEY}).
 Le mécanisme de schéma est capable de résister aux erreurs de détections et aux imprécisions de déplacement tant que des régularités exploitables existent. 
 En revanche il ne peut pas apprendre des séquences d'interaction aussi longues que dans le \an{Small Loop} car elles ne sont pas utilisables en raison de ces imprécisions.
 Si la distance de perception ne correspond pas à la distance d'avance (5 cm) alors les interactions de toucher sont inutiles et le robot n'apprend pas à les utiliser. 
@@ -771,7 +773,8 @@ Dans ce cas, il tend à développer un comportement consistant à alterner les d
 Martin Kody\v{s} et Christian Wolf ont implémenté les interactions primitives de l'expérience de la limule chez le robot Eddie de la Figure~\ref{fig:robot_serie} (droite) \cite{kodis_approche_2014}.   
 Un QR code était utilisé comme cible. 
 Un capteur \emph{kinect} générait les \an{inputs} \texttt{increase} et \texttt{decrease} par rapport à la cible et \texttt{bump} par rapport aux murs.
-Le robot a acquis le comportement \emph{diagonal}, mais pas le \emph{tangentiel} car celui-ci est trop sensible aux erreurs de détection.
+Le robot a acquis le comportement \emph{diagonal}, mais pas le \emph{tangentiel} car celui-ci est trop sensible aux erreurs de détection  
+(Vidéo~\videoref{vid:eddie}{Expérimentation Eddie}{https://youtu.be/I4M5C96YHNQ}).
 
 Ces expérimentations illustrent concrètement comment déployer le mécanisme de schéma sur des plateformes robotiques. 
 Une fois les interactions primitives codées, le mécanisme de schéma guide le robot dans la découverte et l'apprentissage des régularités séquentielles exploitables. 
@@ -946,7 +949,8 @@ Ils sont codés par l'expérimentateur à l'initialisation.
 	\label{tab:small_loop_spatial}
 \end{table}
 
-La figure~\ref{fig:comportement_ECA} présente une analyse des comportements obtenus dans un exemple d'exécution.
+La figure~\ref{fig:comportement_ECA} présente une analyse des comportements obtenus dans un exemple d'exécution 
+(Vidéo~\videoref{vid:eca}{ECA dans le Small Loop Challenge}{https://youtu.be/IU-tQ1j6LqU}).
 La bande 4 montre le contenu de la mémoire spatiale égocentrée contenant les quatre cellules autour de l'agent et celle ou il est situé.
 La bande 5 montre la construction progressive des \an{bundles}.
 Le \an{bundle} représentant la cellule vide est créé au pas 5 quand l'agent constate que l'interaction \interaction{move forward, empty} qu'il vient d'énacter se chevauche avec \interaction{feel front, empty} énactée au pas 1.
@@ -987,7 +991,7 @@ Cette expérimentation examine la génération de comportements plus sophistiqu�
 Nous avons étendu les mécanismes perceptifs et motivationnels d'ECA en y ajoutant un \emph{mécanisme attentionnel}.
 
 La Figure~\ref{fig:requins} illustre les conditions expérimentales 
-(Vidéo \videoref{vid:requins}{Expérimentation des requins}{https://youtu.be/vSUEoh-sjwU}).
+(Vidéo~\videoref{vid:requins}{Expérimentation des requins}{https://youtu.be/vSUEoh-sjwU}).
 %L'environnement comprend deux agents ECA (les requins gris), des murs (cellules pleines pouvant arborer des parties colorées identifiables), des cibles mobiles (poissons bleus se déplaçant en ligne droite et changeant de direction au contact d'un mur), ainsi que des algues (les \og trèfles \fg), repères visuels que les agents peuvent traverser.
 Les deux requins gris sont des agents contrôlés par ECA.
 Les cellules pleines sont des murs qui peuvent contenir des parties colorées identifiables par les agents.
@@ -1030,7 +1034,8 @@ Les deux agents tendent aussi à se rapprocher l'un de l'autre ce qui donne l'im
 \end{figure}
 
 Cette expérimentation a été décrite en détail dans un article co-écrit avec Simon Gay et Jong Kim \cite{gay_implementing_2012}. 
-Une approche similaire a été mise en \oe uvre dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark}. 
+Une approche similaire a été mise en \oe uvre dans une autre expérimentation mettant en évidence un comportement de navigation de \an{landmark} en \an{landmark} 
+(Vidéo~\videoref{vid:abeille}{Expérimentation de l'abeille}{https://youtu.be/0kqY0myZQHk}). 
 L'agent disposait d'un mécanisme motivationnel plus élaboré qui lui faisait porter son attention sur des objets servant de point de repère successifs pour retrouver son chemin \cite[\an{Early-Stage Vision of Composite Scenes for Spatial Learning and Navigation}]{georgeon_early-stage_2011}. 
 Cet exemple a également été repris dans un article plus général co-écrit avec Mathieu Guillermin \cite{guillermin_artificial_2022}.
 

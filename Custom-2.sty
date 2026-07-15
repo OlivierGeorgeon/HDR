@@ -48,18 +48,45 @@
 
 % --- Configuration de la liste des vidéos ---
 \newcommand{\listvideoname}{Vidéos}
-\newlistof{video}{vid}{\listvideoname}
+%\newlistof{video}{vid}{\listvideoname}
+\newlistof{video}{vid}{}
+
+% --- Commande pour déclarer et référencer une vidéo ---
+% Syntaxe : \videoref{label}{Description/Titre}{URL}
+%\newcommand{\videoref}[3]{%
+%	% 1. On incrémente le compteur de vidéos
+%	\refstepcounter{video}%
+%	% 2. On crée le label pour pouvoir faire \ref{#1} n'importe où
+%	\label{#1}%
+%	% 3. On ajoute la vidéo à la liste finale (.vid) avec son URL
+%	\addcontentsline{vid}{video}{\protect\numberline{\thevideo}#2 -- \url{#3}}%
+%	% 4. On affiche le numéro dans le texte (optionnel, retirez \thevideo si vous voulez juste créer la réf discrètement)
+%	\ref{#1}%
+%}
 
 % --- Commande pour déclarer et référencer une vidéo ---
 % Syntaxe : \videoref{label}{Description/Titre}{URL}
 \newcommand{\videoref}[3]{%
 	% 1. On incrémente le compteur de vidéos
 	\refstepcounter{video}%
-	% 2. On crée le label pour pouvoir faire \ref{#1} n'importe où
+	% 2. On crée le label LaTeX standard (pour la liste des vidéos)
 	\label{#1}%
-	% 3. On ajoute la vidéo à la liste finale (.vid) avec son URL
+	% 3. On sauvegarde l'URL associée à ce label en mémoire
+	\expandafter\gdef\csname vidurl@#1\endcsname{#3}%
+	% 4. On ajoute la vidéo à la liste finale
 	\addcontentsline{vid}{video}{\protect\numberline{\thevideo}#2 -- \url{#3}}%
-	% 4. On affiche le numéro dans le texte (optionnel, retirez \thevideo si vous voulez juste créer la réf discrètement)
-	\ref{#1}%
+	% 5. On affiche le numéro qui pointe DIRECTEMENT vers l'URL externe
+	\href{#3}{\thevideo}%
 }
 
+% --- Nouvelle commande pour faire référence à la vidéo plus tard ---
+% Syntaxe : \refvid{label}
+\newcommand{\refvid}[1]{%
+	\ifcsname vidurl@#1\endcsname
+	% Si le label existe, on affiche son numéro sous forme de lien vers l'URL
+	\href{\csname vidurl@#1\endcsname}{\ref*{#1}}%
+	\else
+	% Fallback si le label n'est pas encore défini au premier passage
+	\ref{#1}%
+	\fi
+}

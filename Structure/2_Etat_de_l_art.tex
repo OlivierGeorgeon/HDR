@@ -1197,7 +1197,7 @@ Il s'écarte de l'inspiration symbolique de Drescher issue des années 1980 pour
 L'agent est placé dans une situation non markovienne, et cherche à inférer les états cachés de l'environnement qu'il représente par des variables hypothétiques. 
 Perotto modélise cette situation en utilisant le formalisme POMDP introduit en Section \ref{sec:pomdp} et situe son travail dans le cadre du \an{model-based reinforcement learning}.
 
-CALM adopte une approche dite \emph{d'engagement à la causalité} (\an{commitment to causality}) consistant à rechercher les causes pouvant expliquer un événement inattendu.
+CALM adopte une approche dite \emph{d'engagement envers la causalité} (\an{commitment to causality}) consistant à rechercher les causes pouvant expliquer un événement inattendu.
 Il part de l'hypothèse que certains signaux sensoriels peuvent sembler imprévisibles à l'agent non parce qu'ils sont aléatoires mais parce qu'ils résultent d'états de l'environnement que l'agent ne perçoit pas. 
 Contrairement au schémas de Drescher, les schémas de CALM n'ont pas de valeur de \an{reliability} qui rendent compte d'un degré d'incertitude: les schémas de CALM représentent des connaissances considérées certaines par l'agent tant qu'elles n'ont pas été révoquées. 
 %CALM chercher donc à expliquer un signal sensoriel inattendu par l'existence d'une cause cachée présente dans l'environnement. 
@@ -1210,7 +1210,7 @@ Il modélise ces signaux sensoriels dans le contexte de l'apprentissage non mark
 Ce cadre conceptuel nous apporte une modélisation des schèmes piagétiens plus fidèle à l'épistémologie constructiviste.
 
 Malheureusement, CALM n'est démontré que dans un environnement très simple, sans fournir d'indication sur les conditions dans lesquelles il pourrait être étendu à des environnements plus complexes. 
-J'explorerai une approche qui relâche l'engagement à la causalité de Perotto car il semble limiter les capacités de l'agent à structurer ses comportements dans des environnements complexes.  
+J'explorerai une approche qui relâche l'engagement envers la causalité de Perotto car il semble limiter les capacités de l'agent à structurer ses comportements dans des environnements complexes.  
 
 
 \subsection{Architectures cognitives bio-inspirées}
@@ -1236,7 +1236,7 @@ Parmi les architectures qui tentent explicitement d’intégrer les principes co
 
 
 La \an{Autonomous Empirical Reasoning Architecture} (AERA) est maintenue par l'équipe de Kristinn Thórisson à l'université de Reykjavik \cite{thorisson_self-programming_2012}. 
-Comme CALM, elle adopte un \emph{engagement à la causalité} qui la conduit à rechercher des causes hypothétiques d'événements imprévus plutôt que de gérer des prédictions probabilistes.
+Comme CALM, elle adopte un \emph{engagement envers la causalité} qui la conduit à rechercher des causes hypothétiques d'événements imprévus plutôt que de gérer des prédictions probabilistes.
 Elle en diffère cependant par le fait qu'elle cherche les causes dans des propriétés perceptibles de l'état du monde plutôt que dans des propriétés cachées.
 Ses schémas sont similaires à ceux de Drescher à la différence qu'ils contiennent des variables libres (\an{unbound variables}). 
 AERA introduit des \an{composite state models} qui servent à décrire des aspects pertinents de l'état du monde, sur la base desquels les variables libres des schémas sont renseignés.

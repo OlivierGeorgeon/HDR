@@ -14,15 +14,19 @@
 \begin{document}
 \input{Structure/Title/Title.tex}   %%%%%%%%%%%%%%%%%%        (EDIT TITLEPAGE)
 \input{Structure/Title/Title-2.tex} %%%%%%%%%%%%%%%%%%        (SECOND VERSION)
-\input{Structure/0_Resume}      %%%%%%%%%%%%%%%%%%     (EDIT ABSTRAcT)
+
+\frontmatter
+
+\input{Structure/0_Preambule}      %%%%%%%%%%%%%%%%%%     (EDIT ABSTRAcT)
 
 \newcommand\IndexYes{1}
     %%%%%%%%%%%%%%%%%%   (IF A TABLE OF CONTENTS IS NOT NEEDED, CHANGE 1 TO 0)
 \input{AuxiliaryFiles/Frontmatter}  %%%%%%%%%%%%%%%%%%           (DO NOT EDIT)
-\input{Structure/0_Introduction}      %%%%%%%%%%%%%%%%%%     (EDIT INTRODUCTION)
-% \input{Structure/Errata}            %%%%%%%%%%%%%%%%%%           (EDIT ERRATA)
 
 \input{AuxiliaryFiles/Mainmatter}   %%%%%%%%%%%%%%%%%%           (DO NOT EDIT)
+
+\input{Structure/0_Introduction}      %%%%%%%%%%%%%%%%%%     (EDIT INTRODUCTION)
+% \input{Structure/Errata}            %%%%%%%%%%%%%%%%%%           (EDIT ERRATA)
 
 \include{Structure/1_Ancrage}          %%%%%%%%%%%%%%%%%%         (EDIT CHAPTERS)
 \include{Structure/2_Etat_de_l_art}

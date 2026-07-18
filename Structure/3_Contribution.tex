@@ -212,7 +212,7 @@ Cette valence peut donc servir de signal de motivation interne pour l'agent, qui
 La valence se rapproche de la récompense utilisée en apprentissage par renforcement (Sections~\ref{sec:rl} et \ref{sec:pomdp}) mais en diffère par le fait qu'elle n'inclut pas l'état de l'environnement parmi ses arguments.
 Ce n'est donc pas une motivation externe au sens évoqué en Section~\ref{sec:motivation}.
 
-Elle se rapproche des valeurs motivationnelles appelées \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et \an{prior preference distribution} dans la théorie de l'inférence active (Sec.~\ref{sec:active_inference}). 
+Elle se rapproche des valeurs motivationnelles appelées \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et \an{prior preference distribution} dans la théorie de l'inférence active (Section \ref{sec:active_inference}). 
 Cependant, elle en diffère par le fait que ces valeurs motivationnelles sont liées aux signaux sensoriels, alors que la valence de l'EDP est liée à des événements d'interaction qui incluent la décision de l'agent. 
 Associer une valeur motivationnelle à un signal sensoriel est suffisant dans le cas où ce signal est représentationnel, par exemple un signal indiquant un objet comestible. 
 %Par exemple, là ou LIDA et l'inférence active spécifieront la même valeur à une collision vers l'avant ou vers l'arrière, l'EDP permet de spécifier des valeurs différentes.
@@ -332,8 +332,8 @@ Ce processus conduit donc à l'édification progressive d'une hiérarchie d'inte
 \end{figure}
 
 Une interaction composite $i_c$ est donc une séquence de deux sous-interactions qui peuvent être soit composites soit primitives. 
-La première est appelée la \emph{pré-interaction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$. 
-Ainsi, $i_c = \langle pre(i_c), post(i_c)\rangle$.
+La première est appelée la \emph{pré-interaction} de $i_c$ notée $pre(i_c)$, et la seconde sa \emph{post-interaction} notée $post(i_c)$, 
+de telle sorte que $i_c = \langle pre(i_c), post(i_c)\rangle$.
 
 Etant donné qu'une interaction composite doit être réénactée pour donner lieu à un apprentissage d'une interaction composite de plus haut niveau, le nombre d'interactions composite ne croit pas trop rapidement comme nous le verrons en Section~\ref{sec:sniff}.
 %Nous avons montré que le nombre d'interactions composites croissait linéairement avec le temps \cite{georgeon_schema_2025-1}. C'est  d'autant plus acceptable qu'il est possible de supprimer les interactions composites non utilisées sans affecter le comportement de l'agent.
@@ -623,7 +623,7 @@ Ces comportements nécessitent toutefois un certain apprentissage car l'agent ig
 En fonction de l'expérience individuelle de chaque agent, nous avons observé l'apprentissage de différents comportements illustrés en Figure \ref{fig:horseshoe}: 
 \begin{itemize}[label=\scalebox{.85}{$\diamond$}]
 	\item Le comportement \emph{diagonal} consiste à alterner les interactions {\small \interaction{forward, increase left}, \interaction{turn left, stable}, \interaction{forward, increase right}, \interaction{turn right, stable}} jusqu'à être aligné avec la cible puis répéter {\small \interaction{forward, increase front}} jusqu'à atteindre la cible.
-	\item Le comportement \emph{tangentiel} consiste à répéter l'interaction {\small \interaction{forward, increase left}} jusqu'à obtenir {\small \interaction{forward, decrease}} quand la cible est dépassée, puis {\small \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}}. L'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
+	\item Le comportement \emph{tangentiel} consiste à répéter l'interaction {\small \interaction{forward, increase left}} jusqu'à obtenir { \interaction{forward, decrease}} quand la cible est dépassée, puis {\small \interaction{turn right, increase}, \interaction{turn right, stable}, \interaction{forward, increase}, \interaction{turn left, increase front}}. L'agent ne pouvant pas percevoir la distance de la cible, il est obligé d'aller une case trop loin puis de revenir en arrière pour s'aligner avec la cible. 
 \end{itemize}
 Une fois l'un de ces comportements acquis avec une ou deux cibles, l’agent continue à l'appliquer pour atteindre de nouvelles cibles.
 
@@ -930,6 +930,7 @@ Ils sont codés par l'expérimentateur à l'initialisation.
 
 \begin{table}[h!]
 	\centering
+	\resizebox{\textwidth}{!}{%
 	\begin{tabular}{|l|l|c|c|l|}
 		\hline
 		\textbf{Interaction} & \textbf{Signification} & \textbf{Valence} & $\epsilon$ & \ $\iota$ \\ \hline
@@ -943,7 +944,7 @@ Ils sont codés par l'expérimentateur à l'initialisation.
 		\texttt{feel front wall} & sentir un mur devant & -1 & $(1, 0)$  &  \\ \hline
 		\texttt{feel right empty} & sentir une cellule vide à droite & -1 & $(0, -1)$ &  \\ \hline
 		\texttt{feel right wall} & sentir un mur à droite & -1 & $(0, -1)$ &  \\ \hline
-	\end{tabular}
+	\end{tabular}}
 	\caption{Interactions primitives dans le \an{Spatial Small Loop Challenge}.
 	Chacune est associée à une position $\epsilon$ et un déplacement $\iota$ définis dans le référentiel égocentré de l'agent.}
 	\label{tab:small_loop_spatial}

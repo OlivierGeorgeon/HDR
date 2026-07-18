@@ -288,6 +288,7 @@ La valeur de $10^\circ$ spécifie 19 mesures couvrant les directions allant de $
 
 \begin{table}[h]
 	\centering
+	\resizebox{\textwidth}{!}{%
 	\begin{tabular}{|l|l|c|c|}
 		\hline
 		\textbf{Code} & \textbf{statut}  & \textbf{décision}  & \textbf{Description} \\ \hline
@@ -298,7 +299,7 @@ La valeur de $10^\circ$ spécifie 19 mesures couvrant les directions allant de $
 		\texttt{duration} & optionnel & \texttt{move}, \texttt{swipe} & durée (ms) \\ \hline
 		\texttt{angle} & optionnel & \texttt{turn}, \texttt{turn-head}, \texttt{scan} & angle (degrés) \\ \hline
 		\texttt{caution} & optionnel & \texttt{move forward} & niveau de prudence \\ \hline
-	\end{tabular}
+	\end{tabular}}
 	\caption{Variables transmises du PC ECA vers Petitcat définissant les décisions.
 	}
 	\label{tab:parametres_petitcat}
@@ -313,6 +314,7 @@ Le tableau \ref{tab:interactions_petitcat} donne la liste des événements d'int
 
 \begin{table}[h]
 	\centering
+	\resizebox{\textwidth}{!}{%
 	\begin{tabular}{|l|l|p{4cm}|}
 		\hline
 		\textbf{Code} & \textbf{position} & \textbf{variables}  \\ \hline
@@ -322,7 +324,7 @@ Le tableau \ref{tab:interactions_petitcat} donne la liste des événements d'int
 		%\texttt{floor color} & position du capteur de couleur & code de couleur \\ \hline
 		\texttt{echo} & position de la source de l'écho &  \\ \hline
 		\texttt{echo contrast} & position de variation d'écho dans un scan &  \\ \hline
-	\end{tabular}
+	\end{tabular}}
 	\caption{Evénements d'interaction primitifs générés par Petitcat.
 	}
 	\label{tab:interactions_petitcat}
@@ -520,7 +522,7 @@ L'expérimentation sur les algorithmes SLAPI rapportée en Section \ref{sec:slap
 Cependant nous n'avons pas de principes généraux qui permettraient d'ajuster tous les paramètres, ou de déterminer la nécessité de créer d'autres paramètres, et d'estimer leur valeur à partir de valeurs initiales très écartées de leur valeur correcte.
 
 
-Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Section~\ref{sec:emotions}). 
+Enfin, l'architecture contient un modèle émotionnel inspiré du cube de Lövheim (Sec.~\ref{sec:emotions}). 
 Pour l'instant nous n'avons exploité que les états \texttt{interest}, \texttt{enjoyment} et \texttt{contempt} définis dans ce modèle. 
 L'état émotionnel est utilisé comme un critère pour sélectionner une décision parmi celles activées par la situation courante du moteur de jeu. 
 L'état \texttt{interest} promeut les tentatives d'énaction d'interactions répétables. 

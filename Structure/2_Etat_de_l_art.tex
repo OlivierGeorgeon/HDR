@@ -291,7 +291,7 @@ Il nous invite également à accepter d'imposer des choix à l'appareil inductif
 Dans sa formulation la plus générale, ce problème d'induction a été formalisé par la théorie de l'inférence active que nous allons examiner maintenant.
 
 
-\subsection{Théorie de l'inférence active et énergie libre}
+\subsection{Théorie de l'inférence active et principe d'énergie libre}
 \label{sec:active_inference}
 
 \noindent
@@ -447,8 +447,8 @@ En fonction des expériences singulières qu'il traverse, chaque organisme const
 	\centering
 	\includegraphics[width=0.6\textwidth]{Figures/2_enaction.pdf}
 	\caption{Evolution du couplage structurel au cours de l'individuation de l'agent. 
-		Les flèches circulaires représentent les interactions continues entre l'organisme et l'environnement. 
-		Le couplage structurel de l'organisme évolue en fonction de la trajectoire développementale suivie par l'organisme.}
+		Les boucles traversées d'un trait représentent des couplages structurels entre l'organisme et l'environnement.
+		Partant d'un couplage structurel prédéfini, un organisme 1, qui suit une trajectoire développementale 1, évolue vers un certain couplage structurel 1, alors qu'un organisme 2, qui suit une trajectoire différente 2 évolue vers un autre couplage structurel 2.}
 	\label{fig:enaction}
 \end{figure}
 
@@ -915,7 +915,7 @@ Son estimation par l'agent est notée $\hat{\mathbb{E}}(R_\sigma)$.
 L'apprentissage est dit par \emph{essai-erreur} car l'agent doit essayer des actions et commettre des erreurs pour apprendre à partir des états et récompensent obtenus. 
 
 Des algorithmes généraux convergeant vers la \an{policy} stationnaire optimale d'un MDP fini ont été proposés \cite{ross_introduction_1983} mais il a été établi que leurs ressources nécessaires croissaient exponentiellement avec le nombre d'états et d'actions possibles.
-Bellman a nommé ce problème la \emph{malédiction de la dimensionnalité} \an{curse of dimensionality}.
+Bellman a nommé ce problème la \emph{malédiction de la dimensionnalité} (\an{curse of dimensionality}).
 Ce problème ne peut être évité qu'en introduisant des présupposés sur la structure de l'environnement. 
 Par exemple, AlphaZéro exploite le présupposé qu'il est utile de repérer des motifs sur un plateau à deux dimensions de taille connue et relativement réduite pour apprendre par renforcement à jouer aux échecs, au Go, ou au Shogi \cite{silver_general_2018}.
 

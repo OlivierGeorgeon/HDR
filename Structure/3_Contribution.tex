@@ -100,7 +100,7 @@ Parmi les exemples qui exploitent cette hypothèse figurent le mécanisme de sch
 Parmi ceux qui n'exploitent pas cette hypothèse figurent le mécanisme de schéma CALM de Perotto et le \an{Sensorimotor Sequence Reiterator} de Woolford. 
 Ces mécanismes utilisent des signaux sensoriels qui sont des résultats d'actions comme discuté dans les  Section~\ref{sec:perotto} et \ref{sec:ssr}. 
 
-Chez un robot en monde ouvert, lorsqu'un chercheur implémente un algorithme qui exploite l'hypothèse de représentationnalité, il impose une modélisation du monde sous la forme d'un ensemble d'états préalablement identifiés.
+Chez un robot en monde ouvert, lorsqu'un développeur conçoit un algorithme qui exploite l'hypothèse de représentationnalité, il impose une modélisation du monde sous la forme d'un ensemble d'états préalablement identifiés.
 Ces algorithmes ne permettent pas au robot de construire sa propre perception du monde.
 Or, la perception humaine ne repose précisément pas sur de tels états prédéfinis. 
 C'est ce que la phénoménologie nous enseigne, comme nous l'avons vu en section \ref{sec:phenomenologie}, notamment à travers l'affirmation husserlienne qu'il n'existe pas de perception objective. 
@@ -206,11 +206,14 @@ La formalisation sous forme de DBN a été réalisée avec les étudiants en mat
 %Comme indiqué plus haut, le modèle EDP ne comporte pas de fonction de récompense directement associée à l'état $s_t$.
 Le modèle EDP permet d'attribuer une \emph{valence} à chaque type d'événement d'interaction  $v: I \to \mathbb{R}$. 
 % qui leur attribue une valeur scalaire:   $i \in I \mapsto v(i) \in \mathbb{R}$.
-L'algorithme de l'agent peut interpréter cette valence comme une préférence $v(i) \in \mathbb{R}$ : interaction désirable si positive ou indésirable si négative. 
+L'algorithme de l'agent peut interpréter la valence d'une interaction $i$ comme une préférence: $i$ est désirable si $v(i) > 0$, neutre si $v(i) = 0$, et indésirable si $v(i) < 0$.
+% $v(i) \in \mathbb{R}$ : interaction désirable si positive ou indésirable si négative. 
 Cette valence peut donc servir de signal de motivation interne pour l'agent, qui fait que toutes les interactions ne lui sont pas égales. 
 
 La valence se rapproche de la récompense utilisée en apprentissage par renforcement (Sections~\ref{sec:rl} et \ref{sec:pomdp}) mais en diffère par le fait qu'elle n'inclut pas l'état de l'environnement parmi ses arguments.
 Ce n'est donc pas une motivation externe au sens évoqué en Section~\ref{sec:motivation}.
+Elle intervient en amont de la sélection des comportements plutôt que comme signal en aval qualifiant l'effet produit.
+%Elle ne sert pas à définir un objectif dont l'accomplissement serait évalué a posteriori, 
 
 Elle se rapproche des valeurs motivationnelles appelées \emph{valence affective} utilisée par LIDA (Sec.~\ref{sec:architectures}), et \an{prior preference distribution} dans la théorie de l'inférence active (Section \ref{sec:active_inference}). 
 Cependant, elle en diffère par le fait que ces valeurs motivationnelles sont liées aux signaux sensoriels, alors que la valence de l'EDP est liée à des événements d'interaction qui incluent la décision de l'agent. 
@@ -570,8 +573,8 @@ Ce comportement lui permet d'obtenir une valence satisfaisante en tournant autou
 \end{figure}
 
 
-Cette expérimentation met en évidence l'acquisition d'interactions épistémiques: l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négative (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
-Tout se passe comme si l'agent avait compris la signification de ces interactions alors que cette signification n'était pas inscrite dans son code. 
+Cette expérimentation met en évidence l'acquisition d'un usage \emph{épistémique} de certaines interactions : l'agent apprend à utiliser des interactions à faible coût (toucher) de façon à acquérir une information qui lui évite de prendre une décision qui conduirait à une interaction fortement négative (collision), et qui le conduit à minimiser les interactions de coût intermédiaire (tourner) pour satisfaire sa motivation innée (avancer).
+Tout se passe comme si l'agent avait compris la signification de ces interactions alors que ni leur signification, ni leur nature épistémique, n'étaient inscrites dans son code. 
 %C'est ce qui nous permet de parler de l'émergence d'une sémantique pragmatique. 
 
 
@@ -612,8 +615,8 @@ Les deux champs visuels se recouvrent et permettent de détecter la présence de
 	\includegraphics[width=0.9\textwidth]{Figures/4_horseshoe_crab.pdf}
 	\caption{Expérimentation de la limule \cite[Fig. 1]{georgeon_model_2011}. 
 		Gauche: le système visuel permettant de détecter la cible à droite, devant, ou à gauche.
-		Droite-haut: comportement diagonal.
-		Droite-bas: comportement tangentiel.}
+		Droite: deux comportements peuvent émerger selon la configuration de l'expérimentation : 
+		comportement diagonal (haut),  ou tangentiel (bas).}
 	\label{fig:horseshoe}
 \end{figure}
 
@@ -739,7 +742,7 @@ En contrepartie, le \an{transformer} offre une méthode complémentaire à l'ana
 
 \noindent
 %Les expérimentations du \an{Small Loop} et de la limule ont été répliquées avec les robots de la Figure \ref{fig:robot_serie}. 
-Simon Gay a implémenté les interactions du \an{Small Loop} chez le robot e-puck de la Figure \ref{fig:robot_serie} (gauche) \cite{georgeon_enactive_2013}.
+Laurent Hu et Simon Gay ont implémenté les interactions du \an{Small Loop} chez le robot e-puck de la Figure \ref{fig:robot_serie} (gauche) \cite{georgeon_enactive_2013}.
 Le touché était reproduit grâce à trois capteurs infrarouges présents devant, sur la gauche, et sur la droite du robot.
 La décision de toucher allumait la LED infrarouge correspondante. 
 Si le signal réfléchi dépassait un seuil alors une interaction \interaction{feel front, wall} était générée, sinon \interaction{feel front, empty} (et respectivement pour \texttt{left} et \texttt{right}). 

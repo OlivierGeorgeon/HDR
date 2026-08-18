@@ -24,7 +24,11 @@ Elle conduit à des propositions d'évolution de l'architecture cognitive, notam
 \label{sec:spatial_inference}
 
 \noindent
-Dans les études rapportées ici, l'agent est doté d'une mémoire qui pourrait être qualifiée de \emph{proto-spatiale}, dans le sens où l'agent peut utiliser cette mémoire pour rechercher des régularités spatiales mais elle n'implémente pas de capacités de traitement géométriques précodées.
+Les études rapportées dans cette section explorent la conception de mécanismes qui pourraient être qualifiés de \emph{proto-spatiaux}. 
+Ces mécanismes visent à permettre une structuration de la mémoire pour refléter la topologie spatiale des événements d'interaction, et l'acquisition des transformations géométriques associées aux déplacements de l'agent. 
+
+
+%Dans les études rapportées ici, l'agent est doté d'une mémoire qui pourrait être qualifiée de \emph{proto-spatiale}, dans le sens où l'agent peut l'utiliser pour rechercher des régularités spatiales mais elle n'implémente pas de capacités de traitement géométriques précodées.
 
 
 %Cette section rapporte des études que nous avons menées pour examiner comment relâcher les présupposés qui sont incorporés dans le modèle SEDP et codés en dur dans ECA. 
@@ -40,16 +44,19 @@ Dans les études rapportées ici, l'agent est doté d'une mémoire qui pourrait 
 
 
 
-\subsection{Espace comme séquence latente et flux optique}
+\subsection{Flux optique et espace comme séquence latente}
 \label{sec:simon}
 
 \noindent
-Dans le cadre de son travail de doctorat, Simon Gay a développé un mécanisme de représentation de l'espace par des séquences d'interactions qui exploite le flux optique  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
-Nous utilisons maintenant l'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}), apparue plus récemment dans les travaux passés en revue en Section~\ref{sec:structure_spatiale} pour désigner cette approche.  
+Dans le cadre de son travail de doctorat, Simon Gay a développé un mécanisme proto-spatial qui exploite le \emph{flux optique} détecté pendant les déplacements de l'agent \cite[\an{Autonomous spatial organization of behavior through categorization of objects based on affordances}]{gay_autonomous_2014}.
+
+
+%Dans le cadre de son travail de doctorat, Simon Gay a développé un mécanisme de représentation de l'espace par des séquences d'interactions qui exploite le flux optique  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}.
+%Nous utilisons maintenant l'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}), apparue plus récemment dans les travaux passés en revue en Section~\ref{sec:structure_spatiale} pour désigner cette approche.  
 
 Ce travail se base sur un modèle dérivé de l'EDP dans lequel l'agent reçoit un ensemble d'événements d'interaction à chaque cycle. 
 Cet ensemble contient une interaction composée d'un tuple \interaction{decision, outcome} similaire à celles des expérimentations précédentes, à laquelle s'ajoutent des événements de flux optique liés aux points saillant du champ visuel.
-Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-90^\circ, 90^\circ]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire. 
+Chaque événement de flux optique prend la forme d'un tuple $(c, \theta, v)$ dans lequel $c$ représente la couleur du point saillant, $\theta \in [-90^\circ, 90^\circ]$ son angle de coordonnée polaire dans le champ visuel, et $v$ sa vitesse angulaire instantanée polaire apparente. 
 %L'agent ne perçoit pas la distance des points saillants.
 
 L'agent dispose de cinq décisions: \texttt{move forward}, \texttt{turn left 90}, \texttt{turn right 90}, \texttt{turn left 45},  \texttt{turn right 45}. 
@@ -74,13 +81,25 @@ Lorsque le robot atteint une cible, l'expérimentateur la retire et en introduit
 	\label{fig:robot_simon}
 \end{figure}
 
+La correspondance entre les événements de flux optique et les interactions primitives se fait par un mécanisme de \emph{signatures d'interaction}.
+La signature d'une interaction primitive permet de calculer la probabilité de pouvoir l'énacter avec succès dans le contexte d'un ensemble d'événements de flux optiques donné. 
+L'apprentissage des signatures d'interaction se fait en environnement simulé et demande environ 3000 cycles d'interaction. 
+Une fois apprises, elles sont utilisées par le robot pour générer des comportements d'évitement d'obstacle et de chasse de cibles. 
+
+Comme ECA, l'architecture de Simon Gay apprend à catégoriser les objets présents dans l'environnement par les \an{bundles} d'interaction qu'ils affordent.
+Elle diffère cependant par le fait qu'elle fonctionne sans recevoir la position des objets ni les déplacements du robot (les $\epsilon$ et $\iota$ du modèle SEDP).
+Elle est capable d'apprendre en parallèle un modèle de l'espace associant les transformations géométriques aux déplacements de l'agent, et un modèle des objets en termes de \an{bundles}.
+Ce modèle spatial permet à l'agent de disposer d'une représentation de sa situation même en dehors de son champ visuel. 
+
+Simon a également implémenté un mécanisme de représentation de l'espace proche (péri-personnel) par les séquences d'interactions qui permettent de l'atteindre  \cite[\an{Autonomous construction and exploitation of a spatial memory by a self-motivated agent}]{gay_autonomous_2017}. 
+Nous désignons maintenant cette approche par l'expression \emph{espace comme séquence latente} (\an{space as a latent sequence}), apparue plus récemment dans les travaux passés en revue en Section~\ref{sec:structure_spatiale}. 
 
 La Figure~\ref{fig:simon_spatial} illustre de manière schématique la façon dont l'agent représente sa situation (gauche) par un ensemble de séquences (centre).
 % issue d'une expérimentation des requins similaire à celle décrite en Section~\ref{sec:requins}. 
 La partie droite montre une reconstitution de l'espace à destination du lecteur qui n'est pas explicitement réalisée par l'agent lui-même.
 %Dans cet exemple, les décisions \texttt{turn} peuvent donner lieu à des \an{outcome} \texttt{bump} quand l'agent se tourne vers un mur.
-Les séquences se décomposent en deux parties: une partie \emph{chemin} pour atteindre un objet et une interaction finale avec l'objet. 
-Lorsque l'agent se déplace, sa représentation de l'espace est mise à jour en fonction des séquences construites lors des interactions précédentes et des événements de flux optique.
+Les séquences se décomposent en deux parties: une partie \emph{chemin} pour atteindre un objet et une partie \emph{interaction finale} avec l'objet. 
+Lorsque l'agent se déplace, sa représentation de l'espace est mise à jour en fonction des séquences construites lors des interactions précédentes.
 
 
 \begin{figure}[ht]
@@ -94,26 +113,15 @@ Lorsque l'agent se déplace, sa représentation de l'espace est mise à jour en 
 	\label{fig:simon_spatial}
 \end{figure}
 
-La correspondance entre les événements de flux optique et les interactions primitives se fait par un mécanisme de \emph{signatures d'interaction}.
-La signature d'une interaction primitive permet de calculer la probabilité de pouvoir l'énacter avec succès dans le contexte d'un ensemble d'événements de flux optiques donné. 
-L'apprentissage des signatures d'interaction se fait en environnement simulé et demande environ 3000 cycles d'interaction. 
-Une fois apprises, elles sont utilisées par le robot pour générer des comportements d'évitement d'obstacle et de chasse de cibles. 
+Ces travaux illustrent l'usage du modèle EDP et de la théorie des Evénements d'Interaction Valués dans un cadre robotique. 
+Ils montrent comment l'agent peut recevoir une structure de données complexe en \an{input}  représentant de nombreux événements d'interaction simultanés.  
+A notre connaissance, les expérimentations réalisées sont les premières à démontrer d'acquisition d'une structure spatiale chez un robot autonome. 
+Elles fonctionnent par principe en monde ouvert: 
+la complexité potentiellement infinie du monde est maitrisée par le fait que l'agent apprend à organiser ses comportements dans le contexte de son champ visuel par nature fini. 
+Elles présentent toutefois la limitation de nécessiter que l'environnement soit majoritairement statique: l'agent n'a pas, à ce stade, la capacité d'isoler des objets mobiles. 
 
-Comme ECA, l'architecture de Simon Gay apprend à catégoriser les objets présents dans l'environnement par les \an{bundles} d'interaction qu'ils affordent.
-Elle diffère cependant par le fait qu'elle fonctionne sans recevoir la position des objets ni les déplacements du robot (les $\epsilon$ et $\iota$ du modèle SEDP).
-Elle est capable d'apprendre en parallèle un modèle de l'espace en termes de séquences latentes, et un modèle des objets en termes de \an{bundles}.
-Le modèle spatial permet à l'agent de disposer d'une représentation de sa situation même en dehors de son champ visuel. 
-
-Cette expérimentation illustre comment utiliser la théorie des événements d'interaction valués dans un cadre robotique basé sur le modèle EDP. 
-Elle montre comment l'agent peut recevoir une structure de données complexe représentant de nombreux événements d'interaction.  
-A notre connaissance, c'est la seule expérimentation d'acquisition d'une structure spatiale basée sur des séquences latentes qui ait été démontrée chez un robot. 
-Elle fonctionne par principe en monde ouvert.
-La complexité potentiellement infinie du monde est maitrisée par le fait que l'agent apprend à organiser ses comportements dans le contexte de son champ visuel par nature fini. 
-Elle présente toutefois la limitation de nécessiter que l'environnement soit statique. 
-
-
-Pour des applications nécessitant un apprentissage plus rapide dans un environnement dynamique, elle nous incite à implémenter une carte spatiale explicite et un système de perception des déplacements de l'agent. 
-C'est l'objet du projet Petitcat de la Section \ref{sec:petitcat}.
+Pour des applications nécessitant un apprentissage plus rapide dans un environnement dynamique, ces travaux nous incite à implémenter une carte spatiale explicite et un système de perception des déplacements de l'agent. 
+Ce sera l'objet du projet Petitcat présenté dans la Section \ref{sec:petitcat}.
 
 %Tout comme le POMDP permet de modéliser un agent qui reçoit une observation complexe de l'environnement.
 
@@ -610,24 +618,29 @@ L'architecture cognitive ECA est proposée pour aller dans cette direction, mais
 Le couplage structurel spatio-séquentiel n'évolue pas, et les robots ne font pas apparaitre l'émergence de signification attribuée à leurs expériences spatio-séquentielles. 
 
 
-Plus généralement, cette conception du développement cognitif s'inscrit dans les étapes illustrée en  Figure~\ref{fig:perspective}. 
-Ces étapes visent à combler un fossé qui existe actuellement entre les apprentissages purement adaptatifs, comme en apprentissage par renforcement computationnel, et les mécanismes logiques tels que NARS. 
+Plus généralement, cette conception du développement cognitif s'inscrit dans les étapes illustrées en  Figure~\ref{fig:perspective}. 
+Ces étapes visent à combler un fossé existant actuellement entre les apprentissages purement adaptatifs, comme en apprentissage par renforcement computationnel, et les mécanismes de raisonnement symbolique tels que NARS. 
 
 
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.95\textwidth]{Figures/5_perspective.pdf}
-	\caption{Etapes de développement cognitif pour progresser des systèmes adaptatifs vers les systèmes logiques.}
+	\caption{Etapes de développement cognitif pour progresser des systèmes adaptatifs vers les systèmes de raisonnement symbolique.}
 	\label{fig:perspective}
 \end{figure}
 
  
 Les étapes 0, 1 et 2 sont celles abordées dans ce manuscrit: 
-sur la base d'événements d'interaction valués primitifs prédéfinis (étape 0), nous avons illustré l'acquisition d'habitudes séquentielles valuées (étape 1), et proposé des pistes pour étudier l'acquisition d'habitudes spatio-séquentielles valuées (étape 2).
-Nous imaginons que l'étape 3 consistera à concevoir des mécanismes permettant à l'agent de réaliser un basculement vers un regard objectif sur le monde, avec la construction de représentations de lieux et de phénomènes.
-Ce basculement permettrait de passer de comportements déterminés par des habitudes à des comportements déterminés par des objectifs concrets, tels que d'atteindre un lieu que l'agent se serait fixé comme objectif.  
-Ces mécanismes de représentation des objets physiques et de résolution de problème concret pourraient ensuite sous-tendre la capacité de raisonnement symbolique (étape 4). 
+sur la base d'événements d'interaction valués primitifs prédéfinis (étape 0), j'ai illustré l'acquisition d'habitudes séquentielles valuées (étape 1), puis proposé des pistes pour étudier l'acquisition d'habitudes spatio-séquentielles valuées (étape 2).
+J'imagine que l'étape 3 consistera à concevoir des mécanismes permettant à l'agent de construire des représentations de lieux et de phénomènes identifiables dans l'environnement. 
+Ces phénomènes correspondent à des objets ou à d'autres agents caractérisés par les possibilités d'interaction qu'ils offrent. 
+Sur la base de ces représentations, l'agent pourra se fixer des objectifs concrets tels que se déplacer vers un lieu choisi, ou effectuer une action sur un objet. 
+Cette étape permettrait un renversement des principes de génération des comportements: le passage de comportements instinctifs basés sur les habitudes, à des actions intentionnelles dirigées par des objectifs. 
+L'identification d'autres agents dans l'environnement ouvrira également la voie à des comportements sociaux tels que l'imitation et la communication.
+Ces mécanismes de représentation des objets physiques et de résolution de problèmes concrets pourraient ensuite sous-tendre la capacité de raisonnement symbolique (étape 4). 
+
+%réaliser un basculement vers un regard objectif sur le monde, avec la construction de représentations de lieux et de phénomènes. Ce basculement permettrait de passer de comportements déterminés par des habitudes à des comportements déterminés par des objectifs concrets, tels que d'atteindre un lieu que l'agent se serait fixé comme objectif.  
 
 %Elle permet de répondre au besoin d'un modèle mental qui soit vicariant, c'est à dire qui contienne en lui même les dispositions à agir.
 
